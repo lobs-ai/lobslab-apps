@@ -150,6 +150,7 @@ async function addWidget(course) {
     catalogNumber: String(course.catalogNumber),
     courseId: course.courseId,
     courseDescr: course.courseDescr,
+    collapsed: false,
     sectionFilters: [],
   };
   state.widgets.unshift(widget);
@@ -188,17 +189,26 @@ function renderDashboard() {
     const course = state.widgetData.get(widget.key);
     const node = template.content.firstElementChild.cloneNode(true);
     node.dataset.widgetId = widget.id;
+    node.classList.toggle("widget-collapsed", Boolean(widget.collapsed));
     node.querySelector(".widget-kicker").textContent = widget.termShort;
     node.querySelector(".widget-title").textContent = `${widget.courseId} ${widget.courseDescr}`;
     node.querySelector(".widget-description").textContent =
       course?.description || "No course description was published by Crapuler for this class.";
     node.querySelector(".widget-link").href = course?.courseUrl || "https://www.crapuler.com/";
+    node.querySelector(".widget-compact").innerHTML = buildCompactSummary(course);
     node.querySelector(".widget-meta").innerHTML = buildWidgetMeta(widget, course);
     node.querySelector(".widget-section-groups").innerHTML = buildSectionGroups(widget, course);
     node.querySelector(".widget-sync").textContent = course?.syncedAt
       ? `Refreshed ${formatDateTime(course.syncedAt)}`
       : "Loading live course data";
 
+    const collapseButton = node.querySelector(".widget-collapse");
+    collapseButton.textContent = widget.collapsed ? "Expand" : "Collapse";
+    collapseButton.addEventListener("click", () => {
+      updateWidget(widget.id, (draft) => {
+        draft.collapsed = !draft.collapsed;
+      });
+    });
     node.querySelector(".widget-remove").addEventListener("click", () => removeWidget(widget.id));
     wireSectionFilterEvents(node, widget, course);
     wireDragEvents(node);
@@ -218,6 +228,40 @@ function buildWidgetMeta(widget, course) {
     `<span>${sectionCount} sections</span>`,
     filteredCount ? `<span>${filteredCount} selected</span>` : `<span>showing all</span>`,
   ].join("");
+}
+
+function buildCompactSummary(course) {
+  if (!course) {
+    return `
+      <div class="compact-stat">
+        <span class="compact-label">Loading</span>
+        <strong class="compact-value">...</strong>
+      </div>
+    `;
+  }
+  const totals = course.sectionGroups.reduce(
+    (sum, group) => {
+      sum.capacity += group.summary.capacity ?? 0;
+      sum.available += group.summary.available ?? 0;
+      sum.waitlist += group.summary.waitlist ?? 0;
+      return sum;
+    },
+    { capacity: 0, available: 0, waitlist: 0 },
+  );
+  return `
+    <div class="compact-stat">
+      <span class="compact-label">Total seats</span>
+      <strong class="compact-value">${totals.capacity}</strong>
+    </div>
+    <div class="compact-stat">
+      <span class="compact-label">Seats left</span>
+      <strong class="compact-value">${totals.available}</strong>
+    </div>
+    <div class="compact-stat">
+      <span class="compact-label">Waitlist</span>
+      <strong class="compact-value">${totals.waitlist}</strong>
+    </div>
+  `;
 }
 
 function buildSectionGroups(widget, course) {

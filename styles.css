@@ -252,6 +252,7 @@ select {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .widget-title {
@@ -278,6 +279,49 @@ select {
   padding: 8px 10px;
   border-radius: 999px;
   background: #efe5d8;
+}
+
+.widget-compact {
+  display: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.compact-stat {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 251, 244, 0.92);
+  border: 1px solid rgba(77, 52, 26, 0.12);
+  text-align: center;
+}
+
+.compact-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.compact-value {
+  display: block;
+  font-size: 1.35rem;
+}
+
+.widget-collapsed {
+  gap: 12px;
+}
+
+.widget-collapsed .widget-description,
+.widget-collapsed .widget-meta,
+.widget-collapsed .widget-section-groups,
+.widget-collapsed .widget-footer {
+  display: none;
+}
+
+.widget-collapsed .widget-compact {
+  display: grid;
 }
 
 .widget-section-groups {
