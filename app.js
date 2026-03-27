@@ -195,7 +195,7 @@ function renderDashboard() {
     node.querySelector(".widget-description").textContent =
       course?.description || "No course description was published by Crapuler for this class.";
     node.querySelector(".widget-link").href = course?.courseUrl || "https://www.crapuler.com/";
-    node.querySelector(".widget-compact").innerHTML = buildCompactSummary(course);
+    node.querySelector(".widget-compact").innerHTML = buildCompactSummary(widget, course);
     node.querySelector(".widget-meta").innerHTML = buildWidgetMeta(widget, course);
     node.querySelector(".widget-section-groups").innerHTML = buildSectionGroups(widget, course);
     node.querySelector(".widget-sync").textContent = course?.syncedAt
@@ -230,7 +230,7 @@ function buildWidgetMeta(widget, course) {
   ].join("");
 }
 
-function buildCompactSummary(course) {
+function buildCompactSummary(widget, course) {
   if (!course) {
     return `
       <div class="compact-stat">
@@ -239,11 +239,21 @@ function buildCompactSummary(course) {
       </div>
     `;
   }
-  const totals = course.sectionGroups.reduce(
-    (sum, group) => {
-      sum.capacity += group.summary.capacity ?? 0;
-      sum.available += group.summary.available ?? 0;
-      sum.waitlist += group.summary.waitlist ?? 0;
+  const activeFilters = new Set(widget.sectionFilters ?? []);
+  const hasActiveFilters = activeFilters.size > 0;
+  const lectureGroup = course.sectionGroups.find((group) => group.name === "Lectures");
+  const lectureSections = lectureGroup?.sections ?? [];
+  const visibleLectureSections = lectureSections.filter((section) => {
+    if (!hasActiveFilters) {
+      return true;
+    }
+    return activeFilters.has(getSectionFilterKey({ name: "Lectures" }, section));
+  });
+  const totals = visibleLectureSections.reduce(
+    (sum, section) => {
+      sum.capacity += section.capacity ?? 0;
+      sum.available += section.available ?? 0;
+      sum.waitlist += section.waitlist ?? 0;
       return sum;
     },
     { capacity: 0, available: 0, waitlist: 0 },
