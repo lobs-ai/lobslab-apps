@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:57:03.453Z",
+  "courseId": "HYGDCE 482",
+  "courseDescr": "Oral Diseases:  P&M",
+  "catalogNumber": "482",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "HYGDCE",
+  "subjectDescr": "Dent Hyg Deg Complet E-Learn",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/HYGDCE/482",
+  "sourceTitle": "HYGDCE 482 Oral Diseases: P&amp;M",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17074",
+          "topic": "",
+          "instructors": [
+            "Riaz, Mona",
+            "Cullen, Jennifer Leigh",
+            "VanDuine, Stefanie Marie"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

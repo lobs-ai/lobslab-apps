@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:33.378Z",
+  "courseId": "CLIMATE 410",
+  "courseDescr": "Earth System Model",
+  "catalogNumber": "410",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/410",
+  "sourceTitle": "CLIMATE 410 Earth System Model",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15528",
+          "topic": "",
+          "instructors": [
+            "Bassis, Jeremy N"
+          ],
+          "times": "TuTh 9:30AM - 11:30AM",
+          "locations": "2230 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

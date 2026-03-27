@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:49.806Z",
+  "courseId": "ARCH 739",
+  "courseDescr": "MS Capstone",
+  "catalogNumber": "739",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/739",
+  "sourceTitle": "ARCH 739 MS Capstone",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 10,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30784",
+          "topic": "",
+          "instructors": [
+            "Ahlquist, Sean E"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

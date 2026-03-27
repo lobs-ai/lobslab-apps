@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:55:36.784Z",
+  "courseId": "ORALHEAL 532",
+  "courseDescr": "Cariology I",
+  "catalogNumber": "532",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/532",
+  "sourceTitle": "ORALHEAL 532 Cariology I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31084",
+          "topic": "",
+          "instructors": [
+            "Fontana, Margherita R",
+            "Gonzalez, Carlos"
+          ],
+          "times": "Fr 8:00AM - 11:00AM",
+          "locations": "G378 DENT",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

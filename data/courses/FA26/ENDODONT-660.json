@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:15.645Z",
+  "courseId": "ENDODONT 660",
+  "courseDescr": "Case  Pres  & Treat",
+  "catalogNumber": "660",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ENDODONT",
+  "subjectDescr": "Endodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENDODONT/660",
+  "sourceTitle": "ENDODONT 660 Case Pres &amp; Treat",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10142",
+          "topic": "",
+          "instructors": [
+            "McDonald, Neville J"
+          ],
+          "times": "Fr 1:00PM - 3:00PM",
+          "locations": "G311 DENT",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

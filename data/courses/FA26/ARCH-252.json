@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:51:48.412Z",
+  "courseId": "ARCH 252",
+  "courseDescr": "Measuring",
+  "catalogNumber": "252",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/252",
+  "sourceTitle": "ARCH 252 Measuring",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 48,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28357",
+          "topic": "",
+          "instructors": [
+            "Robinson, Neal"
+          ],
+          "times": "TuTh 8:00AM - 11:00AM",
+          "locations": "B100 MLB",
+          "enrolled": 0,
+          "capacity": 24,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "35482",
+          "topic": "",
+          "instructors": [
+            "Robinson, Neal"
+          ],
+          "times": "TuTh 8:00AM - 11:00AM",
+          "locations": "B100 MLB",
+          "enrolled": 0,
+          "capacity": 24,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

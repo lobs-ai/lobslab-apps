@@ -1,0 +1,490 @@
+{
+  "syncedAt": "2026-03-27T21:05:47.019Z",
+  "courseId": "ENGR 555",
+  "courseDescr": "Grad Multidisc Proj",
+  "catalogNumber": "555",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/555",
+  "sourceTitle": "ENGR 555 Grad Multidisc Proj",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 18,
+        "waitlist": 0,
+        "total": 18,
+        "capacity": 214,
+        "available": 196
+      },
+      "sections": [
+        {
+          "sectionNumber": "101",
+          "classNumber": "34466",
+          "topic": "AAHOM Project",
+          "instructors": [
+            "Koller, Jeffrey Russell"
+          ],
+          "times": "Fr 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "102",
+          "classNumber": "34467",
+          "topic": "Donaldson Project",
+          "instructors": [
+            "Tadd, Andrew Roland"
+          ],
+          "times": "Tu 4:30PM - 6:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "103",
+          "classNumber": "34468",
+          "topic": "Fincantieri Project",
+          "instructors": [
+            "Maki, Kevin John"
+          ],
+          "times": "Tu 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "104",
+          "classNumber": "34469",
+          "topic": "Here Technologies Project",
+          "instructors": [
+            "Jamin, Sugih"
+          ],
+          "times": "Tu 12:30PM - 2:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "105",
+          "classNumber": "34470",
+          "topic": "Hyundai (HATCI) Project",
+          "instructors": [
+            "Bucher, Bernadette"
+          ],
+          "times": "Fr 10:00AM - 12:00PM",
+          "locations": "TBA",
+          "enrolled": 1,
+          "capacity": 7,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "106",
+          "classNumber": "34471",
+          "topic": "Isuzu Project",
+          "instructors": [
+            "Ying, Lei"
+          ],
+          "times": "Tu 12:30PM - 2:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "107",
+          "classNumber": "34472",
+          "topic": "JPMorgan Chase Project",
+          "instructors": [
+            "Revzen, Shai"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "108",
+          "classNumber": "34473",
+          "topic": "LSNC Project",
+          "instructors": [
+            "Xiao, Hongyi"
+          ],
+          "times": "Tu 4:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "109",
+          "classNumber": "34474",
+          "topic": "MotorCity Casino Project",
+          "instructors": [
+            "Ringenberg, Jeff"
+          ],
+          "times": "Fr 10:30AM - 12:30PM Tu 4:30PM - 5:30PM",
+          "locations": "TBA TBA",
+          "enrolled": 2,
+          "capacity": 7,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "110",
+          "classNumber": "34475",
+          "topic": "Northrop Grumman Project",
+          "instructors": [
+            "Saca, Fernando"
+          ],
+          "times": "Mo 9:30AM - 10:30AM We 4:00PM - 5:00PM",
+          "locations": "TBA TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "111",
+          "classNumber": "34476",
+          "topic": "Qualcomm Project",
+          "instructors": [
+            "Najarian, Kayvan"
+          ],
+          "times": "Fr 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 1,
+          "capacity": 7,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "112",
+          "classNumber": "34477",
+          "topic": "Sartorius Hardware Project",
+          "instructors": [
+            "Seiler, Peter Joseph"
+          ],
+          "times": "Fr 9:00AM - 11:00AM",
+          "locations": "TBA",
+          "enrolled": 1,
+          "capacity": 7,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "113",
+          "classNumber": "34478",
+          "topic": "Sartorius Software Project",
+          "instructors": [
+            "Ku, Pei-Cheng"
+          ],
+          "times": "Fr 10:00AM - 12:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "114",
+          "classNumber": "34479",
+          "topic": "Stryker IT Project",
+          "instructors": [
+            "Flautner, Krisztian"
+          ],
+          "times": "Fr 9:00AM - 11:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "115",
+          "classNumber": "34480",
+          "topic": "Stryker Pencil Project",
+          "instructors": [
+            "Middleton, Robert John"
+          ],
+          "times": "Th 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "116",
+          "classNumber": "34481",
+          "topic": "Stryker Vision Project",
+          "instructors": [
+            "Kutty, Sindhu"
+          ],
+          "times": "Tu 9:00AM - 10:00AM Fr 10:30AM - 11:30AM",
+          "locations": "TBA TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "117",
+          "classNumber": "34482",
+          "topic": "U-M CAEN Project",
+          "instructors": [
+            "Elam, Aaron"
+          ],
+          "times": "Th 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "118",
+          "classNumber": "34483",
+          "topic": "U-M Campus Farm Project",
+          "instructors": [
+            "Chen, Ang"
+          ],
+          "times": "Mo 1:00PM - 3:00PM",
+          "locations": "TBA",
+          "enrolled": 3,
+          "capacity": 7,
+          "available": 4,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "119",
+          "classNumber": "34496",
+          "topic": "U-M Health Project",
+          "instructors": [
+            "Menassa, Carol C"
+          ],
+          "times": "Tu 4:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "120",
+          "classNumber": "34484",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "121",
+          "classNumber": "34485",
+          "topic": "Verizon Project",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "122",
+          "classNumber": "34486",
+          "topic": "Wade Trim Project",
+          "instructors": [
+            "Kamat, Vineet"
+          ],
+          "times": "Mo 3:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "123",
+          "classNumber": "34487",
+          "topic": "Walbridge Project",
+          "instructors": [
+            "Lee, SangHyun"
+          ],
+          "times": "Fr 10:30AM - 12:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "124",
+          "classNumber": "34488",
+          "topic": "Yazaki Project",
+          "instructors": [
+            "Dvorkin, Vladimir"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 7,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "221",
+          "classNumber": "34489",
+          "topic": "AtomBots Research Team",
+          "instructors": [
+            "Z, Y"
+          ],
+          "times": "Mo 5:00PM - 7:00PM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "222",
+          "classNumber": "34490",
+          "topic": "HELIO Research Team",
+          "instructors": [
+            "Akhavan-Tafti, Mojtaba"
+          ],
+          "times": "We 4:30PM - 5:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 2,
+          "capacity": 10,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "223",
+          "classNumber": "34491",
+          "topic": "Mu-RoAM Research Team",
+          "instructors": [
+            "Revzen, Shai"
+          ],
+          "times": "Mo 6:00PM - 8:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "224",
+          "classNumber": "34492",
+          "topic": "PRISM Research Team",
+          "instructors": [
+            "Abell, Jeffrey A"
+          ],
+          "times": "We 5:00PM - 7:00PM",
+          "locations": "3336 DC",
+          "enrolled": 3,
+          "capacity": 10,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "225",
+          "classNumber": "34493",
+          "topic": "SIM Research Team",
+          "instructors": [
+            "Green, Paul A"
+          ],
+          "times": "Mo 7:00PM - 9:00PM",
+          "locations": "1024 FXB",
+          "enrolled": 2,
+          "capacity": 10,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "226",
+          "classNumber": "34494",
+          "topic": "SOCR Research Team",
+          "instructors": [
+            "Dinov, Ivo"
+          ],
+          "times": "Fr 8:00AM - 9:00AM",
+          "locations": "TBA",
+          "enrolled": 3,
+          "capacity": 10,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "227",
+          "classNumber": "34495",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

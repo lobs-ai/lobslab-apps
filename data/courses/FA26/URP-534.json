@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:21.771Z",
+  "courseId": "URP 534",
+  "courseDescr": "Pub Safety&Comm Dev",
+  "catalogNumber": "534",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/534",
+  "sourceTitle": "URP 534 Pub Safety&amp;Comm Dev",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 25,
+        "available": 22
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35350",
+          "topic": "",
+          "instructors": [
+            "Thacher, David E"
+          ],
+          "times": "Mo 1:00PM - 4:00PM",
+          "locations": "2213 A&AB",
+          "enrolled": 3,
+          "capacity": 25,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

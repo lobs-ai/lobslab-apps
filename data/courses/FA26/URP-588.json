@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:32.054Z",
+  "courseId": "URP 588",
+  "courseDescr": "Planning as Repair",
+  "catalogNumber": "588",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/588",
+  "sourceTitle": "URP 588 Planning as Repair",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 15,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29620",
+          "topic": "",
+          "instructors": [
+            "Hood, Lauren A"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 3,
+          "capacity": 15,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "syncedAt": "2026-03-27T21:02:23.764Z",
+  "courseId": "EECS 452",
+  "courseDescr": "DSP Design Lab",
+  "catalogNumber": "452",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/452",
+  "sourceTitle": "EECS 452 DSP Design Lab",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 32,
+        "available": 27
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10355",
+          "topic": "",
+          "instructors": [
+            "Chen, Jiasi"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 5,
+          "capacity": 32,
+          "available": 27,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 32,
+        "available": 27
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10356",
+          "topic": "",
+          "instructors": [],
+          "times": "We 3:30PM - 6:30PM",
+          "locations": "4341 EECS",
+          "enrolled": 2,
+          "capacity": 16,
+          "available": 14,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "14856",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 6:30PM",
+          "locations": "4341 EECS",
+          "enrolled": 3,
+          "capacity": 16,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "10357",
+          "topic": "",
+          "instructors": [],
+          "times": "We 12:00PM - 3:00PM",
+          "locations": "4341 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

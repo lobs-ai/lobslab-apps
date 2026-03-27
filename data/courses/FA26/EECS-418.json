@@ -1,0 +1,98 @@
+{
+  "syncedAt": "2026-03-27T21:02:09.611Z",
+  "courseId": "EECS 418",
+  "courseDescr": "Power Electronics",
+  "catalogNumber": "418",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/418",
+  "sourceTitle": "EECS 418 Power Electronics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 49,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30828",
+          "topic": "",
+          "instructors": [
+            "Song, Ziyou"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1130 LBME",
+          "enrolled": 1,
+          "capacity": 49,
+          "available": 48,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 49,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "30829",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:00PM - 6:00PM",
+          "locations": "3437 EECS",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "30830",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 11:30AM - 2:30PM",
+          "locations": "3437 EECS",
+          "enrolled": 1,
+          "capacity": 18,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "33611",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:00PM - 6:00PM",
+          "locations": "3437 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

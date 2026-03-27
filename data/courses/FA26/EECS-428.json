@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:13.971Z",
+  "courseId": "EECS 428",
+  "courseDescr": "Quant Nano Tech",
+  "catalogNumber": "428",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/428",
+  "sourceTitle": "EECS 428 Quant Nano Tech",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 56,
+        "available": 55
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34535",
+          "topic": "",
+          "instructors": [
+            "Burgers, Alexander Peter"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "2153 GGBL",
+          "enrolled": 1,
+          "capacity": 56,
+          "available": 55,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

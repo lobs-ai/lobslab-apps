@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:48.980Z",
+  "courseId": "CSE 588",
+  "courseDescr": "Comp Netwk Security",
+  "catalogNumber": "588",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/588",
+  "sourceTitle": "CSE 588 Comp Netwk Security",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 40,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34763",
+          "topic": "",
+          "instructors": [
+            "Roy Chowdhury, Amrita"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "151 CHRYS",
+          "enrolled": 5,
+          "capacity": 40,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

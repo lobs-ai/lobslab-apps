@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:41.790Z",
+  "courseId": "AEROSP 225",
+  "courseDescr": "Intro Gas Dynamics",
+  "catalogNumber": "225",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/225",
+  "sourceTitle": "AEROSP 225 Intro Gas Dynamics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 126,
+        "available": 126
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10216",
+          "topic": "",
+          "instructors": [
+            "Kumar, Abhishek"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 126,
+          "available": 126,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

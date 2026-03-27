@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:09.920Z",
+  "courseId": "ORTHO 768",
+  "courseDescr": "Intro Ortho Tech",
+  "catalogNumber": "768",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/768",
+  "sourceTitle": "ORTHO 768 Intro Ortho Tech",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10172",
+          "topic": "",
+          "instructors": [
+            "Arruda, Airton O"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

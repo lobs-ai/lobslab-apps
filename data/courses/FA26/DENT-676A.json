@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:31.063Z",
+  "courseId": "DENT 676A",
+  "courseDescr": "EE Educational Theory",
+  "catalogNumber": "676A",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/676A",
+  "sourceTitle": "DENT 676A EE Educational Theory",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21734",
+          "topic": "",
+          "instructors": [
+            "Richards, Phil"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

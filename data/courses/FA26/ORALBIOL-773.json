@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:25.551Z",
+  "courseId": "ORALBIOL 773",
+  "courseDescr": "Directed Research",
+  "catalogNumber": "773",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/773",
+  "sourceTitle": "ORALBIOL 773 Directed Research",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10148",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

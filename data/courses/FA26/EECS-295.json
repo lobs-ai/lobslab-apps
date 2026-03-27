@@ -1,0 +1,230 @@
+{
+  "syncedAt": "2026-03-27T21:01:33.109Z",
+  "courseId": "EECS 295",
+  "courseDescr": "Leadership&Soc Cntxt",
+  "catalogNumber": "295",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/295",
+  "sourceTitle": "EECS 295 Leadership&amp;Soc Cntxt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 300,
+        "available": 300
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35872",
+          "topic": "",
+          "instructors": [
+            "Dexter, Scott D"
+          ],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "35873",
+          "topic": "",
+          "instructors": [
+            "Dexter, Scott D"
+          ],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 300,
+        "available": 300
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "35874",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 10:30AM - 11:30AM",
+          "locations": "133 CHRYS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "35875",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 12:30PM - 1:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "35876",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 1:30PM - 2:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "35877",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 5:30PM - 6:30PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "35878",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 9:30AM - 10:30AM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "35879",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 4:30PM - 5:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "35880",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 3:30PM - 4:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "35881",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 5:30PM - 6:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "35882",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 9:30AM - 10:30AM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "35883",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "021",
+          "classNumber": "35884",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 4:30PM - 5:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "35885",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 12:30PM - 1:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

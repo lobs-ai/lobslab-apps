@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T21:00:57.219Z",
+  "courseId": "DESCI 599",
+  "courseDescr": "Special Problems",
+  "catalogNumber": "599",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "DESCI",
+  "subjectDescr": "Design Science",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DESCI/599",
+  "sourceTitle": "DESCI 599 Special Problems",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35932",
+          "topic": "Fundamentals Methods &amp; Applics",
+          "instructors": [],
+          "times": "We 12:00PM - 3:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

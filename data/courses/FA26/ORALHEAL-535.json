@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:38.374Z",
+  "courseId": "ORALHEAL 535",
+  "courseDescr": "Micro & Img Analysis",
+  "catalogNumber": "535",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/535",
+  "sourceTitle": "ORALHEAL 535 Micro &amp; Img Analysis",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 25,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "33601",
+          "topic": "",
+          "instructors": [
+            "Stern, Tomer"
+          ],
+          "times": "Tu 10:00AM - 12:00PM",
+          "locations": "G430 DENT",
+          "enrolled": 4,
+          "capacity": 25,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

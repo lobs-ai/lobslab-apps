@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:01:46.692Z",
+  "courseId": "EECS 351",
+  "courseDescr": "Intro DIg Sig Proc",
+  "catalogNumber": "351",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/351",
+  "sourceTitle": "EECS 351 Intro DIg Sig Proc",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 62,
+        "available": 62
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10353",
+          "topic": "",
+          "instructors": [
+            "Ali, Maha A"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 0,
+          "capacity": 62,
+          "available": 62,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 62,
+        "available": 62
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10354",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 1:30PM - 2:30PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 62,
+          "available": 62,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

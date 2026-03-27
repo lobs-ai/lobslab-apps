@@ -1,0 +1,124 @@
+{
+  "syncedAt": "2026-03-27T20:58:58.258Z",
+  "courseId": "CHE 342",
+  "courseDescr": "Mass&Heat Transfer",
+  "catalogNumber": "342",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/342",
+  "sourceTitle": "CHE 342 Mass&amp;Heat Transfer",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 143,
+        "available": 143
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "14866",
+          "topic": "",
+          "instructors": [
+            "Kamcev, Jovan"
+          ],
+          "times": "MoWeFr 12:30PM - 1:30PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 143,
+          "available": 143,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10270",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 9:30AM - 10:30AM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10271",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 1:30PM - 2:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "24564",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 2:30PM - 3:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "16650",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "34710",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 4:30PM - 5:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

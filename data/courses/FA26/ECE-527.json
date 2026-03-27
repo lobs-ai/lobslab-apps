@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:53.710Z",
+  "courseId": "ECE 527",
+  "courseDescr": "Power Semicon Device",
+  "catalogNumber": "527",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/527",
+  "sourceTitle": "ECE 527 Power Semicon Device",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 9,
+        "waitlist": 0,
+        "total": 9,
+        "capacity": 25,
+        "available": 16
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34544",
+          "topic": "",
+          "instructors": [
+            "Peterson, Becky Lorenz"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "3150 DOW",
+          "enrolled": 9,
+          "capacity": 25,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 9,
+        "waitlist": 0,
+        "total": 9,
+        "capacity": 25,
+        "available": 16
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "34545",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1012 FXB",
+          "enrolled": 9,
+          "capacity": 25,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

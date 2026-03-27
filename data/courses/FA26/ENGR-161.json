@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:03:35.439Z",
+  "courseId": "ENGR 161",
+  "courseDescr": "MATLAB",
+  "catalogNumber": "161",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/161",
+  "sourceTitle": "ENGR 161 MATLAB",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "100",
+          "classNumber": "30486",
+          "topic": "",
+          "instructors": [
+            "Torralva, Ben"
+          ],
+          "times": "Tu 3:30PM - 5:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

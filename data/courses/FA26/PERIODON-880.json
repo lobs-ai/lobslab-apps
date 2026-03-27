@@ -1,0 +1,50 @@
+{
+  "syncedAt": "2026-03-27T20:56:27.699Z",
+  "courseId": "PERIODON 880",
+  "courseDescr": "Perio Clinic",
+  "catalogNumber": "880",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/880",
+  "sourceTitle": "PERIODON 880 Perio Clinic",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27035",
+          "topic": "",
+          "instructors": [
+            "Wang, Hom-Lay",
+            "Kumar, Purnima",
+            "Mason, William E",
+            "Ng, Veronica Wai-kwan",
+            "Sinjab, Khaled H"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

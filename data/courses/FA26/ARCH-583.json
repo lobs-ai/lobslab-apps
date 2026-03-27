@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:52:42.101Z",
+  "courseId": "ARCH 583",
+  "courseDescr": "Professnl Pract",
+  "catalogNumber": "583",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/583",
+  "sourceTitle": "ARCH 583 Professnl Pract",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 59,
+        "waitlist": 0,
+        "total": 59,
+        "capacity": 88,
+        "available": 29
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18389",
+          "topic": "",
+          "instructors": [
+            "Borum, Craig",
+            "Sauve, Lisa"
+          ],
+          "times": "We 1:00PM - 4:00PM",
+          "locations": "1360 A&AB",
+          "enrolled": 59,
+          "capacity": 88,
+          "available": 29,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

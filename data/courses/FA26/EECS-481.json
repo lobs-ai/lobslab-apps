@@ -1,0 +1,111 @@
+{
+  "syncedAt": "2026-03-27T21:02:34.999Z",
+  "courseId": "EECS 481",
+  "courseDescr": "Software Engin",
+  "catalogNumber": "481",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/481",
+  "sourceTitle": "EECS 481 Software Engin",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 146,
+        "available": 143
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29028",
+          "topic": "",
+          "instructors": [
+            "Weimer, Westley R"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 3,
+          "capacity": 146,
+          "available": 143,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 146,
+        "available": 143
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "22952",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1200 EECS",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "22953",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 36,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "26202",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "G906 COOL",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "26206",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 3,
+          "capacity": 35,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

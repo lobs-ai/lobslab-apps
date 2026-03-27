@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:27.694Z",
+  "courseId": "ORALBIOL 852",
+  "courseDescr": "Prenat Fac Gro",
+  "catalogNumber": "852",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/852",
+  "sourceTitle": "ORALBIOL 852 Prenat Fac Gro",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10151",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 8:00AM - 9:00AM",
+          "locations": "1018 KELL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

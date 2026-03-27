@@ -1,0 +1,51 @@
+{
+  "syncedAt": "2026-03-27T20:55:07.609Z",
+  "courseId": "ENDODONT 652",
+  "courseDescr": "Clin Endodontics",
+  "catalogNumber": "652",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ENDODONT",
+  "subjectDescr": "Endodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENDODONT/652",
+  "sourceTitle": "ENDODONT 652 Clin Endodontics",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10140",
+          "topic": "",
+          "instructors": [
+            "McDonald, Neville J",
+            "Bauer, Patricia Ann",
+            "Botero, Tatiana M",
+            "Carr, R Gregory",
+            "Gardner, Richard J",
+            "Michaelson, Ronald E"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

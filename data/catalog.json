@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-03-27T20:49:51.284Z",
+  "courses": [
+    {
+      "courseId": "ARCH 208",
+      "courseDescr": "Design Foundations",
+      "termCode": 2610,
+      "termDescr": "Fall 2026",
+      "termShort": "FA26",
+      "schoolCode": "AUP",
+      "schoolDescr": "Architecture & Urban Planning",
+      "subjectCode": "ARCH",
+      "catalogNumber": "208",
+      "dataPath": "./data/courses/FA26/ARCH-208.json"
+    },
+    {
+      "courseId": "ARCH 252",
+      "courseDescr": "Measuring",
+      "termCode": 2610,
+      "termDescr": "Fall 2026",
+      "termShort": "FA26",
+      "schoolCode": "AUP",
+      "schoolDescr": "Architecture & Urban Planning",
+      "subjectCode": "ARCH",
+      "catalogNumber": "252",
+      "dataPath": "./data/courses/FA26/ARCH-252.json"
+    }
+  ]
+}

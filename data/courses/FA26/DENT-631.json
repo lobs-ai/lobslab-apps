@@ -1,0 +1,55 @@
+{
+  "syncedAt": "2026-03-27T20:54:23.897Z",
+  "courseId": "DENT 631",
+  "courseDescr": "Clinical Foundations II",
+  "catalogNumber": "631",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/631",
+  "sourceTitle": "DENT 631 Clinical Foundations II",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32235",
+          "topic": "",
+          "instructors": [
+            "Snyder, Mark D",
+            "Duddanahalli Siddanna, Geetha",
+            "Jin, Qiming",
+            "Johnson, Thomas H",
+            "Manz, Michael Carey",
+            "Marshall, Thomas Scott",
+            "May, Kenneth Bural",
+            "Menezello, Sara",
+            "Pereira, Patricia",
+            "Rabelo Mina Zambrana, Nataly"
+          ],
+          "times": "MoWe 1:00PM - 5:00PM Mo 1:00PM - 2:00PM",
+          "locations": "G360 DENT G390 DENT",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

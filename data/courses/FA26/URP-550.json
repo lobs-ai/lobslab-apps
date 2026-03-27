@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:25.914Z",
+  "courseId": "URP 550",
+  "courseDescr": "Plng Represent&Com",
+  "catalogNumber": "550",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/550",
+  "sourceTitle": "URP 550 Plng Represent&amp;Com",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 20,
+        "available": 8
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29538",
+          "topic": "",
+          "instructors": [
+            "Wizinsky, Matthew Thomas"
+          ],
+          "times": "MoWe 1:00PM - 3:00PM",
+          "locations": "2108 A&AB",
+          "enrolled": 12,
+          "capacity": 20,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

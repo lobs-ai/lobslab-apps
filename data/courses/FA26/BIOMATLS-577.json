@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:47.797Z",
+  "courseId": "BIOMATLS 577",
+  "courseDescr": "Mech of Ortho Matrl",
+  "catalogNumber": "577",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "BIOMATLS",
+  "subjectDescr": "Biomaterials",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMATLS/577",
+  "sourceTitle": "BIOMATLS 577 Mech of Ortho Matrl",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19299",
+          "topic": "",
+          "instructors": [
+            "Haerian, Andre"
+          ],
+          "times": "Fr 8:00AM - 10:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

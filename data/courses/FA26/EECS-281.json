@@ -1,0 +1,411 @@
+{
+  "syncedAt": "2026-03-27T21:01:29.200Z",
+  "courseId": "EECS 281",
+  "courseDescr": "Data Struct&Algor",
+  "catalogNumber": "281",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/281",
+  "sourceTitle": "EECS 281 Data Struct&amp;Algor",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 619,
+        "available": 619
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17355",
+          "topic": "",
+          "instructors": [
+            "Darden, Marcus M",
+            "Garcia-Ramirez, Hector",
+            "Paoletti, David R"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "220 CHRYS",
+          "enrolled": 0,
+          "capacity": 234,
+          "available": 234,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "19532",
+          "topic": "",
+          "instructors": [
+            "Paoletti, David R",
+            "Darden, Marcus M",
+            "Garcia-Ramirez, Hector"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 0,
+          "capacity": 105,
+          "available": 105,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10343",
+          "topic": "",
+          "instructors": [
+            "Paoletti, David R",
+            "Darden, Marcus M",
+            "Garcia-Ramirez, Hector"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 0,
+          "capacity": 180,
+          "available": 180,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "29679",
+          "topic": "",
+          "instructors": [
+            "Garcia-Ramirez, Hector",
+            "Darden, Marcus M",
+            "Paoletti, David R"
+          ],
+          "times": "TuTh 4:30PM - 6:00PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 619,
+        "available": 619
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10344",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 10:30AM - 12:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "10345",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 6:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "10346",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 6:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "17108",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 1:30PM - 3:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "18405",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 11:30AM - 1:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "18408",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 6:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "19143",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 4:30PM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "19144",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 6:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "19145",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 4:30PM - 6:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "19245",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 4:30PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "021",
+          "classNumber": "19646",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 4:30PM - 6:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "19647",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 5:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "023",
+          "classNumber": "19648",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 6:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "20814",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 4:30PM - 6:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "025",
+          "classNumber": "20815",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 6:30PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "026",
+          "classNumber": "20838",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 12:30PM",
+          "locations": "1012 FXB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "027",
+          "classNumber": "20839",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "028",
+          "classNumber": "20840",
+          "topic": "",
+          "instructors": [],
+          "times": "We 1:30PM - 3:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "029",
+          "classNumber": "21671",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:30PM - 5:30PM",
+          "locations": "185 EWRE",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "030",
+          "classNumber": "21723",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 4:30PM - 6:30PM",
+          "locations": "1680 IOE",
+          "enrolled": 0,
+          "capacity": 22,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "031",
+          "classNumber": "21724",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 6:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Evening Midterm Exams",
+      "shortLabel": "Evening Midterm Exam",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 900,
+        "available": 900
+      },
+      "sections": [
+        {
+          "sectionNumber": "099",
+          "classNumber": "27832",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 900,
+          "available": 900,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

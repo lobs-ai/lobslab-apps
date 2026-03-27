@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:46.188Z",
+  "courseId": "BIOMEDE 536",
+  "courseDescr": "Mechanobiology",
+  "catalogNumber": "536",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/536",
+  "sourceTitle": "BIOMEDE 536 Mechanobiology",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 25,
+        "available": 18
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35805",
+          "topic": "",
+          "instructors": [
+            "Baker, Brendon"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "134 NAME",
+          "enrolled": 7,
+          "capacity": 25,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

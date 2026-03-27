@@ -1,0 +1,75 @@
+{
+  "syncedAt": "2026-03-27T20:57:38.090Z",
+  "courseId": "AEROSP 200",
+  "courseDescr": "Intro Aero Entrprs",
+  "catalogNumber": "200",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/200",
+  "sourceTitle": "AEROSP 200 Intro Aero Entrprs",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 146,
+        "available": 146
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24649",
+          "topic": "",
+          "instructors": [
+            "Halow, George F",
+            "Gorisek-Gazze, Jakob C"
+          ],
+          "times": "Fr 1:30PM - 3:00PM",
+          "locations": "1109 FXB",
+          "enrolled": 0,
+          "capacity": 146,
+          "available": 146,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 146,
+        "available": 146
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "24650",
+          "topic": "",
+          "instructors": [
+            "Halow, George F"
+          ],
+          "times": "We 3:00PM - 4:30PM",
+          "locations": "1109 FXB",
+          "enrolled": 0,
+          "capacity": 146,
+          "available": 146,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

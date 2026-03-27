@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:15.454Z",
+  "courseId": "CHE 590",
+  "courseDescr": "Resiliency Finance",
+  "catalogNumber": "590",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/590",
+  "sourceTitle": "CHE 590 Resiliency Finance",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20304",
+          "topic": "",
+          "instructors": [
+            "Adriaens, Peter"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "1610 IOE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

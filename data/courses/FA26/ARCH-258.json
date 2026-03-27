@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:51:59.324Z",
+  "courseId": "ARCH 258",
+  "courseDescr": "Translation",
+  "catalogNumber": "258",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/258",
+  "sourceTitle": "ARCH 258 Translation",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 48,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30733",
+          "topic": "",
+          "instructors": [
+            "Farfel, Nitzan"
+          ],
+          "times": "MoWe 2:00PM - 5:00PM",
+          "locations": "B100 MLB",
+          "enrolled": 0,
+          "capacity": 24,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "26676",
+          "topic": "",
+          "instructors": [
+            "Farfel, Nitzan"
+          ],
+          "times": "MoWe 2:00PM - 5:00PM",
+          "locations": "B100 MLB",
+          "enrolled": 0,
+          "capacity": 24,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

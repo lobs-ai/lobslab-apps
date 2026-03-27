@@ -1,0 +1,83 @@
+{
+  "syncedAt": "2026-03-27T20:57:15.943Z",
+  "courseId": "DENTHYG 445",
+  "courseDescr": "Research II",
+  "catalogNumber": "445",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/445",
+  "sourceTitle": "DENTHYG 445 Research II",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 96,
+        "available": 96
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10134",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "16943",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "16944",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "17682",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

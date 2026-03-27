@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:53.510Z",
+  "courseId": "RESTORA 656",
+  "courseDescr": "Biomat Sci",
+  "catalogNumber": "656",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/656",
+  "sourceTitle": "RESTORA 656 Biomat Sci",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22534",
+          "topic": "",
+          "instructors": [
+            "Bottino, Marco"
+          ],
+          "times": "We 10:00AM - 12:00PM",
+          "locations": "1491 DENT",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

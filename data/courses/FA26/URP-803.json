@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:46.332Z",
+  "courseId": "URP 803",
+  "courseDescr": "URP PhD Pro-Seminar",
+  "catalogNumber": "803",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/803",
+  "sourceTitle": "URP 803 URP PhD Pro-Seminar",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 10,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30935",
+          "topic": "",
+          "instructors": [
+            "Hoey, Lesli"
+          ],
+          "times": "Mo 4:15PM - 5:45PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

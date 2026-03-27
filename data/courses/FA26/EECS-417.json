@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:08.375Z",
+  "courseId": "EECS 417",
+  "courseDescr": "Electrical Biophys",
+  "catalogNumber": "417",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/417",
+  "sourceTitle": "EECS 417 Electrical Biophys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 50,
+        "available": 49
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29025",
+          "topic": "",
+          "instructors": [
+            "Opri, Enrico"
+          ],
+          "times": "TuTh 2:30PM - 4:30PM",
+          "locations": "G906 COOL",
+          "enrolled": 1,
+          "capacity": 50,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

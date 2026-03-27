@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:51:49.376Z",
+  "courseId": "ARCH 254",
+  "courseDescr": "Projection",
+  "catalogNumber": "254",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/254",
+  "sourceTitle": "ARCH 254 Projection",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 48,
+        "available": 47
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24962",
+          "topic": "",
+          "instructors": [
+            "Halquist, Peter James"
+          ],
+          "times": "TuTh 2:30PM - 5:30PM",
+          "locations": "2115 A&AB",
+          "enrolled": 1,
+          "capacity": 24,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "30957",
+          "topic": "",
+          "instructors": [
+            "Halquist, Peter James"
+          ],
+          "times": "TuTh 2:30PM - 5:30PM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 24,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "syncedAt": "2026-03-27T20:57:40.395Z",
+  "courseId": "AEROSP 205",
+  "courseDescr": "Intr Aero Eng Sys",
+  "catalogNumber": "205",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/205",
+  "sourceTitle": "AEROSP 205 Intr Aero Eng Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35504",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D"
+          ],
+          "times": "TuFr 8:30AM - 9:30AM",
+          "locations": "1008 FXB",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "24150",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D"
+          ],
+          "times": "Tu 9:30AM - 12:00PM Tu 9:30AM - 11:30AM",
+          "locations": "2243 FXB 1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "24151",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D"
+          ],
+          "times": "Tu 12:00PM - 2:30PM Tu 12:00PM - 1:30PM",
+          "locations": "2243 FXB 1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "31836",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D"
+          ],
+          "times": "Tu 2:30PM - 5:00PM Tu 2:30PM - 4:30PM",
+          "locations": "2243 FXB 1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "35505",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D"
+          ],
+          "times": "We 2:30PM - 4:30PM We 2:30PM - 5:00PM",
+          "locations": "1032 FXB 2243 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

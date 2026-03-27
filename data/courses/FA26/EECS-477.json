@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:34.053Z",
+  "courseId": "EECS 477",
+  "courseDescr": "Intro to Algorithms",
+  "catalogNumber": "477",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/477",
+  "sourceTitle": "EECS 477 Intro to Algorithms",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35270",
+          "topic": "",
+          "instructors": [
+            "Ullman, Jonathan"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "35271",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1200 EECS",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

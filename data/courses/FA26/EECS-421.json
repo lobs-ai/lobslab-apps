@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:10.376Z",
+  "courseId": "EECS 421",
+  "courseDescr": "Prop of Transistors",
+  "catalogNumber": "421",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/421",
+  "sourceTitle": "EECS 421 Prop of Transistors",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 35,
+        "available": 32
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10350",
+          "topic": "",
+          "instructors": [
+            "Guo, L Jay"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1005 EECS",
+          "enrolled": 3,
+          "capacity": 35,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 35,
+        "available": 32
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "16214",
+          "topic": "",
+          "instructors": [],
+          "times": "MoWe 10:30AM - 11:00AM",
+          "locations": "1005 EECS",
+          "enrolled": 3,
+          "capacity": 35,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

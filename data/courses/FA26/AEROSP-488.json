@@ -1,0 +1,76 @@
+{
+  "syncedAt": "2026-03-27T20:57:56.613Z",
+  "courseId": "AEROSP 488",
+  "courseDescr": "Prod Dev Ldrship",
+  "catalogNumber": "488",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/488",
+  "sourceTitle": "AEROSP 488 Prod Dev Ldrship",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28174",
+          "topic": "",
+          "instructors": [
+            "Halow, George F",
+            "Van Noord, Jonathan"
+          ],
+          "times": "Th 3:00PM - 4:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "28175",
+          "topic": "",
+          "instructors": [
+            "Halow, George F",
+            "Van Noord, Jonathan"
+          ],
+          "times": "Fr 9:00AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

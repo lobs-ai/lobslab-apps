@@ -1,0 +1,88 @@
+{
+  "syncedAt": "2026-03-27T20:57:23.588Z",
+  "courseId": "AERO 201",
+  "courseDescr": "Team&Ldrshp Basics I",
+  "catalogNumber": "201",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "AERO",
+  "subjectDescr": "Air Force Officer Education",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AERO/201",
+  "sourceTitle": "AERO 201 Team&amp;Ldrshp Basics I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23184",
+          "topic": "",
+          "instructors": [
+            "Shepherd, Molly Lynne"
+          ],
+          "times": "Th 11:00AM - 12:00PM",
+          "locations": "1100 OBSRV",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "23185",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "004",
+          "classNumber": "23186",
+          "topic": "",
+          "instructors": [
+            "Buckner  III, Harry Shante",
+            "Jackowski, Henry"
+          ],
+          "times": "Th 6:00AM - 8:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

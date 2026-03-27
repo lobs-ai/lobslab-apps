@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:45.538Z",
+  "courseId": "AEROSP 315",
+  "courseDescr": "Aerospace Structure",
+  "catalogNumber": "315",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/315",
+  "sourceTitle": "AEROSP 315 Aerospace Structure",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 146,
+        "available": 146
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10230",
+          "topic": "",
+          "instructors": [
+            "Shaw, John A"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1109 FXB",
+          "enrolled": 0,
+          "capacity": 146,
+          "available": 146,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

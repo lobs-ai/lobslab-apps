@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:03.618Z",
+  "courseId": "AEROSP 544",
+  "courseDescr": "Aeroelasticity",
+  "catalogNumber": "544",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/544",
+  "sourceTitle": "AEROSP 544 Aeroelasticity",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 11,
+        "waitlist": 0,
+        "total": 11,
+        "capacity": 60,
+        "available": 49
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35367",
+          "topic": "",
+          "instructors": [
+            "Inman, Daniel J"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1008 FXB",
+          "enrolled": 11,
+          "capacity": 60,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

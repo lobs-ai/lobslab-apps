@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:14.840Z",
+  "courseId": "CEE 553",
+  "courseDescr": "Infrastruc Sys Opt",
+  "catalogNumber": "553",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/553",
+  "sourceTitle": "CEE 553 Infrastruc Sys Opt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 36,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29150",
+          "topic": "",
+          "instructors": [
+            "Masoud, Neda"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 36,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

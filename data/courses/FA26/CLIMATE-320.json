@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:29.601Z",
+  "courseId": "CLIMATE 320",
+  "courseDescr": "Earth Sys Evolution",
+  "catalogNumber": "320",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/320",
+  "sourceTitle": "CLIMATE 320 Earth Sys Evolution",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 62,
+        "available": 62
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15544",
+          "topic": "",
+          "instructors": [
+            "Raudzens Bailey, Adriana"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "2246 CSRB",
+          "enrolled": 0,
+          "capacity": 62,
+          "available": 62,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

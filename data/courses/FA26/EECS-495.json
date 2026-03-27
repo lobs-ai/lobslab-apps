@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:41.886Z",
+  "courseId": "EECS 495",
+  "courseDescr": "Accessible Computing",
+  "catalogNumber": "495",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/495",
+  "sourceTitle": "EECS 495 Accessible Computing",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34539",
+          "topic": "",
+          "instructors": [
+            "Jain, Dhruv"
+          ],
+          "times": "Fr 1:30PM - 4:30PM",
+          "locations": "3360 GGBL",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "34540",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 4:30PM - 5:30PM",
+          "locations": "3360 GGBL",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

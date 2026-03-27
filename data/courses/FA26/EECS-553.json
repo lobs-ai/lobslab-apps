@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:45.963Z",
+  "courseId": "EECS 553",
+  "courseDescr": "Machine Learn (ECE)",
+  "catalogNumber": "553",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/553",
+  "sourceTitle": "EECS 553 Machine Learn (ECE)",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 39,
+        "waitlist": 0,
+        "total": 39,
+        "capacity": 146,
+        "available": 107
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26498",
+          "topic": "",
+          "instructors": [
+            "Fessler, Jeffrey A"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "2365 LCSIB",
+          "enrolled": 39,
+          "capacity": 146,
+          "available": 107,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:01:45.844Z",
+  "courseId": "EECS 334",
+  "courseDescr": "Prin of Optics",
+  "catalogNumber": "334",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/334",
+  "sourceTitle": "EECS 334 Prin of Optics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17044",
+          "topic": "",
+          "instructors": [
+            "Deotare, Parag B"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "17045",
+          "topic": "",
+          "instructors": [],
+          "times": "TuTh 10:30AM - 11:00AM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

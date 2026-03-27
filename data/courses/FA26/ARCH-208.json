@@ -1,0 +1,49 @@
+{
+  "syncedAt": "2026-03-27T20:51:47.975Z",
+  "courseId": "ARCH 208",
+  "courseDescr": "Design Foundations",
+  "catalogNumber": "208",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/208",
+  "sourceTitle": "ARCH 208 Design Foundations",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27901",
+          "topic": "",
+          "instructors": [
+            "Trandafirescu, Anca",
+            "AbuSeir, Zain",
+            "Hwang, Irene",
+            "Sturt, Jonathan Bentley"
+          ],
+          "times": "Th 2:00PM - 4:00PM Th 4:00PM - 5:00PM",
+          "locations": "2104 A&AB 1360 A&AB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

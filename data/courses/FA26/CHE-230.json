@@ -1,0 +1,124 @@
+{
+  "syncedAt": "2026-03-27T20:58:55.377Z",
+  "courseId": "CHE 230",
+  "courseDescr": "Mat&Energy Balances",
+  "catalogNumber": "230",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/230",
+  "sourceTitle": "CHE 230 Mat&amp;Energy Balances",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 165,
+        "available": 165
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10268",
+          "topic": "",
+          "instructors": [
+            "Tadd, Andrew Roland"
+          ],
+          "times": "MoWeFr 3:30PM - 4:30PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 0,
+          "capacity": 165,
+          "available": 165,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "15519",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 2:30PM - 3:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "26030",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10269",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 5:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "15968",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "17723",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 1:30PM - 2:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

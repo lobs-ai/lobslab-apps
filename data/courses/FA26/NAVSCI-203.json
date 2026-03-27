@@ -1,0 +1,89 @@
+{
+  "syncedAt": "2026-03-27T20:57:34.580Z",
+  "courseId": "NAVSCI 203",
+  "courseDescr": "Leadership and Mgmt",
+  "catalogNumber": "203",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "NAVSCI",
+  "subjectDescr": "Naval Science",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/NAVSCI/203",
+  "sourceTitle": "NAVSCI 203 Leadership and Mgmt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 36,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15854",
+          "topic": "",
+          "instructors": [
+            "Clark, Jack"
+          ],
+          "times": "MoWe 10:00AM - 11:30AM",
+          "locations": "0101 OBSRV",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "15855",
+          "topic": "",
+          "instructors": [
+            "Clark, Jack"
+          ],
+          "times": "MoWe 1:00PM - 2:30PM",
+          "locations": "0101 OBSRV",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "003",
+          "classNumber": "15856",
+          "topic": "",
+          "instructors": [
+            "Clark, Jack"
+          ],
+          "times": "Th 4:00PM - 6:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

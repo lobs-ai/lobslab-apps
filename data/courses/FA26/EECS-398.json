@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:00.907Z",
+  "courseId": "EECS 398",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "398",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/398",
+  "sourceTitle": "EECS 398 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 23,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34847",
+          "topic": "Quantum Eng and Tech",
+          "instructors": [
+            "Biswas, Souvik"
+          ],
+          "times": "TuTh 8:30AM - 10:30AM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 23,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

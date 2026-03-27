@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:58:08.780Z",
+  "courseId": "AEROSP 584",
+  "courseDescr": "Nav&Guid Aero Veh",
+  "catalogNumber": "584",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/584",
+  "sourceTitle": "AEROSP 584 Nav&amp;Guid Aero Veh",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 14,
+        "waitlist": 0,
+        "total": 14,
+        "capacity": 74,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21406",
+          "topic": "",
+          "instructors": [
+            "Falcone, Giusy",
+            "Yu, Evan"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1311 EECS",
+          "enrolled": 14,
+          "capacity": 74,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "syncedAt": "2026-03-27T20:52:34.550Z",
+  "courseId": "ARCH 515",
+  "courseDescr": "Sustainable Systems",
+  "catalogNumber": "515",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/515",
+  "sourceTitle": "ARCH 515 Sustainable Systems",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 13,
+        "waitlist": 0,
+        "total": 13,
+        "capacity": 140,
+        "available": 127
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20412",
+          "topic": "",
+          "instructors": [
+            "Maigret, Jen"
+          ],
+          "times": "WeFr 8:30AM - 9:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 13,
+          "capacity": 140,
+          "available": 127,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 13,
+        "waitlist": 0,
+        "total": 13,
+        "capacity": 140,
+        "available": 127
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "20413",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2213 A&AB",
+          "enrolled": 13,
+          "capacity": 140,
+          "available": 127,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "20414",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2222 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "20415",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2210 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "20416",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2213 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "20417",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2222 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "20418",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

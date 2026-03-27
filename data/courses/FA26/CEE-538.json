@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:11.055Z",
+  "courseId": "CEE 538",
+  "courseDescr": "Comp Aid Proj Mgmt",
+  "catalogNumber": "538",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/538",
+  "sourceTitle": "CEE 538 Comp Aid Proj Mgmt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 20,
+        "available": 19
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35313",
+          "topic": "",
+          "instructors": [
+            "Ioannou, Photios G"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "3433 EECS",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

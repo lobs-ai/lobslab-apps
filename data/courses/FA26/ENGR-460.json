@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:04:38.588Z",
+  "courseId": "ENGR 460",
+  "courseDescr": "Eng Acr Cultures II",
+  "catalogNumber": "460",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/460",
+  "sourceTitle": "ENGR 460 Eng Acr Cultures II",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26141",
+          "topic": "",
+          "instructors": [
+            "Cotel, Aline J"
+          ],
+          "times": "TBA TBA",
+          "locations": "REMOTE",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

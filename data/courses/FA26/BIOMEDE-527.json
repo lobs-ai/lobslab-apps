@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:44.647Z",
+  "courseId": "BIOMEDE 527",
+  "courseDescr": "Topics in Neuromod",
+  "catalogNumber": "527",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/527",
+  "sourceTitle": "BIOMEDE 527 Topics in Neuromod",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 15,
+        "available": 11
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27515",
+          "topic": "",
+          "instructors": [
+            "Lempka, Scott Francis"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "185 EWRE",
+          "enrolled": 4,
+          "capacity": 15,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

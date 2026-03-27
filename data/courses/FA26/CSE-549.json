@@ -1,0 +1,123 @@
+{
+  "syncedAt": "2026-03-27T21:00:44.624Z",
+  "courseId": "CSE 549",
+  "courseDescr": "Informatn Retrieval",
+  "catalogNumber": "549",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/549",
+  "sourceTitle": "CSE 549 Informatn Retrieval",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 32,
+        "waitlist": 0,
+        "total": 32,
+        "capacity": 100,
+        "available": 68
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21574",
+          "topic": "",
+          "instructors": [
+            "Budak, Ceren"
+          ],
+          "times": "Tu 10:30AM - 12:30PM",
+          "locations": "1290 LCSIB",
+          "enrolled": 32,
+          "capacity": 100,
+          "available": 68,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 32,
+        "waitlist": 0,
+        "total": 32,
+        "capacity": 100,
+        "available": 68
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "29372",
+          "topic": "",
+          "instructors": [
+            "Budak, Ceren",
+            "Faculty, SI"
+          ],
+          "times": "We 6:30PM - 7:30PM",
+          "locations": "2280 LCSIB",
+          "enrolled": 16,
+          "capacity": 25,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "35707",
+          "topic": "",
+          "instructors": [
+            "Budak, Ceren",
+            "Faculty, SI"
+          ],
+          "times": "We 7:30PM - 8:30PM",
+          "locations": "2280 LCSIB",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "29373",
+          "topic": "",
+          "instructors": [
+            "Budak, Ceren",
+            "Faculty, SI"
+          ],
+          "times": "Th 10:00AM - 11:00AM",
+          "locations": "2270 LCSIB",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "29374",
+          "topic": "",
+          "instructors": [
+            "Budak, Ceren",
+            "Faculty, SI"
+          ],
+          "times": "Th 11:00AM - 12:00PM",
+          "locations": "2270 LCSIB",
+          "enrolled": 15,
+          "capacity": 25,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

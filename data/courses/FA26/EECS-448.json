@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:22.097Z",
+  "courseId": "EECS 448",
+  "courseDescr": "Human-Centered ML",
+  "catalogNumber": "448",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/448",
+  "sourceTitle": "EECS 448 Human-Centered ML",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35274",
+          "topic": "",
+          "instructors": [
+            "Adler, Dan"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "165 CHRYS",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "35275",
+          "topic": "",
+          "instructors": [],
+          "times": "We 4:30PM - 5:30PM",
+          "locations": "1500 EECS",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

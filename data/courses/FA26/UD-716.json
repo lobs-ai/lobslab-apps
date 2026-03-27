@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:54.136Z",
+  "courseId": "UD 716",
+  "courseDescr": "UrbnEcon,Fin,CtyMk",
+  "catalogNumber": "716",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UD",
+  "subjectDescr": "Urban Design",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UD/716",
+  "sourceTitle": "UD 716 UrbnEcon,Fin,CtyMk",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 11,
+        "available": 8
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28053",
+          "topic": "",
+          "instructors": [
+            "McCullough, Kit Krankel"
+          ],
+          "times": "We 8:30AM - 11:30AM",
+          "locations": "2210 A&AB",
+          "enrolled": 3,
+          "capacity": 11,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

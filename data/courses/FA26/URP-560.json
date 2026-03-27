@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:27.489Z",
+  "courseId": "URP 560",
+  "courseDescr": "Trans&Lnd Pl",
+  "catalogNumber": "560",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/560",
+  "sourceTitle": "URP 560 Trans&amp;Lnd Pl",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 10,
+        "waitlist": 0,
+        "total": 10,
+        "capacity": 25,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36201",
+          "topic": "",
+          "instructors": [
+            "Levine, Jonathan"
+          ],
+          "times": "MoWe 8:30AM - 10:00AM",
+          "locations": "2108 A&AB",
+          "enrolled": 10,
+          "capacity": 25,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

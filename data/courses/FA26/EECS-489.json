@@ -1,0 +1,128 @@
+{
+  "syncedAt": "2026-03-27T21:02:37.584Z",
+  "courseId": "EECS 489",
+  "courseDescr": "Comp Networks",
+  "catalogNumber": "489",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/489",
+  "sourceTitle": "EECS 489 Comp Networks",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 232,
+        "available": 228
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27765",
+          "topic": "",
+          "instructors": [
+            "Chen, Ang",
+            "Razak, Saquib"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 2,
+          "capacity": 120,
+          "available": 118,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "32480",
+          "topic": "",
+          "instructors": [
+            "Chen, Ang",
+            "Razak, Saquib"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 2,
+          "capacity": 112,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 232,
+        "available": 228
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "27766",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 5:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 2,
+          "capacity": 58,
+          "available": 56,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "27767",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 54,
+          "available": 54,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "27768",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 1,
+          "capacity": 56,
+          "available": 55,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "32949",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "1200 EECS",
+          "enrolled": 1,
+          "capacity": 64,
+          "available": 63,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

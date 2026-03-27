@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:52.029Z",
+  "courseId": "RESTORA 615",
+  "courseDescr": "Intra-Oral Photo 2",
+  "catalogNumber": "615",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/615",
+  "sourceTitle": "RESTORA 615 Intra-Oral Photo 2",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27051",
+          "topic": "",
+          "instructors": [
+            "Rocha Maia, Rodrigo"
+          ],
+          "times": "We 1:00PM - 5:00PM",
+          "locations": "G524 KELL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

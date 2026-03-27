@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:59.951Z",
+  "courseId": "CEE 511",
+  "courseDescr": "Dynamics of Struct",
+  "catalogNumber": "511",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/511",
+  "sourceTitle": "CEE 511 Dynamics of Struct",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21548",
+          "topic": "",
+          "instructors": [
+            "Filipov, Evgueni"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "2918 COOL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

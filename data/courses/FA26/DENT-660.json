@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:54:30.352Z",
+  "courseId": "DENT 660",
+  "courseDescr": "IPE Collaboration Seminar",
+  "catalogNumber": "660",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/660",
+  "sourceTitle": "DENT 660 IPE Collaboration Seminar",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 5,
+        "available": 5
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21791",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 5,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

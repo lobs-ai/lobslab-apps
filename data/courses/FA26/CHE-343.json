@@ -1,0 +1,124 @@
+{
+  "syncedAt": "2026-03-27T20:58:59.969Z",
+  "courseId": "CHE 343",
+  "courseDescr": "Separ Processes",
+  "catalogNumber": "343",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/343",
+  "sourceTitle": "CHE 343 Separ Processes",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 144,
+        "available": 144
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10272",
+          "topic": "",
+          "instructors": [
+            "Biggs, Bradley Walters"
+          ],
+          "times": "MoWeFr 1:30PM - 2:30PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 144,
+          "available": 144,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "17405",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "17406",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 1:30PM - 2:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "24565",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 2:30PM - 3:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "17407",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "136 EWRE",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "34711",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 5:30PM",
+          "locations": "136 EWRE",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

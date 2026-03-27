@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:45.410Z",
+  "courseId": "URP 700",
+  "courseDescr": "Adv Urban Theory",
+  "catalogNumber": "700",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/700",
+  "sourceTitle": "URP 700 Adv Urban Theory",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 10,
+        "available": 7
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36202",
+          "topic": "",
+          "instructors": [
+            "Campbell, Scott D"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "2227 A&AB",
+          "enrolled": 3,
+          "capacity": 10,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

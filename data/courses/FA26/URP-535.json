@@ -1,0 +1,89 @@
+{
+  "syncedAt": "2026-03-27T20:53:22.751Z",
+  "courseId": "URP 535",
+  "courseDescr": "Intro to Urbn Inform",
+  "catalogNumber": "535",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/535",
+  "sourceTitle": "URP 535 Intro to Urbn Inform",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 5,
+        "available": 3
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35651",
+          "topic": "",
+          "instructors": [
+            "Liang, Xiaofan"
+          ],
+          "times": "Mo 2:30PM - 4:00PM",
+          "locations": "2104 A&AB",
+          "enrolled": 2,
+          "capacity": 5,
+          "available": 3,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 6,
+        "available": 4
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "35652",
+          "topic": "",
+          "instructors": [
+            "Liang, Xiaofan"
+          ],
+          "times": "We 2:30PM - 4:00PM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 3,
+          "available": 3,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "35653",
+          "topic": "",
+          "instructors": [
+            "Liang, Xiaofan"
+          ],
+          "times": "We 4:00PM - 5:30PM",
+          "locations": "2115 A&AB",
+          "enrolled": 2,
+          "capacity": 3,
+          "available": 1,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

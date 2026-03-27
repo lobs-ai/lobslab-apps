@@ -1,0 +1,136 @@
+{
+  "syncedAt": "2026-03-27T20:52:46.167Z",
+  "courseId": "ARCH 660",
+  "courseDescr": "Thesis Res&Dev Sem",
+  "catalogNumber": "660",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/660",
+  "sourceTitle": "ARCH 660 Thesis Res&amp;Dev Sem",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 58,
+        "waitlist": 0,
+        "total": 58,
+        "capacity": 180,
+        "available": 122
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10045",
+          "topic": "",
+          "instructors": [
+            "Ng, Tszyan"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 58,
+          "capacity": 180,
+          "available": 122,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "15088",
+          "topic": "",
+          "instructors": [
+            "Cuellar, Gabriel"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "32150",
+          "topic": "",
+          "instructors": [
+            "Jazairy, El Hadi Emir"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "2210 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "18381",
+          "topic": "",
+          "instructors": [
+            "Kulper, Perry Dean"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "18382",
+          "topic": "",
+          "instructors": [
+            "McMorrough, Julia"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "32151",
+          "topic": "",
+          "instructors": [
+            "Newell, Catie"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "2213 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "32152",
+          "topic": "",
+          "instructors": [
+            "Velikov, Kathy"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "2222 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:54.639Z",
+  "courseId": "CSE 601",
+  "courseDescr": "Intro CSE Grad Res",
+  "catalogNumber": "601",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/601",
+  "sourceTitle": "CSE 601 Intro CSE Grad Res",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 74,
+        "available": 74
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26402",
+          "topic": "",
+          "instructors": [
+            "Sample, Alanson"
+          ],
+          "times": "Th 4:30PM - 6:00PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 74,
+          "available": 74,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

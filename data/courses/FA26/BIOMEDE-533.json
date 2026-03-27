@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:45.493Z",
+  "courseId": "BIOMEDE 533",
+  "courseDescr": "Neuromechanics",
+  "catalogNumber": "533",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/533",
+  "sourceTitle": "BIOMEDE 533 Neuromechanics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 20,
+        "available": 8
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31765",
+          "topic": "",
+          "instructors": [
+            "Lepley, Lindsey K"
+          ],
+          "times": "We 8:30AM - 11:30AM",
+          "locations": "B101 MLB",
+          "enrolled": 12,
+          "capacity": 20,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "syncedAt": "2026-03-27T20:52:32.604Z",
+  "courseId": "ARCH 509",
+  "courseDescr": "Experimental Course",
+  "catalogNumber": "509",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/509",
+  "sourceTitle": "ARCH 509 Experimental Course",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 35,
+        "waitlist": 3,
+        "total": 38,
+        "capacity": 56,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16227",
+          "topic": "Learning to Teach",
+          "instructors": [
+            "Lomeli, Yojairo"
+          ],
+          "times": "Tu 8:30AM - 11:30AM",
+          "locations": "2213 A&AB",
+          "enrolled": 15,
+          "capacity": 20,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "37214",
+          "topic": "Theories &amp; Methods",
+          "instructors": [
+            "Arquero de Alarcon, Maria J"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "TBA",
+          "enrolled": 3,
+          "capacity": 8,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "18008",
+          "topic": "Becoming Digital",
+          "instructors": [
+            "Aghaei Meibodi, Mania"
+          ],
+          "times": "We 8:30AM - 11:30AM",
+          "locations": "2213 A&AB",
+          "enrolled": 9,
+          "capacity": 20,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "19847",
+          "topic": "Virtual Engagement",
+          "instructors": [
+            "McCullough, Kit Krankel"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 8,
+          "capacity": 8,
+          "available": 0,
+          "waitlist": 3,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

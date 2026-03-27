@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:55.392Z",
+  "courseId": "CSE 644",
+  "courseDescr": "Comp Model Cogn",
+  "catalogNumber": "644",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/644",
+  "sourceTitle": "CSE 644 Comp Model Cogn",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 12,
+        "available": 7
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31647",
+          "topic": "",
+          "instructors": [
+            "Lewis, Richard L"
+          ],
+          "times": "TuTh 1:00PM - 2:30PM",
+          "locations": "ARR",
+          "enrolled": 5,
+          "capacity": 12,
+          "available": 7,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

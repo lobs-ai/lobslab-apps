@@ -1,0 +1,60 @@
+{
+  "syncedAt": "2026-03-27T20:54:43.029Z",
+  "courseId": "DENT 741",
+  "courseDescr": "Clinical Rotation - OMFS/HD",
+  "catalogNumber": "741",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/741",
+  "sourceTitle": "DENT 741 Clinical Rotation - OMFS/HD",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 230,
+        "available": 230
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "13237",
+          "topic": "",
+          "instructors": [
+            "Shivers, Paul",
+            "Mor, Lavika"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "20030",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

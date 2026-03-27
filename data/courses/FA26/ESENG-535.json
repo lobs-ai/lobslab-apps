@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:03:10.862Z",
+  "courseId": "ESENG 535",
+  "courseDescr": "Greenhouse Gas Contr",
+  "catalogNumber": "535",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ESENG",
+  "subjectDescr": "Energy Systems Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ESENG/535",
+  "sourceTitle": "ESENG 535 Greenhouse Gas Contr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 15,
+        "waitlist": 0,
+        "total": 15,
+        "capacity": 84,
+        "available": 69
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24984",
+          "topic": "",
+          "instructors": [
+            "Lastoskie, Christian M"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1130 LBME",
+          "enrolled": 7,
+          "capacity": 34,
+          "available": 27,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "881",
+          "classNumber": "26784",
+          "topic": "",
+          "instructors": [
+            "Lastoskie, Christian M"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "REMOTE",
+          "enrolled": 8,
+          "capacity": 50,
+          "available": 42,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

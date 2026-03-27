@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:12.488Z",
+  "courseId": "CEE 548",
+  "courseDescr": "Geotech Eqk Engr",
+  "catalogNumber": "548",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/548",
+  "sourceTitle": "CEE 548 Geotech Eqk Engr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31878",
+          "topic": "",
+          "instructors": [
+            "Garcia, Fernando"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

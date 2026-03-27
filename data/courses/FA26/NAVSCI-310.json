@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:57:36.424Z",
+  "courseId": "NAVSCI 310",
+  "courseDescr": "Fund Man War",
+  "catalogNumber": "310",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "NAVSCI",
+  "subjectDescr": "Naval Science",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/NAVSCI/310",
+  "sourceTitle": "NAVSCI 310 Fund Man War",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27794",
+          "topic": "",
+          "instructors": [
+            "Gorkes, Madison",
+            "Horta, Amy Kathryn"
+          ],
+          "times": "MoWe 1:00PM - 2:30PM",
+          "locations": "4332 SPH2",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

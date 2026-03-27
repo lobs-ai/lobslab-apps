@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:54:58.830Z",
+  "courseId": "DENT 825C",
+  "courseDescr": "Pathways-Leadership",
+  "catalogNumber": "825C",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/825C",
+  "sourceTitle": "DENT 825C Pathways-Leadership",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19315",
+          "topic": "",
+          "instructors": [
+            "Sweier, Domenica Giovanna",
+            "Pinsky, Harold Mark"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

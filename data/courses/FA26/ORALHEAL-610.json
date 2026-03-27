@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:40.460Z",
+  "courseId": "ORALHEAL 610",
+  "courseDescr": "Research Methods",
+  "catalogNumber": "610",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/610",
+  "sourceTitle": "ORALHEAL 610 Research Methods",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27152",
+          "topic": "",
+          "instructors": [
+            "Karl, Elisabeta"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

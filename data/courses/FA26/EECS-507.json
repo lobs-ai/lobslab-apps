@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:44.432Z",
+  "courseId": "EECS 507",
+  "courseDescr": "Intro Embed Sys Res",
+  "catalogNumber": "507",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/507",
+  "sourceTitle": "EECS 507 Intro Embed Sys Res",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 9,
+        "waitlist": 0,
+        "total": 9,
+        "capacity": 56,
+        "available": 47
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "33041",
+          "topic": "",
+          "instructors": [
+            "Dick, Robert"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 9,
+          "capacity": 56,
+          "available": 47,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

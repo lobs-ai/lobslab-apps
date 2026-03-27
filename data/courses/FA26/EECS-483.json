@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:35.951Z",
+  "courseId": "EECS 483",
+  "courseDescr": "Compiler Constr",
+  "catalogNumber": "483",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/483",
+  "sourceTitle": "EECS 483 Compiler Constr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 70,
+        "available": 69
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31545",
+          "topic": "",
+          "instructors": [
+            "Tang, Lingjia"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM Fr 12:30PM - 1:30PM",
+          "locations": "1200 EECS 1500 EECS",
+          "enrolled": 1,
+          "capacity": 70,
+          "available": 69,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

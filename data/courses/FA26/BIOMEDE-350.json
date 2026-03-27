@@ -1,0 +1,63 @@
+{
+  "syncedAt": "2026-03-27T20:58:27.710Z",
+  "courseId": "BIOMEDE 350",
+  "courseDescr": "Intro BME Design",
+  "catalogNumber": "350",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/350",
+  "sourceTitle": "BIOMEDE 350 Intro BME Design",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 98,
+        "available": 98
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21300",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth",
+            "Aguilar, Carlos Andres"
+          ],
+          "times": "MoWe 9:30AM - 11:30AM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 0,
+          "capacity": 49,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "25966",
+          "topic": "",
+          "instructors": [
+            "Wang, Xueding",
+            "Figueroa, C Alberto"
+          ],
+          "times": "TuTh 12:30PM - 2:30PM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 0,
+          "capacity": 49,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

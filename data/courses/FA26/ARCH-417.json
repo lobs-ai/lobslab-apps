@@ -1,0 +1,132 @@
+{
+  "syncedAt": "2026-03-27T20:52:18.471Z",
+  "courseId": "ARCH 417",
+  "courseDescr": "Construction",
+  "catalogNumber": "417",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/417",
+  "sourceTitle": "ARCH 417 Construction",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19059",
+          "topic": "",
+          "instructors": [
+            "Rule, Jonathan Russell",
+            "Moran, Thom",
+            "Wigger, Claudia"
+          ],
+          "times": "Tu 1:00PM - 3:00PM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "19060",
+          "topic": "",
+          "instructors": [
+            "Rule, Jonathan Russell"
+          ],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "22597",
+          "topic": "",
+          "instructors": [
+            "Moran, Thom"
+          ],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "22681",
+          "topic": "",
+          "instructors": [
+            "Wigger, Claudia"
+          ],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "22682",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "22683",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

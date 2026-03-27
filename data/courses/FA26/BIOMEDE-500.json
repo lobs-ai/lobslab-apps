@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:58:40.649Z",
+  "courseId": "BIOMEDE 500",
+  "courseDescr": "Biomed Engr Sem",
+  "catalogNumber": "500",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/500",
+  "sourceTitle": "BIOMEDE 500 Biomed Engr Sem",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10261",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 2:30PM - 4:30PM",
+          "locations": "1130 LBME",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

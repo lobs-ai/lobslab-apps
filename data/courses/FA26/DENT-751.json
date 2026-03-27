@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:54:45.011Z",
+  "courseId": "DENT 751",
+  "courseDescr": "D3 OMS Selective",
+  "catalogNumber": "751",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/751",
+  "sourceTitle": "DENT 751 D3 OMS Selective",
+  "sectionGroups": [
+    {
+      "name": "Clinicals",
+      "shortLabel": "Clinical",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28608",
+          "topic": "",
+          "instructors": [
+            "Zupelari Goncalves, Paulo",
+            "Moe, Justine"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

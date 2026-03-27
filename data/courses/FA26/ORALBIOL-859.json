@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:31.477Z",
+  "courseId": "ORALBIOL 859",
+  "courseDescr": "Seminar in Oral Bio",
+  "catalogNumber": "859",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/859",
+  "sourceTitle": "ORALBIOL 859 Seminar in Oral Bio",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10156",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

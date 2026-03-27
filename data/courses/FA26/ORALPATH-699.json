@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:53.510Z",
+  "courseId": "ORALPATH 699",
+  "courseDescr": "Journal Club",
+  "catalogNumber": "699",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALPATH",
+  "subjectDescr": "Oral Pathology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALPATH/699",
+  "sourceTitle": "ORALPATH 699 Journal Club",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10168",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

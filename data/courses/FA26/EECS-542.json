@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:45.152Z",
+  "courseId": "EECS 542",
+  "courseDescr": "Adv Top Comp Vision",
+  "catalogNumber": "542",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/542",
+  "sourceTitle": "EECS 542 Adv Top Comp Vision",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 31,
+        "waitlist": 0,
+        "total": 31,
+        "capacity": 100,
+        "available": 69
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27769",
+          "topic": "",
+          "instructors": [
+            "Park, Jeong Joon"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "2505 GGBL",
+          "enrolled": 31,
+          "capacity": 100,
+          "available": 69,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

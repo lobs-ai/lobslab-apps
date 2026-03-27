@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:56:14.710Z",
+  "courseId": "ORTHO 778",
+  "courseDescr": "Mg Chl Craniofac",
+  "catalogNumber": "778",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/778",
+  "sourceTitle": "ORTHO 778 Mg Chl Craniofac",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10177",
+          "topic": "",
+          "instructors": [
+            "Yatabe, Marilia",
+            "Kelly, Katherine A"
+          ],
+          "times": "Fr 8:00AM - 10:00AM",
+          "locations": "G550 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

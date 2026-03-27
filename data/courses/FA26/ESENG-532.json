@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:03:10.103Z",
+  "courseId": "ESENG 532",
+  "courseDescr": "Sus Energy Sys",
+  "catalogNumber": "532",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ESENG",
+  "subjectDescr": "Energy Systems Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ESENG/532",
+  "sourceTitle": "ESENG 532 Sus Energy Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 100,
+        "available": 95
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24579",
+          "topic": "",
+          "instructors": [
+            "Keoleian, Gregory A"
+          ],
+          "times": "TuTh 2:30PM - 4:00PM",
+          "locations": "1040 DANA",
+          "enrolled": 4,
+          "capacity": 80,
+          "available": 76,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "881",
+          "classNumber": "24617",
+          "topic": "",
+          "instructors": [
+            "Keoleian, Gregory A"
+          ],
+          "times": "TuTh 2:30PM - 4:00PM",
+          "locations": "REMOTE",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

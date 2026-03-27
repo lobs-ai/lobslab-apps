@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:19.470Z",
+  "courseId": "CEE 572",
+  "courseDescr": "Dynamic Infr Sys",
+  "catalogNumber": "572",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/572",
+  "sourceTitle": "CEE 572 Dynamic Infr Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20332",
+          "topic": "",
+          "instructors": [
+            "Haider, Rabab"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "2236 CSRB",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

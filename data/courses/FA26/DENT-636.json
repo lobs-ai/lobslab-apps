@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:54:26.478Z",
+  "courseId": "DENT 636",
+  "courseDescr": "Periodontics",
+  "catalogNumber": "636",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/636",
+  "sourceTitle": "DENT 636 Periodontics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32249",
+          "topic": "",
+          "instructors": [
+            "Richards, Phil",
+            "Fenno, J Christopher",
+            "Travan, Suncica"
+          ],
+          "times": "Tu 8:00AM - 10:00AM",
+          "locations": "G322 DENT",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

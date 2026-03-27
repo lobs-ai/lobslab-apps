@@ -1,0 +1,56 @@
+{
+  "syncedAt": "2026-03-27T20:54:24.813Z",
+  "courseId": "DENT 632",
+  "courseDescr": "Clinical Found II/Rem Prostho",
+  "catalogNumber": "632",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/632",
+  "sourceTitle": "DENT 632 Clinical Found II/Rem Prostho",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32240",
+          "topic": "",
+          "instructors": [
+            "Bak, Sun-Yung",
+            "Afzal, Muhammad Irshad",
+            "Faria Moura, Guilherme",
+            "Gerigk, Carola A",
+            "Gordon, Brandon A",
+            "Guitana Carracho, Luis Pedro",
+            "Hill, Elliott Earl",
+            "Lee Oh, Young Joo",
+            "May, Kenneth Bural",
+            "Snyder, Mark D",
+            "Teixeira, Wendel"
+          ],
+          "times": "Fr 8:00AM - 12:00PM",
+          "locations": "G360 DENT",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

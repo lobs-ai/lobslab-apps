@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:52:30.604Z",
+  "courseId": "ARCH 503",
+  "courseDescr": "Spec Topc Arch Hist",
+  "catalogNumber": "503",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/503",
+  "sourceTitle": "ARCH 503 Spec Topc Arch Hist",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 25,
+        "available": 19
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "33055",
+          "topic": "Distributed Site",
+          "instructors": [
+            "Herscher, Andrew H"
+          ],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "2213 A&AB",
+          "enrolled": 6,
+          "capacity": 15,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "35503",
+          "topic": "Formal/Informal/Uniformal",
+          "instructors": [
+            "Manful, Kuukuwa O"
+          ],
+          "times": "Mo 8:30AM - 11:30AM",
+          "locations": "2213 A&AB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

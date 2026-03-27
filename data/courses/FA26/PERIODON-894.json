@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:56:32.746Z",
+  "courseId": "PERIODON 894",
+  "courseDescr": "Implants",
+  "catalogNumber": "894",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/894",
+  "sourceTitle": "PERIODON 894 Implants",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27040",
+          "topic": "",
+          "instructors": [
+            "Wang, Hom-Lay",
+            "Chen, Zhaozhao"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

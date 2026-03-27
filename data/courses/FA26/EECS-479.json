@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:34.524Z",
+  "courseId": "EECS 479",
+  "courseDescr": "Quantum Computing",
+  "catalogNumber": "479",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/479",
+  "sourceTitle": "EECS 479 Quantum Computing",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 35,
+        "available": 34
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31807",
+          "topic": "",
+          "instructors": [
+            "Ravi, Gokul Subramanian"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1012 FXB",
+          "enrolled": 1,
+          "capacity": 35,
+          "available": 34,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 35,
+        "available": 34
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "31808",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 5:30PM",
+          "locations": "2147 GGBL",
+          "enrolled": 1,
+          "capacity": 35,
+          "available": 34,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

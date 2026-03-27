@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:04:18.634Z",
+  "courseId": "ENGR 450",
+  "courseDescr": "Multidisc Design",
+  "catalogNumber": "450",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/450",
+  "sourceTitle": "ENGR 450 Multidisc Design",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "210",
+          "classNumber": "28714",
+          "topic": "Global Health Design II",
+          "instructors": [
+            "Kramer, Julia"
+          ],
+          "times": "TuTh 12:00PM - 4:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

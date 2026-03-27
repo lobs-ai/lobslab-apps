@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:02:27.299Z",
+  "courseId": "EECS 460",
+  "courseDescr": "Con Sys Anlys&Des",
+  "catalogNumber": "460",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/460",
+  "sourceTitle": "EECS 460 Con Sys Anlys&amp;Des",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 80,
+        "available": 78
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10361",
+          "topic": "",
+          "instructors": [
+            "Incer, Inigo"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1500 EECS",
+          "enrolled": 2,
+          "capacity": 80,
+          "available": 78,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 80,
+        "available": 78
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "15870",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 5:30PM - 6:30PM",
+          "locations": "151 CHRYS",
+          "enrolled": 1,
+          "capacity": 40,
+          "available": 39,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "28647",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 5:30PM - 6:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 1,
+          "capacity": 40,
+          "available": 39,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

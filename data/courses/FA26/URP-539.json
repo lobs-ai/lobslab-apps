@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:53:23.455Z",
+  "courseId": "URP 539",
+  "courseDescr": "Sustain Dsgn in RE",
+  "catalogNumber": "539",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/539",
+  "sourceTitle": "URP 539 Sustain Dsgn in RE",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 10,
+        "available": 9
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32597",
+          "topic": "",
+          "instructors": [],
+          "times": "We 6:00PM - 9:00PM",
+          "locations": "2108 A&AB",
+          "enrolled": 1,
+          "capacity": 10,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

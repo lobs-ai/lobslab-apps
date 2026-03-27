@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:02:42.663Z",
+  "courseId": "EECS 497",
+  "courseDescr": "Human-Centered SW",
+  "catalogNumber": "497",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/497",
+  "sourceTitle": "EECS 497 Human-Centered SW",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 175,
+        "available": 175
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21570",
+          "topic": "",
+          "instructors": [
+            "Ringenberg, Jeff"
+          ],
+          "times": "MoWe 11:30AM - 1:30PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 90,
+          "available": 90,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "26466",
+          "topic": "",
+          "instructors": [
+            "Ringenberg, Jeff"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 85,
+          "available": 85,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:58:33.157Z",
+  "courseId": "BIOMEDE 450",
+  "courseDescr": "Biomedical Design",
+  "catalogNumber": "450",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/450",
+  "sourceTitle": "BIOMEDE 450 Biomedical Design",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 46,
+        "available": 46
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24554",
+          "topic": "Combination Devices",
+          "instructors": [
+            "Vander Roest, Alison Schroer",
+            "Hald, Eric Scott",
+            "Jensen, Samuel"
+          ],
+          "times": "TuTh 9:30AM - 2:30PM",
+          "locations": "1130 LBME",
+          "enrolled": 0,
+          "capacity": 46,
+          "available": 46,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

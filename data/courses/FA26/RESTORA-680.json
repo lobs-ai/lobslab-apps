@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:56:54.440Z",
+  "courseId": "RESTORA 680",
+  "courseDescr": "Adv ChairsideCAD/CAM",
+  "catalogNumber": "680",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/680",
+  "sourceTitle": "RESTORA 680 Adv ChairsideCAD/CAM",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21523",
+          "topic": "",
+          "instructors": [
+            "Neiva, Gisele De Faria",
+            "Fasbinder, Dennis J"
+          ],
+          "times": "Mo 1:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

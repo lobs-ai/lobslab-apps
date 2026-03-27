@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:04.644Z",
+  "courseId": "CEE 522",
+  "courseDescr": "Sediment Transport",
+  "catalogNumber": "522",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/522",
+  "sourceTitle": "CEE 522 Sediment Transport",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 25,
+        "available": 22
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35941",
+          "topic": "",
+          "instructors": [
+            "MacVean, Lissa J"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "104 EWRE",
+          "enrolled": 3,
+          "capacity": 25,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

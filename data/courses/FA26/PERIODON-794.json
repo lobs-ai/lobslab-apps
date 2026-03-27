@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:56:26.793Z",
+  "courseId": "PERIODON 794",
+  "courseDescr": "Implants",
+  "catalogNumber": "794",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/794",
+  "sourceTitle": "PERIODON 794 Implants",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10187",
+          "topic": "",
+          "instructors": [
+            "Avila Ortiz, Gustavo",
+            "Chen, Zhaozhao"
+          ],
+          "times": "We 11:00AM - 12:00PM",
+          "locations": "G311 DENT",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

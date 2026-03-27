@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:54:59.592Z",
+  "courseId": "DENT 825I",
+  "courseDescr": "Immersion Pathway",
+  "catalogNumber": "825I",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/825I",
+  "sourceTitle": "DENT 825I Immersion Pathway",
+  "sectionGroups": [
+    {
+      "name": "Research",
+      "shortLabel": "Research",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 103,
+        "available": 103
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22813",
+          "topic": "",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "23547",
+          "topic": "Pathways Immersion Dual Degree",
+          "instructors": [
+            "de Peralta, Tracy Lynn"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 3,
+          "available": 3,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

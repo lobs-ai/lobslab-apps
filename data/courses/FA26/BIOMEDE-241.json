@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:24.349Z",
+  "courseId": "BIOMEDE 241",
+  "courseDescr": "Stats Comp Data Anal",
+  "catalogNumber": "241",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/241",
+  "sourceTitle": "BIOMEDE 241 Stats Comp Data Anal",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17082",
+          "topic": "",
+          "instructors": [
+            "Jensen, Paul Anthony"
+          ],
+          "times": "TuTh 11:30AM - 1:30PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

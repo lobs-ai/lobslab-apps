@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:24.594Z",
+  "courseId": "CEE 881",
+  "courseDescr": "EWRE Grad Sem",
+  "catalogNumber": "881",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/881",
+  "sourceTitle": "CEE 881 EWRE Grad Sem",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 74,
+        "available": 74
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26409",
+          "topic": "",
+          "instructors": [
+            "Ellis, Brian"
+          ],
+          "times": "Tu 4:30PM - 6:00PM",
+          "locations": "133 CHRYS",
+          "enrolled": 0,
+          "capacity": 74,
+          "available": 74,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

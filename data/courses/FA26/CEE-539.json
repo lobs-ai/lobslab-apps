@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:11.801Z",
+  "courseId": "CEE 539",
+  "courseDescr": "Modern Const Mgmt",
+  "catalogNumber": "539",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/539",
+  "sourceTitle": "CEE 539 Modern Const Mgmt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28533",
+          "topic": "",
+          "instructors": [
+            "Lee, SangHyun"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

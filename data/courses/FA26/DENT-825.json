@@ -1,0 +1,105 @@
+{
+  "syncedAt": "2026-03-27T20:54:56.280Z",
+  "courseId": "DENT 825",
+  "courseDescr": "Selectives Pathway",
+  "catalogNumber": "825",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/825",
+  "sourceTitle": "DENT 825 Selectives Pathway",
+  "sectionGroups": [
+    {
+      "name": "Clinicals",
+      "shortLabel": "Clinical",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 125,
+        "available": 125
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "22812",
+          "topic": "",
+          "instructors": [
+            "de Peralta, Tracy Lynn",
+            "Sweier, Domenica Giovanna"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "23950",
+          "topic": "",
+          "instructors": [
+            "de Peralta, Tracy Lynn"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "34004",
+          "topic": "CBCE Volunteer Rotations",
+          "instructors": [
+            "Tomaka, Sarah A"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "28079",
+          "topic": "Interdisc Treat Plan Comp Pt",
+          "instructors": [
+            "Danciu, Theodora Elena"
+          ],
+          "times": "We 8:00AM - 10:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "26470",
+          "topic": "Advanced Pediatric Dentistry",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

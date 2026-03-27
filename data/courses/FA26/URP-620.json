@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:44.486Z",
+  "courseId": "URP 620",
+  "courseDescr": "Energy Planning",
+  "catalogNumber": "620",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/620",
+  "sourceTitle": "URP 620 Energy Planning",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 23,
+        "waitlist": 0,
+        "total": 23,
+        "capacity": 40,
+        "available": 17
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29619",
+          "topic": "",
+          "instructors": [
+            "Mills, Sarah Banas"
+          ],
+          "times": "Fr 1:00PM - 4:00PM",
+          "locations": "2115 A&AB",
+          "enrolled": 23,
+          "capacity": 40,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "syncedAt": "2026-03-27T21:02:00.087Z",
+  "courseId": "EECS 388",
+  "courseDescr": "Intro Comp Security",
+  "catalogNumber": "388",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/388",
+  "sourceTitle": "EECS 388 Intro Comp Security",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 240,
+        "available": 240
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20183",
+          "topic": "",
+          "instructors": [
+            "Halderman, J Alex",
+            "Ensafi, Roya"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "19125",
+          "topic": "",
+          "instructors": [
+            "Ensafi, Roya",
+            "Halderman, J Alex"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 240,
+        "available": 240
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "19126",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "19150",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 5:30PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "20270",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 4:30PM - 6:30PM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "20334",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 12:30PM - 2:30PM",
+          "locations": "2246 CSRB",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "19127",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 1:30PM - 3:30PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "20816",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 2:30PM - 4:30PM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "25963",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "26758",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 1:30PM - 3:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Evening Midterm Exams",
+      "shortLabel": "Evening Midterm Exam",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 900,
+        "available": 900
+      },
+      "sections": [
+        {
+          "sectionNumber": "099",
+          "classNumber": "30695",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 900,
+          "available": 900,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:02:49.713Z",
+  "courseId": "ECE 501",
+  "courseDescr": "Prob&Random Proc",
+  "catalogNumber": "501",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/501",
+  "sourceTitle": "ECE 501 Prob&amp;Random Proc",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 8,
+        "waitlist": 0,
+        "total": 8,
+        "capacity": 92,
+        "available": 84
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21707",
+          "topic": "",
+          "instructors": [
+            "Anastasopoulos, Achilleas"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1010 DOW",
+          "enrolled": 8,
+          "capacity": 92,
+          "available": 84,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 8,
+        "waitlist": 0,
+        "total": 8,
+        "capacity": 92,
+        "available": 84
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "15336",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:00PM - 1:30PM",
+          "locations": "2147 GGBL",
+          "enrolled": 5,
+          "capacity": 46,
+          "available": 41,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "15411",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:00PM",
+          "locations": "2147 GGBL",
+          "enrolled": 3,
+          "capacity": 46,
+          "available": 43,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:08.491Z",
+  "courseId": "ORTHO 764",
+  "courseDescr": "Trtmnt Comp Patnt",
+  "catalogNumber": "764",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/764",
+  "sourceTitle": "ORTHO 764 Trtmnt Comp Patnt",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10171",
+          "topic": "",
+          "instructors": [
+            "Kim-Berman, Hera"
+          ],
+          "times": "We 8:00AM - 10:00AM",
+          "locations": "1033 KELL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

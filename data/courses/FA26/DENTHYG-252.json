@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:07.472Z",
+  "courseId": "DENTHYG 252",
+  "courseDescr": "Behavioral Sci I",
+  "catalogNumber": "252",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/252",
+  "sourceTitle": "DENTHYG 252 Behavioral Sci I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10127",
+          "topic": "",
+          "instructors": [
+            "Inglehart, Marita Rohr"
+          ],
+          "times": "We 8:00AM - 10:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

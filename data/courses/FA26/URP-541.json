@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:24.168Z",
+  "courseId": "URP 541",
+  "courseDescr": "Urban Land Use Plng",
+  "catalogNumber": "541",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/541",
+  "sourceTitle": "URP 541 Urban Land Use Plng",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 10,
+        "waitlist": 0,
+        "total": 10,
+        "capacity": 25,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35523",
+          "topic": "",
+          "instructors": [
+            "Kahan, Jeffrey"
+          ],
+          "times": "Fr 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 10,
+          "capacity": 25,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

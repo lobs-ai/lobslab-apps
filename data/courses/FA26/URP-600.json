@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:53:40.204Z",
+  "courseId": "URP 600",
+  "courseDescr": "Expanded Horizons",
+  "catalogNumber": "600",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/600",
+  "sourceTitle": "URP 600 Expanded Horizons",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 50,
+        "available": 38
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10062",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 12,
+          "capacity": 50,
+          "available": 38,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

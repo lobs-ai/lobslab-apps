@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:47.297Z",
+  "courseId": "EECS 570",
+  "courseDescr": "Parallel Compt Arch",
+  "catalogNumber": "570",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/570",
+  "sourceTitle": "EECS 570 Parallel Compt Arch",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 18,
+        "waitlist": 0,
+        "total": 18,
+        "capacity": 70,
+        "available": 52
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29029",
+          "topic": "",
+          "instructors": [
+            "Narayanasamy, Satish"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM Fr 3:30PM - 4:30PM",
+          "locations": "G906 COOL 1017 DOW",
+          "enrolled": 18,
+          "capacity": 70,
+          "available": 52,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

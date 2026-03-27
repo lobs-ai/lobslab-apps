@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:47.421Z",
+  "courseId": "RESTORA 510",
+  "courseDescr": "Basic Photography",
+  "catalogNumber": "510",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/510",
+  "sourceTitle": "RESTORA 510 Basic Photography",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26290",
+          "topic": "",
+          "instructors": [
+            "Rocha Maia, Rodrigo"
+          ],
+          "times": "Tu 9:00AM - 12:00PM",
+          "locations": "2450 DENT",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

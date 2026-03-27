@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:31.381Z",
+  "courseId": "URP 586",
+  "courseDescr": "Skil&Strat Comm Chan",
+  "catalogNumber": "586",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/586",
+  "sourceTitle": "URP 586 Skil&amp;Strat Comm Chan",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 20,
+        "available": 13
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24145",
+          "topic": "",
+          "instructors": [
+            "Hamilton, Greer Ayanna"
+          ],
+          "times": "Mo 2:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 7,
+          "capacity": 20,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

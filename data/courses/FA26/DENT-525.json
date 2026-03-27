@@ -1,0 +1,59 @@
+{
+  "syncedAt": "2026-03-27T20:54:07.410Z",
+  "courseId": "DENT 525",
+  "courseDescr": "Cell & Molecular Bio",
+  "catalogNumber": "525",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/525",
+  "sourceTitle": "DENT 525 Cell &amp; Molecular Bio",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 270,
+        "available": 270
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32239",
+          "topic": "",
+          "instructors": [
+            "Kaartinen, Vesa M"
+          ],
+          "times": "Th 1:00PM - 3:00PM MoWe 1:00PM - 2:00PM Mo 2:00PM - 3:00PM",
+          "locations": "G005 KELL G005 KELL G005 KELL",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "32549",
+          "topic": "",
+          "instructors": [],
+          "times": "MoWe 1:00PM - 3:00PM MoTuTh 10:00AM - 12:00PM Th 1:00PM - 4:00PM Fr 8:00AM - 10:00AM Tu 2:00PM - 3:00PM",
+          "locations": "1033 KELL 1033 KELL 1033 KELL 1033 KELL 1033 KELL",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

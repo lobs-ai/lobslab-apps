@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:58:39.986Z",
+  "courseId": "BIOMEDE 499",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "499",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/499",
+  "sourceTitle": "BIOMEDE 499 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 50,
+        "available": 49
+      },
+      "sections": [
+        {
+          "sectionNumber": "023",
+          "classNumber": "35162",
+          "topic": "Quant Biom Opt Imaging",
+          "instructors": [
+            "Zhou, Kevin C"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1940 COOL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "35169",
+          "topic": "Bioeng Innovatns Womens Health",
+          "instructors": [
+            "Shikanov, Ariella"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1014 DOW",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

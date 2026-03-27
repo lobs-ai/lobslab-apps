@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:30.740Z",
+  "courseId": "ORALBIOL 857",
+  "courseDescr": "Topc Oral Histology",
+  "catalogNumber": "857",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/857",
+  "sourceTitle": "ORALBIOL 857 Topc Oral Histology",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10155",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

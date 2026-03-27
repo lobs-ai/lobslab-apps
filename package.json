@@ -1,0 +1,15 @@
+{
+  "name": "less-crapuler",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ./server.mjs",
+    "dev": "node ./server.mjs",
+    "open": "./bin/open",
+    "run": "./bin/run",
+    "stop": "./bin/stop",
+    "restart": "./bin/restart",
+    "status": "./bin/status",
+    "sync:data": "node ./scripts/sync-data.mjs"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "syncedAt": "2026-03-27T20:57:20.143Z",
+  "courseId": "DENTHYG 475",
+  "courseDescr": "Mentored Prof Exp",
+  "catalogNumber": "475",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/475",
+  "sourceTitle": "DENTHYG 475 Mentored Prof Exp",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 31,
+        "available": 31
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16306",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "17681",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

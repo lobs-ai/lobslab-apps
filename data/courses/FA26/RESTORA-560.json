@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:49.817Z",
+  "courseId": "RESTORA 560",
+  "courseDescr": "Comp Tx Planning",
+  "catalogNumber": "560",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/560",
+  "sourceTitle": "RESTORA 560 Comp Tx Planning",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "33777",
+          "topic": "",
+          "instructors": [
+            "Neiva, Gisele De Faria"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

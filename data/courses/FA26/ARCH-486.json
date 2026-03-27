@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:25.704Z",
+  "courseId": "ARCH 486",
+  "courseDescr": "Dsgn Activ&Soc Justc",
+  "catalogNumber": "486",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/486",
+  "sourceTitle": "ARCH 486 Dsgn Activ&amp;Soc Justc",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 10,
+        "available": 9
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "37447",
+          "topic": "",
+          "instructors": [
+            "Wilkins, Craig Lawrence"
+          ],
+          "times": "Th 8:30AM - 11:30AM",
+          "locations": "TBA",
+          "enrolled": 1,
+          "capacity": 10,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

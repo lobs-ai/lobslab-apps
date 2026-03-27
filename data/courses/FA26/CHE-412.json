@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:03.158Z",
+  "courseId": "CHE 412",
+  "courseDescr": "Polymeric Materials",
+  "catalogNumber": "412",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/412",
+  "sourceTitle": "CHE 412 Polymeric Materials",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 50,
+        "available": 49
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10276",
+          "topic": "",
+          "instructors": [
+            "Love, Brian J"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1005 DOW",
+          "enrolled": 1,
+          "capacity": 50,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

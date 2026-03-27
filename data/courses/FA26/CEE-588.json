@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:22.184Z",
+  "courseId": "CEE 588",
+  "courseDescr": "Resiliency Finance",
+  "catalogNumber": "588",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/588",
+  "sourceTitle": "CEE 588 Resiliency Finance",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 88,
+        "available": 86
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20303",
+          "topic": "",
+          "instructors": [
+            "Adriaens, Peter"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "1610 IOE",
+          "enrolled": 2,
+          "capacity": 88,
+          "available": 86,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

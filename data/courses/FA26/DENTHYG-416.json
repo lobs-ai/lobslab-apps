@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:57:13.078Z",
+  "courseId": "DENTHYG 416",
+  "courseDescr": "Intraprof Education",
+  "catalogNumber": "416",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/416",
+  "sourceTitle": "DENTHYG 416 Intraprof Education",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20301",
+          "topic": "",
+          "instructors": [
+            "Kinney, Janet Sue",
+            "McComas, Martha J"
+          ],
+          "times": "Tu 8:00AM - 9:00AM",
+          "locations": "G550 KELL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

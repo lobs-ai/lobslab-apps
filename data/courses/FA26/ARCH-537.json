@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:52:39.055Z",
+  "courseId": "ARCH 537",
+  "courseDescr": "Fabrication",
+  "catalogNumber": "537",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/537",
+  "sourceTitle": "ARCH 537 Fabrication",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 43,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20429",
+          "topic": "",
+          "instructors": [
+            "Newell, Catie",
+            "Mcgee, Wes",
+            "Meier, Mark A"
+          ],
+          "times": "We 2:00PM - 5:00PM",
+          "locations": "2104 A&AB",
+          "enrolled": 7,
+          "capacity": 43,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

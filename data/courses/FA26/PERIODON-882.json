@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:56:28.741Z",
+  "courseId": "PERIODON 882",
+  "courseDescr": "Sem in Perio",
+  "catalogNumber": "882",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/882",
+  "sourceTitle": "PERIODON 882 Sem in Perio",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27036",
+          "topic": "",
+          "instructors": [
+            "Wang, Hom-Lay",
+            "Stuhr, Sandra Hyon Mi"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

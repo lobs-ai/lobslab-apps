@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:58.907Z",
+  "courseId": "EECS 110",
+  "courseDescr": "Discover CS",
+  "catalogNumber": "110",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/110",
+  "sourceTitle": "EECS 110 Discover CS",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 45,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26527",
+          "topic": "",
+          "instructors": [
+            "Gatchel, Madelyn"
+          ],
+          "times": "Tu 3:30PM - 5:30PM",
+          "locations": "151 CHRYS",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

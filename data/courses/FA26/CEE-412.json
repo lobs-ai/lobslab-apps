@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:31.157Z",
+  "courseId": "CEE 412",
+  "courseDescr": "Matrix Struct Anl",
+  "catalogNumber": "412",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/412",
+  "sourceTitle": "CEE 412 Matrix Struct Anl",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 23,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19775",
+          "topic": "",
+          "instructors": [
+            "Spence, Seymour Milton John"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 23,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

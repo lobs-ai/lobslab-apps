@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:59.367Z",
+  "courseId": "RESTORA 746",
+  "courseDescr": "Prin Operative Dent",
+  "catalogNumber": "746",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/746",
+  "sourceTitle": "RESTORA 746 Prin Operative Dent",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10196",
+          "topic": "",
+          "instructors": [
+            "Dennison, Joseph Debrune"
+          ],
+          "times": "Tu 1:00AM - 1:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

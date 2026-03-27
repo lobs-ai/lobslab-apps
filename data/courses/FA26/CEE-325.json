@@ -1,0 +1,104 @@
+{
+  "syncedAt": "2026-03-27T20:59:25.684Z",
+  "courseId": "CEE 325",
+  "courseDescr": "Fluid Mechanics",
+  "catalogNumber": "325",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/325",
+  "sourceTitle": "CEE 325 Fluid Mechanics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 60,
+        "available": 59
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10289",
+          "topic": "",
+          "instructors": [
+            "Bricker, Jeremy David"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "3150 DOW",
+          "enrolled": 1,
+          "capacity": 60,
+          "available": 59,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 46,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10290",
+          "topic": "",
+          "instructors": [
+            "Bricker, Jeremy David"
+          ],
+          "times": "Mo 3:30PM - 5:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 1,
+          "capacity": 16,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "25938",
+          "topic": "",
+          "instructors": [
+            "Bricker, Jeremy David"
+          ],
+          "times": "Tu 3:30PM - 5:30PM",
+          "locations": "1045 GGBL",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "29151",
+          "topic": "",
+          "instructors": [
+            "Bricker, Jeremy David"
+          ],
+          "times": "We 3:30PM - 5:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

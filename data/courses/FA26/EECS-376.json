@@ -1,0 +1,219 @@
+{
+  "syncedAt": "2026-03-27T21:01:56.393Z",
+  "courseId": "EECS 376",
+  "courseDescr": "Foundatns Comp Sci",
+  "catalogNumber": "376",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/376",
+  "sourceTitle": "EECS 376 Foundatns Comp Sci",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 377,
+        "available": 377
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20065",
+          "topic": "",
+          "instructors": [
+            "Graetz, Emily"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 125,
+          "available": 125,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "28332",
+          "topic": "",
+          "instructors": [
+            "Cheraghchi, Mahdi"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 127,
+          "available": 127,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "23917",
+          "topic": "",
+          "instructors": [
+            "Wein, Nicole"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 125,
+          "available": 125,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 377,
+        "available": 377
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10364",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "10365",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "18344",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "18696",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "24293",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "20269",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 37,
+          "available": 37,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "20893",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "21656",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1571 GGBL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "21657",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 4:30PM - 5:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "21658",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 5:30PM - 6:30PM",
+          "locations": "185 EWRE",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

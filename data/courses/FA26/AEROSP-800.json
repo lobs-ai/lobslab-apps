@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:58:14.313Z",
+  "courseId": "AEROSP 800",
+  "courseDescr": "Seminar",
+  "catalogNumber": "800",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/800",
+  "sourceTitle": "AEROSP 800 Seminar",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 0,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36990",
+          "topic": "",
+          "instructors": [
+            "Fidkowski, Krzysztof J",
+            "Gamba, Mirko",
+            "Kolmanovsky, Ilya"
+          ],
+          "times": "Tu 3:00PM - 4:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:38.787Z",
+  "courseId": "URP 598",
+  "courseDescr": "Afford Hsing Develop",
+  "catalogNumber": "598",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/598",
+  "sourceTitle": "URP 598 Afford Hsing Develop",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 16,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32602",
+          "topic": "",
+          "instructors": [
+            "Jacobson, Robert Joseph"
+          ],
+          "times": "Mo 6:00PM - 9:00PM",
+          "locations": "2108 A&AB",
+          "enrolled": 1,
+          "capacity": 16,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

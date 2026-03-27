@@ -1,0 +1,277 @@
+{
+  "syncedAt": "2026-03-27T20:54:37.383Z",
+  "courseId": "DENT 725",
+  "courseDescr": "Selectives Pathway",
+  "catalogNumber": "725",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/725",
+  "sourceTitle": "DENT 725 Selectives Pathway",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 4000,
+        "available": 4000
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "22076",
+          "topic": "Complete Denture Lab",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "22077",
+          "topic": "Dental Ceramics Lab",
+          "instructors": [
+            "Hamerink, John Douglas",
+            "Hamerink, Howard A"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "22078",
+          "topic": "Implant Planning and Fab Lab",
+          "instructors": [
+            "Hamerink, John Douglas",
+            "Hamerink, Howard A"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "22079",
+          "topic": "Intro to Dental Public Health",
+          "instructors": [
+            "de Peralta, Tracy Lynn",
+            "Fitzgerald, Mark"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "22080",
+          "topic": "D3 Special Projects in CBCE",
+          "instructors": [
+            "Hamerink, Howard A"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "22081",
+          "topic": "Dental Pulp and Pulp Responses",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph",
+            "Pobocik, Andrea"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "22082",
+          "topic": "Intermaxillary Fixation Appl",
+          "instructors": [
+            "Marti, Kyriaki Christos"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "23404",
+          "topic": "TMD, Sleep Bruxism and Occ",
+          "instructors": [
+            "Gerstner, Geoffrey E"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "23952",
+          "topic": "D3 Pediatric Dentistry",
+          "instructors": [
+            "Salzmann, Larry Bill"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "23951",
+          "topic": "Introduction to Orofacial Pain",
+          "instructors": [
+            "Hatfield, Elizabeth Rae"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "23953",
+          "topic": "Beyond the Goodie Bag",
+          "instructors": [
+            "McComas, Martha J"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "026",
+          "classNumber": "28077",
+          "topic": "Person &amp; Family Centered Care",
+          "instructors": [
+            "Nalliah, Romesh",
+            "Solway, Erica"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "028",
+          "classNumber": "28078",
+          "topic": "Anesthesia Tech in Clinic",
+          "instructors": [
+            "Van Tubergen, Elizabeth Anne",
+            "Duddanahalli Siddanna, Geetha",
+            "Zupelari Goncalves, Paulo"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "030",
+          "classNumber": "28082",
+          "topic": "AI, Machine &amp; Deep Learn Dent",
+          "instructors": [
+            "Polverini, Peter J"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "032",
+          "classNumber": "30488",
+          "topic": "Ped Dent Health: Interdisc Str",
+          "instructors": [
+            "Anovazzi Medeiros, Giovana",
+            "Salzmann, Larry Bill"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "034",
+          "classNumber": "31138",
+          "topic": "Dental Navigator",
+          "instructors": [
+            "McComas, Martha J"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

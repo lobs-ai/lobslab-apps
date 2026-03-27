@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:16.728Z",
+  "courseId": "ARCH 413",
+  "courseDescr": "History",
+  "catalogNumber": "413",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/413",
+  "sourceTitle": "ARCH 413 History",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15304",
+          "topic": "",
+          "instructors": [
+            "McMorrough, John Doyle"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "2222 A&AB",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:00.156Z",
+  "courseId": "RESTORA 747",
+  "courseDescr": "Clinical Evaluation",
+  "catalogNumber": "747",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/747",
+  "sourceTitle": "RESTORA 747 Clinical Evaluation",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18868",
+          "topic": "",
+          "instructors": [
+            "Neiva, Gisele De Faria"
+          ],
+          "times": "Fr 3:00PM - 5:00PM",
+          "locations": "2450 DENT",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

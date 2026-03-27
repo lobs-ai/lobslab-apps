@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:51.756Z",
+  "courseId": "UD 712",
+  "courseDescr": "UD Studio I",
+  "catalogNumber": "712",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UD",
+  "subjectDescr": "Urban Design",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UD/712",
+  "sourceTitle": "UD 712 UD Studio I",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 20,
+        "available": 18
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22482",
+          "topic": "",
+          "instructors": [
+            "Cuellar, Gabriel"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

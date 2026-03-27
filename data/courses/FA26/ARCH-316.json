@@ -1,0 +1,140 @@
+{
+  "syncedAt": "2026-03-27T20:52:12.532Z",
+  "courseId": "ARCH 316",
+  "courseDescr": "Theories & Methods I",
+  "catalogNumber": "316",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/316",
+  "sourceTitle": "ARCH 316 Theories &amp; Methods I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10023",
+          "topic": "",
+          "instructors": [
+            "Clutter, McLain",
+            "Morcillo Pallares, Ana"
+          ],
+          "times": "MoWe 10:30AM - 11:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10024",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "15911",
+          "topic": "",
+          "instructors": [
+            "Morcillo Pallares, Ana"
+          ],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2108 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "21844",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2210 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "27169",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "35499",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2108 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "35500",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

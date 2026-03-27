@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:24.255Z",
+  "courseId": "ARCH 463",
+  "courseDescr": "Arch & Psychology",
+  "catalogNumber": "463",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/463",
+  "sourceTitle": "ARCH 463 Arch &amp; Psychology",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 10,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "37448",
+          "topic": "",
+          "instructors": [
+            "Knoblauch, Joy"
+          ],
+          "times": "Tu 8:30AM - 11:30AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

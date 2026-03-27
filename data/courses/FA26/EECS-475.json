@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:33.263Z",
+  "courseId": "EECS 475",
+  "courseDescr": "Intro Cryptography",
+  "catalogNumber": "475",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/475",
+  "sourceTitle": "EECS 475 Intro Cryptography",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 42,
+        "available": 42
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30730",
+          "topic": "",
+          "instructors": [
+            "Wu, Ke"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 42,
+          "available": 42,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 42,
+        "available": 42
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "30732",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 42,
+          "available": 42,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:07.685Z",
+  "courseId": "EECS 415",
+  "courseDescr": "Intro to Plasmas",
+  "catalogNumber": "415",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/415",
+  "sourceTitle": "EECS 415 Intro to Plasmas",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31417",
+          "topic": "",
+          "instructors": [
+            "McBride, Ryan David"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "107 GFL",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

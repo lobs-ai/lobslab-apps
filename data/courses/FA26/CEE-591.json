@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:22.965Z",
+  "courseId": "CEE 591",
+  "courseDescr": "Env Fluid Mechanics",
+  "catalogNumber": "591",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/591",
+  "sourceTitle": "CEE 591 Env Fluid Mechanics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 18,
+        "available": 17
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17427",
+          "topic": "",
+          "instructors": [
+            "MacVean, Lissa J"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 1,
+          "capacity": 18,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

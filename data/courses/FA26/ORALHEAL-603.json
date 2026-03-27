@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:39.095Z",
+  "courseId": "ORALHEAL 603",
+  "courseDescr": "Craniofac Dev&Grow",
+  "catalogNumber": "603",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/603",
+  "sourceTitle": "ORALHEAL 603 Craniofac Dev&amp;Grow",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19317",
+          "topic": "",
+          "instructors": [
+            "Berkman, Mark E"
+          ],
+          "times": "Tu 8:00AM - 10:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

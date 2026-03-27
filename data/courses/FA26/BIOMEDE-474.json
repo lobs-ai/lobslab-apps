@@ -1,0 +1,119 @@
+{
+  "syncedAt": "2026-03-27T20:58:37.762Z",
+  "courseId": "BIOMEDE 474",
+  "courseDescr": "Intro to Tissue Engr",
+  "catalogNumber": "474",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/474",
+  "sourceTitle": "BIOMEDE 474 Intro to Tissue Engr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 52,
+        "available": 52
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21407",
+          "topic": "",
+          "instructors": [
+            "Putnam, Andrew"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1130 LBME",
+          "enrolled": 0,
+          "capacity": 52,
+          "available": 52,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 52,
+        "available": 52
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "21408",
+          "topic": "",
+          "instructors": [
+            "Putnam, Andrew"
+          ],
+          "times": "Mo 9:30AM - 11:30AM",
+          "locations": "1220 LBME",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "23349",
+          "topic": "",
+          "instructors": [
+            "Putnam, Andrew"
+          ],
+          "times": "Tu 12:30PM - 2:30PM",
+          "locations": "1220 LBME",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "21409",
+          "topic": "",
+          "instructors": [
+            "Putnam, Andrew"
+          ],
+          "times": "We 9:30AM - 11:30AM",
+          "locations": "1220 LBME",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "35105",
+          "topic": "",
+          "instructors": [
+            "Putnam, Andrew"
+          ],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "1220 LBME",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

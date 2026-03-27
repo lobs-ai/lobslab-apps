@@ -1,0 +1,340 @@
+{
+  "syncedAt": "2026-03-27T21:01:10.667Z",
+  "courseId": "EECS 203",
+  "courseDescr": "Discrete Math",
+  "catalogNumber": "203",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/203",
+  "sourceTitle": "EECS 203 Discrete Math",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 373,
+        "available": 373
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20759",
+          "topic": "",
+          "instructors": [
+            "Diaz, Kimberly Khalsa"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 79,
+          "available": 79,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "18393",
+          "topic": "",
+          "instructors": [
+            "Graetz, Emily"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 79,
+          "available": 79,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "26494",
+          "topic": "",
+          "instructors": [
+            "Graetz, Emily"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "23915",
+          "topic": "",
+          "instructors": [
+            "Diaz, Kimberly Khalsa"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "33288",
+          "topic": "Advanced Topics",
+          "instructors": [
+            "Bodwin, Gregory Michael"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1571 GGBL",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 373,
+        "available": 373
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "15150",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "18744",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "24635",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 9:30AM - 10:30AM",
+          "locations": "2147 GGBL",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "19640",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:00AM - 11:00AM",
+          "locations": "1230 USB",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "21817",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:00PM - 4:00PM",
+          "locations": "1544 NUB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "15153",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "18060",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:00PM - 1:30PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 31,
+          "available": 31,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "18771",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:00PM",
+          "locations": "185 EWRE",
+          "enrolled": 0,
+          "capacity": 31,
+          "available": 31,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "15152",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 12:00PM - 1:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 0,
+          "capacity": 26,
+          "available": 26,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "27865",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 1:30PM - 3:00PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "021",
+          "classNumber": "21818",
+          "topic": "CSP Section",
+          "instructors": [],
+          "times": "Fr 2:00PM - 4:00PM",
+          "locations": "3207 LSA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "19216",
+          "topic": "FoF Section",
+          "instructors": [],
+          "times": "Fr 10:00AM - 12:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "023",
+          "classNumber": "19810",
+          "topic": "FoF Section",
+          "instructors": [],
+          "times": "Mo 1:30PM - 3:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "15151",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 10:30AM - 11:30AM",
+          "locations": "2246 CSRB",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "025",
+          "classNumber": "18346",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 12:30PM - 1:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "051",
+          "classNumber": "28232",
+          "topic": "Advanced Topics",
+          "instructors": [],
+          "times": "Fr 10:00AM - 11:30AM",
+          "locations": "R0420 BUS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "052",
+          "classNumber": "27830",
+          "topic": "Advanced Topics",
+          "instructors": [],
+          "times": "Fr 3:00PM - 4:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

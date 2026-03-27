@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:41.100Z",
+  "courseId": "EECS 494",
+  "courseDescr": "Comp Game Design",
+  "catalogNumber": "494",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/494",
+  "sourceTitle": "EECS 494 Comp Game Design",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 65,
+        "available": 65
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10373",
+          "topic": "",
+          "instructors": [
+            "Yarger, Austin David"
+          ],
+          "times": "MoWe 10:30AM - 12:30PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:42.489Z",
+  "courseId": "PROSTHOD 643",
+  "courseDescr": "Clin Prosthodontics",
+  "catalogNumber": "643",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PROSTHOD",
+  "subjectDescr": "Prosthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PROSTHOD/643",
+  "sourceTitle": "PROSTHOD 643 Clin Prosthodontics",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10190",
+          "topic": "",
+          "instructors": [
+            "Saglik, Berna"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

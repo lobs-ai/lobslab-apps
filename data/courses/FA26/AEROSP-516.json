@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:58.988Z",
+  "courseId": "AEROSP 516",
+  "courseDescr": "Mech Composites",
+  "catalogNumber": "516",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/516",
+  "sourceTitle": "AEROSP 516 Mech Composites",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 30,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19081",
+          "topic": "",
+          "instructors": [
+            "Sodano, Henry"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "136 EWRE",
+          "enrolled": 5,
+          "capacity": 30,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

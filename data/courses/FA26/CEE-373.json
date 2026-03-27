@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:30.351Z",
+  "courseId": "CEE 373",
+  "courseDescr": "Statistical Methods",
+  "catalogNumber": "373",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/373",
+  "sourceTitle": "CEE 373 Statistical Methods",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 90,
+        "available": 90
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16223",
+          "topic": "",
+          "instructors": [
+            "Loos, Sabine Chandradewi"
+          ],
+          "times": "MoWeFr 10:30AM - 11:30AM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 90,
+          "available": 90,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

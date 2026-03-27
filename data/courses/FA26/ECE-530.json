@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:55.186Z",
+  "courseId": "ECE 530",
+  "courseDescr": "Electromag Thry I",
+  "catalogNumber": "530",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/530",
+  "sourceTitle": "ECE 530 Electromag Thry I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 25,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10376",
+          "topic": "",
+          "instructors": [
+            "Sarabandi, Kamal"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1311 EECS",
+          "enrolled": 4,
+          "capacity": 25,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

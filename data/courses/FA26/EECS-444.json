@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:19.138Z",
+  "courseId": "EECS 444",
+  "courseDescr": "Analys Soc Networks",
+  "catalogNumber": "444",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/444",
+  "sourceTitle": "EECS 444 Analys Soc Networks",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34536",
+          "topic": "",
+          "instructors": [
+            "Liu, Mingyan"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "34537",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

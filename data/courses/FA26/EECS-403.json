@@ -1,0 +1,74 @@
+{
+  "syncedAt": "2026-03-27T21:02:02.531Z",
+  "courseId": "EECS 403",
+  "courseDescr": "Fnd Data Str Algo",
+  "catalogNumber": "403",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/403",
+  "sourceTitle": "EECS 403 Fnd Data Str Algo",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 20,
+        "available": 18
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30594",
+          "topic": "",
+          "instructors": [
+            "Garcia-Ramirez, Hector",
+            "Darden, Marcus M",
+            "Paoletti, David R"
+          ],
+          "times": "TuTh 4:30PM - 6:00PM",
+          "locations": "1365 LCSIB",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 20,
+        "available": 18
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "30595",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "185 EWRE",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

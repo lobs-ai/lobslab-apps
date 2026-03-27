@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:59.542Z",
+  "courseId": "ECE 544",
+  "courseDescr": "Anlys Soc Networks",
+  "catalogNumber": "544",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/544",
+  "sourceTitle": "ECE 544 Anlys Soc Networks",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 20,
+        "available": 14
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34547",
+          "topic": "",
+          "instructors": [
+            "Liu, Mingyan"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 6,
+          "capacity": 20,
+          "available": 14,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

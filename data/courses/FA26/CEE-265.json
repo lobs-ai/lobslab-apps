@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:22.717Z",
+  "courseId": "CEE 265",
+  "courseDescr": "Sus Engr Prin",
+  "catalogNumber": "265",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/265",
+  "sourceTitle": "CEE 265 Sus Engr Prin",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 126,
+        "available": 126
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "14875",
+          "topic": "",
+          "instructors": [
+            "Semrau, Jeremy D"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1060 FMCRB",
+          "enrolled": 0,
+          "capacity": 126,
+          "available": 126,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:36.488Z",
+  "courseId": "URP 591",
+  "courseDescr": "Fin RE Development",
+  "catalogNumber": "591",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/591",
+  "sourceTitle": "URP 591 Fin RE Development",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 40,
+        "available": 39
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28474",
+          "topic": "",
+          "instructors": [
+            "Bubniak, William Anthony"
+          ],
+          "times": "We 2:30PM - 5:30PM",
+          "locations": "R1100 BUS",
+          "enrolled": 1,
+          "capacity": 40,
+          "available": 39,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

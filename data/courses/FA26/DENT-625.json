@@ -1,0 +1,222 @@
+{
+  "syncedAt": "2026-03-27T20:54:17.909Z",
+  "courseId": "DENT 625",
+  "courseDescr": "Selectives Pathway",
+  "catalogNumber": "625",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/625",
+  "sourceTitle": "DENT 625 Selectives Pathway",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 2600,
+        "available": 2600
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "21395",
+          "topic": "Supplemental Prof. Learning",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph"
+          ],
+          "times": "Tu 8:00AM - 12:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "23402",
+          "topic": "Survey Design",
+          "instructors": [
+            "Inglehart, Marita Rohr"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "21396",
+          "topic": "On Campus Mini Rotations",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "21397",
+          "topic": "Off Campus Mini Rotations",
+          "instructors": [
+            "Hamerink, John Douglas",
+            "Hamerink, Howard A"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "22083",
+          "topic": "",
+          "instructors": [
+            "Sweier, Domenica Giovanna"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "21398",
+          "topic": "",
+          "instructors": [
+            "Sweier, Domenica Giovanna"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "30783",
+          "topic": "Tooth Development Anomalies",
+          "instructors": [
+            "Ritchie, Helena H"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "21399",
+          "topic": "Integrative Dentistry",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "026",
+          "classNumber": "23403",
+          "topic": "Underrep Leadership in Dentist",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "028",
+          "classNumber": "23436",
+          "topic": "Presentation Skills",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "030",
+          "classNumber": "27119",
+          "topic": "Precision Oncology",
+          "instructors": [
+            "Polverini, Peter J"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "032",
+          "classNumber": "26974",
+          "topic": "Introd to Preclinic Teaching",
+          "instructors": [
+            "Souza Gomes da Fontoura, Clarissa",
+            "Pobocik, Andrea"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "034",
+          "classNumber": "31137",
+          "topic": "Clinical Dentistry in Spanish",
+          "instructors": [
+            "Danciu, Theodora Elena"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 200,
+          "available": 200,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:00:45.948Z",
+  "courseId": "CSE 575",
+  "courseDescr": "Adv Cryptography",
+  "catalogNumber": "575",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/575",
+  "sourceTitle": "CSE 575 Adv Cryptography",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 6,
+        "total": 7,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22272",
+          "topic": "",
+          "instructors": [
+            "Peikert, Christopher J"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1206 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 6,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 6,
+        "total": 7,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "22273",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1045 GGBL",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 6,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

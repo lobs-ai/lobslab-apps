@@ -1,0 +1,63 @@
+{
+  "syncedAt": "2026-03-27T20:53:52.716Z",
+  "courseId": "DHYGRACK 684",
+  "courseDescr": "Write Oral Heal Sci",
+  "catalogNumber": "684",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DHYGRACK",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DHYGRACK/684",
+  "sourceTitle": "DHYGRACK 684 Write Oral Heal Sci",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22559",
+          "topic": "",
+          "instructors": [
+            "Haddlesey, Christopher Brian",
+            "Eagle, Iwonka Theresa",
+            "Kinney, Janet Sue"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "26944",
+          "topic": "",
+          "instructors": [
+            "Kinney, Janet Sue"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "syncedAt": "2026-03-27T20:59:06.844Z",
+  "courseId": "CHE 487",
+  "courseDescr": "Proc Sim & Design",
+  "catalogNumber": "487",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/487",
+  "sourceTitle": "CHE 487 Proc Sim &amp; Design",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 48,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10281",
+          "topic": "",
+          "instructors": [
+            "Tadd, Andrew Roland",
+            "Grimble, Lisa A"
+          ],
+          "times": "MoWeFr 9:30AM - 10:30AM",
+          "locations": "2246 CSRB",
+          "enrolled": 0,
+          "capacity": 48,
+          "available": 48,
+          "waitlist": 0,
+          "credits": 5
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 48,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10282",
+          "topic": "",
+          "instructors": [
+            "Tadd, Andrew Roland",
+            "Grimble, Lisa A"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 48,
+          "available": 48,
+          "waitlist": 0,
+          "credits": 5
+        }
+      ]
+    }
+  ]
+}

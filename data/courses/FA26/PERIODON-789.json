@@ -1,0 +1,49 @@
+{
+  "syncedAt": "2026-03-27T20:56:24.642Z",
+  "courseId": "PERIODON 789",
+  "courseDescr": "Patient&Prac Mgt",
+  "catalogNumber": "789",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/789",
+  "sourceTitle": "PERIODON 789 Patient&amp;Prac Mgt",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10185",
+          "topic": "",
+          "instructors": [
+            "Avila Ortiz, Gustavo",
+            "Barootchi, Shayan",
+            "Chen, Zhaozhao",
+            "Kumar, Purnima"
+          ],
+          "times": "We 5:30PM - 7:30PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

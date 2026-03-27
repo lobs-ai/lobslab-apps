@@ -1,0 +1,157 @@
+{
+  "syncedAt": "2026-03-27T21:02:36.480Z",
+  "courseId": "EECS 484",
+  "courseDescr": "Database Mgt Syst",
+  "catalogNumber": "484",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/484",
+  "sourceTitle": "EECS 484 Database Mgt Syst",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 305,
+        "available": 298
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10369",
+          "topic": "",
+          "instructors": [
+            "Almomani, Raed",
+            "Jagadish, H V"
+          ],
+          "times": "TuTh 4:30PM - 6:00PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 3,
+          "capacity": 85,
+          "available": 82,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "28019",
+          "topic": "",
+          "instructors": [
+            "Jagadish, H V",
+            "Almomani, Raed"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "ARR",
+          "enrolled": 4,
+          "capacity": 110,
+          "available": 106,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "19651",
+          "topic": "",
+          "instructors": [
+            "Jagadish, H V",
+            "Almomani, Raed"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 305,
+        "available": 298
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10370",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "133 CHRYS",
+          "enrolled": 1,
+          "capacity": 45,
+          "available": 44,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "18042",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1017 DOW",
+          "enrolled": 3,
+          "capacity": 70,
+          "available": 67,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "18748",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 62,
+          "available": 62,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "19304",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 62,
+          "available": 62,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "35897",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1311 EECS",
+          "enrolled": 3,
+          "capacity": 66,
+          "available": 63,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "syncedAt": "2026-03-27T20:57:24.547Z",
+  "courseId": "AERO 310",
+  "courseDescr": "Leadership & Comm I",
+  "catalogNumber": "310",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "AERO",
+  "subjectDescr": "Air Force Officer Education",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AERO/310",
+  "sourceTitle": "AERO 310 Leadership &amp; Comm I",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22740",
+          "topic": "",
+          "instructors": [
+            "Leland, Michael Anthony"
+          ],
+          "times": "Mo 6:00AM - 9:00AM",
+          "locations": "0101 OBSRV",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "004",
+          "classNumber": "22741",
+          "topic": "",
+          "instructors": [
+            "Jackowski, Henry"
+          ],
+          "times": "Th 6:00AM - 8:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

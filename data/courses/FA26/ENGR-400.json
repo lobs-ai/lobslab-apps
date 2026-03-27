@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T21:04:17.200Z",
+  "courseId": "ENGR 400",
+  "courseDescr": "Co-Op Educ Engr",
+  "catalogNumber": "400",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/400",
+  "sourceTitle": "ENGR 400 Co-Op Educ Engr",
+  "sectionGroups": [
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10408",
+          "topic": "",
+          "instructors": [
+            "Pipe, Kevin",
+            "Boivin, Kerri"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

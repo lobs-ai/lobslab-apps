@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:55:32.785Z",
+  "courseId": "ORALDIAG 662",
+  "courseDescr": "Radiology",
+  "catalogNumber": "662",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALDIAG",
+  "subjectDescr": "Oral Diagnosis",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALDIAG/662",
+  "sourceTitle": "ORALDIAG 662 Radiology",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10160",
+          "topic": "",
+          "instructors": [
+            "Benavides, Erika",
+            "Soki, Fabiana Naomi"
+          ],
+          "times": "We 10:00AM - 12:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

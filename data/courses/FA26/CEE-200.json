@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:59:19.804Z",
+  "courseId": "CEE 200",
+  "courseDescr": "Intro to CEE",
+  "catalogNumber": "200",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/200",
+  "sourceTitle": "CEE 200 Intro to CEE",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 91,
+        "available": 91
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20205",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 91,
+          "available": 91,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

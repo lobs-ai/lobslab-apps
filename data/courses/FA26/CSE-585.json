@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:00:48.197Z",
+  "courseId": "CSE 585",
+  "courseDescr": "Adv Scalable Systems",
+  "catalogNumber": "585",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/585",
+  "sourceTitle": "CSE 585 Adv Scalable Systems",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 5,
+        "total": 6,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29242",
+          "topic": "",
+          "instructors": [
+            "Chowdhury, Mosharaf"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1005 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 5,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 5,
+        "total": 6,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "29243",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 5,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

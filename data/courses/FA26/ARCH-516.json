@@ -1,0 +1,145 @@
+{
+  "syncedAt": "2026-03-27T20:52:36.493Z",
+  "courseId": "ARCH 516",
+  "courseDescr": "Arch Representation",
+  "catalogNumber": "516",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/516",
+  "sourceTitle": "ARCH 516 Arch Representation",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 22,
+        "waitlist": 0,
+        "total": 22,
+        "capacity": 104,
+        "available": 82
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15278",
+          "topic": "",
+          "instructors": [
+            "McMorrough, Julia"
+          ],
+          "times": "Tu 1:00PM - 2:00PM",
+          "locations": "1360 A&AB",
+          "enrolled": 22,
+          "capacity": 104,
+          "available": 82,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 22,
+        "waitlist": 0,
+        "total": 22,
+        "capacity": 104,
+        "available": 82
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "15279",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 22,
+          "capacity": 104,
+          "available": 82,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "34341",
+          "topic": "",
+          "instructors": [
+            "Kulper, Perry Dean"
+          ],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "34344",
+          "topic": "",
+          "instructors": [
+            "Mufreh, Athar"
+          ],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "34345",
+          "topic": "",
+          "instructors": [
+            "Singh, Ishan Pal"
+          ],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "34346",
+          "topic": "",
+          "instructors": [
+            "Penarroyo, Cyrus"
+          ],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "2222 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "34347",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 2:00PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

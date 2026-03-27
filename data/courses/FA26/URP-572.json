@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:28.919Z",
+  "courseId": "URP 572",
+  "courseDescr": "Comp Hsng Policy",
+  "catalogNumber": "572",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/572",
+  "sourceTitle": "URP 572 Comp Hsng Policy",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 25,
+        "available": 19
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22390",
+          "topic": "",
+          "instructors": [
+            "Pimentel Walker, Ana Paula"
+          ],
+          "times": "MoWe 10:00AM - 11:30AM",
+          "locations": "2222 A&AB",
+          "enrolled": 6,
+          "capacity": 25,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

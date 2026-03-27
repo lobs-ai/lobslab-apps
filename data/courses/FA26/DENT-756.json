@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:47.116Z",
+  "courseId": "DENT 756",
+  "courseDescr": "Pract Mgmt: Bus. Plans",
+  "catalogNumber": "756",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/756",
+  "sourceTitle": "DENT 756 Pract Mgmt: Bus. Plans",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 120,
+        "available": 120
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20481",
+          "topic": "",
+          "instructors": [
+            "Fitzgerald, Mark"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

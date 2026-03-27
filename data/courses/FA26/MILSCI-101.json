@@ -1,0 +1,95 @@
+{
+  "syncedAt": "2026-03-27T20:57:27.416Z",
+  "courseId": "MILSCI 101",
+  "courseDescr": "Intro Officership",
+  "catalogNumber": "101",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "MILSCI",
+  "subjectDescr": "Military Science",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/MILSCI/101",
+  "sourceTitle": "MILSCI 101 Intro Officership",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16799",
+          "topic": "",
+          "instructors": [
+            "Barth, Kyle N",
+            "Goldstein, Louis D",
+            "Hanson, Michael Ross"
+          ],
+          "times": "Tu 8:00AM - 9:00AM",
+          "locations": "1250 USB",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "13059",
+          "topic": "",
+          "instructors": [
+            "Barth, Kyle N",
+            "Goldstein, Louis D",
+            "Hanson, Michael Ross"
+          ],
+          "times": "Th 1:00AM - 1:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "003",
+          "classNumber": "13060",
+          "topic": "",
+          "instructors": [
+            "Barth, Kyle N",
+            "Goldstein, Louis D",
+            "Hanson, Michael Ross"
+          ],
+          "times": "Th 3:00PM - 5:00PM",
+          "locations": "G005 KELL",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

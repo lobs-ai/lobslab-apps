@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:00:20.327Z",
+  "courseId": "CEE 577",
+  "courseDescr": "Connected Vehicles",
+  "catalogNumber": "577",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/577",
+  "sourceTitle": "CEE 577 Connected Vehicles",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32414",
+          "topic": "",
+          "instructors": [
+            "Orosz, Gabor"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 55,
+          "available": 55,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "881",
+          "classNumber": "32928",
+          "topic": "",
+          "instructors": [
+            "Orosz, Gabor"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "REMOTE",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

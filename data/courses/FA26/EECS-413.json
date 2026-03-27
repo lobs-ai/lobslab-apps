@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:02:05.983Z",
+  "courseId": "EECS 413",
+  "courseDescr": "Monolith Ampl Circ",
+  "catalogNumber": "413",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/413",
+  "sourceTitle": "EECS 413 Monolith Ampl Circ",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 57,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15247",
+          "topic": "",
+          "instructors": [
+            "Afshari, Ehsan"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 12,
+          "capacity": 57,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 47,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "15299",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 6:00PM - 9:00PM",
+          "locations": "2517 GGBL",
+          "enrolled": 5,
+          "capacity": 21,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "15300",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "2517 GGBL",
+          "enrolled": 7,
+          "capacity": 26,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

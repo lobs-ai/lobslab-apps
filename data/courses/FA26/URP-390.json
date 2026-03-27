@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:53:06.798Z",
+  "courseId": "URP 390",
+  "courseDescr": "RE Design&Dev Fund",
+  "catalogNumber": "390",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/390",
+  "sourceTitle": "URP 390 RE Design&amp;Dev Fund",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 130,
+        "available": 130
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32159",
+          "topic": "",
+          "instructors": [
+            "Farbman, Andrew Victor"
+          ],
+          "times": "TuTh 4:00PM - 5:30PM",
+          "locations": "2548 NUB",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "33438",
+          "topic": "",
+          "instructors": [
+            "Ferrari, Jill Marie"
+          ],
+          "times": "TuTh 4:00PM - 5:30PM",
+          "locations": "R1100 BUS",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

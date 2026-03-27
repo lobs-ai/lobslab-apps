@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:38.087Z",
+  "courseId": "ARCH 533",
+  "courseDescr": "Possible Worlds",
+  "catalogNumber": "533",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/533",
+  "sourceTitle": "ARCH 533 Possible Worlds",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 10,
+        "waitlist": 1,
+        "total": 11,
+        "capacity": 10,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35596",
+          "topic": "",
+          "instructors": [
+            "McMorrough, John Doyle"
+          ],
+          "times": "Mo 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 10,
+          "capacity": 10,
+          "available": 0,
+          "waitlist": 1,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

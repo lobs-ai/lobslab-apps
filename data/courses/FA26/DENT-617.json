@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:54:13.766Z",
+  "courseId": "DENT 617",
+  "courseDescr": "Principles of Endodontics I",
+  "catalogNumber": "617",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/617",
+  "sourceTitle": "DENT 617 Principles of Endodontics I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32250",
+          "topic": "",
+          "instructors": [
+            "Botero, Tatiana M",
+            "Cavalcanti, Bruno"
+          ],
+          "times": "We 8:00AM - 9:00AM",
+          "locations": "G322 DENT",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

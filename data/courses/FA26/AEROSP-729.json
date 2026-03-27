@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:58:12.528Z",
+  "courseId": "AEROSP 729",
+  "courseDescr": "Spec Top Gasdynamic",
+  "catalogNumber": "729",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/729",
+  "sourceTitle": "AEROSP 729 Spec Top Gasdynamic",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 50,
+        "available": 48
+      },
+      "sections": [
+        {
+          "sectionNumber": "003",
+          "classNumber": "31838",
+          "topic": "",
+          "instructors": [
+            "Gamba, Mirko"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1045 GGBL",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "31839",
+          "topic": "",
+          "instructors": [
+            "Viswanathan, Venkat"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "107 GFL",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

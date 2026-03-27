@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:57:06.815Z",
+  "courseId": "DENTHYG 211C",
+  "courseDescr": "Dent Hyg Clinic",
+  "catalogNumber": "211C",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/211C",
+  "sourceTitle": "DENTHYG 211C Dent Hyg Clinic",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28559",
+          "topic": "",
+          "instructors": [
+            "Carron, Allison",
+            "Cullen, Jennifer Leigh"
+          ],
+          "times": "TuTh 8:00AM - 12:00PM TuTh 1:00PM - 5:00PM",
+          "locations": "TBA TBA",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

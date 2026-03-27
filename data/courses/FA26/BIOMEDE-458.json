@@ -1,0 +1,124 @@
+{
+  "syncedAt": "2026-03-27T20:58:36.023Z",
+  "courseId": "BIOMEDE 458",
+  "courseDescr": "Biomed Instrum Des",
+  "catalogNumber": "458",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/458",
+  "sourceTitle": "BIOMEDE 458 Biomed Instrum Des",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 80,
+        "available": 75
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10256",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen",
+            "Fan, Xudong"
+          ],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 5,
+          "capacity": 80,
+          "available": 75,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 80,
+        "available": 75
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10257",
+          "topic": "",
+          "instructors": [
+            "Fan, Xudong",
+            "Panagis, Kathleen"
+          ],
+          "times": "MoWe 8:30AM - 11:30AM",
+          "locations": "1150 LBME",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10258",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen",
+            "Fan, Xudong"
+          ],
+          "times": "MoWe 12:00PM - 3:00PM",
+          "locations": "1150 LBME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "15196",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen",
+            "Fan, Xudong"
+          ],
+          "times": "TuTh 8:30AM - 11:30AM",
+          "locations": "1150 LBME",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "17107",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen",
+            "Fan, Xudong"
+          ],
+          "times": "TuTh 12:00PM - 3:00PM",
+          "locations": "1150 LBME",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:58:53.020Z",
+  "courseId": "BIOMEDE 655",
+  "courseDescr": "Prof Lead Dev I",
+  "catalogNumber": "655",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/655",
+  "sourceTitle": "BIOMEDE 655 Prof Lead Dev I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27965",
+          "topic": "",
+          "instructors": [
+            "Fay, Jonathan",
+            "Stegemann, Jan"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

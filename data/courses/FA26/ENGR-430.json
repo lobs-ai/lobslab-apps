@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:04:17.912Z",
+  "courseId": "ENGR 430",
+  "courseDescr": "Honors Seminar III",
+  "catalogNumber": "430",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/430",
+  "sourceTitle": "ENGR 430 Honors Seminar III",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 28,
+        "available": 28
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22388",
+          "topic": "",
+          "instructors": [
+            "Edington, Stacie J"
+          ],
+          "times": "Mo 4:30PM - 7:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 28,
+          "available": 28,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

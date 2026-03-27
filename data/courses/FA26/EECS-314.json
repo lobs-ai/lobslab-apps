@@ -1,0 +1,241 @@
+{
+  "syncedAt": "2026-03-27T21:01:43.091Z",
+  "courseId": "EECS 314",
+  "courseDescr": "Elec Ckts, Sys&Appl",
+  "catalogNumber": "314",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/314",
+  "sourceTitle": "EECS 314 Elec Ckts, Sys&amp;Appl",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 180,
+        "available": 180
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10328",
+          "topic": "",
+          "instructors": [
+            "Ganago, Alexander O"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 180,
+          "available": 180,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 180,
+        "available": 180
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10329",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 2:30PM - 3:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "10330",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "15599",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 4:30PM - 5:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 180,
+        "available": 180
+      },
+      "sections": [
+        {
+          "sectionNumber": "021",
+          "classNumber": "15936",
+          "topic": "",
+          "instructors": [],
+          "times": "We 10:30AM - 12:30PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "15937",
+          "topic": "",
+          "instructors": [],
+          "times": "We 12:30PM - 2:30PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "023",
+          "classNumber": "15938",
+          "topic": "",
+          "instructors": [],
+          "times": "We 5:00PM - 7:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "15939",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "025",
+          "classNumber": "15940",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 12:30PM - 2:30PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "026",
+          "classNumber": "15941",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 2:30PM - 4:30PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "027",
+          "classNumber": "15942",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 5:00PM - 7:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "028",
+          "classNumber": "33314",
+          "topic": "",
+          "instructors": [],
+          "times": "We 7:00PM - 9:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "029",
+          "classNumber": "33346",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 7:00PM - 9:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "030",
+          "classNumber": "33533",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 10:00AM - 12:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

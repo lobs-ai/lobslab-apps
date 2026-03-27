@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:06.851Z",
+  "courseId": "AEROSP 581",
+  "courseDescr": "Space Pol&Manage",
+  "catalogNumber": "581",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/581",
+  "sourceTitle": "AEROSP 581 Space Pol&amp;Manage",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 9,
+        "waitlist": 0,
+        "total": 9,
+        "capacity": 40,
+        "available": 31
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10241",
+          "topic": "",
+          "instructors": [
+            "Moldwin, Mark"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 9,
+          "capacity": 40,
+          "available": 31,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

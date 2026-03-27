@@ -1,0 +1,204 @@
+{
+  "syncedAt": "2026-03-27T21:01:25.746Z",
+  "courseId": "EECS 230",
+  "courseDescr": "Engineering EM",
+  "catalogNumber": "230",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/230",
+  "sourceTitle": "EECS 230 Engineering EM",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 131,
+        "available": 131
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21592",
+          "topic": "",
+          "instructors": [
+            "Pierce, Leland E"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1060 FMCRB",
+          "enrolled": 0,
+          "capacity": 66,
+          "available": 66,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "33421",
+          "topic": "",
+          "instructors": [
+            "Pierce, Leland E"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1200 EECS",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 131,
+        "available": 131
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "22326",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1311 EECS",
+          "enrolled": 0,
+          "capacity": 58,
+          "available": 58,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "30818",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1610 IOE",
+          "enrolled": 0,
+          "capacity": 73,
+          "available": 73,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "021",
+          "classNumber": "10319",
+          "topic": "",
+          "instructors": [],
+          "times": "We 3:00PM - 6:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 17,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "10320",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 1:30PM - 4:30PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 21,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "18089",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 6:00PM - 9:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 21,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "025",
+          "classNumber": "18090",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:00PM - 6:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 17,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "026",
+          "classNumber": "30812",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 6:00PM - 9:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "027",
+          "classNumber": "30813",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 3:30PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 21,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "028",
+          "classNumber": "33354",
+          "topic": "",
+          "instructors": [],
+          "times": "We 12:00PM - 3:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

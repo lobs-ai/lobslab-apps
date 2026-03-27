@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:59.825Z",
+  "courseId": "DENT 515",
+  "courseDescr": "Grand Rounds",
+  "catalogNumber": "515",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/515",
+  "sourceTitle": "DENT 515 Grand Rounds",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18004",
+          "topic": "",
+          "instructors": [
+            "Holland, Graham Rex"
+          ],
+          "times": "Th 8:00AM - 10:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

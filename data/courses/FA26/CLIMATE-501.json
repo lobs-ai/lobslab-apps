@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T21:00:38.596Z",
+  "courseId": "CLIMATE 501",
+  "courseDescr": "Climate,Atmos&Sp Sci",
+  "catalogNumber": "501",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/501",
+  "sourceTitle": "CLIMATE 501 Climate,Atmos&amp;Sp Sci",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 10,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "19924",
+          "topic": "Space Group Seminar",
+          "instructors": [
+            "Moldwin, Mark",
+            "Sachdeva, Nishtha"
+          ],
+          "times": "Mo 12:00PM - 1:00PM",
+          "locations": "2424 CSRB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

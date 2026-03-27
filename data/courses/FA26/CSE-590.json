@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:00:50.444Z",
+  "courseId": "CSE 590",
+  "courseDescr": "Adv Prog Lang",
+  "catalogNumber": "590",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/590",
+  "sourceTitle": "CSE 590 Adv Prog Lang",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 30,
+        "available": 26
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36036",
+          "topic": "",
+          "instructors": [
+            "New, Max"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "4440 EECS",
+          "enrolled": 4,
+          "capacity": 30,
+          "available": 26,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 30,
+        "available": 26
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "36037",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 4,
+          "capacity": 30,
+          "available": 26,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

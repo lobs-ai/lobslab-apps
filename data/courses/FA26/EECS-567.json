@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:46.627Z",
+  "courseId": "EECS 567",
+  "courseDescr": "Robot Kinemat Dynam",
+  "catalogNumber": "567",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/567",
+  "sourceTitle": "EECS 567 Robot Kinemat Dynam",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 18,
+        "waitlist": 0,
+        "total": 18,
+        "capacity": 60,
+        "available": 42
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34747",
+          "topic": "",
+          "instructors": [
+            "Gregg, Robert D"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1017 DOW",
+          "enrolled": 18,
+          "capacity": 60,
+          "available": 42,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

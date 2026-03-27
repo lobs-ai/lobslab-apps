@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:46.234Z",
+  "courseId": "PROSTHOD 876",
+  "courseDescr": "Adv Clin Crown&Brid",
+  "catalogNumber": "876",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PROSTHOD",
+  "subjectDescr": "Prosthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PROSTHOD/876",
+  "sourceTitle": "PROSTHOD 876 Adv Clin Crown&amp;Brid",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10193",
+          "topic": "",
+          "instructors": [
+            "Beard, Charles C"
+          ],
+          "times": "Th 10:00AM - 12:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

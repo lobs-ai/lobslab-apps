@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:12.936Z",
+  "courseId": "ORTHO 775",
+  "courseDescr": "Clin Ped Ortho",
+  "catalogNumber": "775",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/775",
+  "sourceTitle": "ORTHO 775 Clin Ped Ortho",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10175",
+          "topic": "",
+          "instructors": [
+            "Arjunan, Sharmila"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

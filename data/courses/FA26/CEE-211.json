@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:20.514Z",
+  "courseId": "CEE 211",
+  "courseDescr": "Statics & Dynamics",
+  "catalogNumber": "211",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/211",
+  "sourceTitle": "CEE 211 Statics &amp; Dynamics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 102,
+        "available": 102
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10288",
+          "topic": "",
+          "instructors": [
+            "Garcia, Fernando"
+          ],
+          "times": "MoTuWeTh 9:30AM - 10:30AM",
+          "locations": "2505 GGBL",
+          "enrolled": 0,
+          "capacity": 102,
+          "available": 102,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

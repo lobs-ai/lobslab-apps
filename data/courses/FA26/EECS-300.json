@@ -1,0 +1,150 @@
+{
+  "syncedAt": "2026-03-27T21:01:36.060Z",
+  "courseId": "EECS 300",
+  "courseDescr": "Elec Eng Sys Des II",
+  "catalogNumber": "300",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/300",
+  "sourceTitle": "EECS 300 Elec Eng Sys Des II",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24004",
+          "topic": "",
+          "instructors": [
+            "Ali, Maha A"
+          ],
+          "times": "Th 3:30PM - 5:30PM",
+          "locations": "2505 GGBL",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "24005",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 12:00PM - 3:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "24567",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 9:00AM - 12:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "24957",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 12:00PM - 3:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "33341",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 9:00AM - 12:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "36761",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 6:00PM - 9:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "36762",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 6:00PM - 9:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "36763",
+          "topic": "",
+          "instructors": [],
+          "times": "We 6:00PM - 9:00PM",
+          "locations": "1230 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

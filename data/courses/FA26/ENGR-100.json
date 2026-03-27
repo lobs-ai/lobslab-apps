@@ -1,0 +1,1886 @@
+{
+  "syncedAt": "2026-03-27T21:03:15.428Z",
+  "courseId": "ENGR 100",
+  "courseDescr": "Intro Engineering",
+  "catalogNumber": "100",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/100",
+  "sourceTitle": "ENGR 100 Intro Engineering",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 988,
+        "available": 988
+      },
+      "sections": [
+        {
+          "sectionNumber": "120",
+          "classNumber": "24308",
+          "topic": "Greatest Materials of All Time",
+          "instructors": [
+            "Shtein, Max",
+            "Alfano, Kenneth M"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 48,
+          "available": 48,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "150",
+          "classNumber": "29071",
+          "topic": "A River Runs Through It",
+          "instructors": [
+            "Ellis, Brian",
+            "Sulewski, Robert Michael"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "200",
+          "classNumber": "29167",
+          "topic": "Design in the Real World",
+          "instructors": [
+            "Alfano, Kenneth M",
+            "Lewis, Kim S"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "G906 COOL",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "270",
+          "classNumber": "19628",
+          "topic": "Next Gen Computing Hardware",
+          "instructors": [
+            "Ku, Pei-Cheng",
+            "Hart, Colleen"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1311 EECS",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "350",
+          "classNumber": "29128",
+          "topic": "Engineering Biological Solutio",
+          "instructors": [
+            "Albayrak Guralp, Saadet",
+            "Snyder, Katie"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "G906 COOL",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "370",
+          "classNumber": "35529",
+          "topic": "Space Habitats",
+          "instructors": [
+            "Scruggs, Jeffrey T",
+            "Hibbard, Lee"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1012 FXB",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "400",
+          "classNumber": "31909",
+          "topic": "Self Driving Car Drones Beyond",
+          "instructors": [
+            "Garmire, David",
+            "Roberson, Becky"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1311 EECS",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "420",
+          "classNumber": "35534",
+          "topic": "Solar Energy SelfPwr Wireless",
+          "instructors": [
+            "Norris, Theodore B",
+            "Burcon, Sarah"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "520",
+          "classNumber": "10385",
+          "topic": "Engineering Wellness",
+          "instructors": [
+            "Jensen, Karin Jeanne",
+            "Fowler, Robin"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1050 FMCRB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "600",
+          "classNumber": "29046",
+          "topic": "Underwater Vehicle",
+          "instructors": [
+            "Alford, Laura",
+            "Fowler, Robin"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1050 FMCRB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "660",
+          "classNumber": "35572",
+          "topic": "Engr Biomaterials for Med Apps",
+          "instructors": [
+            "Min, Jouha",
+            "Khachab, Nabilah Naji"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "700",
+          "classNumber": "24919",
+          "topic": "Intro to Aerospace Engineering",
+          "instructors": [
+            "Washabaugh, Peter D",
+            "Casper, Christian F"
+          ],
+          "times": "Tu 8:30AM - 9:30AM Fr 9:30AM - 11:30AM",
+          "locations": "ARR 1008 FXB",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "760",
+          "classNumber": "35573",
+          "topic": "Engr Sound Musical Mech",
+          "instructors": [
+            "Hilby, Kristan",
+            "Roberson, Becky"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "830",
+          "classNumber": "36203",
+          "topic": "",
+          "instructors": [
+            "Cohn, Amy Ellen Mainville",
+            "Moyer, Daniel"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1311 EECS",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "850",
+          "classNumber": "24908",
+          "topic": "Robotics Mechanisms",
+          "instructors": [
+            "Yeo, Derrick",
+            "Bowker, Kelly"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1050 FMCRB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "920",
+          "classNumber": "27554",
+          "topic": "Toys for the Third Nuclear Age",
+          "instructors": [
+            "Verma, Aditi",
+            "Snyder, Katie"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "G906 COOL",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "980",
+          "classNumber": "24927",
+          "topic": "Rocket Science",
+          "instructors": [
+            "Ridley, Aaron James"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1017 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "990",
+          "classNumber": "35574",
+          "topic": "Designing Climate Solutions",
+          "instructors": [
+            "Keppel-Aleks, Gretchen",
+            "Hanson, Kelly"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 988,
+        "available": 988
+      },
+      "sections": [
+        {
+          "sectionNumber": "121",
+          "classNumber": "24309",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 11:30AM - 1:30PM",
+          "locations": "2224 DOW",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "123",
+          "classNumber": "24311",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 1:30PM - 3:30PM",
+          "locations": "2224 DOW",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "125",
+          "classNumber": "24328",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "2224 DOW",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "151",
+          "classNumber": "29072",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "1008 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "153",
+          "classNumber": "29074",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "155",
+          "classNumber": "29076",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "201",
+          "classNumber": "29168",
+          "topic": "",
+          "instructors": [
+            "Nagarkar, Atharva",
+            "Smith, Jagger Frederick"
+          ],
+          "times": "Th 10:30AM - 11:30AM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "203",
+          "classNumber": "29170",
+          "topic": "",
+          "instructors": [
+            "Nagarkar, Atharva",
+            "Smith, Jagger Frederick"
+          ],
+          "times": "Th 11:30AM - 12:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "205",
+          "classNumber": "31895",
+          "topic": "",
+          "instructors": [
+            "Nagarkar, Atharva",
+            "Smith, Jagger Frederick"
+          ],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "271",
+          "classNumber": "19629",
+          "topic": "",
+          "instructors": [
+            "Kim, Juhyeon"
+          ],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "273",
+          "classNumber": "19663",
+          "topic": "",
+          "instructors": [
+            "Kim, Juhyeon"
+          ],
+          "times": "Fr 12:30PM - 2:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "275",
+          "classNumber": "20285",
+          "topic": "",
+          "instructors": [
+            "Kim, Juhyeon"
+          ],
+          "times": "Fr 2:30PM - 4:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "351",
+          "classNumber": "29130",
+          "topic": "",
+          "instructors": [
+            "Camp, Emma Claire"
+          ],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "353",
+          "classNumber": "29132",
+          "topic": "",
+          "instructors": [
+            "Camp, Emma Claire"
+          ],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "355",
+          "classNumber": "29134",
+          "topic": "",
+          "instructors": [
+            "Camp, Emma Claire"
+          ],
+          "times": "Fr 2:30PM - 4:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "371",
+          "classNumber": "35530",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "2331 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "373",
+          "classNumber": "35532",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "2331 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "401",
+          "classNumber": "31912",
+          "topic": "",
+          "instructors": [
+            "Shulkin, Jeffrey Daniel"
+          ],
+          "times": "Th 8:30AM - 10:30AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "403",
+          "classNumber": "31914",
+          "topic": "",
+          "instructors": [
+            "Shulkin, Jeffrey Daniel"
+          ],
+          "times": "Th 11:30AM - 1:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "405",
+          "classNumber": "31916",
+          "topic": "",
+          "instructors": [
+            "Shulkin, Jeffrey Daniel"
+          ],
+          "times": "Th 2:30PM - 4:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "421",
+          "classNumber": "35536",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 9:30AM - 11:30AM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "423",
+          "classNumber": "35538",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 11:30AM - 1:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "425",
+          "classNumber": "35540",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 2:30PM - 4:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "521",
+          "classNumber": "10386",
+          "topic": "",
+          "instructors": [
+            "Schmid, Noah Samuel",
+            "Cumming, Sabina Belle"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "523",
+          "classNumber": "10387",
+          "topic": "",
+          "instructors": [
+            "Schmid, Noah Samuel",
+            "Cumming, Sabina Belle"
+          ],
+          "times": "Th 1:30PM - 3:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "525",
+          "classNumber": "28282",
+          "topic": "",
+          "instructors": [
+            "Schmid, Noah Samuel",
+            "Cumming, Sabina Belle"
+          ],
+          "times": "Tu 10:30AM - 12:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "601",
+          "classNumber": "29047",
+          "topic": "",
+          "instructors": [
+            "Tran, Lyn"
+          ],
+          "times": "Tu 2:30PM - 4:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "603",
+          "classNumber": "29049",
+          "topic": "",
+          "instructors": [
+            "Taylor, John William"
+          ],
+          "times": "We 10:30AM - 12:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "605",
+          "classNumber": "29051",
+          "topic": "",
+          "instructors": [
+            "Vijay, Sakthi"
+          ],
+          "times": "We 2:30PM - 4:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "661",
+          "classNumber": "35575",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "663",
+          "classNumber": "35577",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 2:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "701",
+          "classNumber": "24921",
+          "topic": "",
+          "instructors": [
+            "Washabaugh, Peter D",
+            "Zwolshen, Kimberly"
+          ],
+          "times": "We 9:30AM - 12:00PM",
+          "locations": "2243 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "703",
+          "classNumber": "24923",
+          "topic": "",
+          "instructors": [
+            "Gu, Tianxiang"
+          ],
+          "times": "We 12:00PM - 2:30PM",
+          "locations": "2243 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "705",
+          "classNumber": "26317",
+          "topic": "",
+          "instructors": [
+            "Zwolshen, Kimberly"
+          ],
+          "times": "Th 9:30AM - 12:00PM",
+          "locations": "2243 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "707",
+          "classNumber": "26319",
+          "topic": "",
+          "instructors": [
+            "Barr, Iain Robert"
+          ],
+          "times": "Th 12:00PM - 2:30PM",
+          "locations": "2243 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "761",
+          "classNumber": "35579",
+          "topic": "",
+          "instructors": [
+            "Lamey, Gabriel David"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "763",
+          "classNumber": "35581",
+          "topic": "",
+          "instructors": [
+            "Lamey, Gabriel David"
+          ],
+          "times": "Th 1:30PM - 3:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "765",
+          "classNumber": "35583",
+          "topic": "",
+          "instructors": [
+            "Lamey, Gabriel David"
+          ],
+          "times": "Th 3:30PM - 5:30PM",
+          "locations": "108 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "831",
+          "classNumber": "36205",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "134 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "833",
+          "classNumber": "36207",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "2517 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "835",
+          "classNumber": "36209",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 5:30PM",
+          "locations": "2230 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "851",
+          "classNumber": "24909",
+          "topic": "",
+          "instructors": [
+            "Kuri Muzquiz, Eugenio",
+            "Hu, Karis",
+            "Liu, Kevin"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "853",
+          "classNumber": "24911",
+          "topic": "",
+          "instructors": [
+            "Xu, Sunny Matthew Jiayuan",
+            "Agnihotri, Prisha",
+            "Armstrong, Aidan Michael",
+            "Baskins, Nathaniel Richard",
+            "Gates, Benjamin Falb"
+          ],
+          "times": "Th 1:30PM - 3:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "855",
+          "classNumber": "24913",
+          "topic": "",
+          "instructors": [
+            "Hu, Karis",
+            "Armstrong, Aidan Michael",
+            "Gates, Benjamin Falb",
+            "Kuri Muzquiz, Eugenio",
+            "Ling, Yihan"
+          ],
+          "times": "Th 4:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "921",
+          "classNumber": "27555",
+          "topic": "",
+          "instructors": [
+            "Lecha, Sebastian Javier"
+          ],
+          "times": "Th 10:30AM - 12:30PM",
+          "locations": "1401 DC",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "923",
+          "classNumber": "27557",
+          "topic": "",
+          "instructors": [
+            "Lecha, Sebastian Javier"
+          ],
+          "times": "Th 12:30PM - 2:30PM",
+          "locations": "1401 DC",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "925",
+          "classNumber": "35592",
+          "topic": "",
+          "instructors": [
+            "Lecha, Sebastian Javier"
+          ],
+          "times": "Th 2:30PM - 4:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "981",
+          "classNumber": "24928",
+          "topic": "",
+          "instructors": [
+            "Enriquez, Ismael",
+            "Ren, Zian"
+          ],
+          "times": "Tu 3:30PM - 5:30PM",
+          "locations": "1225 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "983",
+          "classNumber": "24930",
+          "topic": "",
+          "instructors": [
+            "Ren, Zian",
+            "Enriquez, Ismael"
+          ],
+          "times": "We 12:30PM - 2:30PM",
+          "locations": "1225 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "985",
+          "classNumber": "26010",
+          "topic": "",
+          "instructors": [
+            "Miller, Benjamen Daniel",
+            "Foreman-Braunschweig, Felix Johann"
+          ],
+          "times": "Tu 12:30PM - 2:30PM",
+          "locations": "1225 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "991",
+          "classNumber": "35586",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 1:30PM",
+          "locations": "2517 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "993",
+          "classNumber": "35588",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "2331 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 988,
+        "available": 988
+      },
+      "sections": [
+        {
+          "sectionNumber": "122",
+          "classNumber": "24310",
+          "topic": "",
+          "instructors": [
+            "Alfano, Kenneth M"
+          ],
+          "times": "We 11:30AM - 12:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "124",
+          "classNumber": "24312",
+          "topic": "",
+          "instructors": [
+            "Alfano, Kenneth M"
+          ],
+          "times": "We 1:30PM - 2:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "126",
+          "classNumber": "24819",
+          "topic": "",
+          "instructors": [
+            "Alfano, Kenneth M"
+          ],
+          "times": "We 12:30PM - 1:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "152",
+          "classNumber": "29073",
+          "topic": "",
+          "instructors": [
+            "Sulewski, Robert Michael"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "154",
+          "classNumber": "29075",
+          "topic": "",
+          "instructors": [
+            "Alhudithi, Ella"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "156",
+          "classNumber": "29077",
+          "topic": "",
+          "instructors": [
+            "Sulewski, Robert Michael"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "202",
+          "classNumber": "29169",
+          "topic": "",
+          "instructors": [
+            "Kuo, Lidia"
+          ],
+          "times": "Tu 10:30AM - 11:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "204",
+          "classNumber": "31894",
+          "topic": "",
+          "instructors": [
+            "Lewis, Kim S"
+          ],
+          "times": "Tu 11:30AM - 12:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "206",
+          "classNumber": "31896",
+          "topic": "",
+          "instructors": [
+            "Lewis, Kim S"
+          ],
+          "times": "Tu 12:30PM - 1:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "272",
+          "classNumber": "19630",
+          "topic": "",
+          "instructors": [
+            "Kuo, Lidia"
+          ],
+          "times": "We 11:30AM - 12:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "274",
+          "classNumber": "19664",
+          "topic": "",
+          "instructors": [
+            "Kuo, Lidia"
+          ],
+          "times": "We 12:30PM - 1:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "276",
+          "classNumber": "20286",
+          "topic": "",
+          "instructors": [
+            "Hart, Colleen"
+          ],
+          "times": "We 10:30AM - 11:30AM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "352",
+          "classNumber": "29131",
+          "topic": "",
+          "instructors": [
+            "Feustle, Hannah Christie"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "151 CHRYS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "354",
+          "classNumber": "29133",
+          "topic": "",
+          "instructors": [
+            "Feustle, Hannah Christie"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "151 CHRYS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "356",
+          "classNumber": "29135",
+          "topic": "",
+          "instructors": [
+            "Feustle, Hannah Christie"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1045 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "372",
+          "classNumber": "35531",
+          "topic": "",
+          "instructors": [
+            "Hibbard, Lee"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "374",
+          "classNumber": "35533",
+          "topic": "",
+          "instructors": [
+            "Hibbard, Lee"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "402",
+          "classNumber": "31913",
+          "topic": "",
+          "instructors": [
+            "Roberson, Becky"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "404",
+          "classNumber": "31915",
+          "topic": "",
+          "instructors": [
+            "Greenspan, David"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "406",
+          "classNumber": "31917",
+          "topic": "",
+          "instructors": [
+            "Roberson, Becky"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "422",
+          "classNumber": "35537",
+          "topic": "",
+          "instructors": [
+            "Burcon, Sarah"
+          ],
+          "times": "Mo 11:30AM - 12:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "424",
+          "classNumber": "35539",
+          "topic": "",
+          "instructors": [
+            "Drogos, Kristin Lynn"
+          ],
+          "times": "Mo 10:30AM - 11:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "426",
+          "classNumber": "35541",
+          "topic": "",
+          "instructors": [
+            "Burcon, Sarah"
+          ],
+          "times": "Mo 1:30PM - 2:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "522",
+          "classNumber": "21581",
+          "topic": "",
+          "instructors": [
+            "Albrehi, Fatima"
+          ],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "524",
+          "classNumber": "10388",
+          "topic": "",
+          "instructors": [
+            "Albrehi, Fatima"
+          ],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "526",
+          "classNumber": "28283",
+          "topic": "",
+          "instructors": [
+            "Fowler, Robin"
+          ],
+          "times": "Tu 9:30AM - 10:30AM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "602",
+          "classNumber": "29048",
+          "topic": "",
+          "instructors": [
+            "Fowler, Robin"
+          ],
+          "times": "Tu 1:30PM - 2:30PM",
+          "locations": "B507 PIER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "604",
+          "classNumber": "29050",
+          "topic": "",
+          "instructors": [
+            "Feustle, Hannah Christie"
+          ],
+          "times": "We 9:30AM - 10:30AM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "606",
+          "classNumber": "29053",
+          "topic": "",
+          "instructors": [
+            "Fowler, Robin"
+          ],
+          "times": "We 1:30PM - 2:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "662",
+          "classNumber": "35576",
+          "topic": "",
+          "instructors": [
+            "Khachab, Nabilah Naji"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "664",
+          "classNumber": "35578",
+          "topic": "",
+          "instructors": [
+            "Khachab, Nabilah Naji"
+          ],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "702",
+          "classNumber": "24922",
+          "topic": "",
+          "instructors": [
+            "Radeen, Evan Neil"
+          ],
+          "times": "We 8:30AM - 9:30AM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "704",
+          "classNumber": "24924",
+          "topic": "",
+          "instructors": [
+            "Radeen, Evan Neil"
+          ],
+          "times": "We 11:00AM - 12:00PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "706",
+          "classNumber": "26318",
+          "topic": "",
+          "instructors": [
+            "Casper, Christian F"
+          ],
+          "times": "Th 8:30AM - 9:30AM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "708",
+          "classNumber": "26320",
+          "topic": "",
+          "instructors": [
+            "Casper, Christian F"
+          ],
+          "times": "Th 11:00AM - 12:00PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "762",
+          "classNumber": "35580",
+          "topic": "",
+          "instructors": [
+            "Drogos, Kristin Lynn"
+          ],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "764",
+          "classNumber": "35582",
+          "topic": "",
+          "instructors": [
+            "Drogos, Kristin Lynn"
+          ],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "766",
+          "classNumber": "35584",
+          "topic": "",
+          "instructors": [
+            "Roberson, Becky"
+          ],
+          "times": "Th 1:30PM - 2:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "832",
+          "classNumber": "36206",
+          "topic": "",
+          "instructors": [
+            "Moyer, Daniel"
+          ],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "834",
+          "classNumber": "36208",
+          "topic": "",
+          "instructors": [
+            "Moyer, Daniel"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "836",
+          "classNumber": "36210",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "852",
+          "classNumber": "24910",
+          "topic": "",
+          "instructors": [
+            "Bowker, Kelly"
+          ],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "854",
+          "classNumber": "24912",
+          "topic": "",
+          "instructors": [
+            "Alhudithi, Ella"
+          ],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "856",
+          "classNumber": "24914",
+          "topic": "",
+          "instructors": [
+            "Alhudithi, Ella"
+          ],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "922",
+          "classNumber": "27556",
+          "topic": "",
+          "instructors": [
+            "Snyder, Katie"
+          ],
+          "times": "Th 12:30PM - 1:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "924",
+          "classNumber": "27558",
+          "topic": "",
+          "instructors": [
+            "Snyder, Katie"
+          ],
+          "times": "Th 2:30PM - 3:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "926",
+          "classNumber": "35593",
+          "topic": "",
+          "instructors": [
+            "Snyder, Katie"
+          ],
+          "times": "Th 4:30PM - 5:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "982",
+          "classNumber": "24929",
+          "topic": "",
+          "instructors": [
+            "Hogg, Alan"
+          ],
+          "times": "Tu 2:30PM - 3:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "984",
+          "classNumber": "24931",
+          "topic": "",
+          "instructors": [
+            "Hogg, Alan"
+          ],
+          "times": "We 11:30AM - 12:30PM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "986",
+          "classNumber": "26011",
+          "topic": "",
+          "instructors": [
+            "Greenspan, David"
+          ],
+          "times": "Tu 11:30AM - 12:30PM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "992",
+          "classNumber": "35587",
+          "topic": "",
+          "instructors": [
+            "Hanson, Kelly"
+          ],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "994",
+          "classNumber": "35589",
+          "topic": "",
+          "instructors": [
+            "Hanson, Kelly"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

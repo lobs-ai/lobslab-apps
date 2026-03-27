@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:02.653Z",
+  "courseId": "CEE 514",
+  "courseDescr": "Prestressd Concrete",
+  "catalogNumber": "514",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/514",
+  "sourceTitle": "CEE 514 Prestressd Concrete",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24816",
+          "topic": "",
+          "instructors": [
+            "Bernardini, Enrica"
+          ],
+          "times": "MoWeFr 9:30AM - 10:30AM",
+          "locations": "2236 CSRB",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

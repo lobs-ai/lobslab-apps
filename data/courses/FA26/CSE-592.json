@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:51.279Z",
+  "courseId": "CSE 592",
+  "courseDescr": "AI Foundations",
+  "catalogNumber": "592",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/592",
+  "sourceTitle": "CSE 592 AI Foundations",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 12,
+        "total": 13,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20781",
+          "topic": "",
+          "instructors": [
+            "Poesia Reis e Silva, Gabriel"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM Fr 9:30AM - 10:30AM",
+          "locations": "G906 COOL 1014 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 12,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

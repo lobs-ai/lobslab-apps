@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:57:54.345Z",
+  "courseId": "AEROSP 470",
+  "courseDescr": "Control of Aero Veh",
+  "catalogNumber": "470",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/470",
+  "sourceTitle": "AEROSP 470 Control of Aero Veh",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 146,
+        "available": 145
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23049",
+          "topic": "",
+          "instructors": [
+            "Kolmanovsky, Ilya",
+            "Taylor, Jonathan Albert"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "2365 LCSIB",
+          "enrolled": 1,
+          "capacity": 146,
+          "available": 145,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

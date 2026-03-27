@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:57:13.793Z",
+  "courseId": "DENTHYG 434",
+  "courseDescr": "Dent Hyg Field Exp",
+  "catalogNumber": "434",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/434",
+  "sourceTitle": "DENTHYG 434 Dent Hyg Field Exp",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 6,
+        "available": 6
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10132",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:57:48.234Z",
+  "courseId": "AEROSP 343",
+  "courseDescr": "Spacecraft Dynamics",
+  "catalogNumber": "343",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/343",
+  "sourceTitle": "AEROSP 343 Spacecraft Dynamics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 130,
+        "available": 130
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22207",
+          "topic": "",
+          "instructors": [
+            "Jia-Richards, Oliver",
+            "Majumdar, Ritwik"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "2505 GGBL",
+          "enrolled": 0,
+          "capacity": 130,
+          "available": 130,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

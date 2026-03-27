@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:01.298Z",
+  "courseId": "DENT 519B",
+  "courseDescr": "Clinical Found I",
+  "catalogNumber": "519B",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/519B",
+  "sourceTitle": "DENT 519B Clinical Found I",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 150,
+        "available": 150
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32260",
+          "topic": "",
+          "instructors": [
+            "Rocha Maia, Rodrigo"
+          ],
+          "times": "TuFr 1:00PM - 5:00PM",
+          "locations": "G360 DENT",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

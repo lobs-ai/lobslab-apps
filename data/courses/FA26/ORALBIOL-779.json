@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:27.064Z",
+  "courseId": "ORALBIOL 779",
+  "courseDescr": "Prin Immun Gr Dent",
+  "catalogNumber": "779",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/779",
+  "sourceTitle": "ORALBIOL 779 Prin Immun Gr Dent",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10150",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

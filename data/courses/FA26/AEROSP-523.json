@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:00.335Z",
+  "courseId": "AEROSP 523",
+  "courseDescr": "Comp Fluid Dyn I",
+  "catalogNumber": "523",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/523",
+  "sourceTitle": "AEROSP 523 Comp Fluid Dyn I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 10,
+        "waitlist": 0,
+        "total": 10,
+        "capacity": 90,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10238",
+          "topic": "",
+          "instructors": [
+            "Fidkowski, Krzysztof J"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1010 DOW",
+          "enrolled": 10,
+          "capacity": 90,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

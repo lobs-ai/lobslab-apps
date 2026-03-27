@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:53:43.771Z",
+  "courseId": "URP 610",
+  "courseDescr": "URP Grad Exper Cse",
+  "catalogNumber": "610",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/610",
+  "sourceTitle": "URP 610 URP Grad Exper Cse",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 8,
+        "waitlist": 0,
+        "total": 8,
+        "capacity": 15,
+        "available": 7
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36792",
+          "topic": "Public Mechanics",
+          "instructors": [
+            "Bronson Jr, Ronald"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 6,
+          "capacity": 10,
+          "available": 4,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "36856",
+          "topic": "Design for Longevity",
+          "instructors": [
+            "Lee, Sheng-Hung"
+          ],
+          "times": "Th 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 2,
+          "capacity": 5,
+          "available": 3,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

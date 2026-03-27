@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:29.747Z",
+  "courseId": "BIOMEDE 418",
+  "courseDescr": "Quant Cell Biology",
+  "catalogNumber": "418",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/418",
+  "sourceTitle": "BIOMEDE 418 Quant Cell Biology",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 85,
+        "available": 85
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17781",
+          "topic": "",
+          "instructors": [
+            "Wrobel, Melissa Renee"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 85,
+          "available": 85,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

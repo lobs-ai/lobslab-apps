@@ -1,0 +1,76 @@
+{
+  "syncedAt": "2026-03-27T20:52:15.244Z",
+  "courseId": "ARCH 409",
+  "courseDescr": "Special Topics Arch",
+  "catalogNumber": "409",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/409",
+  "sourceTitle": "ARCH 409 Special Topics Arch",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 45,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "32336",
+          "topic": "Egalitarian Metropolis",
+          "instructors": [
+            "Wilkins, Craig Lawrence"
+          ],
+          "times": "TuTh 2:30PM - 4:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "37203",
+          "topic": "Distributed Site",
+          "instructors": [
+            "Herscher, Andrew H"
+          ],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "37204",
+          "topic": "Formal/Informal/Unformal",
+          "instructors": [
+            "Manful, Kuukuwa O"
+          ],
+          "times": "Mo 8:30AM - 11:30AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

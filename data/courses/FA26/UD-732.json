@@ -1,0 +1,83 @@
+{
+  "syncedAt": "2026-03-27T20:52:55.437Z",
+  "courseId": "UD 732",
+  "courseDescr": "UD Studio III",
+  "catalogNumber": "732",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UD",
+  "subjectDescr": "Urban Design",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UD/732",
+  "sourceTitle": "UD 732 UD Studio III",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 20,
+        "available": 17
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23261",
+          "topic": "",
+          "instructors": [],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 3,
+          "capacity": 20,
+          "available": 17,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "28549",
+          "topic": "",
+          "instructors": [],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "28550",
+          "topic": "",
+          "instructors": [],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "28551",
+          "topic": "",
+          "instructors": [],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "syncedAt": "2026-03-27T20:58:25.120Z",
+  "courseId": "BIOMEDE 311",
+  "courseDescr": "Bio Signals & Syst",
+  "catalogNumber": "311",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/311",
+  "sourceTitle": "BIOMEDE 311 Bio Signals &amp; Syst",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31559",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "1008 EECS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "31560",
+          "topic": "",
+          "instructors": [
+            "Panagis, Kathleen"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "136 EWRE",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

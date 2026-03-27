@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:14.048Z",
+  "courseId": "CEE 552",
+  "courseDescr": "Travel Behv Anl Fcst",
+  "catalogNumber": "552",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/552",
+  "sourceTitle": "CEE 552 Travel Behv Anl Fcst",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 28,
+        "available": 27
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28024",
+          "topic": "",
+          "instructors": [
+            "Shaw, Atiyya"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1008 EECS",
+          "enrolled": 1,
+          "capacity": 28,
+          "available": 27,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

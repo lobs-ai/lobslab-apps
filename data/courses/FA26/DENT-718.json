@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:33.418Z",
+  "courseId": "DENT 718",
+  "courseDescr": "Adv Prostho (Removable)",
+  "catalogNumber": "718",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/718",
+  "sourceTitle": "DENT 718 Adv Prostho (Removable)",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26917",
+          "topic": "",
+          "instructors": [
+            "Oh, Won-Suck"
+          ],
+          "times": "We 8:00AM - 9:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:26.630Z",
+  "courseId": "URP 552",
+  "courseDescr": "Healthy Cities",
+  "catalogNumber": "552",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/552",
+  "sourceTitle": "URP 552 Healthy Cities",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 12,
+        "waitlist": 0,
+        "total": 12,
+        "capacity": 35,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21613",
+          "topic": "",
+          "instructors": [
+            "Kinder, Kimberley Anne"
+          ],
+          "times": "MoWe 2:30PM - 4:00PM",
+          "locations": "2210 A&AB",
+          "enrolled": 12,
+          "capacity": 35,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

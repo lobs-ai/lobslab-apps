@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:20.540Z",
+  "courseId": "PERIODON 780",
+  "courseDescr": "Periodontic Clinic",
+  "catalogNumber": "780",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/780",
+  "sourceTitle": "PERIODON 780 Periodontic Clinic",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10181",
+          "topic": "",
+          "instructors": [
+            "Avila Ortiz, Gustavo"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "syncedAt": "2026-03-27T20:59:18.459Z",
+  "courseId": "CHE 696",
+  "courseDescr": "Selected Topics",
+  "catalogNumber": "696",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/696",
+  "sourceTitle": "CHE 696 Selected Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 95,
+        "available": 93
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "24936",
+          "topic": "Emerging Topics in Catalysis",
+          "instructors": [
+            "Nikolla, Eranda"
+          ],
+          "times": "Tu 3:30PM - 6:30PM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "31459",
+          "topic": "Single Cell Technologies",
+          "instructors": [
+            "Nagrath, Sunitha"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 1,
+          "capacity": 15,
+          "available": 14,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "29678",
+          "topic": "BioMEMS",
+          "instructors": [
+            "Lesher-Perez, Sasha Cai"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "2365 LCSIB",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "21706",
+          "topic": "ChE Mentor Seminar",
+          "instructors": [
+            "Goldsmith, Bryan"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

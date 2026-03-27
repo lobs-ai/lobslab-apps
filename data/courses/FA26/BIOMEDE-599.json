@@ -1,0 +1,77 @@
+{
+  "syncedAt": "2026-03-27T20:58:49.645Z",
+  "courseId": "BIOMEDE 599",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "599",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/599",
+  "sourceTitle": "BIOMEDE 599 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 64,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "017",
+          "classNumber": "27514",
+          "topic": "AI for Experiment Design",
+          "instructors": [
+            "Jensen, Paul Anthony"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1311 EECS",
+          "enrolled": 1,
+          "capacity": 30,
+          "available": 29,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "021",
+          "classNumber": "29080",
+          "topic": "Computat Systems Bio",
+          "instructors": [
+            "Arnold, Kelly",
+            "Beard, Daniel A"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1130 LBME",
+          "enrolled": 0,
+          "capacity": 9,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "34983",
+          "topic": "Biomol Eng Biosens &amp; Drug Delv",
+          "instructors": [
+            "Wu, Connie"
+          ],
+          "times": "TuTh 2:30PM - 4:00PM",
+          "locations": "1427 MH",
+          "enrolled": 3,
+          "capacity": 25,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

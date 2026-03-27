@@ -1,0 +1,119 @@
+{
+  "syncedAt": "2026-03-27T20:58:20.185Z",
+  "courseId": "BIOMEDE 211",
+  "courseDescr": "Circuits and Systems",
+  "catalogNumber": "211",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/211",
+  "sourceTitle": "BIOMEDE 211 Circuits and Systems",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16183",
+          "topic": "",
+          "instructors": [
+            "Weiland, James David"
+          ],
+          "times": "TuTh 1:30PM - 3:30PM",
+          "locations": "1610 IOE",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "24226",
+          "topic": "",
+          "instructors": [
+            "Weiland, James David"
+          ],
+          "times": "Mo 3:30PM - 6:30PM",
+          "locations": "1150 LBME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "24227",
+          "topic": "",
+          "instructors": [
+            "Weiland, James David"
+          ],
+          "times": "Tu 3:30PM - 6:30PM",
+          "locations": "1150 LBME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "24228",
+          "topic": "",
+          "instructors": [
+            "Weiland, James David"
+          ],
+          "times": "We 3:30PM - 6:30PM",
+          "locations": "1150 LBME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "30808",
+          "topic": "",
+          "instructors": [
+            "Weiland, James David"
+          ],
+          "times": "Th 3:30PM - 6:30PM",
+          "locations": "1150 LBME",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:09.096Z",
+  "courseId": "ENDODONT 654",
+  "courseDescr": "Biol Basis for Endo",
+  "catalogNumber": "654",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ENDODONT",
+  "subjectDescr": "Endodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENDODONT/654",
+  "sourceTitle": "ENDODONT 654 Biol Basis for Endo",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18058",
+          "topic": "",
+          "instructors": [
+            "McDonald, Neville J"
+          ],
+          "times": "Th 12:00PM - 4:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

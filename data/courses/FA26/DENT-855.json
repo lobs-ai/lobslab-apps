@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:55:03.764Z",
+  "courseId": "DENT 855",
+  "courseDescr": "Professionalism & Practice",
+  "catalogNumber": "855",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/855",
+  "sourceTitle": "DENT 855 Professionalism &amp; Practice",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32254",
+          "topic": "",
+          "instructors": [
+            "Van Tubergen, Elizabeth Anne",
+            "Usman, Hiba"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:45.715Z",
+  "courseId": "DENT 753",
+  "courseDescr": "Dental Student Teaching I",
+  "catalogNumber": "753",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/753",
+  "sourceTitle": "DENT 753 Dental Student Teaching I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18186",
+          "topic": "",
+          "instructors": [
+            "Inglehart, Marita Rohr"
+          ],
+          "times": "Sa 9:00AM - 12:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

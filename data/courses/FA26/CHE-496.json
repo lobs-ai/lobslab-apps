@@ -1,0 +1,76 @@
+{
+  "syncedAt": "2026-03-27T20:59:09.198Z",
+  "courseId": "CHE 496",
+  "courseDescr": "Adv Sp Topic CHE",
+  "catalogNumber": "496",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/496",
+  "sourceTitle": "CHE 496 Adv Sp Topic CHE",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "26770",
+          "topic": "Emerging Topics in Catalysis",
+          "instructors": [
+            "Nikolla, Eranda"
+          ],
+          "times": "Tu 3:30PM - 6:30PM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 5,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "31458",
+          "topic": "Single Cell Technologies",
+          "instructors": [
+            "Nagrath, Sunitha"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 0,
+          "capacity": 5,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "36688",
+          "topic": "BioMEMS",
+          "instructors": [
+            "Lesher-Perez, Sasha Cai"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 5,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:21.951Z",
+  "courseId": "CEE 230",
+  "courseDescr": "Thermo & Env",
+  "catalogNumber": "230",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/230",
+  "sourceTitle": "CEE 230 Thermo &amp; Env",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 88,
+        "available": 88
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15505",
+          "topic": "",
+          "instructors": [
+            "Clack, Herek"
+          ],
+          "times": "MoWeFr 8:30AM - 9:30AM",
+          "locations": "2505 GGBL",
+          "enrolled": 0,
+          "capacity": 88,
+          "available": 88,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

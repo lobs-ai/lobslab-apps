@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:58:15.680Z",
+  "courseId": "AUTO 501",
+  "courseDescr": "Integ Veh Syst Dsgn",
+  "catalogNumber": "501",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AUTO",
+  "subjectDescr": "Automotive Engineering Program",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AUTO/501",
+  "sourceTitle": "AUTO 501 Integ Veh Syst Dsgn",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 140,
+        "available": 137
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15910",
+          "topic": "",
+          "instructors": [
+            "Hyde, Art"
+          ],
+          "times": "Fr 12:30PM - 3:30PM",
+          "locations": "165 CHRYS",
+          "enrolled": 3,
+          "capacity": 90,
+          "available": 87,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "881",
+          "classNumber": "14974",
+          "topic": "",
+          "instructors": [
+            "Hyde, Art"
+          ],
+          "times": "Fr 12:30PM - 3:30PM",
+          "locations": "REMOTE",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

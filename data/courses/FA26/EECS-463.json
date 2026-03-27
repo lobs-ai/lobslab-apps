@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:30.611Z",
+  "courseId": "EECS 463",
+  "courseDescr": "Power Sys Deg&Oper",
+  "catalogNumber": "463",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/463",
+  "sourceTitle": "EECS 463 Power Sys Deg&amp;Oper",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 45,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20253",
+          "topic": "",
+          "instructors": [
+            "Dvorkin, Vladimir"
+          ],
+          "times": "TuTh 8:30AM - 10:30AM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

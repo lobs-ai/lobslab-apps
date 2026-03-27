@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:22.560Z",
+  "courseId": "EECS 449",
+  "courseDescr": "Conversational AI",
+  "catalogNumber": "449",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/449",
+  "sourceTitle": "EECS 449 Conversational AI",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34538",
+          "topic": "",
+          "instructors": [
+            "Mars, Jason"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "133 CHRYS",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

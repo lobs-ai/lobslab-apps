@@ -1,0 +1,113 @@
+{
+  "syncedAt": "2026-03-27T20:59:01.623Z",
+  "courseId": "CHE 360",
+  "courseDescr": "Chem Engr Lab I",
+  "catalogNumber": "360",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/360",
+  "sourceTitle": "CHE 360 Chem Engr Lab I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 45,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10273",
+          "topic": "",
+          "instructors": [
+            "Lindsey, Rebecca",
+            "Krupansky, Mariel Elizabeth",
+            "Sheffield, Stephanie"
+          ],
+          "times": "MoWe 9:30AM - 10:30AM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 24,
+        "available": 24
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "34726",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 1:30PM - 5:30PM",
+          "locations": "3125 DOW",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10274",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 12:30PM - 4:30PM",
+          "locations": "3125 DOW",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10275",
+          "topic": "",
+          "instructors": [],
+          "times": "We 1:30PM - 5:30PM",
+          "locations": "3125 DOW",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "16651",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 1:30PM - 5:30PM",
+          "locations": "3125 DOW",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

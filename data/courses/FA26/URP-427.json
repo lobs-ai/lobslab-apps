@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:53:09.262Z",
+  "courseId": "URP 427",
+  "courseDescr": "Sustainable Food Sys",
+  "catalogNumber": "427",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/427",
+  "sourceTitle": "URP 427 Sustainable Food Sys",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "24875",
+          "topic": "",
+          "instructors": [
+            "Hoey, Lesli",
+            "Reynolds, Jules"
+          ],
+          "times": "TuTh 1:00PM - 2:30PM",
+          "locations": "1046 DANA",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:55:35.616Z",
+  "courseId": "ORALHEAL 525",
+  "courseDescr": "Cell & Molecular Bio",
+  "catalogNumber": "525",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/525",
+  "sourceTitle": "ORALHEAL 525 Cell &amp; Molecular Bio",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27063",
+          "topic": "",
+          "instructors": [
+            "Franceschi, Renny T",
+            "Kaartinen, Vesa M"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

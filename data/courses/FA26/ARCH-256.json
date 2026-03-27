@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:51:54.866Z",
+  "courseId": "ARCH 256",
+  "courseDescr": "Immersion",
+  "catalogNumber": "256",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/256",
+  "sourceTitle": "ARCH 256 Immersion",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 36,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35487",
+          "topic": "",
+          "instructors": [
+            "Gilpin, Dawn M"
+          ],
+          "times": "TuTh 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "35488",
+          "topic": "",
+          "instructors": [
+            "Gilpin, Dawn M"
+          ],
+          "times": "TuTh 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "syncedAt": "2026-03-27T20:57:19.386Z",
+  "courseId": "DENTHYG 466",
+  "courseDescr": "Select Teach Exper",
+  "catalogNumber": "466",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/466",
+  "sourceTitle": "DENTHYG 466 Select Teach Exper",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 126,
+        "available": 126
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10137",
+          "topic": "",
+          "instructors": [
+            "Eagle, Iwonka Theresa"
+          ],
+          "times": "Mo 12:00PM - 1:00PM Tu 2:00PM - 4:00PM",
+          "locations": "TBA TBA",
+          "enrolled": 0,
+          "capacity": 6,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "16308",
+          "topic": "",
+          "instructors": [
+            "Mackinnon, Connie L"
+          ],
+          "times": "Mo 12:00PM - 1:00PM",
+          "locations": "G524 KELL",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "16309",
+          "topic": "",
+          "instructors": [
+            "Kinney, Janet Sue"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "17132",
+          "topic": "",
+          "instructors": [
+            "Rulli, Danielle"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "18699",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

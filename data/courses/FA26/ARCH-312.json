@@ -1,0 +1,136 @@
+{
+  "syncedAt": "2026-03-27T20:52:05.778Z",
+  "courseId": "ARCH 312",
+  "courseDescr": "Arch Design I",
+  "catalogNumber": "312",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/312",
+  "sourceTitle": "ARCH 312 Arch Design I",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 138,
+        "available": 138
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10013",
+          "topic": "",
+          "instructors": [
+            "Trandafirescu, Anca"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 138,
+          "available": 138,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "10014",
+          "topic": "",
+          "instructors": [
+            "AbuSeir, Zain"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10015",
+          "topic": "",
+          "instructors": [
+            "Halquist, Peter James"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "20913",
+          "topic": "",
+          "instructors": [
+            "Hwang, Irene"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "22527",
+          "topic": "",
+          "instructors": [
+            "Steinmuller, Antje"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "32024",
+          "topic": "",
+          "instructors": [
+            "Mufreh, Athar"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "32025",
+          "topic": "",
+          "instructors": [
+            "Sturt, Jonathan Bentley"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

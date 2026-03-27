@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:56:19.399Z",
+  "courseId": "PEDDENT 599",
+  "courseDescr": "Pd Anes Rotatn",
+  "catalogNumber": "599",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PEDDENT",
+  "subjectDescr": "Pediatric Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PEDDENT/599",
+  "sourceTitle": "PEDDENT 599 Pd Anes Rotatn",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10180",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

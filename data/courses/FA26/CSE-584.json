@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:47.380Z",
+  "courseId": "CSE 584",
+  "courseDescr": "Adv Dbase Sys",
+  "catalogNumber": "584",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/584",
+  "sourceTitle": "CSE 584 Adv Dbase Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 10,
+        "total": 11,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35267",
+          "topic": "",
+          "instructors": [
+            "Ma, Lin"
+          ],
+          "times": "TuTh 1:30PM - 3:30PM",
+          "locations": "185 EWRE",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 10,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

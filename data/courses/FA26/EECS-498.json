@@ -1,0 +1,523 @@
+{
+  "syncedAt": "2026-03-27T21:02:43.617Z",
+  "courseId": "EECS 498",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "498",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/498",
+  "sourceTitle": "EECS 498 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 549,
+        "available": 546
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27921",
+          "topic": "Reinforcement Learning",
+          "instructors": [
+            "Baveja, Satinder Singh",
+            "Pitis, Silviu"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "1303 EECS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "31519",
+          "topic": "MobileAppEmbeddedAI MDE",
+          "instructors": [
+            "Jamin, Sugih"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 23,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "29240",
+          "topic": "Formal Verif. of Systems S/W",
+          "instructors": [
+            "Kapritsos, Manos"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "31503",
+          "topic": "Quantum Photonics",
+          "instructors": [
+            "Zhang, Zheshen"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "1940 COOL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "31564",
+          "topic": "AI App Development for Entr",
+          "instructors": [
+            "Soloway, Elliot"
+          ],
+          "times": "MoWe 4:30PM - 6:00PM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "29298",
+          "topic": "Bayesian ML",
+          "instructors": [
+            "Chai, Henry"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1013 DOW",
+          "enrolled": 1,
+          "capacity": 32,
+          "available": 31,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "37215",
+          "topic": "Mobile/Pervasive Comp &amp; Sens",
+          "instructors": [
+            "Zhang, Pei"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "30678",
+          "topic": "MobileFullStackAgenticAI ULCS",
+          "instructors": [
+            "Jamin, Sugih"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1005 EECS",
+          "enrolled": 1,
+          "capacity": 23,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "009",
+          "classNumber": "29445",
+          "topic": "Election Cybersecurity",
+          "instructors": [
+            "Halderman, J Alex"
+          ],
+          "times": "Fr 1:30PM - 4:30PM",
+          "locations": "107 GFL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "010",
+          "classNumber": "35263",
+          "topic": "Radar Remote Sensing",
+          "instructors": [
+            "Sarabandi, Kamal"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "151 CHRYS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "011",
+          "classNumber": "32522",
+          "topic": "AI/Security for Cyberphysical",
+          "instructors": [
+            "Mao, Z Morley"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1012 FXB",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "34717",
+          "topic": "Quantum Signal Processing",
+          "instructors": [
+            "Dong, Yulong"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "32875",
+          "topic": "Data Science for Legal Justice",
+          "instructors": [
+            "Kloosterman, John Sidney"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "36500",
+          "topic": "MDE - Systems for Greater Good",
+          "instructors": [
+            "Ensafi, Roya"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "29658",
+          "topic": "Automated Formal Verification",
+          "instructors": [
+            "Manerkar, Yatin A"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "33360",
+          "topic": "App Agentic Sftwr Engr",
+          "instructors": [
+            "Darden, Marcus M"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "133 CHRYS",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "32521",
+          "topic": "OpenSource Innovation &amp; Impact",
+          "instructors": [
+            "Tang, Lingjia",
+            "Flautner, Krisztian",
+            "Mars, Jason"
+          ],
+          "times": "Fr 1:30PM - 3:30PM",
+          "locations": "1008 EECS",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "32520",
+          "topic": "Data Privacy: What, Why, &amp; How",
+          "instructors": [
+            "Grubbs, Paul"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "185 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "701",
+          "classNumber": "34824",
+          "topic": "Responsibilities in Engr",
+          "instructors": [
+            "Finelli, Cindy"
+          ],
+          "times": "We 1:30PM - 3:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 229,
+        "available": 227
+      },
+      "sections": [
+        {
+          "sectionNumber": "021",
+          "classNumber": "31520",
+          "topic": "MobileAppEmbeddedAI MDE",
+          "instructors": [
+            "Jamin, Sugih"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 23,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "051",
+          "classNumber": "31565",
+          "topic": "AI App Development for Entr",
+          "instructors": [
+            "Soloway, Elliot"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "061",
+          "classNumber": "31618",
+          "topic": "Bayesian ML",
+          "instructors": [
+            "Chai, Henry"
+          ],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1610 IOE",
+          "enrolled": 1,
+          "capacity": 32,
+          "available": 31,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "071",
+          "classNumber": "37216",
+          "topic": "Mobile/Pervasive Comp &amp; Sens",
+          "instructors": [
+            "Zhang, Pei"
+          ],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "081",
+          "classNumber": "31619",
+          "topic": "MobileFullStackAgenticAI ULCS",
+          "instructors": [
+            "Jamin, Sugih"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "3427 EECS",
+          "enrolled": 1,
+          "capacity": 23,
+          "available": 22,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "091",
+          "classNumber": "29446",
+          "topic": "Election Cybersecurity",
+          "instructors": [
+            "Halderman, J Alex"
+          ],
+          "times": "We 3:30PM - 4:30PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "131",
+          "classNumber": "31687",
+          "topic": "Data Science for Legal Justice",
+          "instructors": [
+            "Kloosterman, John Sidney"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "151",
+          "classNumber": "29659",
+          "topic": "Automated Formal Verification",
+          "instructors": [
+            "Manerkar, Yatin A"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2365 LCSIB",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 85,
+        "available": 85
+      },
+      "sections": [
+        {
+          "sectionNumber": "031",
+          "classNumber": "29241",
+          "topic": "Formal Verif. of Systems S/W",
+          "instructors": [
+            "Kapritsos, Manos"
+          ],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "2147 GGBL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "161",
+          "classNumber": "33361",
+          "topic": "App Agentic Sftwr Engr",
+          "instructors": [
+            "Darden, Marcus M"
+          ],
+          "times": "Tu 12:30PM - 2:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Evening Midterm Exams",
+      "shortLabel": "Evening Midterm Exam",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "993",
+          "classNumber": "30713",
+          "topic": "Formal Verif. of Systems S/W",
+          "instructors": [
+            "Kapritsos, Manos"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

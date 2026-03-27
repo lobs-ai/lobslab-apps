@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:09.535Z",
+  "courseId": "CEE 531",
+  "courseDescr": "Constr Cost Engring",
+  "catalogNumber": "531",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/531",
+  "sourceTitle": "CEE 531 Constr Cost Engring",
+  "sectionGroups": [
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 24,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29149",
+          "topic": "",
+          "instructors": [
+            "Kelly, David James"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 1,
+          "capacity": 24,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

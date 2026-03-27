@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:01:38.476Z",
+  "courseId": "EECS 311",
+  "courseDescr": "Analog Circuits",
+  "catalogNumber": "311",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/311",
+  "sourceTitle": "EECS 311 Analog Circuits",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 26,
+        "available": 26
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10325",
+          "topic": "",
+          "instructors": [
+            "Flynn, Michael"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "185 EWRE",
+          "enrolled": 0,
+          "capacity": 26,
+          "available": 26,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 26,
+        "available": 26
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10326",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:00PM - 6:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 8,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "10327",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 6:00PM - 9:00PM",
+          "locations": "2336 EECS",
+          "enrolled": 0,
+          "capacity": 18,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

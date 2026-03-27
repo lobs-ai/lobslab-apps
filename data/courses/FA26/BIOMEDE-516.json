@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:58:42.948Z",
+  "courseId": "BIOMEDE 516",
+  "courseDescr": "Med Imag Sys",
+  "catalogNumber": "516",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/516",
+  "sourceTitle": "BIOMEDE 516 Med Imag Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 17,
+        "waitlist": 0,
+        "total": 17,
+        "capacity": 27,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10262",
+          "topic": "",
+          "instructors": [],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "G906 COOL",
+          "enrolled": 17,
+          "capacity": 27,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:09.945Z",
+  "courseId": "CHE 497",
+  "courseDescr": "Spec Topic ChE",
+  "catalogNumber": "497",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/497",
+  "sourceTitle": "CHE 497 Spec Topic ChE",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34787",
+          "topic": "Intro to Solids Processing",
+          "instructors": [
+            "Jacob, Karl V"
+          ],
+          "times": "Th 2:30PM - 5:30PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

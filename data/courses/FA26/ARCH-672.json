@@ -1,0 +1,121 @@
+{
+  "syncedAt": "2026-03-27T20:52:48.578Z",
+  "courseId": "ARCH 672",
+  "courseDescr": "Arch Design VII",
+  "catalogNumber": "672",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/672",
+  "sourceTitle": "ARCH 672 Arch Design VII",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 45,
+        "waitlist": 0,
+        "total": 45,
+        "capacity": 150,
+        "available": 105
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10046",
+          "topic": "",
+          "instructors": [
+            "Penarroyo, Cyrus"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 45,
+          "capacity": 150,
+          "available": 105,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "10047",
+          "topic": "",
+          "instructors": [
+            "Arquero de Alarcon, Maria J"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10048",
+          "topic": "",
+          "instructors": [
+            "Thun, Geoffrey"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10049",
+          "topic": "",
+          "instructors": [
+            "Graebner, Lars"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "10050",
+          "topic": "",
+          "instructors": [
+            "Mcgee, Wes"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "27229",
+          "topic": "",
+          "instructors": [
+            "Wigger, Claudia"
+          ],
+          "times": "MoTh 1:00PM - 6:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

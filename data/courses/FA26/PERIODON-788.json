@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:23.714Z",
+  "courseId": "PERIODON 788",
+  "courseDescr": "Patient Mgt Perio",
+  "catalogNumber": "788",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PERIODON",
+  "subjectDescr": "Periodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PERIODON/788",
+  "sourceTitle": "PERIODON 788 Patient Mgt Perio",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10184",
+          "topic": "",
+          "instructors": [
+            "Avila Ortiz, Gustavo"
+          ],
+          "times": "Mo 8:00AM - 9:00AM",
+          "locations": "G311 DENT",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

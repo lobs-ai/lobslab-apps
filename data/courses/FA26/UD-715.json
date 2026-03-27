@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:53.421Z",
+  "courseId": "UD 715",
+  "courseDescr": "Theories&Methods UD",
+  "catalogNumber": "715",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UD",
+  "subjectDescr": "Urban Design",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UD/715",
+  "sourceTitle": "UD 715 Theories&amp;Methods UD",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 11,
+        "available": 11
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28289",
+          "topic": "",
+          "instructors": [
+            "Arquero de Alarcon, Maria J"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 11,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

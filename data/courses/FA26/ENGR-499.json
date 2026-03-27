@@ -1,0 +1,62 @@
+{
+  "syncedAt": "2026-03-27T21:04:39.529Z",
+  "courseId": "ENGR 499",
+  "courseDescr": "Des Your Engr Future",
+  "catalogNumber": "499",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/499",
+  "sourceTitle": "ENGR 499 Des Your Engr Future",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27563",
+          "topic": "",
+          "instructors": [
+            "Dailey, Michael"
+          ],
+          "times": "We 3:30PM - 5:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 5,
+          "available": 5,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "27564",
+          "topic": "",
+          "instructors": [
+            "Dailey, Michael",
+            "Hissong, Lucas David"
+          ],
+          "times": "We 3:30PM - 5:30PM",
+          "locations": "133 CHRYS",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

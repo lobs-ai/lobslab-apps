@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:25.728Z",
+  "courseId": "CLIMATE 102",
+  "courseDescr": "Extreme Weather",
+  "catalogNumber": "102",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/102",
+  "sourceTitle": "CLIMATE 102 Extreme Weather",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 162,
+        "available": 162
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15543",
+          "topic": "",
+          "instructors": [
+            "Huang, Xianglei"
+          ],
+          "times": "MoWeFr 10:00AM - 11:00AM",
+          "locations": "AUD C AH",
+          "enrolled": 0,
+          "capacity": 162,
+          "available": 162,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

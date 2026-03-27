@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:11.578Z",
+  "courseId": "ORTHO 772",
+  "courseDescr": "Intro Cephalometric",
+  "catalogNumber": "772",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/772",
+  "sourceTitle": "ORTHO 772 Intro Cephalometric",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10174",
+          "topic": "",
+          "instructors": [
+            "Cevidanes, Lucia H Soares"
+          ],
+          "times": "Fr 8:00AM - 12:00PM",
+          "locations": "1528 KELL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

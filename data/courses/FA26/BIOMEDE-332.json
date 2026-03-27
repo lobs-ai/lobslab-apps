@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:26.590Z",
+  "courseId": "BIOMEDE 332",
+  "courseDescr": "Intro Biosolid Mech",
+  "catalogNumber": "332",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/332",
+  "sourceTitle": "BIOMEDE 332 Intro Biosolid Mech",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35161",
+          "topic": "",
+          "instructors": [
+            "Hald, Eric Scott"
+          ],
+          "times": "MoWe 9:30AM - 11:30AM",
+          "locations": "3336 DC",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:14.783Z",
+  "courseId": "CHE 554",
+  "courseDescr": "Comput Methods",
+  "catalogNumber": "554",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/554",
+  "sourceTitle": "CHE 554 Comput Methods",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 25,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35553",
+          "topic": "",
+          "instructors": [
+            "Kieffer, John"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1680 IOE",
+          "enrolled": 2,
+          "capacity": 25,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

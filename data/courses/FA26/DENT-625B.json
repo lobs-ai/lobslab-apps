@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:19.669Z",
+  "courseId": "DENT 625B",
+  "courseDescr": "Pathways - Research",
+  "catalogNumber": "625B",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/625B",
+  "sourceTitle": "DENT 625B Pathways - Research",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18396",
+          "topic": "",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph"
+          ],
+          "times": "Tu 8:00AM - 12:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

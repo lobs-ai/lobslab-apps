@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:52.168Z",
+  "courseId": "CSE 594",
+  "courseDescr": "Human-AI Interaction",
+  "catalogNumber": "594",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/594",
+  "sourceTitle": "CSE 594 Human-AI Interaction",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 17,
+        "total": 18,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32907",
+          "topic": "",
+          "instructors": [
+            "Liao, Vera"
+          ],
+          "times": "TuTh 10:30AM - 12:30PM",
+          "locations": "1200 EECS",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 17,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

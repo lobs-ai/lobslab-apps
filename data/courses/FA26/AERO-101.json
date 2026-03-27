@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T20:57:22.498Z",
+  "courseId": "AERO 101",
+  "courseDescr": "USAF Heritage I",
+  "catalogNumber": "101",
+  "description": "",
+  "schoolCode": "OEP",
+  "schoolDescr": "Engaged Learning Programs",
+  "subjectCode": "AERO",
+  "subjectDescr": "Air Force Officer Education",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AERO/101",
+  "sourceTitle": "AERO 101 USAF Heritage I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "13055",
+          "topic": "",
+          "instructors": [
+            "Wilcox, Kyle James"
+          ],
+          "times": "Th 10:00AM - 11:00AM",
+          "locations": "1100 OBSRV",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 65,
+        "available": 65
+      },
+      "sections": [
+        {
+          "sectionNumber": "004",
+          "classNumber": "13056",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 6:00AM - 8:30AM",
+          "locations": "1755 SPH1",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

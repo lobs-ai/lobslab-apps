@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:12.375Z",
+  "courseId": "CHE 505",
+  "courseDescr": "Math for ChE",
+  "catalogNumber": "505",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/505",
+  "sourceTitle": "CHE 505 Math for ChE",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 45,
+        "available": 44
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18710",
+          "topic": "",
+          "instructors": [
+            "Allman, Andrew"
+          ],
+          "times": "MoWeFr 9:00AM - 10:30AM",
+          "locations": "1003 EECS",
+          "enrolled": 1,
+          "capacity": 45,
+          "available": 44,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

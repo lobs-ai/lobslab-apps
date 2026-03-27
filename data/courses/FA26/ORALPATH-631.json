@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:49.968Z",
+  "courseId": "ORALPATH 631",
+  "courseDescr": "Microscopic OralPath",
+  "catalogNumber": "631",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALPATH",
+  "subjectDescr": "Oral Pathology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALPATH/631",
+  "sourceTitle": "ORALPATH 631 Microscopic OralPath",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18891",
+          "topic": "",
+          "instructors": [
+            "Danciu, Theodora Elena"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

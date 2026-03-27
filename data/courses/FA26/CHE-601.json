@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:17.187Z",
+  "courseId": "CHE 601",
+  "courseDescr": "Chem Engr Sem",
+  "catalogNumber": "601",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/601",
+  "sourceTitle": "CHE 601 Chem Engr Sem",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 65,
+        "available": 65
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17991",
+          "topic": "",
+          "instructors": [
+            "Goldsmith, Bryan"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 65,
+          "available": 65,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

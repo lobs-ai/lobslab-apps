@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:58.372Z",
+  "courseId": "ECE 540",
+  "courseDescr": "Appl Quant Mech I",
+  "catalogNumber": "540",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/540",
+  "sourceTitle": "ECE 540 Appl Quant Mech I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 48,
+        "available": 46
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10378",
+          "topic": "",
+          "instructors": [
+            "Kira, Mackillo"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1003 EECS",
+          "enrolled": 2,
+          "capacity": 48,
+          "available": 46,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

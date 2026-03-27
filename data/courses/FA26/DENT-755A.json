@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:46.391Z",
+  "courseId": "DENT 755A",
+  "courseDescr": "Profession & Practice",
+  "catalogNumber": "755A",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/755A",
+  "sourceTitle": "DENT 755A Profession &amp; Practice",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 130,
+        "available": 130
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32252",
+          "topic": "",
+          "instructors": [
+            "Van Tubergen, Elizabeth Anne"
+          ],
+          "times": "Th 1:00PM - 2:00PM Tu 8:00AM - 9:00AM",
+          "locations": "G390 DENT G005 KELL",
+          "enrolled": 0,
+          "capacity": 130,
+          "available": 130,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

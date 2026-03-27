@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:05.605Z",
+  "courseId": "CHE 466",
+  "courseDescr": "Proc Dyn & Control",
+  "catalogNumber": "466",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/466",
+  "sourceTitle": "CHE 466 Proc Dyn &amp; Control",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 120,
+        "available": 120
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10280",
+          "topic": "",
+          "instructors": [
+            "Antoniewicz, Maciek"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1365 LCSIB",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

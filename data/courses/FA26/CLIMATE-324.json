@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:30.292Z",
+  "courseId": "CLIMATE 324",
+  "courseDescr": "Instruments Atm Spa",
+  "catalogNumber": "324",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/324",
+  "sourceTitle": "CLIMATE 324 Instruments Atm Spa",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23045",
+          "topic": "",
+          "instructors": [
+            "De Roo, Roger"
+          ],
+          "times": "MoWe 10:30AM - 12:30PM",
+          "locations": "2230 CSRB",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

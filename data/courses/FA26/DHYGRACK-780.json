@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:57.748Z",
+  "courseId": "DHYGRACK 780",
+  "courseDescr": "Prin Online Teach&Lr",
+  "catalogNumber": "780",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DHYGRACK",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DHYGRACK/780",
+  "sourceTitle": "DHYGRACK 780 Prin Online Teach&amp;Lr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "28534",
+          "topic": "",
+          "instructors": [
+            "Cullen, Jennifer Leigh"
+          ],
+          "times": "Tu 10:00AM - 11:00AM",
+          "locations": "3161 DENT",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

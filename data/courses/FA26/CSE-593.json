@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:51.706Z",
+  "courseId": "CSE 593",
+  "courseDescr": "HCI",
+  "catalogNumber": "593",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/593",
+  "sourceTitle": "CSE 593 HCI",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 14,
+        "total": 15,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26376",
+          "topic": "",
+          "instructors": [
+            "Banovic, Nikola"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "1017 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 14,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

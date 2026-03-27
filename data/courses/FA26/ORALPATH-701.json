@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:54.320Z",
+  "courseId": "ORALPATH 701",
+  "courseDescr": "Oral Path Lit Review",
+  "catalogNumber": "701",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALPATH",
+  "subjectDescr": "Oral Pathology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALPATH/701",
+  "sourceTitle": "ORALPATH 701 Oral Path Lit Review",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19301",
+          "topic": "",
+          "instructors": [
+            "Danciu, Theodora Elena"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

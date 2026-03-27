@@ -1,0 +1,77 @@
+{
+  "syncedAt": "2026-03-27T20:54:54.111Z",
+  "courseId": "DENT 820",
+  "courseDescr": "Comprehensive Care Clinic",
+  "catalogNumber": "820",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/820",
+  "sourceTitle": "DENT 820 Comprehensive Care Clinic",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 340,
+        "available": 340
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "13244",
+          "topic": "",
+          "instructors": [
+            "Heys, Donald R",
+            "Karpenko, Amy Ellen"
+          ],
+          "times": "MoTuThFr 9:00AM - 12:00PM MoTuWeThFr 2:00PM - 5:00PM We 9:00AM - 12:00PM",
+          "locations": "TBA ARR TBA",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "27142",
+          "topic": "",
+          "instructors": [
+            "Heys, Donald R"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "22526",
+          "topic": "Dual Degree Clinical Dentistry",
+          "instructors": [
+            "Heys, Donald R"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

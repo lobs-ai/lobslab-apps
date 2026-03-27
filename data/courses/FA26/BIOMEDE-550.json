@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:46.948Z",
+  "courseId": "BIOMEDE 550",
+  "courseDescr": "Ethics&Enterprise",
+  "catalogNumber": "550",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/550",
+  "sourceTitle": "BIOMEDE 550 Ethics&amp;Enterprise",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 100,
+        "available": 94
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10264",
+          "topic": "",
+          "instructors": [
+            "Fay, Jonathan"
+          ],
+          "times": "Fr 10:30AM - 12:00PM",
+          "locations": "1610 IOE",
+          "enrolled": 6,
+          "capacity": 100,
+          "available": 94,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

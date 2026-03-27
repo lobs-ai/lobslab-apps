@@ -1,0 +1,75 @@
+{
+  "syncedAt": "2026-03-27T20:56:03.227Z",
+  "courseId": "ORTHO 755",
+  "courseDescr": "Intro Master's Thesis",
+  "catalogNumber": "755",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/755",
+  "sourceTitle": "ORTHO 755 Intro Master&#39;s Thesis",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20935",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "20438",
+          "topic": "",
+          "instructors": [
+            "Hatch, Nan E",
+            "Liang, Tian"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "23418",
+          "topic": "",
+          "instructors": [
+            "Ono, Noriaki"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

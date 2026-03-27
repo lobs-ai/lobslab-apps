@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:11.721Z",
+  "courseId": "AEROSP 714",
+  "courseDescr": "Spec Top Struc Mech",
+  "catalogNumber": "714",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/714",
+  "sourceTitle": "AEROSP 714 Spec Top Struc Mech",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35368",
+          "topic": "",
+          "instructors": [
+            "Goulbourne, Nakhiah C"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1012 FXB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

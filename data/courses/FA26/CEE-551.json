@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:13.247Z",
+  "courseId": "CEE 551",
+  "courseDescr": "Traffic Science",
+  "catalogNumber": "551",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/551",
+  "sourceTitle": "CEE 551 Traffic Science",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 12,
+        "available": 11
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23397",
+          "topic": "",
+          "instructors": [
+            "Liu, Henry"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "2236 CSRB",
+          "enrolled": 1,
+          "capacity": 12,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:56.437Z",
+  "courseId": "UT 102",
+  "courseDescr": "Anatomy of the City",
+  "catalogNumber": "102",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UT",
+  "subjectDescr": "Urban Technology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UT/102",
+  "sourceTitle": "UT 102 Anatomy of the City",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 56,
+        "available": 56
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32231",
+          "topic": "",
+          "instructors": [
+            "D&#39;Anieri, Philip James"
+          ],
+          "times": "TuTh 8:30AM - 10:00AM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 56,
+          "available": 56,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

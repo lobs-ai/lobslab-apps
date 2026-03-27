@@ -1,0 +1,145 @@
+{
+  "syncedAt": "2026-03-27T20:52:10.549Z",
+  "courseId": "ARCH 314",
+  "courseDescr": "Structures I",
+  "catalogNumber": "314",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/314",
+  "sourceTitle": "ARCH 314 Structures I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 96,
+        "available": 96
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10018",
+          "topic": "",
+          "instructors": [
+            "von Buelow, Peter David"
+          ],
+          "times": "MoWe 9:30AM - 10:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 96,
+          "available": 96,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 96,
+        "available": 96
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10019",
+          "topic": "",
+          "instructors": [
+            "Vatandoost, Mohsen"
+          ],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 96,
+          "available": 96,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10020",
+          "topic": "",
+          "instructors": [
+            "Vatandoost, Mohsen"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10021",
+          "topic": "",
+          "instructors": [
+            "Vatandoost, Mohsen"
+          ],
+          "times": "Th 1:00PM - 2:00PM",
+          "locations": "2213 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "10022",
+          "topic": "",
+          "instructors": [
+            "Vatandoost, Mohsen"
+          ],
+          "times": "Th 2:00PM - 3:00PM",
+          "locations": "2213 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "28993",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "35498",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

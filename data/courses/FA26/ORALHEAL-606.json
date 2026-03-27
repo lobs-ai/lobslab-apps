@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:39.747Z",
+  "courseId": "ORALHEAL 606",
+  "courseDescr": "Mineralized Tissues",
+  "catalogNumber": "606",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALHEAL",
+  "subjectDescr": "Oral Health Sciences",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALHEAL/606",
+  "sourceTitle": "ORALHEAL 606 Mineralized Tissues",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19318",
+          "topic": "",
+          "instructors": [
+            "Ritchie, Helena H"
+          ],
+          "times": "Tu 10:00AM - 12:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

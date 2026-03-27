@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:58:47.898Z",
+  "courseId": "BIOMEDE 551",
+  "courseDescr": "Prot & Metabol Inf",
+  "catalogNumber": "551",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/551",
+  "sourceTitle": "BIOMEDE 551 Prot &amp; Metabol Inf",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 19,
+        "waitlist": 0,
+        "total": 19,
+        "capacity": 40,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "37658",
+          "topic": "",
+          "instructors": [
+            "Karnovsky, Alla",
+            "Nesvizhskii, Alexey"
+          ],
+          "times": "WeFr 10:00AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 19,
+          "capacity": 40,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

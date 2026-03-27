@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:32.641Z",
+  "courseId": "CLIMATE 405",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "405",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/405",
+  "sourceTitle": "CLIMATE 405 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 60,
+        "available": 53
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29000",
+          "topic": "Machine Learning Earth/Enviro",
+          "instructors": [
+            "Ombadi, Mohammed"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "107 GFL",
+          "enrolled": 7,
+          "capacity": 60,
+          "available": 53,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

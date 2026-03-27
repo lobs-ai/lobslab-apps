@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-03-27T20:54:44.063Z",
+  "courseId": "DENT 750",
+  "courseDescr": "Interdisci Perio Therapy",
+  "catalogNumber": "750",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/750",
+  "sourceTitle": "DENT 750 Interdisci Perio Therapy",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32258",
+          "topic": "",
+          "instructors": [
+            "Oh, Tae-Ju",
+            "Stuhr, Sandra Hyon Mi",
+            "Travan, Suncica"
+          ],
+          "times": "We 8:00AM - 9:00AM",
+          "locations": "G390 DENT",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

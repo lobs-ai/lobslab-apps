@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:36.737Z",
+  "courseId": "CLIMATE 479",
+  "courseDescr": "Atmos Chemistry",
+  "catalogNumber": "479",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/479",
+  "sourceTitle": "CLIMATE 479 Atmos Chemistry",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34776",
+          "topic": "",
+          "instructors": [
+            "Steiner, Allison L"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1012 FXB",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

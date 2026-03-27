@@ -1,0 +1,53 @@
+{
+  "syncedAt": "2026-03-27T20:54:02.243Z",
+  "courseId": "DENT 521B",
+  "courseDescr": "Dental Anatomy & Occlusion",
+  "catalogNumber": "521B",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/521B",
+  "sourceTitle": "DENT 521B Dental Anatomy &amp; Occlusion",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18395",
+          "topic": "",
+          "instructors": [
+            "Karl, Elisabeta",
+            "Almalki, Gigi",
+            "Altamimi, Yazeed Saud A",
+            "Althebeti, Ghaida Raja H",
+            "Duddanahalli Siddanna, Geetha",
+            "Tomaka, Sarah A",
+            "Usman, Hiba",
+            "Wade, Jeremy"
+          ],
+          "times": "Tu 2:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

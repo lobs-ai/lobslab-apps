@@ -1,0 +1,86 @@
+{
+  "syncedAt": "2026-03-27T20:58:56.502Z",
+  "courseId": "CHE 296",
+  "courseDescr": "Spec ChE Topics",
+  "catalogNumber": "296",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/296",
+  "sourceTitle": "CHE 296 Spec ChE Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "200",
+          "classNumber": "35514",
+          "topic": "Intro to Materials Science",
+          "instructors": [
+            "Truskett, Thomas M",
+            "Gong, Xiwen"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 60,
+        "available": 60
+      },
+      "sections": [
+        {
+          "sectionNumber": "210",
+          "classNumber": "35515",
+          "topic": "Intro to Materials Science",
+          "instructors": [],
+          "times": "We 3:30PM - 4:30PM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "211",
+          "classNumber": "35516",
+          "topic": "Intro to Materials Science",
+          "instructors": [],
+          "times": "We 4:30PM - 5:30PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

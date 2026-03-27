@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T20:53:00.602Z",
+  "courseId": "UT 402",
+  "courseDescr": "Special Topics in UT",
+  "catalogNumber": "402",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UT",
+  "subjectDescr": "Urban Technology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UT/402",
+  "sourceTitle": "UT 402 Special Topics in UT",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35648",
+          "topic": "Public Mechanics",
+          "instructors": [
+            "Bronson Jr, Ronald"
+          ],
+          "times": "Tu 8:30AM - 11:30AM",
+          "locations": "2210 A&AB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "35649",
+          "topic": "Design for Longevity",
+          "instructors": [
+            "Lee, Sheng-Hung"
+          ],
+          "times": "Th 8:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

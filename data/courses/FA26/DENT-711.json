@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:54:32.760Z",
+  "courseId": "DENT 711",
+  "courseDescr": "Diagnostic Sciences IV",
+  "catalogNumber": "711",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/711",
+  "sourceTitle": "DENT 711 Diagnostic Sciences IV",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 130,
+        "available": 130
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32241",
+          "topic": "",
+          "instructors": [
+            "Danciu, Theodora Elena",
+            "Benavides, Erika"
+          ],
+          "times": "Tu 1:00PM - 2:00PM",
+          "locations": "G390 DENT",
+          "enrolled": 0,
+          "capacity": 130,
+          "available": 130,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

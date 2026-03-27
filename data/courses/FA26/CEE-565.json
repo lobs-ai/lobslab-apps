@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:00:16.541Z",
+  "courseId": "CEE 565",
+  "courseDescr": "Sem Energy Tech Pol",
+  "catalogNumber": "565",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/565",
+  "sourceTitle": "CEE 565 Sem Energy Tech Pol",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 140,
+        "available": 134
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34834",
+          "topic": "",
+          "instructors": [
+            "Linic, Suljo"
+          ],
+          "times": "We 5:30PM - 8:30PM",
+          "locations": "165 CHRYS",
+          "enrolled": 5,
+          "capacity": 90,
+          "available": 85,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "881",
+          "classNumber": "34836",
+          "topic": "",
+          "instructors": [
+            "Linic, Suljo"
+          ],
+          "times": "We 5:30PM - 8:30PM",
+          "locations": "REMOTE",
+          "enrolled": 1,
+          "capacity": 50,
+          "available": 49,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

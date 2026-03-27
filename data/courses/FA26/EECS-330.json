@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:01:44.931Z",
+  "courseId": "EECS 330",
+  "courseDescr": "Intro to Ants",
+  "catalogNumber": "330",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/330",
+  "sourceTitle": "EECS 330 Intro to Ants",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 21,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10331",
+          "topic": "",
+          "instructors": [
+            "Tsang, Leung"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 21,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 21,
+        "available": 21
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10332",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 6:00PM - 9:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 21,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "34359",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 9:00AM - 12:00PM",
+          "locations": "4334 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:03:56.843Z",
+  "courseId": "ENGR 301",
+  "courseDescr": "Engr Ugrad Stdy Abrd",
+  "catalogNumber": "301",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/301",
+  "sourceTitle": "ENGR 301 Engr Ugrad Stdy Abrd",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 75,
+        "available": 75
+      },
+      "sections": [
+        {
+          "sectionNumber": "300",
+          "classNumber": "27003",
+          "topic": "Study Abroad-Various Locations",
+          "instructors": [
+            "Cotel, Aline J"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 75,
+          "available": 75,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

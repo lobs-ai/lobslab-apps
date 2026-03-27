@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:09.562Z",
+  "courseId": "AEROSP 585",
+  "courseDescr": "Aerospace Sem",
+  "catalogNumber": "585",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/585",
+  "sourceTitle": "AEROSP 585 Aerospace Sem",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 146,
+        "available": 139
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "14959",
+          "topic": "",
+          "instructors": [
+            "Cesnik, Carlos E S"
+          ],
+          "times": "Th 3:00PM - 4:30PM",
+          "locations": "1109 FXB",
+          "enrolled": 7,
+          "capacity": 146,
+          "available": 139,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

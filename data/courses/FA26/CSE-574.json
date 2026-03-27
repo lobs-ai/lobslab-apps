@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:00:45.502Z",
+  "courseId": "CSE 574",
+  "courseDescr": "Computat Complexity",
+  "catalogNumber": "574",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/574",
+  "sourceTitle": "CSE 574 Computat Complexity",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 11,
+        "waitlist": 0,
+        "total": 11,
+        "capacity": 55,
+        "available": 44
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34541",
+          "topic": "",
+          "instructors": [
+            "Cheraghchi, Mahdi"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1206 DOW",
+          "enrolled": 11,
+          "capacity": 55,
+          "available": 44,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 11,
+        "waitlist": 0,
+        "total": 11,
+        "capacity": 55,
+        "available": 44
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "34542",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1024 FXB",
+          "enrolled": 11,
+          "capacity": 55,
+          "available": 44,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "syncedAt": "2026-03-27T20:53:25.187Z",
+  "courseId": "URP 544",
+  "courseDescr": "Behavior&Environmt",
+  "catalogNumber": "544",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/544",
+  "sourceTitle": "URP 544 Behavior&amp;Environmt",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34896",
+          "topic": "",
+          "instructors": [
+            "De Young, Raymond K"
+          ],
+          "times": "MoWe 1:00PM - 2:30PM",
+          "locations": "1040 DANA",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 23,
+        "waitlist": 0,
+        "total": 23,
+        "capacity": 50,
+        "available": 27
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "35993",
+          "topic": "",
+          "instructors": [
+            "De Young, Raymond K"
+          ],
+          "times": "Th 9:00AM - 10:00AM",
+          "locations": "3556 DANA",
+          "enrolled": 14,
+          "capacity": 25,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "35995",
+          "topic": "",
+          "instructors": [
+            "De Young, Raymond K"
+          ],
+          "times": "Fr 12:00PM - 1:00PM",
+          "locations": "2024 DANA",
+          "enrolled": 9,
+          "capacity": 25,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

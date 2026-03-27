@@ -1,0 +1,75 @@
+{
+  "syncedAt": "2026-03-27T21:00:44.105Z",
+  "courseId": "CSE 548",
+  "courseDescr": "Info Visualization",
+  "catalogNumber": "548",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/548",
+  "sourceTitle": "CSE 548 Info Visualization",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 31,
+        "waitlist": 0,
+        "total": 31,
+        "capacity": 100,
+        "available": 69
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "20832",
+          "topic": "",
+          "instructors": [
+            "Serrano Vergel, Ramiro"
+          ],
+          "times": "Tu 4:30PM - 6:00PM",
+          "locations": "1290 LCSIB",
+          "enrolled": 31,
+          "capacity": 100,
+          "available": 69,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 31,
+        "waitlist": 0,
+        "total": 31,
+        "capacity": 100,
+        "available": 69
+      },
+      "sections": [
+        {
+          "sectionNumber": "012",
+          "classNumber": "27654",
+          "topic": "",
+          "instructors": [
+            "Serrano Vergel, Ramiro",
+            "Faculty, SI"
+          ],
+          "times": "Th 4:30PM - 6:00PM",
+          "locations": "1290 LCSIB",
+          "enrolled": 31,
+          "capacity": 100,
+          "available": 69,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

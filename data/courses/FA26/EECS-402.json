@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:02:02.084Z",
+  "courseId": "EECS 402",
+  "courseDescr": "Prog for Sci&Eng",
+  "catalogNumber": "402",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/402",
+  "sourceTitle": "EECS 402 Prog for Sci&amp;Eng",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 40,
+        "available": 33
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "21569",
+          "topic": "",
+          "instructors": [
+            "Morgan, Andrew Michael"
+          ],
+          "times": "TuTh 4:30PM - 6:00PM",
+          "locations": "1200 EECS",
+          "enrolled": 7,
+          "capacity": 40,
+          "available": 33,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 7,
+        "waitlist": 0,
+        "total": 7,
+        "capacity": 40,
+        "available": 33
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "22265",
+          "topic": "",
+          "instructors": [],
+          "times": "We 9:30AM - 10:30AM",
+          "locations": "1200 EECS",
+          "enrolled": 2,
+          "capacity": 20,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "22266",
+          "topic": "",
+          "instructors": [],
+          "times": "We 3:30PM - 4:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 5,
+          "capacity": 20,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

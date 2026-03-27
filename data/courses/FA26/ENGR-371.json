@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:04:16.300Z",
+  "courseId": "ENGR 371",
+  "courseDescr": "Num Meth Engr",
+  "catalogNumber": "371",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/371",
+  "sourceTitle": "ENGR 371 Num Meth Engr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15841",
+          "topic": "",
+          "instructors": [
+            "Esedoglu, Selim"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "107 GFL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "33111",
+          "topic": "",
+          "instructors": [
+            "Esedoglu, Selim"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "2166 DOW",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

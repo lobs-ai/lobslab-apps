@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:28.229Z",
+  "courseId": "URP 562",
+  "courseDescr": "Active Trans Plng",
+  "catalogNumber": "562",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/562",
+  "sourceTitle": "URP 562 Active Trans Plng",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 13,
+        "waitlist": 0,
+        "total": 13,
+        "capacity": 25,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29618",
+          "topic": "",
+          "instructors": [
+            "Grengs, Joe"
+          ],
+          "times": "MoWe 4:00PM - 5:30PM",
+          "locations": "2210 A&AB",
+          "enrolled": 13,
+          "capacity": 25,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:01:33.869Z",
+  "courseId": "EECS 298",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "298",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/298",
+  "sourceTitle": "EECS 298 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 95,
+        "available": 94
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "31668",
+          "topic": "3D Technical Art &amp; Animation",
+          "instructors": [
+            "Yarger, Austin David"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "1401 DC",
+          "enrolled": 1,
+          "capacity": 95,
+          "available": 94,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:05.506Z",
+  "courseId": "AEROSP 552",
+  "courseDescr": "Aero Info Sys",
+  "catalogNumber": "552",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/552",
+  "sourceTitle": "AEROSP 552 Aero Info Sys",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31851",
+          "topic": "",
+          "instructors": [
+            "Jeannin, Jean-Baptiste"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

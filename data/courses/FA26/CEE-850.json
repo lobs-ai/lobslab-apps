@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:23.661Z",
+  "courseId": "CEE 850",
+  "courseDescr": "Transpo Sys Seminar",
+  "catalogNumber": "850",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/850",
+  "sourceTitle": "CEE 850 Transpo Sys Seminar",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 25,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35314",
+          "topic": "",
+          "instructors": [
+            "Shaw, Atiyya"
+          ],
+          "times": "We 12:00PM - 1:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 2,
+          "capacity": 25,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

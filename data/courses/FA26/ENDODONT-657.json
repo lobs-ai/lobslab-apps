@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:09.819Z",
+  "courseId": "ENDODONT 657",
+  "courseDescr": "Endodontic Surgery",
+  "catalogNumber": "657",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ENDODONT",
+  "subjectDescr": "Endodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENDODONT/657",
+  "sourceTitle": "ENDODONT 657 Endodontic Surgery",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31004",
+          "topic": "",
+          "instructors": [
+            "McDonald, Neville J"
+          ],
+          "times": "We 1:00PM - 5:00PM",
+          "locations": "3307 DENT",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

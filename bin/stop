@@ -1,0 +1,41 @@
+#!/bin/zsh
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PID_FILE="$ROOT_DIR/.server.pid"
+PORT="${PORT:-4317}"
+
+port_pid() {
+  lsof -tiTCP:"$PORT" -sTCP:LISTEN 2>/dev/null | head -n 1
+}
+
+if [[ ! -f "$PID_FILE" ]]; then
+  PID="$(port_pid || true)"
+  if [[ -n "${PID:-}" ]]; then
+    kill "$PID"
+    echo "Stopped Less Crapuler (pid $PID)"
+    exit 0
+  fi
+  echo "Less Crapuler is not running"
+  exit 0
+fi
+
+PID="$(cat "$PID_FILE")"
+if kill -0 "$PID" 2>/dev/null; then
+  kill "$PID"
+  sleep 1
+  if kill -0 "$PID" 2>/dev/null; then
+    kill -9 "$PID"
+  fi
+  echo "Stopped Less Crapuler (pid $PID)"
+else
+  PORT_PID="$(port_pid || true)"
+  if [[ -n "${PORT_PID:-}" ]]; then
+    kill "$PORT_PID"
+    echo "Stopped Less Crapuler (pid $PORT_PID)"
+  else
+    echo "Less Crapuler was not running"
+  fi
+fi
+
+rm -f "$PID_FILE"

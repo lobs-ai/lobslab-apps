@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:53:53.734Z",
+  "courseId": "DHYGRACK 685",
+  "courseDescr": "Fndt Oral Hlth Serv",
+  "catalogNumber": "685",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DHYGRACK",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DHYGRACK/685",
+  "sourceTitle": "DHYGRACK 685 Fndt Oral Hlth Serv",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "101",
+          "classNumber": "19204",
+          "topic": "",
+          "instructors": [
+            "Farrell, Christine M",
+            "Eagle, Iwonka Theresa"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "syncedAt": "2026-03-27T20:52:08.538Z",
+  "courseId": "ARCH 313",
+  "courseDescr": "History Arch I",
+  "catalogNumber": "313",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/313",
+  "sourceTitle": "ARCH 313 History Arch I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 120,
+        "available": 120
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10016",
+          "topic": "",
+          "instructors": [
+            "Knoblauch, Joy"
+          ],
+          "times": "MoWe 8:30AM - 9:30AM",
+          "locations": "1360 A&AB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10017",
+          "topic": "",
+          "instructors": [
+            "Manful, Kuukuwa O"
+          ],
+          "times": "TuTh 8:30AM - 9:30AM",
+          "locations": "2104 A&AB",
+          "enrolled": 0,
+          "capacity": 60,
+          "available": 60,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 120,
+        "available": 120
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "15537",
+          "topic": "",
+          "instructors": [],
+          "times": "We 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "35494",
+          "topic": "",
+          "instructors": [],
+          "times": "We 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "35495",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "35496",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "36459",
+          "topic": "",
+          "instructors": [],
+          "times": "We 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "36460",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 10:30AM - 11:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "009",
+          "classNumber": "37006",
+          "topic": "",
+          "instructors": [],
+          "times": "We 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "010",
+          "classNumber": "37007",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 9:30AM - 10:30AM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

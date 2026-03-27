@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:50.425Z",
+  "courseId": "ECE 509",
+  "courseDescr": "BIOMEMS",
+  "catalogNumber": "509",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/509",
+  "sourceTitle": "ECE 509 BIOMEMS",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 6,
+        "waitlist": 0,
+        "total": 6,
+        "capacity": 30,
+        "available": 24
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34543",
+          "topic": "",
+          "instructors": [
+            "Yoon, Euisik"
+          ],
+          "times": "MoWe 1:30PM - 3:00PM",
+          "locations": "1003 EECS",
+          "enrolled": 6,
+          "capacity": 30,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

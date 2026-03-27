@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:54.469Z",
+  "courseId": "ECE 529",
+  "courseDescr": "Semi Lasers & Leds",
+  "catalogNumber": "529",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/529",
+  "sourceTitle": "ECE 529 Semi Lasers &amp; Leds",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 23,
+        "available": 18
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19538",
+          "topic": "",
+          "instructors": [
+            "Ku, Pei-Cheng"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "3433 EECS",
+          "enrolled": 5,
+          "capacity": 23,
+          "available": 18,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

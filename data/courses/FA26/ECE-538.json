@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:57.528Z",
+  "courseId": "ECE 538",
+  "courseDescr": "Opt Wave Crystals",
+  "catalogNumber": "538",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/538",
+  "sourceTitle": "ECE 538 Opt Wave Crystals",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27944",
+          "topic": "",
+          "instructors": [
+            "Winful, Herbert Graves"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "3427 EECS",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

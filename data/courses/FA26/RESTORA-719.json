@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:56.933Z",
+  "courseId": "RESTORA 719",
+  "courseDescr": "Pre-clinic for Grad",
+  "catalogNumber": "719",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/719",
+  "sourceTitle": "RESTORA 719 Pre-clinic for Grad",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23542",
+          "topic": "",
+          "instructors": [
+            "Neiva, Gisele De Faria"
+          ],
+          "times": "Fr 1:00PM - 5:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

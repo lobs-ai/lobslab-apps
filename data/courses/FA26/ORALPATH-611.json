@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:48.555Z",
+  "courseId": "ORALPATH 611",
+  "courseDescr": "Clinical Oral Path",
+  "catalogNumber": "611",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALPATH",
+  "subjectDescr": "Oral Pathology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALPATH/611",
+  "sourceTitle": "ORALPATH 611 Clinical Oral Path",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18889",
+          "topic": "",
+          "instructors": [
+            "Danciu, Theodora Elena"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

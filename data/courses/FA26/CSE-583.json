@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:46.428Z",
+  "courseId": "CSE 583",
+  "courseDescr": "Advanced Compilers",
+  "catalogNumber": "583",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/583",
+  "sourceTitle": "CSE 583 Advanced Compilers",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 11,
+        "total": 12,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17352",
+          "topic": "",
+          "instructors": [
+            "Mahlke, Scott"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "1010 DOW",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 11,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:07.759Z",
+  "courseId": "AEROSP 582",
+  "courseDescr": "Spacecraft Tech",
+  "catalogNumber": "582",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/582",
+  "sourceTitle": "AEROSP 582 Spacecraft Tech",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 45,
+        "available": 42
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10242",
+          "topic": "",
+          "instructors": [
+            "De Oliveira Renno, Nilton"
+          ],
+          "times": "MoWeFr 2:30PM - 4:30PM",
+          "locations": "2246 CSRB",
+          "enrolled": 3,
+          "capacity": 45,
+          "available": 42,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

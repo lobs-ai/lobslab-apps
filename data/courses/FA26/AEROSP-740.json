@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:13.287Z",
+  "courseId": "AEROSP 740",
+  "courseDescr": "Sp Top Fltdyn Con",
+  "catalogNumber": "740",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/740",
+  "sourceTitle": "AEROSP 740 Sp Top Fltdyn Con",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 8,
+        "waitlist": 0,
+        "total": 8,
+        "capacity": 60,
+        "available": 52
+      },
+      "sections": [
+        {
+          "sectionNumber": "003",
+          "classNumber": "31837",
+          "topic": "Control of Aerial Vehicles",
+          "instructors": [
+            "Tzoumas, Vasileios"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "1008 FXB",
+          "enrolled": 8,
+          "capacity": 60,
+          "available": 52,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

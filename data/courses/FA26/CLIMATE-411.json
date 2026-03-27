@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:34.200Z",
+  "courseId": "CLIMATE 411",
+  "courseDescr": "Cloud&Precip Process",
+  "catalogNumber": "411",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/411",
+  "sourceTitle": "CLIMATE 411 Cloud&amp;Precip Process",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34775",
+          "topic": "",
+          "instructors": [
+            "Pettersen, Claire"
+          ],
+          "times": "MoWeFr 10:30AM - 11:30AM",
+          "locations": "3358 DC",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

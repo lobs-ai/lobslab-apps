@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:53:13.554Z",
+  "courseId": "URP 500",
+  "courseDescr": "Plng Thry & History",
+  "catalogNumber": "500",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/500",
+  "sourceTitle": "URP 500 Plng Thry &amp; History",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 40,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20802",
+          "topic": "",
+          "instructors": [
+            "Kinder, Kimberley Anne",
+            "Steiff, Julie Ann"
+          ],
+          "times": "MoWe 10:00AM - 11:30AM",
+          "locations": "2108 A&AB",
+          "enrolled": 4,
+          "capacity": 40,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

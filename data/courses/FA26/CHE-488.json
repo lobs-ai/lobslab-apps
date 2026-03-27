@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:59:08.074Z",
+  "courseId": "CHE 488",
+  "courseDescr": "Chem Prod Design I",
+  "catalogNumber": "488",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/488",
+  "sourceTitle": "CHE 488 Chem Prod Design I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 0,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19122",
+          "topic": "",
+          "instructors": [
+            "Lenert, Andrej",
+            "Wisniewski, Elaine"
+          ],
+          "times": "MoWe 1:30PM - 2:30PM",
+          "locations": "1311 EECS",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

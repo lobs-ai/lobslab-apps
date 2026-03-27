@@ -1,0 +1,136 @@
+{
+  "syncedAt": "2026-03-27T20:52:21.801Z",
+  "courseId": "ARCH 432",
+  "courseDescr": "Arch Des III",
+  "catalogNumber": "432",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/432",
+  "sourceTitle": "ARCH 432 Arch Des III",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 75,
+        "available": 75
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10033",
+          "topic": "",
+          "instructors": [
+            "Moran, Thom"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 75,
+          "available": 75,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "10034",
+          "topic": "",
+          "instructors": [
+            "Gilpin, Dawn M"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10035",
+          "topic": "",
+          "instructors": [
+            "Rule, Jonathan Russell"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10036",
+          "topic": "",
+          "instructors": [
+            "McCullough, Malcolm"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "22528",
+          "topic": "",
+          "instructors": [
+            "Reichert, Gina"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "28460",
+          "topic": "",
+          "instructors": [
+            "Kennedy, Michael J"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "36538",
+          "topic": "",
+          "instructors": [
+            "McCullough, Kit Krankel"
+          ],
+          "times": "MoWeFr 1:00PM - 5:00PM",
+          "locations": "3100 A&AB",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 6
+        }
+      ]
+    }
+  ]
+}

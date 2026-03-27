@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:35.074Z",
+  "courseId": "CLIMATE 440",
+  "courseDescr": "Meteor Analysis Lab",
+  "catalogNumber": "440",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/440",
+  "sourceTitle": "CLIMATE 440 Meteor Analysis Lab",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16187",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "MoWeFr 1:30PM - 3:30PM",
+          "locations": "2236 CSRB",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

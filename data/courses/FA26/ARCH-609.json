@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:44.177Z",
+  "courseId": "ARCH 609",
+  "courseDescr": "Disability Studies",
+  "catalogNumber": "609",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/609",
+  "sourceTitle": "ARCH 609 Disability Studies",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 3,
+        "available": 3
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18525",
+          "topic": "",
+          "instructors": [
+            "Kupetz, Joshua"
+          ],
+          "times": "We 1:00PM - 4:00PM",
+          "locations": "2437 MH",
+          "enrolled": 0,
+          "capacity": 3,
+          "available": 3,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

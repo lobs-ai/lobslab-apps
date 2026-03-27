@@ -1,0 +1,111 @@
+{
+  "syncedAt": "2026-03-27T20:52:19.879Z",
+  "courseId": "ARCH 423",
+  "courseDescr": "Int U P&Env",
+  "catalogNumber": "423",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/423",
+  "sourceTitle": "ARCH 423 Int U P&amp;Env",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10029",
+          "topic": "",
+          "instructors": [
+            "Wendel, Gus"
+          ],
+          "times": "TuTh 10:00AM - 11:00AM",
+          "locations": "3460 CCCB",
+          "enrolled": 0,
+          "capacity": 100,
+          "available": 100,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 100,
+        "available": 100
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "10030",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 12:00PM - 1:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10031",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:00AM - 12:00PM",
+          "locations": "B1560 BUS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "10032",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 12:00PM - 1:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "32635",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:00AM - 11:00AM",
+          "locations": "B1560 BUS",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

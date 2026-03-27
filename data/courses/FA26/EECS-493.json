@@ -1,0 +1,128 @@
+{
+  "syncedAt": "2026-03-27T21:02:40.350Z",
+  "courseId": "EECS 493",
+  "courseDescr": "User Interface Dev",
+  "catalogNumber": "493",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/493",
+  "sourceTitle": "EECS 493 User Interface Dev",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 220,
+        "available": 217
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29234",
+          "topic": "",
+          "instructors": [
+            "Jahanbakhsh, Farnaz",
+            "Guo, Anhong"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1060 FMCRB",
+          "enrolled": 2,
+          "capacity": 120,
+          "available": 118,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "29235",
+          "topic": "",
+          "instructors": [
+            "Jahanbakhsh, Farnaz",
+            "Guo, Anhong"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1060 FMCRB",
+          "enrolled": 1,
+          "capacity": 100,
+          "available": 99,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 220,
+        "available": 217
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "29236",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 2,
+          "capacity": 55,
+          "available": 53,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "29237",
+          "topic": "",
+          "instructors": [],
+          "times": "Mo 4:30PM - 5:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 55,
+          "available": 55,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "35903",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 5:30PM - 6:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 1,
+          "capacity": 55,
+          "available": 54,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "35904",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 55,
+          "available": 55,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

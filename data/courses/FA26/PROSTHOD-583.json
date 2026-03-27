@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:39.664Z",
+  "courseId": "PROSTHOD 583",
+  "courseDescr": "Independent Study",
+  "catalogNumber": "583",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PROSTHOD",
+  "subjectDescr": "Prosthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PROSTHOD/583",
+  "sourceTitle": "PROSTHOD 583 Independent Study",
+  "sectionGroups": [
+    {
+      "name": "Recitations",
+      "shortLabel": "Recitation",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "13405",
+          "topic": "",
+          "instructors": [
+            "Saglik, Berna"
+          ],
+          "times": "Mo 8:00AM - 9:00AM We 10:00AM - 11:00AM",
+          "locations": "1033 KELL 1033 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

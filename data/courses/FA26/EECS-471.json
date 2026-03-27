@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:02:31.507Z",
+  "courseId": "EECS 471",
+  "courseDescr": "Applied GPU Prog",
+  "catalogNumber": "471",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/471",
+  "sourceTitle": "EECS 471 Applied GPU Prog",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 70,
+        "available": 67
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26197",
+          "topic": "",
+          "instructors": [
+            "Das, Reetuparna"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "165 CHRYS",
+          "enrolled": 3,
+          "capacity": 70,
+          "available": 67,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 70,
+        "available": 67
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "26198",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1060 FMCRB",
+          "enrolled": 3,
+          "capacity": 70,
+          "available": 67,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

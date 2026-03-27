@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:31.309Z",
+  "courseId": "ARCH 504",
+  "courseDescr": "Spec Topc Structures",
+  "catalogNumber": "504",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/504",
+  "sourceTitle": "ARCH 504 Spec Topc Structures",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 12,
+        "available": 8
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "30489",
+          "topic": "Masonry Structures",
+          "instructors": [
+            "von Buelow, Peter David"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "ARR",
+          "enrolled": 4,
+          "capacity": 12,
+          "available": 8,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:35.772Z",
+  "courseId": "URP 589",
+  "courseDescr": "Tech Clusters",
+  "catalogNumber": "589",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/589",
+  "sourceTitle": "URP 589 Tech Clusters",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 10,
+        "available": 6
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "29621",
+          "topic": "",
+          "instructors": [
+            "Campbell, Scott D"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "1360 A&AB",
+          "enrolled": 4,
+          "capacity": 10,
+          "available": 6,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "syncedAt": "2026-03-27T21:03:37.256Z",
+  "courseId": "ENGR 196",
+  "courseDescr": "Outreach Internship",
+  "catalogNumber": "196",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/196",
+  "sourceTitle": "ENGR 196 Outreach Internship",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 500,
+        "available": 500
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "17623",
+          "topic": "",
+          "instructors": [
+            "Pipe, Kevin",
+            "Boivin, Kerri"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "23350",
+          "topic": "",
+          "instructors": [
+            "Pipe, Kevin",
+            "Boivin, Kerri"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 250,
+          "available": 250,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

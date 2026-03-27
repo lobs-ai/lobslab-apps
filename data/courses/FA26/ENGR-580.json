@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:05:49.853Z",
+  "courseId": "ENGR 580",
+  "courseDescr": "Teaching Engin",
+  "catalogNumber": "580",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/580",
+  "sourceTitle": "ENGR 580 Teaching Engin",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 25,
+        "available": 24
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34452",
+          "topic": "",
+          "instructors": [
+            "Finelli, Cindy"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "104 EWRE",
+          "enrolled": 1,
+          "capacity": 25,
+          "available": 24,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

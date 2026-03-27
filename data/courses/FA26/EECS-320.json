@@ -1,0 +1,72 @@
+{
+  "syncedAt": "2026-03-27T21:01:43.871Z",
+  "courseId": "EECS 320",
+  "courseDescr": "Intr Semicon Devices",
+  "catalogNumber": "320",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/320",
+  "sourceTitle": "EECS 320 Intr Semicon Devices",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 46,
+        "available": 46
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20778",
+          "topic": "",
+          "instructors": [
+            "Giebink, Noel Christopher"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 46,
+          "available": 46,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 46,
+        "available": 46
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "20779",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1050 FMCRB",
+          "enrolled": 0,
+          "capacity": 46,
+          "available": 46,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:48.546Z",
+  "courseId": "BIOMEDE 582",
+  "courseDescr": "Med Rad Hlth Eng",
+  "catalogNumber": "582",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/582",
+  "sourceTitle": "BIOMEDE 582 Med Rad Hlth Eng",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 5,
+        "available": 4
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35551",
+          "topic": "",
+          "instructors": [
+            "Noey, Jordan David"
+          ],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "1940 COOL",
+          "enrolled": 1,
+          "capacity": 5,
+          "available": 4,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

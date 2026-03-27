@@ -1,0 +1,59 @@
+{
+  "syncedAt": "2026-03-27T20:58:18.111Z",
+  "courseId": "AUTO 599",
+  "courseDescr": "Spec Topics Auto Eng",
+  "catalogNumber": "599",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AUTO",
+  "subjectDescr": "Automotive Engineering Program",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AUTO/599",
+  "sourceTitle": "AUTO 599 Spec Topics Auto Eng",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20310",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "20311",
+          "topic": "Verification and Validation",
+          "instructors": [
+            "Winter, Donald C"
+          ],
+          "times": "Th 12:00PM - 2:00PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

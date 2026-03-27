@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:06.351Z",
+  "courseId": "ORTHO 760",
+  "courseDescr": "Clinical Orthodon",
+  "catalogNumber": "760",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORTHO",
+  "subjectDescr": "Orthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORTHO/760",
+  "sourceTitle": "ORTHO 760 Clinical Orthodon",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 30,
+        "available": 30
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10169",
+          "topic": "",
+          "instructors": [
+            "Aliaga del Castillo, Aron"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 30,
+          "available": 30,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

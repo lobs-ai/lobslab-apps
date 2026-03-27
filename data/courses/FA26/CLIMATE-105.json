@@ -1,0 +1,61 @@
+{
+  "syncedAt": "2026-03-27T21:00:26.718Z",
+  "courseId": "CLIMATE 105",
+  "courseDescr": "Changing Atmos",
+  "catalogNumber": "105",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CLIMATE",
+  "subjectDescr": "Climate & Meteorology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CLIMATE/105",
+  "sourceTitle": "CLIMATE 105 Changing Atmos",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 390,
+        "available": 390
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10246",
+          "topic": "",
+          "instructors": [
+            "De Roo, Roger"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "1210 CHEM",
+          "enrolled": 0,
+          "capacity": 240,
+          "available": 240,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "30764",
+          "topic": "",
+          "instructors": [
+            "De Roo, Roger"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "REMOTE",
+          "enrolled": 0,
+          "capacity": 150,
+          "available": 150,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

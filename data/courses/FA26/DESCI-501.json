@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-03-27T21:00:56.518Z",
+  "courseId": "DESCI 501",
+  "courseDescr": "Analytical Prod Des",
+  "catalogNumber": "501",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "DESCI",
+  "subjectDescr": "Design Science",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DESCI/501",
+  "sourceTitle": "DESCI 501 Analytical Prod Des",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "35935",
+          "topic": "",
+          "instructors": [
+            "Brei, Diann Erbschloe"
+          ],
+          "times": "TuTh 1:30PM - 3:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 0,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "36042",
+          "topic": "",
+          "instructors": [],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "36043",
+          "topic": "",
+          "instructors": [],
+          "times": "Th 3:30PM - 4:30PM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

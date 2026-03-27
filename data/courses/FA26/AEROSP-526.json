@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:58:01.150Z",
+  "courseId": "AEROSP 526",
+  "courseDescr": "Hypersonics",
+  "catalogNumber": "526",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "AEROSP",
+  "subjectDescr": "Aerospace Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/AEROSP/526",
+  "sourceTitle": "AEROSP 526 Hypersonics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 10,
+        "waitlist": 0,
+        "total": 10,
+        "capacity": 60,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32923",
+          "topic": "",
+          "instructors": [
+            "Fidkowski, Krzysztof J"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1012 FXB",
+          "enrolled": 10,
+          "capacity": 60,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

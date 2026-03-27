@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:51.337Z",
+  "courseId": "RESTORA 575",
+  "courseDescr": "Dig Ceramic Dent",
+  "catalogNumber": "575",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "RESTORA",
+  "subjectDescr": "Restorative",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/RESTORA/575",
+  "sourceTitle": "RESTORA 575 Dig Ceramic Dent",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20947",
+          "topic": "",
+          "instructors": [
+            "Fasbinder, Dennis J"
+          ],
+          "times": "Tu 1:00PM - 5:00PM",
+          "locations": "2450 DENT",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

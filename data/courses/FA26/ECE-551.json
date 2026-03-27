@@ -1,0 +1,111 @@
+{
+  "syncedAt": "2026-03-27T21:03:00.760Z",
+  "courseId": "ECE 551",
+  "courseDescr": "Matrix Meth Sig Proc",
+  "catalogNumber": "551",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/551",
+  "sourceTitle": "ECE 551 Matrix Meth Sig Proc",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 15,
+        "waitlist": 0,
+        "total": 15,
+        "capacity": 125,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15522",
+          "topic": "",
+          "instructors": [
+            "Lobos, Rodrigo"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "1571 GGBL",
+          "enrolled": 15,
+          "capacity": 125,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 15,
+        "waitlist": 0,
+        "total": 15,
+        "capacity": 125,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "19688",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 11:30AM",
+          "locations": "1017 DOW",
+          "enrolled": 10,
+          "capacity": 63,
+          "available": 53,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "20927",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 2:30PM",
+          "locations": "1200 EECS",
+          "enrolled": 5,
+          "capacity": 62,
+          "available": 57,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Evening Midterm Exams",
+      "shortLabel": "Evening Midterm Exam",
+      "summary": {
+        "enrolled": 15,
+        "waitlist": 0,
+        "total": 15,
+        "capacity": 125,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "099",
+          "classNumber": "30702",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 15,
+          "capacity": 125,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

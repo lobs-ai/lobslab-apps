@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:54:22.520Z",
+  "courseId": "DENT 627",
+  "courseDescr": "Diagnostic Sciences I",
+  "catalogNumber": "627",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/627",
+  "sourceTitle": "DENT 627 Diagnostic Sciences I",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32061",
+          "topic": "",
+          "instructors": [
+            "Nor, Felipe",
+            "Marti, Kyriaki Christos"
+          ],
+          "times": "We 1:00PM - 2:00PM",
+          "locations": "G322 DENT",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

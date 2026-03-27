@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:02:48.579Z",
+  "courseId": "EECS 628",
+  "courseDescr": "Adv Hi Perf VLSI",
+  "catalogNumber": "628",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/628",
+  "sourceTitle": "EECS 628 Adv Hi Perf VLSI",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 4,
+        "waitlist": 0,
+        "total": 4,
+        "capacity": 23,
+        "available": 19
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "34548",
+          "topic": "",
+          "instructors": [
+            "Mazumder, Pinaki"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "3433 EECS",
+          "enrolled": 4,
+          "capacity": 23,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

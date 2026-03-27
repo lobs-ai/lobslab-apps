@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:50.943Z",
+  "courseId": "CEE 504",
+  "courseDescr": "Engr Econ & Finance",
+  "catalogNumber": "504",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/504",
+  "sourceTitle": "CEE 504 Engr Econ &amp; Finance",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 23,
+        "available": 23
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27565",
+          "topic": "",
+          "instructors": [
+            "Kelly, David James"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "136 EWRE",
+          "enrolled": 0,
+          "capacity": 23,
+          "available": 23,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

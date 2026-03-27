@@ -1,0 +1,712 @@
+{
+  "syncedAt": "2026-03-27T21:03:34.710Z",
+  "courseId": "ENGR 110",
+  "courseDescr": "Des Your Engr Exp",
+  "catalogNumber": "110",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/110",
+  "sourceTitle": "ENGR 110 Des Your Engr Exp",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 740,
+        "available": 740
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "25990",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "TBA TBA",
+          "locations": "REMOTE",
+          "enrolled": 0,
+          "capacity": 740,
+          "available": 740,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 940,
+        "available": 940
+      },
+      "sections": [
+        {
+          "sectionNumber": "101",
+          "classNumber": "19557",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 8:30AM - 9:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "102",
+          "classNumber": "19558",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 8:30AM - 9:30AM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "103",
+          "classNumber": "19559",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 8:30AM - 9:30AM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "104",
+          "classNumber": "21690",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 8:30AM - 9:30AM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "105",
+          "classNumber": "21691",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "106",
+          "classNumber": "35633",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "107",
+          "classNumber": "19560",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "108",
+          "classNumber": "19561",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "109",
+          "classNumber": "19562",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "110",
+          "classNumber": "24066",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "111",
+          "classNumber": "19563",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "112",
+          "classNumber": "19564",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1045 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "113",
+          "classNumber": "19565",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "114",
+          "classNumber": "19566",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "115",
+          "classNumber": "24067",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1025 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "116",
+          "classNumber": "20909",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "117",
+          "classNumber": "20910",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "118",
+          "classNumber": "21687",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "119",
+          "classNumber": "21688",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "120",
+          "classNumber": "21689",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "121",
+          "classNumber": "24348",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "122",
+          "classNumber": "24349",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "123",
+          "classNumber": "24350",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "124",
+          "classNumber": "24351",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1050 FMCRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "125",
+          "classNumber": "27942",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "126",
+          "classNumber": "35634",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1940 COOL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "127",
+          "classNumber": "35635",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1060 FMCRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "128",
+          "classNumber": "24352",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "129",
+          "classNumber": "35636",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "130",
+          "classNumber": "27773",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "107 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "131",
+          "classNumber": "24353",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "132",
+          "classNumber": "27774",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "133",
+          "classNumber": "24354",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "134",
+          "classNumber": "24355",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "2238 CSRB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "135",
+          "classNumber": "35637",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "136",
+          "classNumber": "24356",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "137",
+          "classNumber": "24357",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "138",
+          "classNumber": "24358",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "139",
+          "classNumber": "24359",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "104 EWRE",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "140",
+          "classNumber": "24360",
+          "topic": "",
+          "instructors": [
+            "Marsik, Frank Joseph"
+          ],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "224 GFL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "141",
+          "classNumber": "35626",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "2150 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "142",
+          "classNumber": "35627",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 2:30PM - 3:30PM",
+          "locations": "1032 FXB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "143",
+          "classNumber": "35628",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1018 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "144",
+          "classNumber": "35629",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "4440 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "145",
+          "classNumber": "35630",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1012 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "146",
+          "classNumber": "35631",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        },
+        {
+          "sectionNumber": "147",
+          "classNumber": "35632",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 3:30PM - 4:30PM",
+          "locations": "1045 GGBL",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

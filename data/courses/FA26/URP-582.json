@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:29.749Z",
+  "courseId": "URP 582",
+  "courseDescr": "Neighborhood Plan",
+  "catalogNumber": "582",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/582",
+  "sourceTitle": "URP 582 Neighborhood Plan",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 16,
+        "waitlist": 0,
+        "total": 16,
+        "capacity": 25,
+        "available": 9
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26607",
+          "topic": "",
+          "instructors": [
+            "Reddy, Madhavi"
+          ],
+          "times": "Mo 5:30PM - 8:30PM",
+          "locations": "2210 A&AB",
+          "enrolled": 16,
+          "capacity": 25,
+          "available": 9,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:52:58.177Z",
+  "courseId": "UT 202",
+  "courseDescr": "Tech in Context",
+  "catalogNumber": "202",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "UT",
+  "subjectDescr": "Urban Technology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/UT/202",
+  "sourceTitle": "UT 202 Tech in Context",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 45,
+        "available": 45
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "36067",
+          "topic": "",
+          "instructors": [
+            "McCullough, Malcolm"
+          ],
+          "times": "TuTh 10:00AM - 11:30AM",
+          "locations": "2115 A&AB",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

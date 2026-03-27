@@ -1,0 +1,134 @@
+{
+  "syncedAt": "2026-03-27T20:58:23.632Z",
+  "courseId": "BIOMEDE 231",
+  "courseDescr": "Intro Biomechanics",
+  "catalogNumber": "231",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "BIOMEDE",
+  "subjectDescr": "Biomedical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/BIOMEDE/231",
+  "sourceTitle": "BIOMEDE 231 Intro Biomechanics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "22810",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "MoWe 1:30PM - 3:30PM",
+          "locations": "1355 LCSIB",
+          "enrolled": 0,
+          "capacity": 80,
+          "available": 80,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 80,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "002",
+          "classNumber": "24238",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "Mo 3:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "24239",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "Tu 3:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "24504",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "We 3:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "25965",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "Th 3:30PM - 6:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "35351",
+          "topic": "",
+          "instructors": [
+            "Mays, Elizabeth"
+          ],
+          "times": "Fr 1:30PM - 4:30PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

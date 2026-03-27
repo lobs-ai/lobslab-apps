@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:06.541Z",
+  "courseId": "DENT 524",
+  "courseDescr": "Pathways Program",
+  "catalogNumber": "524",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/524",
+  "sourceTitle": "DENT 524 Pathways Program",
+  "sectionGroups": [
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32243",
+          "topic": "",
+          "instructors": [
+            "Chiego Jr, Daniel Joseph"
+          ],
+          "times": "We 2:00PM - 4:00PM Mo 9:00AM - 11:00AM",
+          "locations": "G378 DENT G378 DENT",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

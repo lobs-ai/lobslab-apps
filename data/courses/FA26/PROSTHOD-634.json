@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:41.084Z",
+  "courseId": "PROSTHOD 634",
+  "courseDescr": "Prin Compl Dent Pro",
+  "catalogNumber": "634",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PROSTHOD",
+  "subjectDescr": "Prosthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PROSTHOD/634",
+  "sourceTitle": "PROSTHOD 634 Prin Compl Dent Pro",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10188",
+          "topic": "",
+          "instructors": [
+            "Saglik, Berna"
+          ],
+          "times": "Fr 8:00AM - 9:00AM",
+          "locations": "G524 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

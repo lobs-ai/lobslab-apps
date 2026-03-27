@@ -1,0 +1,252 @@
+{
+  "syncedAt": "2026-03-27T21:03:07.404Z",
+  "courseId": "ECE 598",
+  "courseDescr": "Special Topics",
+  "catalogNumber": "598",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/598",
+  "sourceTitle": "ECE 598 Special Topics",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 23,
+        "waitlist": 9,
+        "total": 32,
+        "capacity": 237,
+        "available": 214
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "31521",
+          "topic": "Probability Methods",
+          "instructors": [
+            "Subramanian, Vijay Gautam"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "3427 EECS",
+          "enrolled": 3,
+          "capacity": 36,
+          "available": 33,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "34718",
+          "topic": "Quantum Signal Processing",
+          "instructors": [
+            "Dong, Yulong"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "1620 BEYSTER",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "31539",
+          "topic": "Chip Testing",
+          "instructors": [
+            "Kim, Hun Seok"
+          ],
+          "times": "Fr 12:00PM - 3:00PM",
+          "locations": "1014 DOW",
+          "enrolled": 0,
+          "capacity": 0,
+          "available": 0,
+          "waitlist": 9,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "34721",
+          "topic": "Fund Theory Circ Network",
+          "instructors": [
+            "Afshari, Ehsan"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "31706",
+          "topic": "Advanced Electric Drives",
+          "instructors": [
+            "Hofmann, Heath"
+          ],
+          "times": "TuTh 3:00PM - 4:30PM",
+          "locations": "1012 FXB",
+          "enrolled": 2,
+          "capacity": 36,
+          "available": 34,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "006",
+          "classNumber": "36556",
+          "topic": "Electron Emission/Contact Phys",
+          "instructors": [
+            "Zhang PH.D., Peng"
+          ],
+          "times": "Mo 1:30PM - 3:00PM We 1:30PM - 3:00PM",
+          "locations": "2238 CSRB 1690 BEYSTER",
+          "enrolled": 0,
+          "capacity": 13,
+          "available": 13,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "007",
+          "classNumber": "31812",
+          "topic": "How to Make almost Anything IX",
+          "instructors": [
+            "Zhu, Junyi"
+          ],
+          "times": "TuTh 4:30PM - 6:00PM",
+          "locations": "1005 EECS",
+          "enrolled": 12,
+          "capacity": 40,
+          "available": 28,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "008",
+          "classNumber": "33583",
+          "topic": "Resonant MEMS",
+          "instructors": [
+            "Tabrizian, Roozbeh"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "1680 IOE",
+          "enrolled": 2,
+          "capacity": 27,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "009",
+          "classNumber": "34719",
+          "topic": "Mobile/Pervasive Comp &amp; Sens",
+          "instructors": [
+            "Zhang, Pei"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "3150 DOW",
+          "enrolled": 3,
+          "capacity": 30,
+          "available": 27,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 14,
+        "waitlist": 0,
+        "total": 14,
+        "capacity": 76,
+        "available": 62
+      },
+      "sections": [
+        {
+          "sectionNumber": "051",
+          "classNumber": "31714",
+          "topic": "Advanced Electric Drives",
+          "instructors": [
+            "Hofmann, Heath"
+          ],
+          "times": "We 12:00PM - 3:00PM",
+          "locations": "3437 EECS",
+          "enrolled": 2,
+          "capacity": 36,
+          "available": 34,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "071",
+          "classNumber": "31813",
+          "topic": "How to Make almost Anything IX",
+          "instructors": [
+            "Zhu, Junyi"
+          ],
+          "times": "We 3:30PM - 5:30PM",
+          "locations": "1206 DOW",
+          "enrolled": 12,
+          "capacity": 40,
+          "available": 28,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 5,
+        "waitlist": 0,
+        "total": 5,
+        "capacity": 57,
+        "available": 52
+      },
+      "sections": [
+        {
+          "sectionNumber": "081",
+          "classNumber": "33584",
+          "topic": "Resonant MEMS",
+          "instructors": [
+            "Tabrizian, Roozbeh"
+          ],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "136 EWRE",
+          "enrolled": 2,
+          "capacity": 27,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "091",
+          "classNumber": "34720",
+          "topic": "Mobile/Pervasive Comp &amp; Sens",
+          "instructors": [
+            "Zhang, Pei"
+          ],
+          "times": "Tu 3:30PM - 4:30PM",
+          "locations": "134 NAME",
+          "enrolled": 3,
+          "capacity": 30,
+          "available": 27,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

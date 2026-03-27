@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:39.481Z",
+  "courseId": "URP 599",
+  "courseDescr": "Career in RE right?",
+  "catalogNumber": "599",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "URP",
+  "subjectDescr": "Urban and Regional Planning",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/URP/599",
+  "sourceTitle": "URP 599 Career in RE right?",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32877",
+          "topic": "",
+          "instructors": [
+            "Bubniak, William Anthony"
+          ],
+          "times": "We 12:30PM - 2:30PM",
+          "locations": "R1100 BUS",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

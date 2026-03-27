@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:28.218Z",
+  "courseId": "DENT 641",
+  "courseDescr": "Orthodontic Diagnosis",
+  "catalogNumber": "641",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/641",
+  "sourceTitle": "DENT 641 Orthodontic Diagnosis",
+  "sectionGroups": [
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 115,
+        "available": 115
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32255",
+          "topic": "",
+          "instructors": [
+            "Cevidanes, Lucia H Soares"
+          ],
+          "times": "Th 8:00AM - 10:00AM Th 8:00AM - 10:00AM",
+          "locations": "G322 DENT TBA",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

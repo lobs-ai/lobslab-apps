@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:53:50.582Z",
+  "courseId": "DENTED 614",
+  "courseDescr": "Clin Orl&Max Path",
+  "catalogNumber": "614",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENTED",
+  "subjectDescr": "Dental Education",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTED/614",
+  "sourceTitle": "DENTED 614 Clin Orl&amp;Max Path",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 35,
+        "available": 35
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19506",
+          "topic": "",
+          "instructors": [
+            "Castilho, Rogerio"
+          ],
+          "times": "Tu 8:00AM - 9:00AM",
+          "locations": "G390 DENT",
+          "enrolled": 0,
+          "capacity": 35,
+          "available": 35,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:18.644Z",
+  "courseId": "PEDDENT 598",
+  "courseDescr": "Stan Care of Ped Den",
+  "catalogNumber": "598",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PEDDENT",
+  "subjectDescr": "Pediatric Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PEDDENT/598",
+  "sourceTitle": "PEDDENT 598 Stan Care of Ped Den",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 12,
+        "available": 12
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17199",
+          "topic": "",
+          "instructors": [
+            "Boynton, James Richard"
+          ],
+          "times": "Tu 12:00PM - 1:00PM",
+          "locations": "G536 KELL",
+          "enrolled": 0,
+          "capacity": 12,
+          "available": 12,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

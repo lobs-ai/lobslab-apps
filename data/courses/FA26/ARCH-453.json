@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:52:23.451Z",
+  "courseId": "ARCH 453",
+  "courseDescr": "Hist of Urban Form",
+  "catalogNumber": "453",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/453",
+  "sourceTitle": "ARCH 453 Hist of Urban Form",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 5,
+        "available": 4
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "37450",
+          "topic": "",
+          "instructors": [
+            "Herscher, Andrew H",
+            "Stanek, Lukasz Jan"
+          ],
+          "times": "WeFr 11:30AM - 1:00PM",
+          "locations": "TBA",
+          "enrolled": 1,
+          "capacity": 5,
+          "available": 4,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

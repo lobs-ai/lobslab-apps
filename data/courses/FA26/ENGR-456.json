@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T21:04:37.872Z",
+  "courseId": "ENGR 456",
+  "courseDescr": "Mentr-Ldr Mltdis Des",
+  "catalogNumber": "456",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ENGR",
+  "subjectDescr": "Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENGR/456",
+  "sourceTitle": "ENGR 456 Mentr-Ldr Mltdis Des",
+  "sectionGroups": [
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 20,
+        "available": 20
+      },
+      "sections": [
+        {
+          "sectionNumber": "231",
+          "classNumber": "20282",
+          "topic": "Peer Mentorship/Leadership",
+          "instructors": [
+            "Hohner, Gail",
+            "Langille, Megan"
+          ],
+          "times": "We 6:00PM - 8:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:57:11.326Z",
+  "courseId": "DENTHYG 414",
+  "courseDescr": "DH Clinic Theory V",
+  "catalogNumber": "414",
+  "description": "",
+  "schoolCode": "DH",
+  "schoolDescr": "Dentistry (Dental Hygiene)",
+  "subjectCode": "DENTHYG",
+  "subjectDescr": "Dental Hygiene",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENTHYG/414",
+  "sourceTitle": "DENTHYG 414 DH Clinic Theory V",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10131",
+          "topic": "",
+          "instructors": [
+            "Nieto, Valerie Kay"
+          ],
+          "times": "Tu 10:00AM - 12:00PM",
+          "locations": "G550 KELL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

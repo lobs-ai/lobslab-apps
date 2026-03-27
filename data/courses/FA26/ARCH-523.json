@@ -1,0 +1,47 @@
+{
+  "syncedAt": "2026-03-27T20:52:37.417Z",
+  "courseId": "ARCH 523",
+  "courseDescr": "Hist Urban Form",
+  "catalogNumber": "523",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/523",
+  "sourceTitle": "ARCH 523 Hist Urban Form",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 9,
+        "waitlist": 0,
+        "total": 9,
+        "capacity": 20,
+        "available": 11
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "17387",
+          "topic": "",
+          "instructors": [
+            "Stanek, Lukasz Jan",
+            "Herscher, Andrew H"
+          ],
+          "times": "WeFr 11:30AM - 1:00PM WeFr 11:30AM - 1:00PM",
+          "locations": "2108 A&AB 2210 A&AB",
+          "enrolled": 9,
+          "capacity": 20,
+          "available": 11,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

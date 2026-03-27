@@ -1,0 +1,89 @@
+{
+  "syncedAt": "2026-03-27T20:59:26.914Z",
+  "courseId": "CEE 345",
+  "courseDescr": "Geotech Engr",
+  "catalogNumber": "345",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/345",
+  "sourceTitle": "CEE 345 Geotech Engr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 32,
+        "available": 32
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10298",
+          "topic": "",
+          "instructors": [
+            "Hryciw, Roman D"
+          ],
+          "times": "MoWeFr 9:30AM - 10:30AM",
+          "locations": "107 GFL",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 32,
+        "available": 32
+      },
+      "sections": [
+        {
+          "sectionNumber": "004",
+          "classNumber": "10299",
+          "topic": "",
+          "instructors": [
+            "Hryciw, Roman D"
+          ],
+          "times": "We 3:30PM - 5:30PM",
+          "locations": "1021 GGBL",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "14881",
+          "topic": "",
+          "instructors": [
+            "Hryciw, Roman D"
+          ],
+          "times": "Th 3:30PM - 5:30PM",
+          "locations": "1021 GGBL",
+          "enrolled": 0,
+          "capacity": 16,
+          "available": 16,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

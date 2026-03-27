@@ -1,0 +1,117 @@
+{
+  "syncedAt": "2026-03-27T20:59:48.738Z",
+  "courseId": "CEE 501",
+  "courseDescr": "Special Topics CEE",
+  "catalogNumber": "501",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/501",
+  "sourceTitle": "CEE 501 Special Topics CEE",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 3,
+        "waitlist": 0,
+        "total": 3,
+        "capacity": 83,
+        "available": 80
+      },
+      "sections": [
+        {
+          "sectionNumber": "074",
+          "classNumber": "35319",
+          "topic": "Air Pollution: Aerosol Physics",
+          "instructors": [
+            "O&#39;Brien, Rachel Elizabeth"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "078",
+          "classNumber": "30676",
+          "topic": "",
+          "instructors": [
+            "Guikema, Seth David"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "2238 CSRB",
+          "enrolled": 2,
+          "capacity": 23,
+          "available": 21,
+          "waitlist": 0,
+          "credits": 3
+        },
+        {
+          "sectionNumber": "144",
+          "classNumber": "35317",
+          "topic": "",
+          "instructors": [],
+          "times": "MoWe 9:00AM - 10:30AM",
+          "locations": "3433 EECS",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 1
+        },
+        {
+          "sectionNumber": "278",
+          "classNumber": "35318",
+          "topic": "",
+          "instructors": [
+            "Guikema, Seth David"
+          ],
+          "times": "TuTh 12:00PM - 1:30PM",
+          "locations": "107 GFL",
+          "enrolled": 1,
+          "capacity": 20,
+          "available": 19,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "800",
+          "classNumber": "32041",
+          "topic": "Civil Infrastruct Sys Seminar",
+          "instructors": [
+            "McCormick, Jason P"
+          ],
+          "times": "Tu 4:30PM - 6:00PM",
+          "locations": "2153 GGBL",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

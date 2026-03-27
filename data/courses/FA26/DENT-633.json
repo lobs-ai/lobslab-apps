@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:54:25.526Z",
+  "courseId": "DENT 633",
+  "courseDescr": "Clinical Applications",
+  "catalogNumber": "633",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/633",
+  "sourceTitle": "DENT 633 Clinical Applications",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 110,
+        "available": 110
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18392",
+          "topic": "",
+          "instructors": [
+            "Hoelscher, Diane Clare"
+          ],
+          "times": "Fr 8:00AM - 9:00AM",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 110,
+          "available": 110,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

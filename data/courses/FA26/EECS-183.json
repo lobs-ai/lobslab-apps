@@ -1,0 +1,483 @@
+{
+  "syncedAt": "2026-03-27T21:01:00.155Z",
+  "courseId": "EECS 183",
+  "courseDescr": "Elem Prog Concepts",
+  "catalogNumber": "183",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/183",
+  "sourceTitle": "EECS 183 Elem Prog Concepts",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 788,
+        "available": 788
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10315",
+          "topic": "C++ Section",
+          "instructors": [
+            "Torralva, Ben"
+          ],
+          "times": "TuTh 8:30AM - 10:00AM",
+          "locations": "1400 CHEM",
+          "enrolled": 0,
+          "capacity": 160,
+          "available": 160,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "22245",
+          "topic": "C++ Section",
+          "instructors": [
+            "Arthur, William Patrick"
+          ],
+          "times": "TuTh 1:00PM - 2:30PM",
+          "locations": "1400 CHEM",
+          "enrolled": 0,
+          "capacity": 160,
+          "available": 160,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "003",
+          "classNumber": "10317",
+          "topic": "C++ Section",
+          "instructors": [
+            "Arthur, William Patrick"
+          ],
+          "times": "TuTh 4:00PM - 5:30PM",
+          "locations": "1400 CHEM",
+          "enrolled": 0,
+          "capacity": 160,
+          "available": 160,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "004",
+          "classNumber": "19138",
+          "topic": "Python Section",
+          "instructors": [
+            "Bogaerts, Steven"
+          ],
+          "times": "TuTh 11:30AM - 1:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 188,
+          "available": 188,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "005",
+          "classNumber": "34531",
+          "topic": "Python Section",
+          "instructors": [
+            "Bogaerts, Steven"
+          ],
+          "times": "TuTh 2:30PM - 4:00PM",
+          "locations": "G390 DENT",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Laboratories",
+      "shortLabel": "Laboratorie",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 788,
+        "available": 788
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "10316",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Tu 9:00AM - 11:00AM",
+          "locations": "3242 LSA",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "27008",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 3:00PM - 5:00PM",
+          "locations": "1436 MH",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "15546",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 10:00AM - 12:00PM",
+          "locations": "R0210 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "10318",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "We 12:00PM - 2:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "27747",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 12:00PM - 2:00PM",
+          "locations": "R1230 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "016",
+          "classNumber": "26065",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 1:00PM - 3:00PM",
+          "locations": "R1220 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "017",
+          "classNumber": "18293",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "We 1:00PM - 3:00PM",
+          "locations": "2024 DANA",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "018",
+          "classNumber": "18294",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Tu 1:00PM - 3:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "019",
+          "classNumber": "18295",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 2:00PM - 4:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "020",
+          "classNumber": "19139",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "We 2:00PM - 4:00PM",
+          "locations": "2114 MLB",
+          "enrolled": 0,
+          "capacity": 20,
+          "available": 20,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "021",
+          "classNumber": "19225",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "We 2:00PM - 4:00PM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "022",
+          "classNumber": "26064",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 12:00PM - 2:00PM",
+          "locations": "1544 NUB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "023",
+          "classNumber": "19642",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Fr 1:00PM - 3:00PM",
+          "locations": "R1240 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "024",
+          "classNumber": "19643",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "Th 9:00AM - 11:00AM",
+          "locations": "G026 TISCH",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "025",
+          "classNumber": "19644",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "We 3:00PM - 5:00PM",
+          "locations": "1033 KELL",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "041",
+          "classNumber": "35097",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "We 11:00AM - 1:00PM",
+          "locations": "1250 USB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "042",
+          "classNumber": "35099",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Fr 9:00AM - 11:00AM",
+          "locations": "R1220 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "043",
+          "classNumber": "35100",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Fr 3:00PM - 5:00PM",
+          "locations": "B852 EQ",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "044",
+          "classNumber": "35101",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Fr 11:00AM - 1:00PM",
+          "locations": "1528 NUB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "045",
+          "classNumber": "35102",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "We 4:00PM - 6:00PM",
+          "locations": "1544 NUB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "046",
+          "classNumber": "35103",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Tu 1:00PM - 3:00PM",
+          "locations": "2022 STB",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "047",
+          "classNumber": "35104",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Fr 1:00PM - 3:00PM",
+          "locations": "R0210 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "048",
+          "classNumber": "35277",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "We 11:00AM - 1:00PM",
+          "locations": "ARR",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "049",
+          "classNumber": "19947",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Th 1:00PM - 3:00PM",
+          "locations": "1112 SPH2",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "050",
+          "classNumber": "19975",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "Fr 10:00AM - 12:00PM",
+          "locations": "R1240 BUS",
+          "enrolled": 0,
+          "capacity": 32,
+          "available": 32,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Evening Midterm Exams",
+      "shortLabel": "Evening Midterm Exam",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 1900,
+        "available": 1900
+      },
+      "sections": [
+        {
+          "sectionNumber": "099",
+          "classNumber": "23162",
+          "topic": "C++ Section",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 1000,
+          "available": 1000,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "499",
+          "classNumber": "35098",
+          "topic": "Python Section",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 900,
+          "available": 900,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

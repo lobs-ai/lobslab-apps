@@ -1,0 +1,60 @@
+{
+  "syncedAt": "2026-03-27T20:54:48.023Z",
+  "courseId": "DENT 757",
+  "courseDescr": "Intro to CBCCE",
+  "catalogNumber": "757",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/757",
+  "sourceTitle": "DENT 757 Intro to CBCCE",
+  "sectionGroups": [
+    {
+      "name": "Clinicals",
+      "shortLabel": "Clinical",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 235,
+        "available": 235
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32256",
+          "topic": "",
+          "instructors": [
+            "Hill, Elliott Earl",
+            "Tomaka, Sarah A"
+          ],
+          "times": "Fr 1:00PM - 2:00PM",
+          "locations": "G390 DENT",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 0
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "32262",
+          "topic": "",
+          "instructors": [],
+          "times": "N/A",
+          "locations": "N/A",
+          "enrolled": 0,
+          "capacity": 115,
+          "available": 115,
+          "waitlist": 0,
+          "credits": 0
+        }
+      ]
+    }
+  ]
+}

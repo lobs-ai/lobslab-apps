@@ -1,0 +1,74 @@
+{
+  "syncedAt": "2026-03-27T21:02:16.673Z",
+  "courseId": "EECS 441",
+  "courseDescr": "Mbl App Dev Entrprnr",
+  "catalogNumber": "441",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/441",
+  "sourceTitle": "EECS 441 Mbl App Dev Entrprnr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 36,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27561",
+          "topic": "",
+          "instructors": [
+            "Soloway, Elliot"
+          ],
+          "times": "MoWe 3:00PM - 4:30PM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 36,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 36,
+        "available": 36
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "27562",
+          "topic": "",
+          "instructors": [
+            "Soloway, Elliot"
+          ],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "3150 DOW",
+          "enrolled": 0,
+          "capacity": 36,
+          "available": 36,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

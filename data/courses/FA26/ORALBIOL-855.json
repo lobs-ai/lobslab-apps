@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:55:29.132Z",
+  "courseId": "ORALBIOL 855",
+  "courseDescr": "Conscious Sedation",
+  "catalogNumber": "855",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ORALBIOL",
+  "subjectDescr": "Oral Biology",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ORALBIOL/855",
+  "sourceTitle": "ORALBIOL 855 Conscious Sedation",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 15,
+        "available": 15
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10153",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA TBA TBA",
+          "locations": "TBA TBA",
+          "enrolled": 0,
+          "capacity": 15,
+          "available": 15,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-03-27T20:52:50.496Z",
+  "courseId": "ARCH 801",
+  "courseDescr": "Collo Ethics Doc Res",
+  "catalogNumber": "801",
+  "description": "",
+  "schoolCode": "AUP",
+  "schoolDescr": "Architecture & Urban Planning",
+  "subjectCode": "ARCH",
+  "subjectDescr": "Architecture",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ARCH/801",
+  "sourceTitle": "ARCH 801 Collo Ethics Doc Res",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 10,
+        "available": 10
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "19848",
+          "topic": "",
+          "instructors": [],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 10,
+          "available": 10,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

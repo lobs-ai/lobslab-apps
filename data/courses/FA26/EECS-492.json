@@ -1,0 +1,139 @@
+{
+  "syncedAt": "2026-03-27T21:02:38.647Z",
+  "courseId": "EECS 492",
+  "courseDescr": "Intro Art Intell",
+  "catalogNumber": "492",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "EECS",
+  "subjectDescr": "Elec Engin & Computer Sci",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/EECS/492",
+  "sourceTitle": "EECS 492 Intro Art Intell",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 225,
+        "available": 225
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "26411",
+          "topic": "",
+          "instructors": [
+            "Bondi-Kelly, Liz"
+          ],
+          "times": "MoWe 10:30AM - 12:00PM",
+          "locations": "1013 DOW",
+          "enrolled": 0,
+          "capacity": 120,
+          "available": 120,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "002",
+          "classNumber": "10371",
+          "topic": "",
+          "instructors": [
+            "Rodriguez, Alexander"
+          ],
+          "times": "TuTh 1:30PM - 3:00PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 105,
+          "available": 105,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "shortLabel": "Discussion",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 225,
+        "available": 225
+      },
+      "sections": [
+        {
+          "sectionNumber": "011",
+          "classNumber": "13407",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 9:30AM - 10:30AM",
+          "locations": "138 NAME",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "012",
+          "classNumber": "22576",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 10:30AM - 11:30AM",
+          "locations": "1003 EECS",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "013",
+          "classNumber": "18119",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 11:30AM - 12:30PM",
+          "locations": "1670 BEYSTER",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "014",
+          "classNumber": "10372",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 1:30PM - 2:30PM",
+          "locations": "1005 EECS",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        },
+        {
+          "sectionNumber": "015",
+          "classNumber": "26465",
+          "topic": "",
+          "instructors": [],
+          "times": "Fr 12:30PM - 1:30PM",
+          "locations": "1005 DOW",
+          "enrolled": 0,
+          "capacity": 45,
+          "available": 45,
+          "waitlist": 0,
+          "credits": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:16.203Z",
+  "courseId": "CHE 595",
+  "courseDescr": "Chem E Res Surv",
+  "catalogNumber": "595",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/595",
+  "sourceTitle": "CHE 595 Chem E Res Surv",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 50,
+        "available": 50
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "10284",
+          "topic": "",
+          "instructors": [
+            "Goldsmith, Bryan"
+          ],
+          "times": "TuTh 10:30AM - 12:00PM",
+          "locations": "2147 GGBL",
+          "enrolled": 0,
+          "capacity": 50,
+          "available": 50,
+          "waitlist": 0,
+          "credits": 2
+        }
+      ]
+    }
+  ]
+}

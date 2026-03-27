@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:00:53.010Z",
+  "courseId": "CSE 595",
+  "courseDescr": "Nat Lang Proc",
+  "catalogNumber": "595",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CSE",
+  "subjectDescr": "Computer Science and Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CSE/595",
+  "sourceTitle": "CSE 595 Nat Lang Proc",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 37,
+        "total": 38,
+        "capacity": 1,
+        "available": 0
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "20201",
+          "topic": "",
+          "instructors": [
+            "Chai, Joyce"
+          ],
+          "times": "MoWe 12:00PM - 1:30PM",
+          "locations": "2365 LCSIB",
+          "enrolled": 1,
+          "capacity": 1,
+          "available": 0,
+          "waitlist": 37,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

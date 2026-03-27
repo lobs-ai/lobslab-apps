@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:13.146Z",
+  "courseId": "CHE 527",
+  "courseDescr": "Fluid Flow",
+  "catalogNumber": "527",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CHE",
+  "subjectDescr": "Chemical Engineering",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CHE/527",
+  "sourceTitle": "CHE 527 Fluid Flow",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 1,
+        "waitlist": 0,
+        "total": 1,
+        "capacity": 40,
+        "available": 39
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "18383",
+          "topic": "",
+          "instructors": [
+            "Larson, Ronald G"
+          ],
+          "times": "TuTh 8:30AM - 10:30AM",
+          "locations": "1680 IOE",
+          "enrolled": 1,
+          "capacity": 40,
+          "available": 39,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

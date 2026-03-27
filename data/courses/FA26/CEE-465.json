@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:59:41.144Z",
+  "courseId": "CEE 465",
+  "courseDescr": "Env Process Engr",
+  "catalogNumber": "465",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "CEE",
+  "subjectDescr": "Civil & Environmental Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/CEE/465",
+  "sourceTitle": "CEE 465 Env Process Engr",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 40,
+        "available": 40
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "27599",
+          "topic": "",
+          "instructors": [
+            "Love, Nancy G"
+          ],
+          "times": "TuTh 9:00AM - 10:30AM",
+          "locations": "2147 GGBL",
+          "enrolled": 0,
+          "capacity": 40,
+          "available": 40,
+          "waitlist": 0,
+          "credits": 3
+        }
+      ]
+    }
+  ]
+}

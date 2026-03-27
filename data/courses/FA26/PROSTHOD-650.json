@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:56:43.800Z",
+  "courseId": "PROSTHOD 650",
+  "courseDescr": "Adv Tx Planning",
+  "catalogNumber": "650",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "PROSTHOD",
+  "subjectDescr": "Prosthodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/PROSTHOD/650",
+  "sourceTitle": "PROSTHOD 650 Adv Tx Planning",
+  "sectionGroups": [
+    {
+      "name": "Lectures",
+      "shortLabel": "Lecture",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "15334",
+          "topic": "",
+          "instructors": [
+            "Saglik, Berna"
+          ],
+          "times": "We 11:00AM - 12:00PM",
+          "locations": "1033 KELL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

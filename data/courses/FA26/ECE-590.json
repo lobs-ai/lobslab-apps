@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T21:03:04.084Z",
+  "courseId": "ECE 590",
+  "courseDescr": "Grad Skills",
+  "catalogNumber": "590",
+  "description": "",
+  "schoolCode": "ENG",
+  "schoolDescr": "Engineering",
+  "subjectCode": "ECE",
+  "subjectDescr": "Electrical and Computer Engin",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ECE/590",
+  "sourceTitle": "ECE 590 Grad Skills",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 2,
+        "waitlist": 0,
+        "total": 2,
+        "capacity": 78,
+        "available": 76
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "32922",
+          "topic": "",
+          "instructors": [
+            "Seiler, Peter Joseph"
+          ],
+          "times": "We 4:30PM - 5:30PM",
+          "locations": "1200 EECS",
+          "enrolled": 2,
+          "capacity": 78,
+          "available": 76,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:05.495Z",
+  "courseId": "DENT 998",
+  "courseDescr": "Curr Practical Prjct",
+  "catalogNumber": "998",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "DENT",
+  "subjectDescr": "Dentistry",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/DENT/998",
+  "sourceTitle": "DENT 998 Curr Practical Prjct",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 2,
+        "available": 2
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "16909",
+          "topic": "",
+          "instructors": [
+            "Woolfolk, Marilyn W"
+          ],
+          "times": "TBA TBA",
+          "locations": "TBA",
+          "enrolled": 0,
+          "capacity": 2,
+          "available": 2,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}

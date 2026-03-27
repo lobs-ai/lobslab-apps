@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-03-27T20:55:14.746Z",
+  "courseId": "ENDODONT 658",
+  "courseDescr": "CBCT",
+  "catalogNumber": "658",
+  "description": "",
+  "schoolCode": "DEN",
+  "schoolDescr": "Dentistry",
+  "subjectCode": "ENDODONT",
+  "subjectDescr": "Endodontics",
+  "termCode": 2610,
+  "termDescr": "Fall 2026",
+  "termShort": "FA26",
+  "courseUrl": "https://www.crapuler.com/course/FA26/ENDODONT/658",
+  "sourceTitle": "ENDODONT 658 CBCT",
+  "sectionGroups": [
+    {
+      "name": "Seminars",
+      "shortLabel": "Seminar",
+      "summary": {
+        "enrolled": 0,
+        "waitlist": 0,
+        "total": 0,
+        "capacity": 25,
+        "available": 25
+      },
+      "sections": [
+        {
+          "sectionNumber": "001",
+          "classNumber": "23433",
+          "topic": "",
+          "instructors": [
+            "McDonald, Neville J"
+          ],
+          "times": "Fr 8:00AM - 9:00AM",
+          "locations": "G580 KELL",
+          "enrolled": 0,
+          "capacity": 25,
+          "available": 25,
+          "waitlist": 0,
+          "credits": 1
+        }
+      ]
+    }
+  ]
+}
