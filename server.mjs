@@ -9,6 +9,23 @@ const PORT = Number.parseInt(process.env.PORT ?? "4317", 10);
 const BASE_URL = "https://www.crapuler.com";
 const INDEX_TTL_MS = 10 * 60_000;
 
+// ── Shared cookie ─────────────────────────────────────────────────────────────
+
+function parseCookies(header) {
+  const cookies = {};
+  if (!header) return cookies;
+  for (const pair of header.split(";")) {
+    const [key, ...rest] = pair.trim().split("=");
+    if (key) cookies[key.trim()] = rest.join("=").trim();
+  }
+  return cookies;
+}
+
+/** Read the shared lobslab_id from the request cookie. Returns null if not set. */
+function getLobslabId(req) {
+  return parseCookies(req.headers.cookie)["lobslab_id"] ?? null;
+}
+
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -29,6 +46,11 @@ const cache = {
 createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host}`);
+    if (url.pathname === "/api/me") {
+      const id = getLobslabId(req);
+      sendJson(res, 200, { lobslab_id: id });
+      return;
+    }
     if (url.pathname.startsWith("/api/")) {
       await handleApi(url, res);
       return;
