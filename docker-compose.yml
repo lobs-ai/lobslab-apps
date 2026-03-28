@@ -1,0 +1,15 @@
+services:
+  less-crapuler:
+    build: .
+    restart: unless-stopped
+    networks:
+      - lobslab
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.less-crapuler.rule: "Host(`crapuler.lobslab.com`)"
+      traefik.http.routers.less-crapuler.entrypoints: web
+      traefik.http.services.less-crapuler.loadbalancer.server.port: "4317"
+
+networks:
+  lobslab:
+    external: true
