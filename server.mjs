@@ -125,10 +125,14 @@ async function handleStatic(url, res) {
   try {
     const body = await readFile(safePath);
     const ext = path.extname(safePath).toLowerCase();
-    res.writeHead(200, { "content-type": mimeTypes[ext] ?? "application/octet-stream" });
+    res.writeHead(200, {
+      "content-type": mimeTypes[ext] ?? "application/octet-stream",
+      "cache-control": "public, max-age=300",
+    });
     res.end(body);
   } catch {
-    sendText(res, 404, "Not found");
+    res.writeHead(404, { "cache-control": "no-store" });
+    res.end("Not found");
   }
 }
 
