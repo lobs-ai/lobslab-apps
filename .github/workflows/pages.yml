@@ -25,7 +25,7 @@ jobs:
           node-version: 22
 
       - name: Sync mirrored data
-        run: node ./scripts/sync-data.mjs
+        run: node ./apps/crapuler/scripts/sync-data.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -33,7 +33,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./apps/crapuler
 
   deploy:
     environment:

@@ -1,62 +1,72 @@
-# Less Crapuler
+# lobslab-apps
 
-Local dashboard for watching many Crapuler classes at once.
+All web apps running on [lobslab.com](https://lobslab.com) subdomains.
 
-## Run it
+## Apps
+
+| App | URL | Description |
+|-----|-----|-------------|
+| [crapuler](apps/crapuler/) | [crapuler.lobslab.com](https://crapuler.lobslab.com) | UMich course watchlist dashboard |
+| [ballz](apps/ballz/) | [ballz.lobslab.com](https://ballz.lobslab.com) | Bouncing balls physics toy |
+
+## Quick Start
+
+### Add a new app
+
+1. Copy the template:
+   ```bash
+   cp -r apps/_template apps/my-app
+   ```
+
+2. Edit `apps/my-app/` — build your app
+
+3. Add to `docker-compose.yml`:
+   ```yaml
+   my-app:
+     build: ./apps/my-app
+     restart: unless-stopped
+     networks:
+       - lobslab
+     labels:
+       traefik.enable: "true"
+       traefik.http.routers.my-app.rule: "Host(`my-app.lobslab.com`)"
+       traefik.http.routers.my-app.entrypoints: web
+       traefik.http.services.my-app.loadbalancer.server.port: "3000"
+   ```
+
+4. Deploy:
+   ```bash
+   docker compose build my-app && docker compose up -d my-app
+   ```
+
+That's it — Traefik auto-discovers it, Cloudflare tunnel already handles `*.lobslab.com`.
+
+See [docs/NEW-APP.md](docs/NEW-APP.md) for the full guide.
+
+## Infrastructure
+
+Apps don't manage their own infrastructure. The routing stack lives in [lobslab-infra](https://github.com/lobs-ai/lobslab-infra):
+
+- **Traefik** — reverse proxy, auto-discovers Docker containers via labels
+- **Cloudflare Tunnel** — exposes `*.lobslab.com` to the internet
+- **home.lobslab.com** — landing page that auto-discovers all running services
+
+Each app just needs a `Dockerfile`, a `docker-compose.yml` entry, and Traefik labels.
+
+## Development
 
 ```bash
-./bin/open
-```
+# Run an app locally
+cd apps/crapuler
+node server.mjs
+# Open http://localhost:4317
 
-That starts the server if needed and opens `http://localhost:4317`.
+# Build & deploy a specific app
+docker compose build crapuler && docker compose up -d crapuler
 
-## Useful commands
-
-```bash
-./bin/run
-./bin/open
-./bin/stop
-./bin/restart
-./bin/status
-```
-
-You can also use the npm aliases:
-
-```bash
-npm run open
-npm run run
-npm run stop
-npm run restart
-npm run status
-```
-
-## How it works
-
-- The browser talks to the local Node server.
-- The local server proxies live requests to `https://www.crapuler.com`.
-- This avoids the browser CORS block that would happen if the page tried to hit Crapuler directly.
-
-## Docker (lobslab)
-
-To run on the lobslab infrastructure behind Traefik:
-
-```bash
+# Deploy all apps
 docker compose up -d --build
+
+# View logs
+docker compose logs -f crapuler
 ```
-
-The app will be available at `http://crapuler.lobslab.com` via Traefik.
-
-The service joins the external `lobslab` Docker network. Make sure Traefik is running and that network exists before starting.
-
-To stop:
-
-```bash
-docker compose down
-```
-
-## Notes
-
-- Term search is live.
-- Broad title search is backed by a local in-memory term index built from Crapuler endpoints on demand.
-- The first broad search for a term can take longer while that local cache warms.
-- Widget refreshes poll live course pages and meeting data.

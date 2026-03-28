@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BALLZ — Idle Ball Factory</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #0a0a1a;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+  }
+
+  canvas {
+    flex: 1;
+    min-width: 0;
+    display: block;
+  }
+
+  #ui {
+    width: 340px;
+    min-width: 340px;
+    background: #12122a;
+    border-left: 1px solid #2a2a4a;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 16px;
+    gap: 12px;
+    z-index: 10;
+  }
+
+  #generators, #upgrades {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #ui h1 {
+    font-size: 28px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 4px;
+    margin-bottom: 4px;
+  }
+
+  .stat-bar {
+    background: #1a1a3a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-bar .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-bar .value { font-size: 22px; font-weight: 700; color: #ffd93d; }
+
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #555;
+    margin-top: 8px;
+    padding-left: 4px;
+  }
+
+  .upgrade-btn {
+    background: #1e1e40;
+    border: 1px solid #333366;
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .upgrade-btn:hover:not(.locked) {
+    background: #28284a;
+    border-color: #5555aa;
+    transform: translateY(-1px);
+  }
+
+  .upgrade-btn.locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .upgrade-btn .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .upgrade-btn .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ddd;
+  }
+
+  .upgrade-btn .cost {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd93d;
+  }
+
+  .upgrade-btn .desc {
+    font-size: 11px;
+    color: #777;
+  }
+
+  .upgrade-btn .level {
+    font-size: 10px;
+    color: #4d96ff;
+    font-weight: 600;
+  }
+
+  #prestige-btn {
+    background: linear-gradient(135deg, #4a1942, #6b1d5e);
+    border: 1px solid #9b3090;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    margin-top: 12px;
+  }
+
+  #prestige-btn:hover:not(.locked) {
+    background: linear-gradient(135deg, #5e2155, #852577);
+    transform: translateY(-1px);
+  }
+
+  #prestige-btn.locked { opacity: 0.3; cursor: not-allowed; }
+  #prestige-btn .name { font-size: 15px; font-weight: 700; color: #e891dc; }
+  #prestige-btn .desc { font-size: 11px; color: #aa6da5; margin-top: 4px; }
+
+  .combo-display {
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+  }
+  .combo-display span { color: #ff6b6b; font-weight: 700; font-size: 14px; }
+
+  @media (max-width: 700px) {
+    body { flex-direction: column; }
+    canvas { height: 45vh; flex: none; }
+    #ui { width: 100%; min-width: unset; height: 55vh; border-left: none; border-top: 1px solid #2a2a4a; }
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>B A L L Z</h1>
+
+  <div class="stat-bar">
+    <div><div class="label">Balls</div></div>
+    <div class="value" id="ball-count">0</div>
+  </div>
+
+  <div class="stat-bar">
+    <div><div class="label">Per Second</div></div>
+    <div class="value" id="bps">0</div>
+  </div>
+
+  <div class="combo-display">
+    Click balls for bonus! Combo: <span id="combo">x1</span>
+  </div>
+
+  <div class="section-title">Generators</div>
+  <div id="generators"></div>
+
+  <div class="section-title">Upgrades</div>
+  <div id="upgrades"></div>
+
+  <div id="prestige-btn" class="locked" onclick="doPrestige()">
+    <div class="name">⟳ PRESTIGE</div>
+    <div class="desc" id="prestige-desc">Reset for multipliers (need 1,000 balls)</div>
+  </div>
+</div>
+
+<script>
+// ── Save / Load ──
+const SAVE_KEY = 'ballz_save_v2';
+
+// ── Game State ──
+let state = getDefaultState();
+
+function getDefaultState() {
+  return {
+    balls: 0,
+    totalBalls: 0,
+    prestiges: 0,
+    prestigeMulti: 1,
+    combo: 1,
+    comboTimer: 0,
+    generators: [
+      { id: 'dropper',    name: 'Ball Dropper',     desc: 'Drops a ball every few seconds', baseCost: 10,    baseRate: 0.5,  count: 0 },
+      { id: 'launcher',   name: 'Ball Launcher',    desc: 'Launches balls rapidly',         baseCost: 100,   baseRate: 3,    count: 0 },
+      { id: 'factory',    name: 'Ball Factory',     desc: 'Mass-produces balls',            baseCost: 1000,  baseRate: 20,   count: 0 },
+      { id: 'vortex',     name: 'Ball Vortex',      desc: 'Summons balls from the void',    baseCost: 12000, baseRate: 100,  count: 0 },
+      { id: 'singularity',name: 'Singularity',      desc: 'Warps reality to create balls',  baseCost: 150000,baseRate: 600,  count: 0 },
+    ],
+    upgrades: [
+      { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
+      { id: 'clickPow',   name: 'Click Power',      desc: 'Clicking gives 5 balls',         cost: 200,   bought: false, effect: 'clickPower' },
+      { id: 'rainbow',    name: 'Rainbow Balls',    desc: 'Balls cycle through colors',     cost: 500,   bought: false, effect: 'rainbow' },
+      { id: 'gravity',    name: 'Low Gravity',      desc: 'Balls float more',               cost: 2000,  bought: false, effect: 'lowGravity' },
+      { id: 'explosion',  name: 'Ball Explosion',   desc: 'Balls burst into more on click', cost: 5000,  bought: false, effect: 'explosion' },
+      { id: 'magnet',     name: 'Ball Magnet',      desc: '+50% production rate',           cost: 25000, bought: false, effect: 'magnet' },
+      { id: 'golden',     name: 'Golden Balls',     desc: 'Rare golden balls worth 100x',   cost: 100000,bought: false, effect: 'golden' },
+    ],
+  };
+}
+
+function saveGame() {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function loadGame() {
+  try {
+    const s = localStorage.getItem(SAVE_KEY);
+    if (s) {
+      const loaded = JSON.parse(s);
+      // Merge onto defaults to handle new fields
+      const def = getDefaultState();
+      state = { ...def, ...loaded };
+      // Merge generators/upgrades by id
+      state.generators = def.generators.map(dg => {
+        const lg = loaded.generators?.find(g => g.id === dg.id);
+        return lg ? { ...dg, count: lg.count } : dg;
+      });
+      state.upgrades = def.upgrades.map(du => {
+        const lu = loaded.upgrades?.find(u => u.id === du.id);
+        return lu ? { ...du, bought: lu.bought } : du;
+      });
+    }
+  } catch(e) { state = getDefaultState(); }
+}
+
+// ── Derived values ──
+function genCost(g) { return Math.floor(g.baseCost * Math.pow(1.15, g.count)); }
+function getBPS() {
+  let bps = 0;
+  for (const g of state.generators) bps += g.baseRate * g.count;
+  if (hasUpgrade('magnet')) bps *= 1.5;
+  bps *= state.prestigeMulti;
+  return bps;
+}
+function getClickValue() {
+  let v = 1;
+  if (hasUpgrade('clickPow')) v = 5;
+  v *= state.combo;
+  v *= state.prestigeMulti;
+  return Math.floor(v);
+}
+function hasUpgrade(id) { return state.upgrades.find(u => u.id === id)?.bought; }
+
+// ── Canvas / Physics ──
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+let balls = [];
+const BALL_COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#cc65fe','#ff9f43','#ee5a9f','#0abde3'];
+let hueShift = 0;
+
+function resize() {
+  W = canvas.clientWidth;
+  H = canvas.clientHeight;
+  canvas.width = W * devicePixelRatio;
+  canvas.height = H * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+}
+window.addEventListener('resize', resize);
+resize();
+
+function spawnBall(x, y, opts = {}) {
+  const baseR = hasUpgrade('bigBalls') ? 16 : 10;
+  const isGolden = hasUpgrade('golden') && Math.random() < 0.02;
+  balls.push({
+    x: x ?? Math.random() * W,
+    y: y ?? -20,
+    vx: (Math.random() - 0.5) * 3 + (opts.vx || 0),
+    vy: opts.vy ?? (Math.random() * 2 - 1),
+    r: baseR + Math.random() * 6,
+    color: isGolden ? '#ffd700' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
+    golden: isGolden,
+    life: 1,
+    birth: performance.now(),
+  });
+  if (balls.length > 500) balls.splice(0, balls.length - 500);
+}
+
+function updateBalls(dt) {
+  const grav = hasUpgrade('lowGravity') ? 120 : 300;
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const b = balls[i];
+    b.vy += grav * dt;
+    b.x += b.vx * dt * 60;
+    b.y += b.vy * dt;
+
+    // Bounce off walls
+    if (b.x - b.r < 0) { b.x = b.r; b.vx *= -0.7; }
+    if (b.x + b.r > W) { b.x = W - b.r; b.vx *= -0.7; }
+
+    // Bounce off floor
+    if (b.y + b.r > H) {
+      b.y = H - b.r;
+      b.vy *= -0.6;
+      b.vx *= 0.95;
+      if (Math.abs(b.vy) < 1) b.vy = 0;
+    }
+
+    // Fade old balls
+    const age = (performance.now() - b.birth) / 1000;
+    if (age > 8) {
+      b.life -= dt * 0.5;
+      if (b.life <= 0) { balls.splice(i, 1); continue; }
+    }
+  }
+}
+
+function drawBalls() {
+  hueShift += 0.5;
+  for (const b of balls) {
+    ctx.globalAlpha = b.life;
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+
+    if (hasUpgrade('rainbow') && !b.golden) {
+      ctx.fillStyle = `hsl(${(hueShift + b.x + b.y) % 360}, 80%, 60%)`;
+    } else {
+      ctx.fillStyle = b.color;
+    }
+    ctx.fill();
+
+    // Shine
+    ctx.beginPath();
+    ctx.arc(b.x - b.r * 0.25, b.y - b.r * 0.25, b.r * 0.3, 0, Math.PI * 2);
+    ctx.fillStyle = b.golden ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.25)';
+    ctx.fill();
+
+    // Golden glow
+    if (b.golden) {
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,215,0,${0.4 + 0.2 * Math.sin(performance.now()/200)})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+  }
+}
+
+// ── Click handling ──
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  let hitBall = false;
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const b = balls[i];
+    const dx = mx - b.x, dy = my - b.y;
+    if (dx*dx + dy*dy < (b.r + 5) * (b.r + 5)) {
+      hitBall = true;
+      const value = b.golden ? getClickValue() * 100 : getClickValue();
+      addBalls(value);
+      showFloater(mx, my, '+' + formatNum(value), b.golden ? '#ffd700' : '#fff');
+
+      if (hasUpgrade('explosion')) {
+        for (let j = 0; j < 5; j++) {
+          spawnBall(b.x, b.y, { vx: (Math.random()-0.5)*8, vy: -Math.random()*8 });
+        }
+      }
+
+      balls.splice(i, 1);
+
+      // Combo
+      state.combo = Math.min(state.combo + 1, 50);
+      state.comboTimer = 2;
+      break;
+    }
+  }
+
+  if (!hitBall) {
+    addBalls(getClickValue());
+    showFloater(mx, my, '+' + formatNum(getClickValue()), '#ffd93d');
+    spawnBall(mx, my);
+  }
+});
+
+function addBalls(n) {
+  state.balls += n;
+  state.totalBalls += n;
+}
+
+// ── Floaters ──
+let floaters = [];
+function showFloater(x, y, text, color) {
+  floaters.push({ x, y, text, color, life: 1, vy: -2 });
+}
+function updateFloaters(dt) {
+  for (let i = floaters.length - 1; i >= 0; i--) {
+    const f = floaters[i];
+    f.y += f.vy;
+    f.life -= dt * 1.2;
+    if (f.life <= 0) floaters.splice(i, 1);
+  }
+}
+function drawFloaters() {
+  for (const f of floaters) {
+    ctx.globalAlpha = f.life;
+    ctx.fillStyle = f.color;
+    ctx.font = 'bold 18px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText(f.text, f.x, f.y);
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ── Formatting ──
+function formatNum(n) {
+  if (n < 1000) return Math.floor(n).toString();
+  if (n < 1e6) return (n/1000).toFixed(1) + 'K';
+  if (n < 1e9) return (n/1e6).toFixed(1) + 'M';
+  if (n < 1e12) return (n/1e9).toFixed(1) + 'B';
+  return (n/1e12).toFixed(1) + 'T';
+}
+
+// ── UI ──
+function renderUI() {
+  document.getElementById('ball-count').textContent = formatNum(state.balls);
+  document.getElementById('bps').textContent = formatNum(getBPS()) + '/s';
+  document.getElementById('combo').textContent = 'x' + state.combo;
+
+  // Generators
+  const genDiv = document.getElementById('generators');
+  genDiv.innerHTML = '';
+  for (const g of state.generators) {
+    const cost = genCost(g);
+    const locked = state.balls < cost;
+    const btn = document.createElement('div');
+    btn.className = 'upgrade-btn' + (locked ? ' locked' : '');
+    const vis = GEN_VISUALS[g.id];
+    const emoji = vis ? vis.emoji : '⚙️';
+    btn.innerHTML = `
+      <div class="top-row">
+        <span class="name">${emoji} ${g.name}</span>
+        <span class="cost">${formatNum(cost)} 🔵</span>
+      </div>
+      <div class="desc">${g.desc}</div>
+      <div class="level">Owned: ${g.count} · +${formatNum(g.baseRate * state.prestigeMulti * (hasUpgrade('magnet') ? 1.5 : 1))}/s each</div>
+    `;
+    if (!locked) btn.onclick = () => buyGenerator(g);
+    genDiv.appendChild(btn);
+  }
+
+  // Upgrades
+  const upgDiv = document.getElementById('upgrades');
+  upgDiv.innerHTML = '';
+  for (const u of state.upgrades) {
+    if (u.bought) continue;
+    const locked = state.balls < u.cost;
+    const btn = document.createElement('div');
+    btn.className = 'upgrade-btn' + (locked ? ' locked' : '');
+    btn.innerHTML = `
+      <div class="top-row">
+        <span class="name">${u.name}</span>
+        <span class="cost">${formatNum(u.cost)} 🔵</span>
+      </div>
+      <div class="desc">${u.desc}</div>
+    `;
+    if (!locked) btn.onclick = () => buyUpgrade(u);
+    upgDiv.appendChild(btn);
+  }
+
+  // Prestige
+  const pBtn = document.getElementById('prestige-btn');
+  const canPrestige = state.totalBalls >= 1000;
+  pBtn.className = canPrestige ? '' : 'locked';
+  const newMulti = 1 + Math.floor(Math.sqrt(state.totalBalls / 1000)) * 0.5;
+  document.getElementById('prestige-desc').textContent = canPrestige
+    ? `Reset for ${newMulti.toFixed(1)}x multiplier (current: ${state.prestigeMulti.toFixed(1)}x)`
+    : `Need ${formatNum(1000 - state.totalBalls)} more total balls`;
+}
+
+function buyGenerator(g) {
+  const cost = genCost(g);
+  if (state.balls >= cost) {
+    state.balls -= cost;
+    g.count++;
+  }
+}
+
+function buyUpgrade(u) {
+  if (state.balls >= u.cost && !u.bought) {
+    state.balls -= u.cost;
+    u.bought = true;
+  }
+}
+
+function doPrestige() {
+  if (state.totalBalls < 1000) return;
+  const newMulti = 1 + Math.floor(Math.sqrt(state.totalBalls / 1000)) * 0.5;
+  const pCount = state.prestiges + 1;
+  state = getDefaultState();
+  state.prestigeMulti = newMulti;
+  state.prestiges = pCount;
+  balls = [];
+  floaters = [];
+  genSpawnAccs = {};
+}
+
+// ── Per-generator visual spawn system ──
+// Each generator type has its own spawn accumulator and visual behavior
+let genSpawnAccs = {};
+
+// Generator visual configs — each has a unique spawn style
+const GEN_VISUALS = {
+  dropper: {
+    emoji: '🔽',
+    color: '#4d96ff',
+    spawn(count) {
+      // Drops from evenly-spaced pipes along the top
+      const spacing = W / (count + 1);
+      const pipe = Math.floor(Math.random() * count) + 1;
+      spawnBall(spacing * pipe, 10, { vy: 0, vx: (Math.random() - 0.5) * 0.5 });
+    },
+    draw(count) {
+      const spacing = W / (count + 1);
+      for (let i = 1; i <= count; i++) {
+        const x = spacing * i;
+        // Pipe
+        ctx.fillStyle = '#2a3a6a';
+        ctx.fillRect(x - 12, 0, 24, 18);
+        ctx.fillStyle = '#4d96ff';
+        ctx.fillRect(x - 8, 12, 16, 8);
+        // Drip
+        const drip = (performance.now() / 500 + i) % 1;
+        ctx.globalAlpha = 1 - drip;
+        ctx.beginPath();
+        ctx.arc(x, 22 + drip * 10, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#4d96ff';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+  },
+  launcher: {
+    emoji: '🚀',
+    color: '#ff6b6b',
+    spawn(count) {
+      // Shoots from alternating left/right walls
+      const side = Math.random() < 0.5;
+      const x = side ? 20 : W - 20;
+      const y = 60 + Math.random() * (H - 120);
+      spawnBall(x, y, { vx: side ? (3 + Math.random() * 4) : -(3 + Math.random() * 4), vy: -(2 + Math.random() * 3) });
+    },
+    draw(count) {
+      const perSide = Math.ceil(count / 2);
+      for (let i = 0; i < count; i++) {
+        const side = i % 2 === 0; // left or right
+        const idx = Math.floor(i / 2);
+        const y = 80 + idx * (H - 160) / Math.max(perSide - 1, 1);
+        const x = side ? 0 : W - 28;
+        // Launcher body
+        ctx.fillStyle = '#4a1a1a';
+        ctx.fillRect(x, y - 10, 28, 20);
+        ctx.fillStyle = '#ff6b6b';
+        const nozzleX = side ? x + 22 : x;
+        ctx.fillRect(nozzleX, y - 6, 8, 12);
+        // Flash
+        const flash = (performance.now() / 200 + i * 1.7) % 1;
+        if (flash < 0.15) {
+          ctx.globalAlpha = 0.8;
+          ctx.beginPath();
+          const fx = side ? x + 30 : x - 4;
+          ctx.arc(fx, y, 5, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffaa44';
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+  },
+  factory: {
+    emoji: '🏭',
+    color: '#6bcb77',
+    spawn(count) {
+      // Pops up from the bottom in clusters
+      const spacing = W / (count + 1);
+      const fac = Math.floor(Math.random() * count) + 1;
+      const x = spacing * fac + (Math.random() - 0.5) * 30;
+      spawnBall(x, H - 30, { vy: -(6 + Math.random() * 4), vx: (Math.random() - 0.5) * 3 });
+    },
+    draw(count) {
+      const spacing = W / (count + 1);
+      for (let i = 1; i <= count; i++) {
+        const x = spacing * i;
+        // Factory base
+        ctx.fillStyle = '#1a3a1a';
+        ctx.fillRect(x - 18, H - 28, 36, 28);
+        // Chimney
+        ctx.fillStyle = '#2a4a2a';
+        ctx.fillRect(x - 6, H - 40, 12, 14);
+        // Smoke
+        const t = performance.now() / 600 + i;
+        ctx.globalAlpha = 0.3;
+        ctx.beginPath();
+        ctx.arc(x + Math.sin(t) * 4, H - 46 - (t % 1) * 15, 4 + (t % 1) * 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#6bcb77';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        // Door
+        ctx.fillStyle = '#6bcb77';
+        ctx.fillRect(x - 5, H - 16, 10, 16);
+      }
+    }
+  },
+  vortex: {
+    emoji: '🌀',
+    color: '#cc65fe',
+    spawn(count) {
+      // Spirals in from a vortex point near center
+      const cx = W * 0.3 + Math.random() * W * 0.4;
+      const cy = H * 0.3 + Math.random() * H * 0.4;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 3 + Math.random() * 3;
+      spawnBall(cx, cy, { vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 2 });
+    },
+    draw(count) {
+      // Draw vortex portals
+      for (let i = 0; i < Math.min(count, 5); i++) {
+        const cx = W * (0.2 + i * 0.15);
+        const cy = H * 0.4 + Math.sin(performance.now() / 1000 + i) * 30;
+        const t = performance.now() / 400 + i * 2;
+        for (let ring = 3; ring >= 0; ring--) {
+          ctx.globalAlpha = 0.15 - ring * 0.03;
+          ctx.beginPath();
+          const r = 12 + ring * 8 + Math.sin(t + ring) * 3;
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.strokeStyle = '#cc65fe';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+        // Center glow
+        ctx.globalAlpha = 0.4 + 0.2 * Math.sin(t * 2);
+        ctx.beginPath();
+        ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#cc65fe';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      if (count > 5) {
+        ctx.fillStyle = '#cc65fe';
+        ctx.globalAlpha = 0.5;
+        ctx.font = '10px system-ui';
+        ctx.textAlign = 'center';
+        ctx.fillText(`+${count - 5} more`, W * 0.5, H * 0.4 + 50);
+        ctx.globalAlpha = 1;
+      }
+    }
+  },
+  singularity: {
+    emoji: '⚫',
+    color: '#ffd93d',
+    spawn(count) {
+      // Materializes with a flash anywhere on screen
+      const x = 50 + Math.random() * (W - 100);
+      const y = 50 + Math.random() * (H - 100);
+      spawnBall(x, y, { vx: (Math.random() - 0.5) * 6, vy: (Math.random() - 0.5) * 6 });
+      // Warp flash
+      showFloater(x, y, '✦', '#ffd93d');
+    },
+    draw(count) {
+      if (count <= 0) return;
+      // One big singularity in the center that grows with count
+      const cx = W * 0.5;
+      const cy = H * 0.35;
+      const baseR = 15 + Math.min(count, 20) * 2;
+      const t = performance.now() / 300;
+      // Event horizon
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR + 20);
+      grad.addColorStop(0, 'rgba(0,0,0,0.9)');
+      grad.addColorStop(0.5, 'rgba(30,0,50,0.5)');
+      grad.addColorStop(0.8, 'rgba(255,215,0,0.15)');
+      grad.addColorStop(1, 'rgba(255,215,0,0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, baseR + 20, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      // Orbiting particles
+      for (let i = 0; i < Math.min(count * 2, 16); i++) {
+        const angle = t + (i / Math.min(count * 2, 16)) * Math.PI * 2;
+        const dist = baseR + 5 + Math.sin(t * 2 + i) * 5;
+        const px = cx + Math.cos(angle) * dist;
+        const py = cy + Math.sin(angle) * dist * 0.5; // elliptical
+        ctx.globalAlpha = 0.6;
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffd93d';
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      // Count label
+      ctx.fillStyle = '#ffd93d';
+      ctx.globalAlpha = 0.6;
+      ctx.font = 'bold 10px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText(`×${count}`, cx, cy + baseR + 35);
+      ctx.globalAlpha = 1;
+    }
+  },
+};
+
+function spawnFromGenerators(dt) {
+  for (const g of state.generators) {
+    if (g.count <= 0) continue;
+    if (!genSpawnAccs[g.id]) genSpawnAccs[g.id] = 0;
+
+    // Each generator has its own visual spawn rate — proportional to its production but capped
+    let rate = g.baseRate * g.count * state.prestigeMulti;
+    if (hasUpgrade('magnet')) rate *= 1.5;
+    const visualRate = Math.min(rate, 8); // cap visual spawns per generator type
+    if (visualRate <= 0) continue;
+
+    const interval = 1 / visualRate;
+    genSpawnAccs[g.id] += dt;
+    while (genSpawnAccs[g.id] >= interval) {
+      genSpawnAccs[g.id] -= interval;
+      const vis = GEN_VISUALS[g.id];
+      if (vis) vis.spawn(g.count);
+    }
+  }
+}
+
+function drawGeneratorStructures() {
+  for (const g of state.generators) {
+    if (g.count <= 0) continue;
+    const vis = GEN_VISUALS[g.id];
+    if (vis && vis.draw) vis.draw(g.count);
+  }
+}
+
+// ── Background particles ──
+let particles = [];
+for (let i = 0; i < 40; i++) {
+  particles.push({
+    x: Math.random() * 2000,
+    y: Math.random() * 2000,
+    r: Math.random() * 2 + 0.5,
+    speed: Math.random() * 0.3 + 0.1,
+    alpha: Math.random() * 0.3 + 0.05,
+  });
+}
+
+function drawBackground() {
+  ctx.fillStyle = '#0a0a1a';
+  ctx.fillRect(0, 0, W, H);
+  
+  for (const p of particles) {
+    p.y += p.speed;
+    if (p.y > H) { p.y = 0; p.x = Math.random() * W; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(100,100,200,${p.alpha})`;
+    ctx.fill();
+  }
+}
+
+// ── Main loop ──
+let lastTime = performance.now();
+let uiTimer = 0;
+let saveTimer = 0;
+
+function loop(now) {
+  const dt = Math.min((now - lastTime) / 1000, 0.1);
+  lastTime = now;
+
+  // Production
+  state.balls += getBPS() * dt;
+  state.totalBalls += getBPS() * dt;
+
+  // Combo decay
+  if (state.comboTimer > 0) {
+    state.comboTimer -= dt;
+    if (state.comboTimer <= 0) state.combo = 1;
+  }
+
+  // Spawn visual balls
+  spawnFromGenerators(dt);
+
+  // Physics
+  updateBalls(dt);
+  updateFloaters(dt);
+
+  // Draw
+  drawBackground();
+  drawGeneratorStructures();
+  drawBalls();
+  drawFloaters();
+
+  // UI update (throttled)
+  uiTimer += dt;
+  if (uiTimer > 0.25) { uiTimer = 0; renderUI(); }
+
+  // Auto-save
+  saveTimer += dt;
+  if (saveTimer > 10) { saveTimer = 0; saveGame(); }
+
+  requestAnimationFrame(loop);
+}
+
+// ── Boot ──
+loadGame();
+renderUI();
+requestAnimationFrame(loop);
+window.addEventListener('beforeunload', saveGame);
+</script>
+</body>
+</html>

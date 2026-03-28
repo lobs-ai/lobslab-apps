@@ -1,14 +1,25 @@
 services:
-  less-crapuler:
-    build: .
+  crapuler:
+    build: ./apps/crapuler
     restart: unless-stopped
     networks:
       - lobslab
     labels:
       traefik.enable: "true"
-      traefik.http.routers.less-crapuler.rule: "Host(`crapuler.lobslab.com`)"
-      traefik.http.routers.less-crapuler.entrypoints: web
-      traefik.http.services.less-crapuler.loadbalancer.server.port: "4317"
+      traefik.http.routers.crapuler.rule: "Host(`crapuler.lobslab.com`)"
+      traefik.http.routers.crapuler.entrypoints: web
+      traefik.http.services.crapuler.loadbalancer.server.port: "4317"
+
+  ballz:
+    build: ./apps/ballz
+    restart: unless-stopped
+    networks:
+      - lobslab
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.ballz.rule: "Host(`ballz.lobslab.com`)"
+      traefik.http.routers.ballz.entrypoints: web
+      traefik.http.services.ballz.loadbalancer.server.port: "80"
 
 networks:
   lobslab:
