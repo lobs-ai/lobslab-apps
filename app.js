@@ -1,34 +1,29 @@
 // ── Theme ─────────────────────────────────────────────────────────────────────
 
 (function initTheme() {
-  const toggle = document.getElementById("theme-toggle");
-  const icon = toggle?.querySelector(".theme-icon");
+  const root = document.documentElement;
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
 
-  function getTheme() {
-    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  function isDark() {
+    return root.getAttribute("data-theme") === "dark";
   }
 
-  function applyTheme(theme) {
-    if (theme === "dark") {
-      document.documentElement.dataset.theme = "dark";
+  function setTheme(dark) {
+    if (dark) {
+      root.setAttribute("data-theme", "dark");
     } else {
-      delete document.documentElement.dataset.theme;
+      root.removeAttribute("data-theme");
     }
-    if (icon) {
-      // Show the icon of what you'll switch TO
-      icon.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
-    localStorage.setItem("lobslab-theme", theme);
+    localStorage.setItem("lobslab-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "☀️" : "🌙";
+    btn.title = dark ? "Switch to light mode" : "Switch to dark mode";
   }
 
-  // Set initial icon without touching storage (storage was already set by <head> script)
-  if (icon) {
-    icon.textContent = getTheme() === "dark" ? "☀️" : "🌙";
-  }
+  const stored = localStorage.getItem("lobslab-theme");
+  setTheme(stored === "dark");
 
-  toggle?.addEventListener("click", () => {
-    applyTheme(getTheme() === "dark" ? "light" : "dark");
-  });
+  btn.addEventListener("click", () => setTheme(!isDark()));
 })();
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -48,6 +43,7 @@ const state = {
   pollingTimer: null,
   searchTimer: null,
   dragId: null,
+  lastAddedId: null,
 };
 
 const els = {
@@ -150,7 +146,20 @@ function renderSearchResults(results, total = results.length) {
     const node = template.content.firstElementChild.cloneNode(true);
     node.querySelector(".result-title").textContent = `${course.courseId} ${course.courseDescr}`;
     node.querySelector(".result-meta").textContent = `${course.termDescr} • ${course.schoolDescr}`;
-    node.addEventListener("click", async () => addWidget(course));
+
+    node.addEventListener("click", async () => {
+      const isDuplicate = state.widgets.some((w) => w.key === course.key);
+      if (isDuplicate) {
+        node.classList.add("result-duplicate");
+        node.addEventListener("animationend", () => node.classList.remove("result-duplicate"), {
+          once: true,
+        });
+        return;
+      }
+      node.classList.add("result-added");
+      await addWidget(course);
+    });
+
     fragment.append(node);
   }
 
@@ -189,9 +198,16 @@ async function addWidget(course) {
     sectionFilters: [],
   };
   state.widgets.unshift(widget);
+  state.lastAddedId = widget.id;
   persistWidgets();
   await refreshWidgetData(widget, true);
   renderDashboard();
+
+  // Scroll new widget into view
+  const newEl = document.querySelector(`[data-widget-id="${widget.id}"]`);
+  if (newEl) {
+    newEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
 }
 
 async function refreshWidgetData(widget, renderAfter) {
@@ -225,6 +241,15 @@ function renderDashboard() {
     const node = template.content.firstElementChild.cloneNode(true);
     node.dataset.widgetId = widget.id;
     node.classList.toggle("widget-collapsed", Boolean(widget.collapsed));
+
+    // Animate newly added widget
+    if (widget.id === state.lastAddedId) {
+      node.classList.add("widget-entering");
+      node.addEventListener("animationend", () => node.classList.remove("widget-entering"), {
+        once: true,
+      });
+    }
+
     node.querySelector(".widget-kicker").textContent = widget.termShort;
     node.querySelector(".widget-title").textContent = `${widget.courseId} ${widget.courseDescr}`;
     node.querySelector(".widget-description").textContent =
@@ -252,6 +277,9 @@ function renderDashboard() {
 
   els.dashboard.innerHTML = "";
   els.dashboard.append(fragment);
+
+  // Clear lastAddedId after render so the animation only fires once
+  state.lastAddedId = null;
 }
 
 function buildWidgetMeta(widget, course) {
@@ -436,34 +464,90 @@ function wireSectionFilterEvents(node, widget, course) {
 }
 
 function wireDragEvents(node) {
-  node.addEventListener("dragstart", () => {
+  node.addEventListener("dragstart", (e) => {
     state.dragId = node.dataset.widgetId;
     node.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    // Delay so the drag ghost captures the original look before we shrink it
+    requestAnimationFrame(() => node.classList.add("dragging-active"));
   });
+
   node.addEventListener("dragend", () => {
     state.dragId = null;
-    node.classList.remove("dragging");
+    node.classList.remove("dragging", "dragging-active");
+    // Clear all drop indicators
+    document.querySelectorAll(".drag-over-top, .drag-over-bottom").forEach((el) => {
+      el.classList.remove("drag-over-top", "drag-over-bottom");
+    });
+    // Settle animation
+    node.classList.add("drag-settle");
+    node.addEventListener("animationend", () => node.classList.remove("drag-settle"), {
+      once: true,
+    });
   });
-  node.addEventListener("dragover", (event) => event.preventDefault());
-  node.addEventListener("drop", (event) => {
-    event.preventDefault();
-    const targetId = node.dataset.widgetId;
-    if (!state.dragId || state.dragId === targetId) {
-      return;
+
+  node.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    if (node.dataset.widgetId === state.dragId) return;
+
+    const rect = node.getBoundingClientRect();
+    const isAbove = e.clientY < rect.top + rect.height / 2;
+
+    // Clear previous indicators on all widgets
+    document.querySelectorAll(".drag-over-top, .drag-over-bottom").forEach((el) => {
+      el.classList.remove("drag-over-top", "drag-over-bottom");
+    });
+
+    node.classList.add(isAbove ? "drag-over-top" : "drag-over-bottom");
+  });
+
+  node.addEventListener("dragleave", (e) => {
+    // Only clear if we're actually leaving the widget (not just entering a child)
+    if (!node.contains(e.relatedTarget)) {
+      node.classList.remove("drag-over-top", "drag-over-bottom");
     }
-    const sourceIndex = state.widgets.findIndex((widget) => widget.id === state.dragId);
-    const targetIndex = state.widgets.findIndex((widget) => widget.id === targetId);
+  });
+
+  node.addEventListener("drop", (e) => {
+    e.preventDefault();
+    node.classList.remove("drag-over-top", "drag-over-bottom");
+
+    const targetId = node.dataset.widgetId;
+    if (!state.dragId || state.dragId === targetId) return;
+
+    const rect = node.getBoundingClientRect();
+    const isAbove = e.clientY < rect.top + rect.height / 2;
+
+    const sourceIndex = state.widgets.findIndex((w) => w.id === state.dragId);
     const [moved] = state.widgets.splice(sourceIndex, 1);
+    let targetIndex = state.widgets.findIndex((w) => w.id === targetId);
+    if (!isAbove) targetIndex += 1;
     state.widgets.splice(targetIndex, 0, moved);
+
     persistWidgets();
     renderDashboard();
   });
 }
 
 function removeWidget(widgetId) {
-  state.widgets = state.widgets.filter((widget) => widget.id !== widgetId);
-  persistWidgets();
-  renderDashboard();
+  const el = document.querySelector(`[data-widget-id="${widgetId}"]`);
+  if (el) {
+    el.classList.add("widget-exiting");
+    el.addEventListener(
+      "animationend",
+      () => {
+        state.widgets = state.widgets.filter((w) => w.id !== widgetId);
+        persistWidgets();
+        renderDashboard();
+      },
+      { once: true },
+    );
+  } else {
+    state.widgets = state.widgets.filter((w) => w.id !== widgetId);
+    persistWidgets();
+    renderDashboard();
+  }
 }
 
 function updateWidget(widgetId, updater) {

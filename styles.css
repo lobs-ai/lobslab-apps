@@ -187,13 +187,22 @@ select {
   border: 0;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+  transition: transform 120ms ease, opacity 120ms ease, background 120ms ease, box-shadow 120ms ease;
 }
 
 .button:hover,
 .button-icon:hover,
 .search-result:hover {
   transform: translateY(-1px);
+}
+
+.button:active,
+.button-icon:active {
+  transform: scale(0.96);
+}
+
+.search-result:active {
+  transform: scale(0.99);
 }
 
 .button {
@@ -280,6 +289,7 @@ select {
   background: #fff8ef;
   cursor: pointer;
   color: var(--text);
+  transition: transform 120ms ease, border-color 120ms ease, background 200ms ease, color 200ms ease;
 }
 
 [data-theme="dark"] .search-result {
@@ -308,6 +318,7 @@ select {
 }
 
 .widget {
+  position: relative;
   display: grid;
   gap: 14px;
   background:
@@ -325,8 +336,64 @@ select {
     linear-gradient(120deg, rgba(45, 212, 168, 0.04), rgba(99, 102, 241, 0.04));
 }
 
+/* ── Drag & Drop ──────────────────────────────────────────────────────────── */
+
 .widget.dragging {
-  opacity: 0.45;
+  opacity: 0.5;
+  transform: scale(0.97);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.widget.dragging-active {
+  opacity: 0.4;
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow);
+}
+
+.widget.drag-over-top {
+  position: relative;
+}
+
+.widget.drag-over-top::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+  z-index: 10;
+  animation: drag-indicator-pulse 1s ease infinite;
+}
+
+.widget.drag-over-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+  z-index: 10;
+  animation: drag-indicator-pulse 1s ease infinite;
+}
+
+@keyframes drag-indicator-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes drag-settle {
+  0% { transform: scale(0.97); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+.widget.drag-settle {
+  animation: drag-settle 250ms ease;
 }
 
 .widget-actions {
@@ -405,15 +472,26 @@ select {
   gap: 12px;
 }
 
-.widget-collapsed .widget-description,
-.widget-collapsed .widget-meta,
-.widget-collapsed .widget-section-groups,
-.widget-collapsed .widget-footer {
-  display: none;
-}
-
 .widget-collapsed .widget-compact {
   display: grid;
+}
+
+/* ── Smooth collapse via grid-template-rows trick ─────────────────────────── */
+
+.widget-collapsible {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 250ms ease;
+}
+
+.widget-collapsed .widget-collapsible {
+  grid-template-rows: 0fr;
+}
+
+.widget-collapsible-inner {
+  overflow: hidden;
+  display: grid;
+  gap: 14px;
 }
 
 .widget-section-groups {
@@ -477,6 +555,11 @@ select {
   border-radius: 999px;
   padding: 7px 10px;
   cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease, transform 80ms ease;
+}
+
+.section-toggle:active {
+  transform: scale(0.95);
 }
 
 [data-theme="dark"] .section-toggle {
@@ -663,4 +746,55 @@ select {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* ── Widget Enter / Exit Animations ──────────────────────────────────────── */
+
+@keyframes widget-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.widget-entering {
+  animation: widget-enter 300ms ease;
+}
+
+@keyframes widget-exit {
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+}
+
+.widget-exiting {
+  animation: widget-exit 200ms ease forwards;
+  pointer-events: none;
+}
+
+/* ── Search Result Feedback Animations ───────────────────────────────────── */
+
+@keyframes result-added {
+  0%   { background: var(--good); color: #fff; }
+  100% { background: inherit; color: inherit; }
+}
+
+@keyframes result-duplicate {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-4px); }
+  75%       { transform: translateX(4px); }
+}
+
+.result-added {
+  animation: result-added 400ms ease;
+}
+
+.result-duplicate {
+  animation: result-duplicate 200ms ease;
+  border-color: var(--warn) !important;
 }
