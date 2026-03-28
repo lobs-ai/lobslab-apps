@@ -1,3 +1,38 @@
+// ── Theme ─────────────────────────────────────────────────────────────────────
+
+(function initTheme() {
+  const toggle = document.getElementById("theme-toggle");
+  const icon = toggle?.querySelector(".theme-icon");
+
+  function getTheme() {
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.dataset.theme = "dark";
+    } else {
+      delete document.documentElement.dataset.theme;
+    }
+    if (icon) {
+      // Show the icon of what you'll switch TO
+      icon.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
+    localStorage.setItem("lobslab-theme", theme);
+  }
+
+  // Set initial icon without touching storage (storage was already set by <head> script)
+  if (icon) {
+    icon.textContent = getTheme() === "dark" ? "☀️" : "🌙";
+  }
+
+  toggle?.addEventListener("click", () => {
+    applyTheme(getTheme() === "dark" ? "light" : "dark");
+  });
+})();
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
 const API_ROOT = "/api";
 const STORAGE_KEY = "less-crapuler-dashboard";
 const POLL_INTERVAL_MS = 60_000;

@@ -9,6 +9,10 @@
       content="A widget dashboard for watching many Crapuler classes at once."
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script>
+      const t = localStorage.getItem('lobslab-theme');
+      if (t === 'dark') document.documentElement.dataset.theme = 'dark';
+    </script>
   </head>
   <body>
     <div class="app-shell">
@@ -19,6 +23,9 @@
           <p class="lede">
             Search Crapuler live through a local proxy, pin classes, and watch many sections at once.
           </p>
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+          </button>
         </div>
 
         <section class="panel">
