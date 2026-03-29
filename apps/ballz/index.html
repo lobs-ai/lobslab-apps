@@ -324,7 +324,7 @@
 
   <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
     <div class="name">⟳ PRESTIGE</div>
-    <div class="desc" id="prestige-desc">Reset for multipliers (need 1,000 balls)</div>
+    <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
   </div>
 
   <div id="skill-tree-section" style="display:none">
@@ -492,7 +492,7 @@ function getGoldenChance() {
 }
 function hasUpgrade(id) { return state.upgrades.find(u => u.id === id)?.bought; }
 function getPrestigePointsEarned() {
-  return Math.max(0, Math.floor(Math.pow(state.totalBalls / 1000, 0.6)));
+  return Math.max(0, Math.floor(Math.pow(state.totalBalls / 5000, 0.45)));
 }
 
 // ── Canvas / Physics ──
@@ -751,12 +751,12 @@ function renderUI() {
 
   // Prestige
   const pBtn = document.getElementById('prestige-btn');
-  const canPrestige = state.totalBalls >= 1000;
+  const canPrestige = state.totalBalls >= 10000;
   pBtn.className = canPrestige ? '' : 'locked';
   const ppEarned = getPrestigePointsEarned();
   document.getElementById('prestige-desc').textContent = canPrestige
     ? `Reset and earn ${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''} (${state.prestiges} prestiges so far)`
-    : `Need ${formatNum(1000 - state.totalBalls)} more total balls`;
+    : `Need ${formatNum(10000 - state.totalBalls)} more total balls`;
 
   // Skill tree
   const stSection = document.getElementById('skill-tree-section');
@@ -803,7 +803,7 @@ function buyUpgrade(u) {
 }
 
 function openPrestigeModal() {
-  if (state.totalBalls < 1000) return;
+  if (state.totalBalls < 10000) return;
   const ppEarned = getPrestigePointsEarned();
   const body = document.getElementById('prestige-modal-body');
   body.innerHTML = `This will <strong>reset all your balls and generators</strong>.<br>
@@ -824,7 +824,7 @@ function confirmPrestige() {
 }
 
 function doPrestige() {
-  if (state.totalBalls < 1000) return;
+  if (state.totalBalls < 10000) return;
   const ppEarned = getPrestigePointsEarned();
   const pCount = state.prestiges + 1;
   const oldPP = state.prestigePoints;
