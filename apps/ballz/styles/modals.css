@@ -1,0 +1,114 @@
+/* ═══ Modal Overlays ═══ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.visible { display: flex; }
+.modal-box {
+  background: linear-gradient(160deg, #1a0a1a, #2a1040);
+  border: 2px solid #9b3090;
+  border-radius: 14px;
+  padding: 24px 28px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(155, 48, 144, 0.5);
+  animation: modalPop 0.18s ease-out;
+}
+@keyframes modalPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.modal-box .modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e891dc;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.modal-box .modal-body {
+  font-size: 12px;
+  color: #aa6da5;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+.modal-box .modal-body strong { color: #e891dc; }
+.modal-box .modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.btn-confirm {
+  background: linear-gradient(135deg, #5e2155, #852577);
+  border: 1px solid #9b3090;
+  border-radius: 8px;
+  color: #e891dc;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-confirm:hover {
+  background: linear-gradient(135deg, #7a2b70, #a32e90);
+  transform: translateY(-1px);
+}
+.btn-cancel {
+  background: #1a1030;
+  border: 1px solid #3a2060;
+  border-radius: 8px;
+  color: #6a5a8a;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-cancel:hover { background: #221440; color: #9a8aaa; }
+
+/* Welcome back modal */
+.modal-box.welcome-modal {
+  border-color: #4d96ff;
+  background: linear-gradient(160deg, #0a1a2a, #102040);
+  box-shadow: 0 0 40px rgba(77, 150, 255, 0.3);
+}
+.modal-box.welcome-modal .modal-title { color: #4d96ff; }
+.modal-box.welcome-modal .modal-body { color: #6a8aaa; }
+.modal-box.welcome-modal .modal-body strong { color: #ffd93d; }
+
+/* ═══ Toast Notifications ═══ */
+#toast-container {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  pointer-events: none;
+  max-height: 50vh;
+  overflow: hidden;
+}
+.toast {
+  background: #1a1a40;
+  border: 1px solid #3a3a6a;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #ddd;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  animation: toastIn 0.25s ease-out, toastOut 0.3s ease-in 2.7s forwards;
+  max-width: 320px;
+}
+.toast.achievement { border-color: #aa8800; background: linear-gradient(135deg, #1a1800, #2a2000); }
+.toast.achievement .toast-icon { color: #ffd700; }
+.toast.event { border-color: #0088aa; background: linear-gradient(135deg, #001a2a, #002040); }
+.toast.reward { border-color: #00aa44; background: linear-gradient(135deg, #001a0a, #002a10); }
+.toast .toast-icon { font-size: 16px; margin-right: 6px; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-10px); } }
