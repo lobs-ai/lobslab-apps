@@ -4,6 +4,6 @@ set -euo pipefail
 APP="$(basename "$(cd "$(dirname "$0")/.." && pwd)")"
 COMPOSE="$(cd "$(dirname "$0")/../../.." && pwd)/docker-compose.yml"
 
-echo "Stopping $APP..."
-docker compose -f "$COMPOSE" stop "$APP"
-echo "$APP stopped"
+echo "Starting $APP..."
+docker compose -f "$COMPOSE" up -d "$APP"
+echo "$APP is running"
