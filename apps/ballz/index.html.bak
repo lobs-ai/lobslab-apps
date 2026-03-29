@@ -642,7 +642,30 @@
     padding-left: 4px;
   }
 
-  /* ── Research (kept for challenge card reuse) ── */
+  /* ── Research ── */
+  .research-card {
+    background: #1a1a30;
+    border: 1px solid #2a4a4a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .research-card:hover:not(.locked):not(.completed):not(.active) {
+    background: #1a2a30;
+    border-color: #3a6a6a;
+    transform: translateY(-1px);
+  }
+  .research-card.locked { opacity: 0.35; cursor: not-allowed; }
+  .research-card.completed { opacity: 0.6; border-color: #2a5a2a; cursor: default; }
+  .research-card.active { border-color: #00aacc; box-shadow: 0 0 10px rgba(0,170,200,0.2); }
+  .research-card .r-top { display: flex; justify-content: space-between; align-items: center; }
+  .research-card .r-name { font-size: 13px; font-weight: 600; color: #7ad; }
+  .research-card .r-time { font-size: 11px; color: #5a8a8a; }
+  .research-card .r-desc { font-size: 10px; color: #668; margin-top: 3px; }
+  .research-card .r-bar { background: #111128; border-radius: 4px; height: 6px; margin-top: 6px; overflow: hidden; }
+  .research-card .r-bar-fill { height: 100%; background: #00aacc; border-radius: 4px; transition: width 0.5s; }
+  .research-card .r-status { font-size: 10px; color: #5a8; margin-top: 3px; font-weight: 600; }
 
   /* ── Challenges ── */
   .challenge-card {
@@ -668,7 +691,97 @@
   .challenge-card .c-reward { font-size: 10px; color: #5a8; margin-top: 3px; font-weight: 600; }
   .challenge-card .c-restriction { font-size: 10px; color: #a66; margin-top: 2px; }
 
-  /* Fusion/Spin/Rush CSS removed */
+  /* ── Fusion Lab ── */
+  .fusion-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .fusion-slot {
+    background: #1a1a30;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .fusion-slot:hover:not(.locked) { background: #252540; border-color: #4a4a6a; }
+  .fusion-slot.locked { opacity: 0.3; cursor: not-allowed; }
+  .fusion-slot .f-icon { font-size: 22px; }
+  .fusion-slot .f-name { font-size: 9px; font-weight: 600; color: #888; margin-top: 2px; }
+  .fusion-slot .f-count { font-size: 10px; font-weight: 700; color: #ffd93d; }
+  .fusion-slot .f-cost { font-size: 9px; color: #666; }
+  .fusion-collected { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .fusion-ball-owned {
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; border: 2px solid #444;
+  }
+
+  /* ── Lucky Spin ── */
+  .spin-container { text-align: center; }
+  .spin-btn {
+    background: linear-gradient(135deg, #4a3800, #6a5000);
+    border: 2px solid #aa8800;
+    border-radius: 12px;
+    color: #ffd700;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .spin-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  .spin-btn.locked { opacity: 0.3; cursor: not-allowed; }
+  .spin-wheel {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid #ffd700;
+    margin: 16px auto;
+    position: relative;
+    overflow: hidden;
+    transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  }
+  .spin-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .spin-result {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffd700;
+    margin-top: 12px;
+    min-height: 24px;
+  }
+  .spin-timer { font-size: 12px; color: #666; margin-top: 8px; }
+
+  /* ── Ball Rush ── */
+  #ball-rush-banner {
+    display: none;
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff6b00, #ff2200);
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+    padding: 10px 30px;
+    border-radius: 12px;
+    z-index: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    animation: rushPulse 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes rushPulse { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.05); } }
 
   @media (max-width: 700px) {
     body { flex-direction: column; }
@@ -699,6 +812,8 @@
     <button class="tab-btn active" data-tab="generators" onclick="switchTab('generators')">Generators</button>
     <button class="tab-btn" data-tab="upgrades" onclick="switchTab('upgrades')">Upgrades</button>
     <button class="tab-btn" data-tab="skills" onclick="switchTab('skills')">Skills</button>
+    <button class="tab-btn" data-tab="minigames" onclick="switchTab('minigames')">Mini-Games</button>
+    <button class="tab-btn locked" data-tab="research" onclick="switchTab('research')">Research</button>
     <button class="tab-btn locked" data-tab="challenges" onclick="switchTab('challenges')">Challenges</button>
     <button class="tab-btn" data-tab="achievements" onclick="switchTab('achievements')">Achievements</button>
     <button class="tab-btn" data-tab="stats" onclick="switchTab('stats')">Stats</button>
@@ -731,14 +846,38 @@
         <div class="name">⟳ PRESTIGE <span id="prestige-tier-badge"></span></div>
         <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
       </div>
-      <div class="prestige-points-bar" style="margin-top:8px">
-        <div><div class="label">Prestige Points</div></div>
-        <div class="value" id="pp-count">0</div>
+      <div id="skill-tree-section">
+        <div class="prestige-points-bar" style="margin-top:8px">
+          <div><div class="label">Prestige Points</div></div>
+          <div class="value" id="pp-count">0</div>
+        </div>
+        <div id="skill-tree"></div>
       </div>
-      <div style="margin-top:8px">
-        <button onclick="openSkillTreeWindow()" style="width:100%;background:linear-gradient(135deg,#1a1030,#2a1545);border:1px solid #8855bb;border-radius:10px;padding:12px;color:#cc88ff;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.background='linear-gradient(135deg,#251540,#351a55)'" onmouseout="this.style.background='linear-gradient(135deg,#1a1030,#2a1545)'">🔮 Open Skill Tree</button>
+      <div class="skill-tooltip" id="skill-tooltip">
+        <div class="tt-name"></div>
+        <div class="tt-desc"></div>
+        <div class="tt-level"></div>
+        <div class="tt-cost"></div>
+        <div class="tt-prereq"></div>
+        <div class="tt-tier-req"></div>
       </div>
-      <div style="font-size:10px;color:#555;text-align:center;margin-top:4px">Opens in a new window — buy skills there</div>
+    </div>
+
+    <!-- Mini-Games Tab -->
+    <div id="panel-minigames" class="tab-panel">
+      <div class="section-title">🧪 Ball Fusion Lab</div>
+      <div id="fusion-lab"></div>
+      <div class="section-title" style="margin-top:12px">🎰 Lucky Spin</div>
+      <div id="lucky-spin"></div>
+      <div class="section-title" style="margin-top:12px">⚡ Ball Rush</div>
+      <div id="ball-rush-info"></div>
+    </div>
+
+    <!-- Research Tab -->
+    <div id="panel-research" class="tab-panel">
+      <div class="section-title">🔬 Research Lab</div>
+      <div id="research-queue"></div>
+      <div id="research-list"></div>
     </div>
 
     <!-- Challenges Tab -->
@@ -762,6 +901,9 @@
 
 <!-- Overflow Banner -->
 <div id="overflow-banner">⚠️ BALL OVERFLOW DETECTED — Reality is destabilizing!</div>
+
+<!-- Ball Rush Banner -->
+<div id="ball-rush-banner">⚡ BALL RUSH! Click fast! <span id="rush-timer">15</span>s</div>
 
 <!-- Toast Container -->
 <div id="toast-container"></div>
@@ -858,7 +1000,20 @@ const GEN_MILESTONES = [
   { id: 'qfabric_25',  genId: 'qfabric',   name: 'Fabric Loom',         threshold: 25,  multiplier: 2 },
   { id: 'qfabric_50',  genId: 'qfabric',   name: 'Reality Weave',       threshold: 50,  multiplier: 3 },
   { id: 'qfabric_100', genId: 'qfabric',   name: 'Cosmic Tapestry',     threshold: 100, multiplier: 5 },
-
+  // Molecular Assembler (unlocked by research)
+  { id: 'molecular_10',  genId: 'molecular', name: 'Nano Assembly',      threshold: 10,  multiplier: 2 },
+  { id: 'molecular_25',  genId: 'molecular', name: 'Atomic Forge',       threshold: 25,  multiplier: 2 },
+  { id: 'molecular_50',  genId: 'molecular', name: 'Matter Compiler',    threshold: 50,  multiplier: 3 },
+  { id: 'molecular_100', genId: 'molecular', name: 'Molecular Overlord', threshold: 100, multiplier: 5 },
+  { id: 'molecular_200', genId: 'molecular', name: 'Molecular Titan',    threshold: 200, multiplier: 7 },
+  { id: 'molecular_500', genId: 'molecular', name: 'Molecular Godhood',  threshold: 500, multiplier: 10 },
+  // Cosmic Forge (unlocked by research)
+  { id: 'cosmic_10',  genId: 'cosmic',      name: 'Star Forge',          threshold: 10,  multiplier: 2 },
+  { id: 'cosmic_25',  genId: 'cosmic',      name: 'Nebula Engine',       threshold: 25,  multiplier: 2 },
+  { id: 'cosmic_50',  genId: 'cosmic',      name: 'Galaxy Maker',        threshold: 50,  multiplier: 3 },
+  { id: 'cosmic_100', genId: 'cosmic',      name: 'Cosmic Overlord',     threshold: 100, multiplier: 5 },
+  { id: 'cosmic_200', genId: 'cosmic',      name: 'Cosmic Titan',        threshold: 200, multiplier: 7 },
+  { id: 'cosmic_500', genId: 'cosmic',      name: 'Cosmic Godhood',      threshold: 500, multiplier: 10 },
   // ── 200 & 500 milestones for base generators ──
   { id: 'dropper_200',     genId: 'dropper',     name: 'Flood Gates',          threshold: 200, multiplier: 7 },
   { id: 'dropper_500',     genId: 'dropper',     name: 'Ocean of Balls',       threshold: 500, multiplier: 10 },
@@ -903,7 +1058,8 @@ const SKILL_DEFS = {
   generatorSynth: { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.5, name: '🔄 Generator Synth',  desc: 'Each gen type owned boosts all others by 1%/lvl' },
   temporalShift:  { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.0, name: '⏰ Temporal Shift',    desc: '+10% BPS in first 60s after prestige per level' },
   ballMagnetism:  { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '🧲 Ball Magnetism',   desc: 'Clicked balls give +20% value per level' },
-
+  rushEnhancer:   { tier: 2, maxLevel: 3,  baseCost: 5,  costScale: 2.5, name: '⚡ Rush Enhancer',    desc: 'Ball Rush lasts 5s longer per level' },
+  fusionExpert:   { tier: 2, maxLevel: 3,  baseCost: 4,  costScale: 2.0, name: '🧪 Fusion Expert',    desc: 'Fusion balls give 25% more BPS per level' },
   leecher:        { tier: 2, maxLevel: 5,  baseCost: 5,  costScale: 2.5, name: '🦠 Leecher Expert',   desc: 'Leechers absorb 5% more per level but give 20% more when popped' },
 
   // Tier 3: requires 15 total + 3 prestiges
@@ -915,7 +1071,7 @@ const SKILL_DEFS = {
   criticalMass:   { tier: 3, maxLevel: 5,  baseCost: 7,  costScale: 2.5, name: '💎 Critical Mass',     desc: 'When >1M balls, BPS +25% per level' },
   goldenFrenzy:   { tier: 3, maxLevel: 3,  baseCost: 8,  costScale: 3.5, name: '🌈 Golden Frenzy',     desc: 'Golden balls trigger 5s 2x boost per level' },
   rebirthMemory:  { tier: 3, maxLevel: 5,  baseCost: 8,  costScale: 3.0, name: '🧠 Rebirth Memory',    desc: 'Keep 5% of generators after prestige per level' },
-
+  researchSpeed:  { tier: 3, maxLevel: 3,  baseCost: 7,  costScale: 2.5, name: '🔬 Quick Study',       desc: 'Research completes 15% faster per level' },
 
   // Tier 4: requires 30 total + 8 prestiges
   overflowMastery:{ tier: 4, maxLevel: 3,  baseCost: 10, costScale: 3.5, name: '🌊 Overflow Mastery',  desc: 'Overflow balls appear 2× more often per level' },
@@ -924,7 +1080,7 @@ const SKILL_DEFS = {
   ballAlchemy:    { tier: 4, maxLevel: 3,  baseCost: 15, costScale: 3.5, name: '⚗️ Ball Alchemy',      desc: '1%/s chance to convert 1% of balls to perm BPS/lvl' },
   prestigeCascade:{ tier: 4, maxLevel: 3,  baseCost: 12, costScale: 3.0, name: '🎲 Prestige Cascade',  desc: 'Prestige gives 1 free random T1 skill level/lvl' },
   quantumTunneling:{ tier: 4, maxLevel: 1, baseCost: 20, costScale: 1,   name: '🌀 Quantum Tunneling', desc: 'Unlock Quantum Fabric generator (prestige-based)' },
-
+  luckyStreak:    { tier: 4, maxLevel: 3,  baseCost: 12, costScale: 3.0, name: '🎰 Lucky Streak',     desc: 'Lucky Spin cooldown reduced by 15% per level' },
 
   // Tier 5: requires 50 total + 15 prestiges
   omniscience:    { tier: 5, maxLevel: 1,  baseCost: 25, costScale: 1,   name: '👁️ Omniscience',       desc: 'See exact BPS contribution of each generator' },
@@ -997,9 +1153,9 @@ const ACHIEVEMENTS = [
   { id: 'golden_10',  cat: 'Clicking', name: 'Midas',                desc: 'Click 10 golden balls',     icon: '✨', check: s => s.goldenClicks >= 10 },
   { id: 'golden_50',  cat: 'Clicking', name: 'Gold Hoarder',         desc: 'Click 50 golden balls',     icon: '👑', check: s => s.goldenClicks >= 50 },
   // Generators
-  { id: 'gen_all1',   cat: 'Generators', name: 'Collector',           desc: 'Own 1 of each generator type', icon: '📦', check: s => { const base = s.generators.filter(g => !['overflow','qfabric'].includes(g.id)); return base.every(g => g.count >= 1); } },
+  { id: 'gen_all1',   cat: 'Generators', name: 'Collector',           desc: 'Own 1 of each generator type', icon: '📦', check: s => { const base = s.generators.filter(g => !['overflow','qfabric','molecular','cosmic'].includes(g.id)); return base.every(g => g.count >= 1); } },
   { id: 'gen_100any', cat: 'Generators', name: 'Centurion',           desc: 'Own 100 of any generator',     icon: '💯', check: s => s.generators.some(g => g.count >= 100) },
-  { id: 'gen_100all', cat: 'Generators', name: 'Completionist',       desc: 'Own 100 of ALL base gens',     icon: '🏆', check: s => { const base = s.generators.filter(g => !['overflow','qfabric'].includes(g.id)); return base.every(g => g.count >= 100); } },
+  { id: 'gen_100all', cat: 'Generators', name: 'Completionist',       desc: 'Own 100 of ALL base gens',     icon: '🏆', check: s => { const base = s.generators.filter(g => !['overflow','qfabric','molecular','cosmic'].includes(g.id)); return base.every(g => g.count >= 100); } },
   { id: 'gen_1000',   cat: 'Generators', name: 'Factory Empire',      desc: 'Own 1000 total generators',    icon: '🏗️', check: s => s.generators.reduce((a,g) => a + g.count, 0) >= 1000 },
   // Prestige
   { id: 'prest_1',    cat: 'Prestige', name: 'Reborn',               desc: 'Prestige 1 time',           icon: '⟳', check: s => s.prestiges >= 1 },
@@ -1022,6 +1178,10 @@ const ACHIEVEMENTS = [
   { id: 'broke',      cat: 'Special', name: 'Bankrupt',              desc: 'Have 0 balls',              icon: '😱', check: s => s.balls < 1 && s.totalBallsEver > 0 },
   { id: 'all_upgrades',cat:'Special', name: 'Fully Upgraded',        desc: 'Buy all upgrades',          icon: '🎖️', check: s => s.upgrades.every(u => u.bought || (u.requiresOverflow && !s.overflowActive)) },
   { id: 'all_ms',     cat: 'Special', name: 'Milestone Master',      desc: 'Reach all milestones for any gen', icon: '🏆', check: s => s.generators.some(g => g.count >= 100) },
+  { id: 'fusion_1',   cat: 'Special', name: 'Alchemist',             desc: 'Fuse your first ball',      icon: '🧪', check: s => Object.values(s.fusionBalls||{}).some(v => v > 0) },
+  { id: 'spin_1',     cat: 'Special', name: 'Lucky',                 desc: 'Complete your first spin',  icon: '🎰', check: s => s.totalSpins >= 1 },
+  { id: 'rush_1',     cat: 'Special', name: 'Rusher',                desc: 'Survive a Ball Rush',       icon: '⚡', check: s => s.rushesCompleted >= 1 },
+  { id: 'research_1', cat: 'Special', name: 'Scientist',             desc: 'Complete a research project', icon: '🔬', check: s => s.completedResearch?.length >= 1 },
   { id: 'challenge_1',cat: 'Special', name: 'Challenger',            desc: 'Complete a challenge',       icon: '⚔️', check: s => Object.values(s.challengeCompleted||{}).some(v => v) },
   { id: 'leech_1',    cat: 'Special', name: 'Parasite Hunter',       desc: 'Pop your first Leecher',     icon: '🦠', check: s => (s.leechersPopped || 0) >= 1 },
   { id: 'leech_10',   cat: 'Special', name: 'Exterminator',          desc: 'Pop 10 Leechers',            icon: '🦠', check: s => (s.leechersPopped || 0) >= 10 },
@@ -1029,6 +1189,24 @@ const ACHIEVEMENTS = [
 ];
 
 // ── Research definitions ──
+const RESEARCH_DEFS = [
+  { id: 'elastic',      name: 'Elastic Balls',        desc: 'Balls bounce 50% higher, +10% click value',  time: 300,    reward: 'elasticBalls' },
+  { id: 'antigrav',     name: 'Gravity Manipulation',  desc: 'Unlock anti-gravity ball type',               time: 900,    reward: 'antiGravBalls' },
+  { id: 'temporal',     name: 'Temporal Mechanics',     desc: 'Offline progress earns 75% instead of 25%',  time: 1800,   reward: 'temporalMech' },
+  { id: 'molecular',    name: 'Molecular Assembly',     desc: 'Unlock new generator: Molecular Assembler',  time: 3600,   reward: 'molecularGen' },
+  { id: 'darkMatter',   name: 'Dark Matter Synthesis',  desc: 'All production ×2 permanently',               time: 7200,   reward: 'darkMatter' },
+  { id: 'parallel',     name: 'Parallel Processing',    desc: 'Can research 2 things at once',               time: 14400,  reward: 'parallelRes' },
+  { id: 'quantumComp',  name: 'Quantum Computing',      desc: 'Prestige points earned ×1.5',                 time: 28800,  reward: 'quantumComp' },
+  { id: 'cosmicEng',    name: 'Cosmic Engineering',     desc: 'Unlock new generator: Cosmic Forge',          time: 43200,  reward: 'cosmicGen' },
+  { id: 'realityBend',  name: 'Reality Bending',        desc: 'Sacrifice generators for massive temp boosts',time: 86400,  reward: 'realityBend' },
+  { id: 'theoryAll',    name: 'Theory of Everything',   desc: 'All bonuses doubled',                         time: 172800, reward: 'theoryAll' },
+  { id: 'fusionTech',   name: 'Fusion Technology',      desc: 'Fusion balls cost 50% less',                  time: 5400,   reward: 'fusionTech' },
+  { id: 'chronoAccel',  name: 'Chrono Accelerator',     desc: 'Lucky Spin cooldown reduced by 3 minutes',    time: 10800,  reward: 'chronoAccel' },
+  { id: 'hyperClick',   name: 'Hyper Click Matrix',     desc: 'All click values ×3',                         time: 18000,  reward: 'hyperClick' },
+  { id: 'ballStorm',    name: 'Ball Storm Protocol',    desc: 'Ball Rush happens every 20 minutes',          time: 36000,  reward: 'ballStorm' },
+  { id: 'infiniteLoop', name: 'Infinite Loop Engine',   desc: 'Auto-clicker speed doubled',                  time: 54000,  reward: 'infiniteLoop' },
+];
+
 // ── Challenge definitions ──
 const CHALLENGE_DEFS = [
   { id: 'speedRun',  name: '⚡ Speed Run',   desc: 'Reach 10K balls in under 5 minutes', restriction: 'Timer: 5 minutes', goal: 10000, timeLimit: 300, reward: 'Permanent +50% BPS', rewardId: 'speedRunReward' },
@@ -1037,6 +1215,27 @@ const CHALLENGE_DEFS = [
   { id: 'inflation', name: '📈 Inflation',   desc: 'Reach 1M balls with 10× costs',      restriction: 'All costs ×10', goal: 1000000, costMulti: 10, reward: 'Permanent 20% cost reduction', rewardId: 'inflationReward' },
   { id: 'frenzy',    name: '🎉 Frenzy',      desc: 'Reach 5M balls with 5× gen costs',   restriction: 'Frenzy always active, gen costs 5×', goal: 5000000, frenzyAlways: true, costMulti: 5, reward: 'Frenzy duration +50%', rewardId: 'frenzyReward' },
   { id: 'darkMode',  name: '🌑 Dark Mode',   desc: 'Reach 500K with no golden/overflow',  restriction: 'No golden or overflow balls', goal: 500000, noSpecialBalls: true, reward: 'Golden balls give 200× instead of 100×', rewardId: 'darkModeReward' },
+];
+
+// ── Fusion definitions ──
+const FUSION_TIERS = [
+  { id: 'bronze',   name: 'Bronze',   icon: '🟤', cost: 1000,    bpsBonus: 0.01, color: '#cd7f32' },
+  { id: 'silver',   name: 'Silver',   icon: '⚪', cost: 10000,   bpsBonus: 0.05, color: '#c0c0c0' },
+  { id: 'gold',     name: 'Gold',     icon: '🟡', cost: 100000,  bpsBonus: 0.15, color: '#ffd700' },
+  { id: 'platinum', name: 'Platinum', icon: '🔵', cost: 1000000, bpsBonus: 0.50, color: '#e5e4e2' },
+  { id: 'diamond',  name: 'Diamond',  icon: '💎', cost: 10000000,bpsBonus: 2.00, color: '#b9f2ff' },
+];
+
+// ── Spin rewards ──
+const SPIN_REWARDS = [
+  { name: '2× Production 30s', icon: '⚡', weight: 20, action: 'doubleProd' },
+  { name: 'Instant 10× BPS',   icon: '💰', weight: 25, action: 'instantBalls' },
+  { name: 'Free Generator',     icon: '🎁', weight: 15, action: 'freeGen' },
+  { name: 'PP Fragment',        icon: '💠', weight: 15, action: 'ppFragment' },
+  { name: 'Max Combo',          icon: '🔥', weight: 10, action: 'maxCombo' },
+  { name: 'JACKPOT 100× BPS',  icon: '🌟', weight: 5,  action: 'jackpot' },
+  { name: 'Instant 5× BPS',    icon: '🔵', weight: 25, action: 'smallBalls' },
+  { name: 'Click Power ×5 30s',icon: '👆', weight: 10, action: 'clickBoost' },
 ];
 
 const GEN_VISUALS = {
@@ -1050,7 +1249,8 @@ const GEN_VISUALS = {
   bigbang:     { emoji: '💥', color: '#ee5a9f' },
   overflow:    { emoji: '⚠️',  color: '#ff4444' },
   qfabric:     { emoji: '🧵', color: '#aa66ff' },
-
+  molecular:   { emoji: '🧬', color: '#00cc88' },
+  cosmic:      { emoji: '🔥', color: '#ff4488' },
 };
 
 // ══════════════════════════════════════════════════════
@@ -1094,6 +1294,8 @@ function getDefaultState() {
       { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 5000e6,    baseRate: 200000, count: 0 },
       { id: 'overflow',   name: 'Overflow Core',       desc: 'Harnesses reality destabilization',   baseCost: 10e9,      baseRate: 2000000,count: 0 },
       { id: 'qfabric',    name: 'Quantum Fabric',      desc: 'Weaves balls from the quantum foam',  baseCost: 50e9,      baseRate: 0,      count: 0 }, // rate = prestige-based
+      { id: 'molecular',  name: 'Molecular Assembler', desc: 'Assembles balls atom by atom',        baseCost: 2e9,       baseRate: 500000, count: 0 },
+      { id: 'cosmic',     name: 'Cosmic Forge',        desc: 'Forges balls from starlight',         baseCost: 500e9,     baseRate: 5000000,count: 0 },
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
@@ -1120,10 +1322,24 @@ function getDefaultState() {
     skills: skills,
     // Achievements
     achievementsUnlocked: {},
+    // Fusion Lab
+    fusionBalls: {}, // { bronze: 3, silver: 1, ... }
+    // Lucky Spin
+    lastSpinTime: 0,
+    totalSpins: 0,
+    ppFragments: 0,
+    // Ball Rush
+    rushesCompleted: 0,
+    lastRushTime: 0,
+    // Research
+    completedResearch: [],
+    activeResearch: [],  // [{ id, startTime, duration }]
     // Challenges
     challengeCompleted: {},
     activeChallenge: null, // { id, startTime, startBalls: 0, startClicks: 0 }
     // Temporary boosts
+    doubleProdUntil: 0,
+    clickBoostUntil: 0,
     goldenFrenzyUntil: 0,
     // Time Warp
     lastTimeWarp: 0,
@@ -1200,14 +1416,21 @@ function loadGame() {
 
       // Ensure objects
       if (!state.achievementsUnlocked) state.achievementsUnlocked = {};
+      if (!state.fusionBalls) state.fusionBalls = {};
+      if (!state.completedResearch) state.completedResearch = [];
+      if (!state.activeResearch) state.activeResearch = [];
       if (!state.challengeCompleted) state.challengeCompleted = {};
       if (state.totalPPEarned == null) state.totalPPEarned = state.prestigePoints || 0;
       if (state.highestCombo == null) state.highestCombo = 1;
       if (state.goldenClicks == null) state.goldenClicks = 0;
+      if (state.totalSpins == null) state.totalSpins = 0;
+      if (state.ppFragments == null) state.ppFragments = 0;
+      if (state.rushesCompleted == null) state.rushesCompleted = 0;
       if (state.alchemyBPS == null) state.alchemyBPS = 0;
       if (state.lastPrestigeTime == null) state.lastPrestigeTime = Date.now();
       if (state.lastDimensionHop == null) state.lastDimensionHop = 0;
       if (state.lastTimeWarp == null) state.lastTimeWarp = 0;
+      if (state.lastRushTime == null) state.lastRushTime = 0;
       if (!state.leechers) state.leechers = [];
       if (state.leechersPopped == null) state.leechersPopped = 0;
       if (state.lastBallNova == null) state.lastBallNova = Date.now();
@@ -1226,6 +1449,7 @@ function loadGame() {
           if (skillLevel('idleEfficiency') > 0) {
             offlineRate = 0.5 + skillLevel('idleEfficiency') * 0.1;
           }
+          if (hasResearch('temporalMech')) offlineRate = Math.max(offlineRate, 0.75);
           const offlineBalls = Math.floor(offlineBPS * elapsed * offlineRate);
           if (offlineBalls > 0) {
             state.balls += offlineBalls;
@@ -1237,6 +1461,8 @@ function loadGame() {
         }
       }
 
+      // Process completed research
+      processResearchCompletion();
     }
   } catch(e) {
     console.error('Load error:', e);
@@ -1258,6 +1484,10 @@ let alchemyTimer = 0;
 let tickAccumulator = 0;
 let bgParticles = [];
 let tabFocused = true;
+let rushActive = false;
+let rushEndTime = 0;
+let spinRotation = 0;
+let spinning = false;
 let pendingChallengeId = null;
 let leecher_spawn_timer = 0;
 
@@ -1317,6 +1547,17 @@ function totalSkillLevels() {
   return Object.values(state.skills).reduce((a, s) => a + s.level, 0);
 }
 
+function hasResearch(rewardId) {
+  return state.completedResearch.includes(rewardId);
+}
+
+function isResearching(id) {
+  return state.activeResearch.some(r => r.id === id);
+}
+
+function maxResearchSlots() {
+  return hasResearch('parallelRes') ? 2 : 1;
+}
 
 function getGenCount(id) {
   return state.generators.find(g => g.id === id)?.count || 0;
@@ -1335,6 +1576,12 @@ function getClickValue() {
   base *= (1 + skillLevel('clickPower') * 0.5);
   // Skill: Ball Magnetism
   base *= (1 + skillLevel('ballMagnetism') * 0.2);
+  // Research: elastic balls
+  if (hasResearch('elasticBalls')) base *= 1.1;
+  // Research: hyper click
+  if (hasResearch('hyperClick')) base *= 3;
+  // Click boost active
+  if (Date.now() < state.clickBoostUntil) base *= 5;
   // Combo
   base *= state.combo;
   // Challenge: noClick active
@@ -1372,6 +1619,7 @@ function getGenCost(gen, quantity) {
     cost *= (1 - discount);
     cost *= (1 - prestigeDiscount);
     cost *= challengeCostMulti;
+    if (hasResearch('theoryAll')) cost *= 0.5;
     totalCost += cost;
   }
   return Math.floor(totalCost);
@@ -1396,6 +1644,7 @@ function getMaxBuyable(gen) {
     }
     if (state.challengeCompleted?.inflationReward) challengeCostMulti *= 0.8;
     cost *= challengeCostMulti;
+    if (hasResearch('theoryAll')) cost *= 0.5;
     cost = Math.floor(cost);
     if (totalCost + cost > state.balls) break;
     totalCost += cost;
@@ -1527,6 +1776,9 @@ function getBPS() {
     total *= (1 + skillLevel('criticalMass') * 0.25);
   }
 
+  // Double production boost
+  if (now < state.doubleProdUntil) total *= 2;
+
   // Golden frenzy
   if (now < state.goldenFrenzyUntil) total *= 2;
 
@@ -1547,10 +1799,17 @@ function getBPS() {
   // Challenge: frenzy reward (frenzy duration +50% applied in timing)
   // Speed run reward
   if (state.challengeCompleted?.speedRunReward) total *= 1.5;
+  // Dark matter research
+  if (hasResearch('darkMatter')) total *= 2;
+  // Theory of everything
+  if (hasResearch('theoryAll')) total *= 2;
 
   // Achievement bonus
   const achCount = Object.keys(state.achievementsUnlocked).length;
   if (achCount > 0) total *= (1 + achCount * 0.01);
+
+  // Fusion bonus
+  total *= (1 + getFusionBonus());
 
   // Ball alchemy permanent BPS
   total += state.alchemyBPS;
@@ -1657,6 +1916,8 @@ function getGenBPS(gen) {
 function isGenUnlocked(genId) {
   if (genId === 'overflow') return state.overflowActive || state.overflowUnlocked;
   if (genId === 'qfabric') return skillLevel('quantumTunneling') > 0;
+  if (genId === 'molecular') return hasResearch('molecularGen');
+  if (genId === 'cosmic') return hasResearch('cosmicGen');
   return true;
 }
 
@@ -1681,7 +1942,42 @@ function getPrestigeReward() {
   // Prestige Ascension: ×5 per level
   const paLevel = skillLevel('prestigeAscension');
   if (paLevel > 0) pp *= Math.pow(5, paLevel);
+  // Quantum Computing research
+  if (hasResearch('quantumComp')) pp *= 1.5;
   return Math.floor(pp);
+}
+
+function getFusionBonus() {
+  let bonus = 0;
+  for (const tier of FUSION_TIERS) {
+    const count = state.fusionBalls[tier.id] || 0;
+    bonus += count * tier.bpsBonus;
+  }
+  // Fusion Expert skill
+  const fusionExpLevel = skillLevel('fusionExpert');
+  if (fusionExpLevel > 0) bonus *= (1 + fusionExpLevel * 0.25);
+  return bonus;
+}
+
+function getFusionCost(tierId) {
+  const tier = FUSION_TIERS.find(t => t.id === tierId);
+  let cost = tier.cost;
+  if (hasResearch('fusionTech')) cost *= 0.5;
+  return Math.floor(cost);
+}
+
+function getSpinCooldown() {
+  let cd = 600; // 10 minutes
+  if (hasResearch('chronoAccel')) cd -= 180;
+  const luckyStreakLevel = skillLevel('luckyStreak');
+  if (luckyStreakLevel > 0) cd *= (1 - luckyStreakLevel * 0.15);
+  return Math.max(60, cd) * 1000;
+}
+
+function getRushInterval() {
+  let interval = 1800; // 30 minutes
+  if (hasResearch('ballStorm')) interval = 1200; // 20 minutes
+  return interval * 1000;
 }
 
 // ── Toast system ──
@@ -1731,7 +2027,13 @@ function switchTab(tabId) {
 }
 
 function updateTabLocks() {
+  const researchBtn = document.querySelector('.tab-btn[data-tab="research"]');
   const challengeBtn = document.querySelector('.tab-btn[data-tab="challenges"]');
+  if (researchBtn) {
+    if (state.prestiges >= 1 || state.completedResearch.length > 0) {
+      researchBtn.classList.remove('locked');
+    }
+  }
   if (challengeBtn) {
     if (state.prestiges >= 3 || Object.keys(state.challengeCompleted).length > 0) {
       challengeBtn.classList.remove('locked');
@@ -1744,6 +2046,8 @@ function renderActiveTab() {
     case 'generators': renderGenerators(); renderMilestones(); break;
     case 'upgrades': renderUpgrades(); break;
     case 'skills': renderSkillTree(); break;
+    case 'minigames': renderFusionLab(); renderSpinUI(); renderBallRushInfo(); break;
+    case 'research': renderResearch(); break;
     case 'challenges': renderChallenges(); break;
     case 'achievements': renderAchievements(); break;
     case 'stats': renderStats(); break;
@@ -2225,169 +2529,6 @@ function buySkill(id) {
   renderSkillTree();
 }
 
-function openSkillTreeWindow() {
-  const popup = window.open('', 'skillTree', 'width=420,height=700,resizable=yes,scrollbars=yes');
-  if (!popup) {
-    alert('Popup blocked! Please allow popups for this page.');
-    return;
-  }
-
-  // Expose helpers the popup needs
-  window._ballzBuySkill = function(id) {
-    buySkill(id);
-    if (popup && !popup.closed) popup._refresh && popup._refresh();
-  };
-
-  function buildPopupHTML() {
-    const state_  = window.state;
-    const tl      = Object.values(state_.skills).reduce((a, s) => a + (s.level || 0), 0);
-    const pp      = state_.prestigePoints;
-    const prestiges = state_.prestiges;
-
-    function _skillLevel(id) { return state_.skills[id]?.level || 0; }
-    function _skillCost(id) {
-      const def = SKILL_DEFS[id]; if (!def) return 0;
-      const lv = _skillLevel(id);
-      return Math.ceil(def.baseCost * Math.pow(def.costScale || 1.5, lv));
-    }
-    function _canBuy(id) {
-      const def = SKILL_DEFS[id]; if (!def) return false;
-      const lv = _skillLevel(id); if (lv >= def.maxLevel) return false;
-      const req = TIER_REQS[def.tier];
-      if (tl < req.totalLevels || prestiges < req.prestiges) return false;
-      if (def.prereq && !def.prereq.every(p => _skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99))) return false;
-      return pp >= _skillCost(id);
-    }
-
-    const layout = getTreeLayout();
-    let maxY = 0;
-    for (const pos of Object.values(layout)) { if (pos.y > maxY) maxY = pos.y; }
-    const treeH = maxY + 60;
-
-    let svgLines = '';
-    const allSkills = Object.entries(SKILL_DEFS);
-
-    for (const [id, def] of allSkills) {
-      if (def.tier === 1 && layout[id]) {
-        const p = layout[id]; const lv = _skillLevel(id);
-        const tierLocked = tl < TIER_REQS[1].totalLevels || prestiges < TIER_REQS[1].prestiges;
-        const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : 'locked';
-        svgLines += `<line x1="${TREE_CX}" y1="${TREE_CORE_Y}" x2="${p.x}" y2="${p.y}" stroke="${TIER_COLORS[1]}" class="${cls}"/>`;
-      }
-    }
-    for (const [id, def] of allSkills) {
-      if (def.prereq && layout[id]) {
-        for (const prereqId of def.prereq) {
-          if (layout[prereqId]) {
-            const from = layout[prereqId]; const to = layout[id]; const lv = _skillLevel(id);
-            const prereqLv = _skillLevel(prereqId);
-            const prereqMaxed = prereqLv >= (SKILL_DEFS[prereqId]?.maxLevel || 99);
-            const cls = lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : prereqMaxed ? '' : 'locked';
-            svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[def.tier]}" class="${cls}"/>`;
-          }
-        }
-      }
-    }
-    for (let tier = 1; tier <= 5; tier++) {
-      const nextTier = tier + 1;
-      const nextSkills = allSkills.filter(([, d]) => d.tier === nextTier && !d.prereq);
-      if (nextSkills.length === 0) continue;
-      const curSkills = allSkills.filter(([, d]) => d.tier === tier);
-      for (const [nid] of nextSkills) {
-        if (!layout[nid]) continue;
-        let closest = null, closestDist = Infinity;
-        for (const [cid] of curSkills) {
-          if (!layout[cid]) continue;
-          const dx = layout[nid].x - layout[cid].x; const dy = layout[nid].y - layout[cid].y;
-          const d = dx*dx + dy*dy;
-          if (d < closestDist) { closestDist = d; closest = cid; }
-        }
-        if (closest && layout[closest]) {
-          const from = layout[closest]; const to = layout[nid];
-          const lv = _skillLevel(nid); const nDef = SKILL_DEFS[nid];
-          const tierLocked = tl < TIER_REQS[nextTier].totalLevels || prestiges < TIER_REQS[nextTier].prestiges;
-          const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= nDef.maxLevel ? 'maxed' : 'active') : 'locked';
-          svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[nextTier]}" class="${cls}"/>`;
-        }
-      }
-    }
-
-    let nodesHtml = `<div class="skill-core-node" style="left:${TREE_CX}px;top:${TREE_CORE_Y}px">🔮</div>`;
-    const tierRadius = { 1:70, 2:135, 3:200, 4:265, 5:330, 6:395, 7:460 };
-    const shortNames = { 1:'Foundation', 2:'Advanced', 3:'Expert', 4:'Legendary', 5:'Transcendent', 6:'Cosmic', 7:'Transcendence II' };
-    for (let tier = 1; tier <= 7; tier++) {
-      const req = TIER_REQS[tier];
-      const locked = tl < req.totalLevels || prestiges < req.prestiges;
-      const labelY = TREE_CORE_Y + tierRadius[tier] - 20;
-      nodesHtml += `<div class="tier-ring-label tier-${tier}" style="left:${TREE_CX}px;top:${labelY}px;${locked?'opacity:0.15':''}">${shortNames[tier]}${locked?' 🔒':''}</div>`;
-    }
-
-    for (const [id, def] of allSkills) {
-      if (!layout[id]) continue;
-      const pos = layout[id]; const lv = _skillLevel(id); const maxed = lv >= def.maxLevel;
-      const cost = _skillCost(id); const req = TIER_REQS[def.tier];
-      const tierLocked = tl < req.totalLevels || prestiges < req.prestiges;
-      const prereqsMet = !def.prereq || def.prereq.every(p => _skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
-      const canBuy = !tierLocked && !maxed && pp >= cost && prereqsMet;
-      const emoji = def.name.match(/^(\S+)/)?.[1] || '?';
-      let cls = `skill-node tier-${def.tier}`;
-      if (tierLocked) cls += ' tier-locked';
-      else if (maxed) cls += ' maxed';
-      else if (lv > 0) cls += ' has-levels';
-      else if (!prereqsMet) cls += ' locked';
-      else if (canBuy) cls += ' available';
-      const title = `${def.name} (Lv ${lv}/${def.maxLevel})\n${def.desc}\nCost: ${cost} PP${tierLocked ? '\n🔒 Tier locked' : ''}${!prereqsMet && def.prereq ? '\n🔒 Requires: ' + def.prereq.map(p => SKILL_DEFS[p]?.name || p).join(', ') + ' maxed' : ''}`;
-      nodesHtml += `<div class="${cls}" style="left:${pos.x}px;top:${pos.y}px" onclick="parent_buy('${id}')" title="${title.replace(/"/g,'&quot;')}">${emoji}${lv > 0 ? `<div class="node-level">${lv}</div>` : ''}</div>`;
-    }
-
-    const ppStr = state_.prestigePoints;
-    const presStr = state_.prestiges;
-    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Skill Tree</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a1a;color:#ccc;font-family:'Segoe UI',sans-serif;overflow-x:hidden}
-#header{position:sticky;top:0;z-index:100;background:#10101f;border-bottom:1px solid #2a2a4a;padding:8px 12px;display:flex;align-items:center;justify-content:space-between}
-#header h2{font-size:14px;color:#cc88ff}
-#pp-info{font-size:13px;color:#ffaa00}
-#tree-wrap{position:relative;width:360px;margin:0 auto;min-height:${treeH}px;overflow-x:visible}
-.skill-core-node{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#3a1060,#1a0530);border:2px solid #9955dd;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:default;box-shadow:0 0 14px #9955dd88;z-index:2}
-.skill-node{position:absolute;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;z-index:2;border:2px solid #555;background:#1a1a2e;transition:transform .15s,box-shadow .15s}
-.skill-node:hover{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 0 12px #fff6}
-.skill-node.tier-1{border-color:#4488ff}.skill-node.tier-2{border-color:#44cc88}.skill-node.tier-3{border-color:#cc8844}.skill-node.tier-4{border-color:#cc44cc}.skill-node.tier-5{border-color:#ff6644}.skill-node.tier-6{border-color:#ff44aa}.skill-node.tier-7{border-color:#fff700}
-.skill-node.available{box-shadow:0 0 8px currentColor;opacity:1}
-.skill-node.tier-locked{opacity:0.2;cursor:default}
-.skill-node.locked{opacity:0.35;cursor:default}
-.skill-node.has-levels{opacity:0.85}
-.skill-node.maxed{opacity:1;box-shadow:0 0 10px gold}
-.node-level{position:absolute;bottom:-2px;right:-2px;background:#222;border:1px solid #666;border-radius:4px;font-size:9px;color:#fff;padding:0 2px;line-height:14px}
-.tier-ring-label{position:absolute;transform:translate(-50%,-50%);font-size:9px;color:#666;white-space:nowrap;pointer-events:none}
-.tier-ring-label.tier-1{color:#4488ff}.tier-ring-label.tier-2{color:#44cc88}.tier-ring-label.tier-3{color:#cc8844}.tier-ring-label.tier-4{color:#cc44cc}.tier-ring-label.tier-5{color:#ff6644}.tier-ring-label.tier-6{color:#ff44aa}.tier-ring-label.tier-7{color:#fff700}
-.tree-lines{position:absolute;top:0;left:0;pointer-events:none;z-index:1}
-.tree-lines line{stroke-width:1.5;stroke-opacity:0.5}.tree-lines line.locked{stroke-opacity:0.15}.tree-lines line.active{stroke-opacity:0.8}.tree-lines line.maxed{stroke-opacity:1;stroke-width:2}
-</style></head><body>
-<div id="header"><h2>🔮 Skill Tree</h2><span id="pp-info">✨ ${ppStr} PP | ×${presStr} Prestiges</span></div>
-<div style="padding:8px 0">
-<div id="tree-wrap">
-<svg class="tree-lines" viewBox="0 0 350 ${treeH}" preserveAspectRatio="none" style="width:350px;height:${treeH}px">${svgLines}</svg>
-${nodesHtml}
-</div></div>
-<script>
-function parent_buy(id){window.opener._ballzBuySkill(id);}
-</script></body></html>`;
-  }
-
-  popup.document.open();
-  popup.document.write(buildPopupHTML());
-  popup.document.close();
-
-  // Attach refresh function so buySkill can refresh the popup
-  popup._refresh = function() {
-    popup.document.open();
-    popup.document.write(buildPopupHTML());
-    popup.document.close();
-  };
-}
-
 // ══════════════════════════════════════════════════════
 //  PRESTIGE
 // ══════════════════════════════════════════════════════
@@ -2528,6 +2669,316 @@ function checkAchievements() {
   }
 }
 
+// ══════════════════════════════════════════════════════
+//  RENDER: FUSION LAB
+// ══════════════════════════════════════════════════════
+
+function renderFusionLab() {
+  const el = document.getElementById('fusion-lab');
+  let html = '<div class="fusion-grid">';
+  for (const tier of FUSION_TIERS) {
+    const count = state.fusionBalls[tier.id] || 0;
+    const cost = getFusionCost(tier.id);
+    const canBuy = state.balls >= cost;
+    html += `<div class="fusion-slot ${canBuy ? '' : 'locked'}" onclick="fuseBall('${tier.id}')">
+      <div class="f-icon">${tier.icon}</div>
+      <div class="f-name">${tier.name}</div>
+      <div class="f-count">${count}</div>
+      <div class="f-cost">${formatNum(cost)}</div>
+    </div>`;
+  }
+  html += '</div>';
+
+  // Collected balls display
+  const totalFused = Object.values(state.fusionBalls).reduce((a, v) => a + v, 0);
+  if (totalFused > 0) {
+    html += '<div style="margin-top:8px; font-size:11px; color:#888">Collected fusion balls (persist through prestige):</div>';
+    html += '<div class="fusion-collected">';
+    for (const tier of FUSION_TIERS) {
+      const count = state.fusionBalls[tier.id] || 0;
+      for (let i = 0; i < Math.min(count, 20); i++) {
+        html += `<div class="fusion-ball-owned" style="border-color:${tier.color}; background:${tier.color}22">${tier.icon}</div>`;
+      }
+      if (count > 20) html += `<div style="font-size:10px;color:${tier.color};align-self:center">+${count - 20}</div>`;
+    }
+    html += '</div>';
+  }
+  html += `<div style="margin-top:8px; font-size:11px; color:#5a8">Total BPS bonus from fusion: +${(getFusionBonus() * 100).toFixed(0)}%</div>`;
+  el.innerHTML = html;
+}
+
+function fuseBall(tierId) {
+  const cost = getFusionCost(tierId);
+  if (state.balls < cost) return;
+  state.balls -= cost;
+  state.fusionBalls[tierId] = (state.fusionBalls[tierId] || 0) + 1;
+  showToast(`Fused a ${tierId} ball! +${(FUSION_TIERS.find(t => t.id === tierId).bpsBonus * 100)}% BPS`, 'reward', FUSION_TIERS.find(t => t.id === tierId).icon);
+  renderFusionLab();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: LUCKY SPIN
+// ══════════════════════════════════════════════════════
+
+// spinRotation & spinning declared earlier
+
+function renderSpinUI() {
+  const el = document.getElementById('lucky-spin');
+  const now = Date.now();
+  const cooldown = getSpinCooldown();
+  const timeSince = now - state.lastSpinTime;
+  const ready = timeSince >= cooldown;
+
+  let html = '<div class="spin-container">';
+
+  // Simple wheel visual
+  const segColors = ['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#1abc9c','#e67e22','#e91e63'];
+  html += `<div class="spin-wheel" id="spin-wheel" style="transform: rotate(${spinRotation}deg)">`;
+  for (let i = 0; i < SPIN_REWARDS.length; i++) {
+    const angle = (360 / SPIN_REWARDS.length) * i;
+    const rad = angle * Math.PI / 180;
+    const x = 100 + 55 * Math.cos(rad) - 12;
+    const y = 100 + 55 * Math.sin(rad) - 12;
+    html += `<div style="position:absolute; left:${x}px; top:${y}px; font-size:20px; width:24px; text-align:center">${SPIN_REWARDS[i].icon}</div>`;
+  }
+  html += '</div>';
+  html += '<div style="font-size:20px; margin-top:-8px">▼</div>';
+
+  if (ready && !spinning) {
+    html += `<button class="spin-btn" onclick="doSpin()">🎰 SPIN!</button>`;
+  } else if (spinning) {
+    html += `<div class="spin-timer">Spinning...</div>`;
+  } else {
+    const remaining = Math.ceil((cooldown - timeSince) / 1000);
+    html += `<button class="spin-btn locked">🎰 SPIN</button>`;
+    html += `<div class="spin-timer">Next spin in: ${formatTime(remaining)}</div>`;
+  }
+  html += '<div class="spin-result" id="spin-result"></div>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function doSpin() {
+  if (spinning) return;
+  const now = Date.now();
+  if (now - state.lastSpinTime < getSpinCooldown()) return;
+
+  spinning = true;
+  state.lastSpinTime = now;
+  state.totalSpins++;
+
+  // Weighted random
+  const totalWeight = SPIN_REWARDS.reduce((a, r) => a + r.weight, 0);
+  let rand = Math.random() * totalWeight;
+  let chosen = SPIN_REWARDS[0];
+  for (const r of SPIN_REWARDS) {
+    rand -= r.weight;
+    if (rand <= 0) { chosen = r; break; }
+  }
+
+  // Animate wheel
+  const targetAngle = spinRotation + 1440 + Math.random() * 360;
+  spinRotation = targetAngle;
+  const wheel = document.getElementById('spin-wheel');
+  if (wheel) wheel.style.transform = `rotate(${targetAngle}deg)`;
+
+  setTimeout(() => {
+    spinning = false;
+    applySpinReward(chosen);
+    renderSpinUI();
+  }, 3200);
+
+  renderSpinUI();
+}
+
+function applySpinReward(reward) {
+  const bps = getBPS();
+  switch (reward.action) {
+    case 'doubleProd':
+      state.doubleProdUntil = Date.now() + 30000;
+      showToast(`${reward.icon} ${reward.name}!`, 'reward');
+      break;
+    case 'instantBalls': {
+      const gain = Math.max(100, Math.floor(bps * 10));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'smallBalls': {
+      const gain = Math.max(50, Math.floor(bps * 5));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'freeGen': {
+      const available = state.generators.filter(g => isGenUnlocked(g.id) && g.baseCost <= state.totalBallsEver * 10);
+      if (available.length > 0) {
+        const gen = available[Math.floor(Math.random() * available.length)];
+        gen.count++;
+        showToast(`${reward.icon} Free ${gen.name}!`, 'reward');
+      }
+      break;
+    }
+    case 'ppFragment':
+      state.ppFragments++;
+      if (state.ppFragments >= 10) {
+        state.ppFragments -= 10;
+        state.prestigePoints++;
+        state.totalPPEarned++;
+        showToast(`${reward.icon} PP Fragment (10/10)! +1 Prestige Point!`, 'reward');
+      } else {
+        showToast(`${reward.icon} PP Fragment (${state.ppFragments}/10)`, 'reward');
+      }
+      break;
+    case 'maxCombo':
+      state.combo = 20 + skillLevel('maxCombo') * 20;
+      state.comboTimer = 5;
+      showToast(`${reward.icon} COMBO MAXED!`, 'reward');
+      break;
+    case 'jackpot': {
+      const gain = Math.max(1000, Math.floor(bps * 100));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} JACKPOT! +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'clickBoost':
+      state.clickBoostUntil = Date.now() + 30000;
+      showToast(`${reward.icon} ${reward.name}!`, 'reward');
+      break;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: BALL RUSH
+// ══════════════════════════════════════════════════════
+
+// rushActive & rushEndTime declared earlier
+
+function renderBallRushInfo() {
+  const el = document.getElementById('ball-rush-info');
+  const now = Date.now();
+  const interval = getRushInterval();
+  const timeSince = now - state.lastRushTime;
+
+  if (rushActive) {
+    const remaining = Math.ceil((rushEndTime - now) / 1000);
+    el.innerHTML = `<div style="text-align:center;font-size:14px;font-weight:700;color:#ff6b00">⚡ RUSH ACTIVE! ${remaining}s remaining — Click balls for 10× value!</div>`;
+  } else {
+    const remaining = Math.ceil((interval - timeSince) / 1000);
+    if (remaining <= 0) {
+      el.innerHTML = `<div style="text-align:center;font-size:12px;color:#888">⚡ Ball Rush is ready! It will trigger soon...</div>`;
+    } else {
+      el.innerHTML = `<div style="text-align:center;font-size:12px;color:#666">Next Ball Rush in: ${formatTime(remaining)}<br><span style="font-size:10px">Balls rain down and are worth 10× when clicked!</span></div>`;
+    }
+  }
+}
+
+function startBallRush() {
+  rushActive = true;
+  const rushDuration = 15000 + skillLevel('rushEnhancer') * 5000;
+  rushEndTime = Date.now() + rushDuration;
+  state.lastRushTime = Date.now();
+  document.getElementById('ball-rush-banner').style.display = 'block';
+  showToast('⚡ BALL RUSH! Click fast for 10× rewards!', 'event', '⚡');
+}
+
+function endBallRush() {
+  rushActive = false;
+  document.getElementById('ball-rush-banner').style.display = 'none';
+  state.rushesCompleted++;
+  showToast('Ball Rush ended!', 'event', '⚡');
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: RESEARCH
+// ══════════════════════════════════════════════════════
+
+function renderResearch() {
+  const el = document.getElementById('research-list');
+  const queueEl = document.getElementById('research-queue');
+  const now = Date.now();
+
+  // Show active research queue
+  let qHtml = '';
+  if (state.activeResearch.length > 0) {
+    qHtml += '<div class="section-title">🔬 Active Research</div>';
+    for (const active of state.activeResearch) {
+      const def = RESEARCH_DEFS.find(r => r.id === active.id);
+      const elapsed = (now - active.startTime) / 1000;
+      const pct = Math.min(100, (elapsed / active.duration) * 100);
+      const remaining = Math.max(0, active.duration - elapsed);
+      qHtml += `<div class="research-card active">
+        <div class="r-top"><span class="r-name">${def.name}</span><span class="r-time">${formatTime(remaining)}</span></div>
+        <div class="r-bar"><div class="r-bar-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    }
+  }
+  queueEl.innerHTML = qHtml;
+
+  // All research
+  let html = '<div class="section-title">📋 Available Research</div>';
+  for (const rd of RESEARCH_DEFS) {
+    const completed = state.completedResearch.includes(rd.reward);
+    const researching = isResearching(rd.id);
+    const slotsFull = state.activeResearch.length >= maxResearchSlots();
+    const locked = completed || researching || slotsFull;
+
+    html += `<div class="research-card ${completed ? 'completed' : researching ? 'active' : locked ? 'locked' : ''}" onclick="startResearch('${rd.id}')">
+      <div class="r-top">
+        <span class="r-name">${completed ? '✓ ' : ''}${rd.name}</span>
+        <span class="r-time">${formatTime(rd.time)}</span>
+      </div>
+      <div class="r-desc">${rd.desc}</div>
+      ${completed ? '<div class="r-status">✓ Completed</div>' : ''}
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function startResearch(id) {
+  if (state.completedResearch.includes(RESEARCH_DEFS.find(r => r.id === id)?.reward)) return;
+  if (isResearching(id)) return;
+  if (state.activeResearch.length >= maxResearchSlots()) return;
+
+  const def = RESEARCH_DEFS.find(r => r.id === id);
+  if (!def) return;
+
+  state.activeResearch.push({
+    id: def.id,
+    startTime: Date.now(),
+    duration: def.time * (1 - skillLevel('researchSpeed') * 0.15),
+  });
+
+  showToast(`Started research: ${def.name}`, 'event', '🔬');
+  renderResearch();
+}
+
+function processResearchCompletion() {
+  const now = Date.now();
+  const completed = [];
+  state.activeResearch = state.activeResearch.filter(r => {
+    const elapsed = (now - r.startTime) / 1000;
+    const def = RESEARCH_DEFS.find(d => d.id === r.id);
+    if (elapsed >= r.duration) {
+      if (def && !state.completedResearch.includes(def.reward)) {
+        state.completedResearch.push(def.reward);
+        completed.push(def);
+      }
+      return false;
+    }
+    return true;
+  });
+
+  for (const def of completed) {
+    showToast(`Research complete: ${def.name} — ${def.desc}`, 'reward', '🔬');
+  }
+}
 
 // ══════════════════════════════════════════════════════
 //  RENDER: CHALLENGES
@@ -2695,8 +3146,14 @@ function renderStats() {
     <div class="section-title" style="margin-top:12px">🎮 Progress</div>
     <div class="stat-line"><span>Play Time</span><span class="sv">${formatTime(playTime / 1000)}</span></div>
     <div class="stat-line"><span>Achievements</span><span class="sv">${Object.keys(state.achievementsUnlocked).length} / ${ACHIEVEMENTS.length}</span></div>
+    <div class="stat-line"><span>Fusion Balls</span><span class="sv">${Object.values(state.fusionBalls).reduce((a,v) => a + v, 0)}</span></div>
+    <div class="stat-line"><span>Fusion BPS Bonus</span><span class="sv">+${(getFusionBonus() * 100).toFixed(0)}%</span></div>
+    <div class="stat-line"><span>Research Complete</span><span class="sv">${state.completedResearch.length} / ${RESEARCH_DEFS.length}</span></div>
     <div class="stat-line"><span>Challenges Complete</span><span class="sv">${Object.values(state.challengeCompleted).filter(v=>v).length} / ${CHALLENGE_DEFS.length}</span></div>
+    <div class="stat-line"><span>Lucky Spins</span><span class="sv">${state.totalSpins}</span></div>
+    <div class="stat-line"><span>PP Fragments</span><span class="sv">${state.ppFragments}/10</span></div>
     <div class="stat-line"><span>Ball Alchemy BPS</span><span class="sv">+${formatNum(state.alchemyBPS)}</span></div>
+    <div class="stat-line"><span>Ball Rushes</span><span class="sv">${state.rushesCompleted}</span></div>
     <div class="stat-line"><span>Generator Types</span><span class="sv">${genTypesOwned()}</span></div>
     <div class="stat-line"><span>Total Generators</span><span class="sv">${state.generators.reduce((a,g) => a + g.count, 0)}</span></div>
 
@@ -2722,6 +3179,12 @@ function renderStats() {
     }
   }
 
+  // Reality Bending button
+  if (hasResearch('realityBend')) {
+    html += `<div class="section-title" style="margin-top:12px">🌀 Reality Bending</div>`;
+    html += `<div class="upgrade-btn" onclick="doRealityBend()"><div class="top-row"><span class="name">🌀 Sacrifice Generators</span></div><div class="desc">Sacrifice 50% of generators for 60s of 10× production</div></div>`;
+  }
+
   html += `<div class="section-title" style="margin-top:16px">💾 Data</div>
     <div class="upgrade-btn" onclick="if(confirm('Reset everything?')){localStorage.clear();location.reload()}">
       <div class="name" style="color:#ff4444">🗑️ Hard Reset</div>
@@ -2739,6 +3202,15 @@ function doTimeWarp() {
   state.totalBallsEver += gain;
   state.lastTimeWarp = Date.now();
   showToast(`⏩ Time Warp! +${formatNum(gain)} balls (4 hours)`, 'reward', '⏩');
+}
+
+function doRealityBend() {
+  // Sacrifice 50% of generators for 60s of 10x
+  for (const gen of state.generators) {
+    gen.count = Math.floor(gen.count / 2);
+  }
+  state.doubleProdUntil = Date.now() + 60000; // reuse double prod, stack is fine
+  showToast('🌀 Reality Bent! Generators sacrificed, 10× production for 60s!', 'reward', '🌀');
 }
 
 // ══════════════════════════════════════════════════════
@@ -2781,11 +3253,14 @@ function spawnBall(x, y, opts = {}) {
   const r = opts.r || baseR + Math.random() * 4;
   const isGolden = opts.golden || false;
   const isOverflow = opts.overflow || false;
+  const isAntiGrav = opts.antiGrav || false;
+  const isRush = opts.rush || false;
 
   // Color
   let color;
   if (isGolden) color = '#ffd700';
   else if (isOverflow) color = '#ff0000';
+  else if (isAntiGrav) color = '#00ffcc';
   else if (state.upgrades.find(u => u.id === 'rainbow')?.bought) {
     color = `hsl(${Math.random() * 360}, 80%, 60%)`;
   } else {
@@ -2794,7 +3269,7 @@ function spawnBall(x, y, opts = {}) {
   }
 
   const gravity = (state.upgrades.find(u => u.id === 'gravity')?.bought) ? 0.04 : 0.12;
-  const bounce = -0.6;
+  const bounce = hasResearch('elasticBalls') ? -0.85 : -0.6;
 
   balls.push({
     x: x || Math.random() * W,
@@ -2803,10 +3278,12 @@ function spawnBall(x, y, opts = {}) {
     vy: opts.vy || Math.random() * 2,
     r,
     color,
-    gravity,
+    gravity: isAntiGrav ? -0.04 : gravity,
     bounce,
     golden: isGolden,
     overflow: isOverflow,
+    antiGrav: isAntiGrav,
+    rush: isRush,
     trail: [],
     life: 0,
   });
@@ -2906,6 +3383,12 @@ canvas.addEventListener('click', (e) => {
       extra = ' OVERFLOW!';
     }
 
+    // Rush ball
+    if (clickedBall.rush || rushActive) {
+      value *= 10;
+      extra = ' RUSH!';
+    }
+
     // Ball Magnetism bonus already in getClickValue
 
     // Explosion upgrade
@@ -2949,6 +3432,7 @@ let lastTime = performance.now();
 let saveTimer = 0;
 let uiUpdateTimer = 0;
 let achievementCheckTimer = 0;
+let rushCheckTimer = 0;
 
 function gameLoop(timestamp) {
  try {
@@ -3051,6 +3535,7 @@ function gameLoop(timestamp) {
   if (autoLevel > 0) {
     let interval = 3 - (autoLevel - 1) * 0.4;
     if (state.challengeCompleted?.noClickReward) interval /= 3;
+    if (hasResearch('infiniteLoop')) interval /= 2;
     interval = Math.max(0.3, interval);
 
     autoClickTimer += dt;
@@ -3065,6 +3550,29 @@ function gameLoop(timestamp) {
       const x = Math.random() * W;
       spawnBall(x, H * 0.3 + Math.random() * H * 0.4);
     }
+  }
+
+  // ── Ball Rush ──
+  rushCheckTimer += dt;
+  if (rushCheckTimer >= 5) {
+    rushCheckTimer = 0;
+    if (!rushActive && now - state.lastRushTime >= getRushInterval()) {
+      startBallRush();
+    }
+  }
+
+  if (rushActive) {
+    if (now >= rushEndTime) {
+      endBallRush();
+    } else {
+      // Spawn extra rush balls
+      if (Math.random() < 0.3) {
+        spawnBall(Math.random() * W, -10, { rush: true, vy: 2 + Math.random() * 3, r: 10 + Math.random() * 6 });
+      }
+    }
+    // Update rush timer
+    const timerEl = document.getElementById('rush-timer');
+    if (timerEl) timerEl.textContent = Math.ceil((rushEndTime - now) / 1000);
   }
 
   // ── Leecher spawning & drain ──
@@ -3116,6 +3624,7 @@ function gameLoop(timestamp) {
 
     let isGolden = false;
     let isOverflow = false;
+    let isAntiGrav = false;
 
     if (!noSpecial) {
       // Golden chance
@@ -3128,13 +3637,22 @@ function gameLoop(timestamp) {
         const overflowChance = 0.005 * (1 + skillLevel('overflowMastery'));
         isOverflow = Math.random() < overflowChance;
       }
+
+      // Anti-gravity balls (research)
+      if (hasResearch('antiGravBalls')) {
+        isAntiGrav = !isGolden && !isOverflow && Math.random() < 0.03;
+      }
     }
 
     spawnBall(null, null, {
       golden: isGolden,
       overflow: isOverflow,
+      antiGrav: isAntiGrav,
     });
   }
+
+  // ── Research progress ──
+  processResearchCompletion();
 
   // ── UI Updates (throttled) ──
   uiUpdateTimer += dt;
@@ -3195,7 +3713,9 @@ function updateUI() {
   // Update active tab content (lightweight updates)
   if (activeTab === 'generators') { renderGenerators(); renderMilestones(); }
   if (activeTab === 'stats') renderStats();
+  if (activeTab === 'research') renderResearch();
   if (activeTab === 'challenges' && state.activeChallenge) renderChallenges();
+  if (activeTab === 'minigames') { renderSpinUI(); renderBallRushInfo(); }
 }
 
 // ══════════════════════════════════════════════════════
@@ -3226,6 +3746,12 @@ function updatePhysics(dt) {
       b.vy *= b.bounce;
       b.vx *= 0.95;
       if (Math.abs(b.vy) < 0.5) b.vy = 0;
+    }
+
+    // Anti-gravity: remove at top
+    if (b.antiGrav && b.y < -20) {
+      balls.splice(i, 1);
+      continue;
     }
 
     // Remove old balls
@@ -3326,6 +3852,13 @@ function render() {
       ctx.shadowBlur = 15;
       ctx.fill();
       ctx.shadowBlur = 0;
+    } else if (b.antiGrav) {
+      ctx.fillStyle = '#00ffcc';
+      ctx.fill();
+      ctx.shadowColor = '#00ffcc';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
     } else {
       // Normal ball with highlight
       const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 0, b.x, b.y, b.r);
@@ -3396,6 +3929,26 @@ function render() {
     ctx.fillText(ft.text, ft.x, ft.y);
   }
   ctx.globalAlpha = 1;
+
+  // Rush visual effects
+  if (rushActive) {
+    ctx.fillStyle = 'rgba(255,100,0,0.05)';
+    ctx.fillRect(0, 0, W, H);
+    // Lightning effect
+    if (Math.random() < 0.1) {
+      ctx.strokeStyle = 'rgba(255,200,0,0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const sx = Math.random() * W;
+      ctx.moveTo(sx, 0);
+      let y = 0;
+      while (y < H) {
+        y += 20 + Math.random() * 30;
+        ctx.lineTo(sx + (Math.random()-0.5)*40, y);
+      }
+      ctx.stroke();
+    }
+  }
 
   // Frenzy visual
   if (frenzyActive) {

@@ -21,6 +21,17 @@ services:
       traefik.http.routers.ballz.entrypoints: web
       traefik.http.services.ballz.loadbalancer.server.port: "80"
 
+  stellar-siege:
+    build: ./apps/stellar-siege
+    restart: unless-stopped
+    networks:
+      - lobslab
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.stellar-siege.rule: "Host(`stellar-siege.lobslab.com`)"
+      traefik.http.routers.stellar-siege.entrypoints: web
+      traefik.http.services.stellar-siege.loadbalancer.server.port: "3000"
+
 networks:
   lobslab:
     external: true
