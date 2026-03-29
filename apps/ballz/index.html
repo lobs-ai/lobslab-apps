@@ -1754,24 +1754,24 @@ function getBPS() {
   // Overflow bonus
   if (isOverflowing) total *= 3;
 
-  // === PRODUCTION SOFTCAPS ===
+  // === PRODUCTION SOFTCAPS (applied lowest→highest) ===
   if (skillLevel('decillionDream') === 0) {
-    // Softcap 3 (1Qi = 1e18): excess past 1Qi multiplied by 0.1
-    if (total > 1e18) {
-      const excess = total - 1e18;
-      total = 1e18 + excess * 0.1;
+    // Softcap 1 (1T = 1e12): excess past 1T multiplied by 0.5 * (1 + softcapBreak1 * 0.4)
+    if (total > 1e12) {
+      const sc1Factor = Math.min(1, 0.5 * (1 + skillLevel('softcapBreak1') * 0.4));
+      const excess = total - 1e12;
+      total = 1e12 + excess * sc1Factor;
     }
     // Softcap 2 (1Qa = 1e15): excess past 1Qa multiplied by 0.25 * (1 + softcapBreak2 * 0.5)
     if (total > 1e15) {
-      const sc2Factor = 0.25 * (1 + skillLevel('softcapBreak2') * 0.5);
+      const sc2Factor = Math.min(1, 0.25 * (1 + skillLevel('softcapBreak2') * 0.5));
       const excess = total - 1e15;
-      total = 1e15 + excess * Math.min(sc2Factor, 1);
+      total = 1e15 + excess * sc2Factor;
     }
-    // Softcap 1 (1T = 1e12): excess past 1T multiplied by 0.5 * (1 + softcapBreak1 * 0.4)
-    if (total > 1e12) {
-      const sc1Factor = 0.5 * (1 + skillLevel('softcapBreak1') * 0.4);
-      const excess = total - 1e12;
-      total = 1e12 + excess * Math.min(sc1Factor, 1);
+    // Softcap 3 (1Qi = 1e18): excess past 1Qi multiplied by 0.1 (only broken by decillionDream)
+    if (total > 1e18) {
+      const excess = total - 1e18;
+      total = 1e18 + excess * 0.1;
     }
   }
 
@@ -2301,6 +2301,10 @@ function doPrestige() {
       state.totalBalls += startBalls;
     }
   }
+
+  // Reset leechers on prestige
+  state.leechers = [];
+  leecher_spawn_timer = 0;
 
   // Prestige Cascade: free random T1 skills
   const cascadeLevel = skillLevel('prestigeCascade');
@@ -2832,8 +2836,10 @@ function renderStats() {
     <div class="stat-line"><span>Balls</span><span class="sv">${formatNum(state.balls)}</span></div>
     <div class="stat-line"><span>Total Balls (this run)</span><span class="sv">${formatNum(state.totalBalls)}</span></div>
     <div class="stat-line"><span>Total Balls (all time)</span><span class="sv">${formatNum(state.totalBallsEver)}</span></div>
-    <div class="stat-line"><span>Balls Per Second</span><span class="sv">${formatNum(bps)}</span></div>
+    <div class="stat-line"><span>Balls Per Second</span><span class="sv">${formatNum(bps)}${bps > 1e12 && skillLevel('decillionDream') === 0 ? ' ⚠️ softcapped' : ''}</span></div>
     <div class="stat-line"><span>Highest BPS</span><span class="sv">${formatNum(state.highestBPS)}</span></div>
+    ${state.leechers.length > 0 ? `<div class="stat-line"><span>🦠 Active Leechers</span><span class="sv">${state.leechers.length} (-${(Math.min(0.7, state.leechers.length * 0.03) * 100).toFixed(0)}% BPS)</span></div>` : ''}
+    <div class="stat-line"><span>🦠 Leechers Popped</span><span class="sv">${state.leechersPopped || 0}</span></div>
     <div class="stat-line"><span>Total Clicks</span><span class="sv">${state.totalClicks.toLocaleString()}</span></div>
     <div class="stat-line"><span>Highest Combo</span><span class="sv">x${state.highestCombo}</span></div>
     <div class="stat-line"><span>Golden Balls Clicked</span><span class="sv">${state.goldenClicks}</span></div>
@@ -2843,6 +2849,7 @@ function renderStats() {
     <div class="stat-line"><span>Prestige Points</span><span class="sv">${state.prestigePoints}</span></div>
     <div class="stat-line"><span>Total PP Earned</span><span class="sv">${state.totalPPEarned}</span></div>
     <div class="stat-line"><span>Prestige Multiplier</span><span class="sv">${state.prestigeMulti.toFixed(1)}×</span></div>
+    <div class="stat-line"><span>Next Prestige At</span><span class="sv">${formatNum(getPrestigeThreshold())} balls</span></div>
     <div class="stat-line"><span>Total Skill Levels</span><span class="sv">${totalSkillLevels()}</span></div>
 
     <div class="section-title" style="margin-top:12px">🎮 Progress</div>
