@@ -445,6 +445,14 @@
   .skill-btn.tier-4:hover:not(.locked):not(.maxed) { border-color: #9a9a4a; }
   .skill-btn.tier-5 { border-color: #5a2a2a; }
   .skill-btn.tier-5:hover:not(.locked):not(.maxed) { border-color: #9a4a4a; }
+  .tier-6-header { background: #2a1a0a; color: #ff9933; border: 1px solid #5a3a1a; }
+  .tier-7-header { background: #0a0a0a; color: #ffffff; border: 1px solid #444; }
+  .skill-btn.tier-6 { border-color: #5a3a1a; }
+  .skill-btn.tier-6:hover:not(.locked):not(.maxed) { border-color: #9a6a2a; }
+  .skill-btn.tier-7 { border-color: #444; }
+  .skill-btn.tier-7:hover:not(.locked):not(.maxed) { border-color: #888; }
+  .skill-btn.prereq-locked { opacity: 0.25; cursor: not-allowed; background: #0a0510; }
+  .skill-btn.prereq-locked .prereq-msg { color: #ff6666; font-size: 9px; font-style: italic; }
 
   .prestige-points-bar {
     background: linear-gradient(135deg, #1a1030, #2a1545);
@@ -858,7 +866,7 @@
 // ══════════════════════════════════════════════════════
 
 // ── Constants & Definitions ──
-const SAVE_KEY = 'ballz_save_v5';
+const SAVE_KEY = 'ballz_save_v6';
 
 // Tab state
 let activeTab = 'generators';
@@ -911,10 +919,37 @@ const GEN_MILESTONES = [
   { id: 'molecular_10',  genId: 'molecular', name: 'Nano Assembly',      threshold: 10,  multiplier: 2 },
   { id: 'molecular_25',  genId: 'molecular', name: 'Atomic Forge',       threshold: 25,  multiplier: 2 },
   { id: 'molecular_50',  genId: 'molecular', name: 'Matter Compiler',    threshold: 50,  multiplier: 3 },
+  { id: 'molecular_100', genId: 'molecular', name: 'Molecular Overlord', threshold: 100, multiplier: 5 },
+  { id: 'molecular_200', genId: 'molecular', name: 'Molecular Titan',    threshold: 200, multiplier: 7 },
+  { id: 'molecular_500', genId: 'molecular', name: 'Molecular Godhood',  threshold: 500, multiplier: 10 },
   // Cosmic Forge (unlocked by research)
   { id: 'cosmic_10',  genId: 'cosmic',      name: 'Star Forge',          threshold: 10,  multiplier: 2 },
   { id: 'cosmic_25',  genId: 'cosmic',      name: 'Nebula Engine',       threshold: 25,  multiplier: 2 },
   { id: 'cosmic_50',  genId: 'cosmic',      name: 'Galaxy Maker',        threshold: 50,  multiplier: 3 },
+  { id: 'cosmic_100', genId: 'cosmic',      name: 'Cosmic Overlord',     threshold: 100, multiplier: 5 },
+  { id: 'cosmic_200', genId: 'cosmic',      name: 'Cosmic Titan',        threshold: 200, multiplier: 7 },
+  { id: 'cosmic_500', genId: 'cosmic',      name: 'Cosmic Godhood',      threshold: 500, multiplier: 10 },
+  // ── 200 & 500 milestones for base generators ──
+  { id: 'dropper_200',     genId: 'dropper',     name: 'Flood Gates',          threshold: 200, multiplier: 7 },
+  { id: 'dropper_500',     genId: 'dropper',     name: 'Ocean of Balls',       threshold: 500, multiplier: 10 },
+  { id: 'launcher_200',    genId: 'launcher',    name: 'Artillery Barrage',    threshold: 200, multiplier: 7 },
+  { id: 'launcher_500',    genId: 'launcher',    name: 'Orbital Bombardment',  threshold: 500, multiplier: 10 },
+  { id: 'factory_200',     genId: 'factory',     name: 'Planetary Factory',    threshold: 200, multiplier: 7 },
+  { id: 'factory_500',     genId: 'factory',     name: 'Factory Multiverse',   threshold: 500, multiplier: 10 },
+  { id: 'vortex_200',      genId: 'vortex',      name: 'Void Emperor',         threshold: 200, multiplier: 7 },
+  { id: 'vortex_500',      genId: 'vortex',      name: 'Vortex Godhood',       threshold: 500, multiplier: 10 },
+  { id: 'singularity_200', genId: 'singularity', name: 'Singularity Array',    threshold: 200, multiplier: 7 },
+  { id: 'singularity_500', genId: 'singularity', name: 'Singularity Godhood',  threshold: 500, multiplier: 10 },
+  { id: 'quantum_200',     genId: 'quantum',     name: 'Quantum Hegemony',     threshold: 200, multiplier: 7 },
+  { id: 'quantum_500',     genId: 'quantum',     name: 'Quantum Godhood',      threshold: 500, multiplier: 10 },
+  { id: 'dimension_200',   genId: 'dimension',   name: 'Dimension Emperor',    threshold: 200, multiplier: 7 },
+  { id: 'dimension_500',   genId: 'dimension',   name: 'Dimension Godhood',    threshold: 500, multiplier: 10 },
+  { id: 'bigbang_200',     genId: 'bigbang',     name: 'Big Bang Array',       threshold: 200, multiplier: 7 },
+  { id: 'bigbang_500',     genId: 'bigbang',     name: 'Big Bang Godhood',     threshold: 500, multiplier: 10 },
+  { id: 'overflow_200',    genId: 'overflow',    name: 'Overflow Emperor',     threshold: 200, multiplier: 7 },
+  { id: 'overflow_500',    genId: 'overflow',    name: 'Overflow Godhood',     threshold: 500, multiplier: 10 },
+  { id: 'qfabric_200',     genId: 'qfabric',     name: 'Fabric Emperor',       threshold: 200, multiplier: 7 },
+  { id: 'qfabric_500',     genId: 'qfabric',     name: 'Fabric Godhood',       threshold: 500, multiplier: 10 },
 ];
 
 // ── Skill Tree Definitions ──
@@ -940,6 +975,7 @@ const SKILL_DEFS = {
   ballMagnetism:  { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '🧲 Ball Magnetism',   desc: 'Clicked balls give +20% value per level' },
   rushEnhancer:   { tier: 2, maxLevel: 3,  baseCost: 5,  costScale: 2.5, name: '⚡ Rush Enhancer',    desc: 'Ball Rush lasts 5s longer per level' },
   fusionExpert:   { tier: 2, maxLevel: 3,  baseCost: 4,  costScale: 2.0, name: '🧪 Fusion Expert',    desc: 'Fusion balls give 25% more BPS per level' },
+  leecher:        { tier: 2, maxLevel: 5,  baseCost: 5,  costScale: 2.5, name: '🦠 Leecher Expert',   desc: 'Leechers absorb 5% more per level but give 20% more when popped' },
 
   // Tier 3: requires 15 total + 3 prestiges
   ballFrenzy:     { tier: 3, maxLevel: 3,  baseCost: 6,  costScale: 3.0, name: '🎉 Ball Frenzy',      desc: 'Every 60s, 10s of 5x production per level' },
@@ -968,6 +1004,18 @@ const SKILL_DEFS = {
   theConvergence: { tier: 5, maxLevel: 1,  baseCost: 40, costScale: 1,   name: '🌌 The Convergence',    desc: 'Every maxed skill gives +5% to everything' },
   infinitePrestige:{ tier: 5, maxLevel: 1, baseCost: 100,costScale: 1,   name: '♾️ Infinite Prestige',  desc: 'Prestige no longer resets generators' },
   goldenAge:      { tier: 5, maxLevel: 1,  baseCost: 35, costScale: 1,   name: '✨ Golden Age',          desc: 'Golden balls appear 5× more often' },
+
+  // Tier 6: requires 100 total + 30 prestiges — Cosmic
+  softcapBreak1:  { tier: 6, maxLevel: 5,  baseCost: 1000000, costScale: 5.0,  name: '💥 Softcap Breaker I',   desc: 'Break first production softcap — each level +40% past the 1T BPS cap', prereq: ['prestigePower'] },
+  megaPrestige:   { tier: 6, maxLevel: 3,  baseCost: 2000000, costScale: 8.0,  name: '🌠 Mega Prestige',       desc: 'Prestige rewards give 2× more PP per level', prereq: ['ascensionBonus'] },
+  ballNova:       { tier: 6, maxLevel: 5,  baseCost: 500000,  costScale: 4.0,  name: '💫 Ball Nova',           desc: 'Every 5 min, instantly gain 2 hours of production per level', prereq: ['dimensionHopper'] },
+  genMultiplier:  { tier: 6, maxLevel: 5,  baseCost: 800000,  costScale: 5.0,  name: '⚡ Generator Overdrive', desc: 'All generators produce 50% more per level (multiplicative)', prereq: ['generatorMastery'] },
+
+  // Tier 7: requires 150 total + 50 prestiges — Transcendence II
+  softcapBreak2:  { tier: 7, maxLevel: 5,  baseCost: 1000000000, costScale: 10.0, name: '💥 Softcap Breaker II',  desc: 'Break second softcap — each level +50% past 1Qa BPS cap', prereq: ['softcapBreak1'] },
+  decillionDream: { tier: 7, maxLevel: 1,  baseCost: 100000000000, costScale: 1,  name: '🎯 Decillion Dream',     desc: 'Remove ALL production softcaps permanently', prereq: ['softcapBreak2'] },
+  prestigeAscension:{ tier: 7, maxLevel: 3,baseCost: 5000000000, costScale: 20.0, name: '👑 Prestige Ascension',  desc: 'PP earned per prestige ×5 per level', prereq: ['megaPrestige'] },
+  cosmicSingularity:{ tier: 7, maxLevel: 1,baseCost: 50000000000, costScale: 1,   name: '🌌 Cosmic Singularity',  desc: 'All skill effects are cubed. Costs 50B PP.', prereq: ['theConvergence'] },
 };
 
 const TIER_REQS = {
@@ -976,6 +1024,8 @@ const TIER_REQS = {
   3: { totalLevels: 15, prestiges: 3 },
   4: { totalLevels: 30, prestiges: 8 },
   5: { totalLevels: 50, prestiges: 15 },
+  6: { totalLevels: 100, prestiges: 30 },
+  7: { totalLevels: 150, prestiges: 50 },
 };
 
 const TIER_NAMES = {
@@ -984,6 +1034,8 @@ const TIER_NAMES = {
   3: '🟣 Tier 3 — Expert',
   4: '🟡 Tier 4 — Legendary',
   5: '🔴 Tier 5 — Transcendent',
+  6: '🟠 Tier 6 — Cosmic',
+  7: '⚫ Tier 7 — Transcendence II',
 };
 
 // ── Achievement definitions ──
@@ -1046,6 +1098,9 @@ const ACHIEVEMENTS = [
   { id: 'rush_1',     cat: 'Special', name: 'Rusher',                desc: 'Survive a Ball Rush',       icon: '⚡', check: s => s.rushesCompleted >= 1 },
   { id: 'research_1', cat: 'Special', name: 'Scientist',             desc: 'Complete a research project', icon: '🔬', check: s => s.completedResearch?.length >= 1 },
   { id: 'challenge_1',cat: 'Special', name: 'Challenger',            desc: 'Complete a challenge',       icon: '⚔️', check: s => Object.values(s.challengeCompleted||{}).some(v => v) },
+  { id: 'leech_1',    cat: 'Special', name: 'Parasite Hunter',       desc: 'Pop your first Leecher',     icon: '🦠', check: s => (s.leechersPopped || 0) >= 1 },
+  { id: 'leech_10',   cat: 'Special', name: 'Exterminator',          desc: 'Pop 10 Leechers',            icon: '🦠', check: s => (s.leechersPopped || 0) >= 10 },
+  { id: 'leech_50',   cat: 'Special', name: 'Leecher Slayer',        desc: 'Pop 50 Leechers',            icon: '🦠', check: s => (s.leechersPopped || 0) >= 50 },
 ];
 
 // ── Research definitions ──
@@ -1144,18 +1199,18 @@ function getDefaultState() {
     comboTimer: 0,
     // Generators
     generators: [
-      { id: 'dropper',    name: 'Ball Dropper',        desc: 'Drops a ball every few seconds',      baseCost: 10,     baseRate: 0.5,    count: 0 },
-      { id: 'launcher',   name: 'Ball Launcher',       desc: 'Launches balls rapidly',              baseCost: 100,    baseRate: 3,      count: 0 },
-      { id: 'factory',    name: 'Ball Factory',        desc: 'Mass-produces balls',                 baseCost: 1000,   baseRate: 20,     count: 0 },
-      { id: 'vortex',     name: 'Ball Vortex',         desc: 'Summons balls from the void',         baseCost: 12000,  baseRate: 100,    count: 0 },
-      { id: 'singularity',name: 'Singularity',         desc: 'Warps reality to create balls',       baseCost: 150000, baseRate: 600,    count: 0 },
-      { id: 'quantum',    name: 'Quantum Splitter',    desc: 'Splits each ball into many',          baseCost: 2e6,    baseRate: 4000,   count: 0 },
-      { id: 'dimension',  name: 'Dimension Rift',      desc: 'Pulls balls from other timelines',    baseCost: 30e6,   baseRate: 25000,  count: 0 },
-      { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 500e6,  baseRate: 200000, count: 0 },
-      { id: 'overflow',   name: 'Overflow Core',       desc: 'Harnesses reality destabilization',   baseCost: 1e9,    baseRate: 2000000,count: 0 },
-      { id: 'qfabric',    name: 'Quantum Fabric',      desc: 'Weaves balls from the quantum foam',  baseCost: 5e9,    baseRate: 0,      count: 0 }, // rate = prestige-based
-      { id: 'molecular',  name: 'Molecular Assembler', desc: 'Assembles balls atom by atom',        baseCost: 2e8,    baseRate: 500000, count: 0 },
-      { id: 'cosmic',     name: 'Cosmic Forge',        desc: 'Forges balls from starlight',         baseCost: 5e10,   baseRate: 5000000,count: 0 },
+      { id: 'dropper',    name: 'Ball Dropper',        desc: 'Drops a ball every few seconds',      baseCost: 100,       baseRate: 0.5,    count: 0 },
+      { id: 'launcher',   name: 'Ball Launcher',       desc: 'Launches balls rapidly',              baseCost: 1000,      baseRate: 3,      count: 0 },
+      { id: 'factory',    name: 'Ball Factory',        desc: 'Mass-produces balls',                 baseCost: 10000,     baseRate: 20,     count: 0 },
+      { id: 'vortex',     name: 'Ball Vortex',         desc: 'Summons balls from the void',         baseCost: 120000,    baseRate: 100,    count: 0 },
+      { id: 'singularity',name: 'Singularity',         desc: 'Warps reality to create balls',       baseCost: 1500000,   baseRate: 600,    count: 0 },
+      { id: 'quantum',    name: 'Quantum Splitter',    desc: 'Splits each ball into many',          baseCost: 20e6,      baseRate: 4000,   count: 0 },
+      { id: 'dimension',  name: 'Dimension Rift',      desc: 'Pulls balls from other timelines',    baseCost: 300e6,     baseRate: 25000,  count: 0 },
+      { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 5000e6,    baseRate: 200000, count: 0 },
+      { id: 'overflow',   name: 'Overflow Core',       desc: 'Harnesses reality destabilization',   baseCost: 10e9,      baseRate: 2000000,count: 0 },
+      { id: 'qfabric',    name: 'Quantum Fabric',      desc: 'Weaves balls from the quantum foam',  baseCost: 50e9,      baseRate: 0,      count: 0 }, // rate = prestige-based
+      { id: 'molecular',  name: 'Molecular Assembler', desc: 'Assembles balls atom by atom',        baseCost: 2e9,       baseRate: 500000, count: 0 },
+      { id: 'cosmic',     name: 'Cosmic Forge',        desc: 'Forges balls from starlight',         baseCost: 500e9,     baseRate: 5000000,count: 0 },
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
@@ -1209,6 +1264,11 @@ function getDefaultState() {
     lastDimensionHop: 0,
     // Prestige timestamp
     lastPrestigeTime: Date.now(),
+    // Leechers
+    leechers: [],
+    leechersPopped: 0,
+    // Ball Nova timer
+    lastBallNova: Date.now(),
   };
 }
 
@@ -1225,8 +1285,9 @@ function saveGame() {
 
 function loadGame() {
   try {
-    // Try v5, v4, v3, v2
+    // Try v6, v5, v4, v3, v2
     let s = localStorage.getItem(SAVE_KEY);
+    if (!s) s = localStorage.getItem('ballz_save_v5');
     if (!s) s = localStorage.getItem('ballz_save_v4');
     if (!s) s = localStorage.getItem('ballz_save_v3');
     if (!s) s = localStorage.getItem('ballz_save_v2');
@@ -1285,6 +1346,9 @@ function loadGame() {
       if (state.lastDimensionHop == null) state.lastDimensionHop = 0;
       if (state.lastTimeWarp == null) state.lastTimeWarp = 0;
       if (state.lastRushTime == null) state.lastRushTime = 0;
+      if (!state.leechers) state.leechers = [];
+      if (state.leechersPopped == null) state.leechersPopped = 0;
+      if (state.lastBallNova == null) state.lastBallNova = Date.now();
 
       // Migrate v2: convert old prestigeMulti into skill points
       if (!loaded.prestigePoints && loaded.prestigeMulti > 1) {
@@ -1340,6 +1404,7 @@ let rushEndTime = 0;
 let spinRotation = 0;
 let spinning = false;
 let pendingChallengeId = null;
+let leecher_spawn_timer = 0;
 
 // ══════════════════════════════════════════════════════
 //  HELPER FUNCTIONS
@@ -1350,9 +1415,21 @@ function formatNum(n) {
   if (n !== n) return '0'; // NaN
   if (n < 0) return '-' + formatNum(-n);
   if (n < 1000) return Math.floor(n).toLocaleString();
-  const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
-  let tier = Math.floor(Math.log10(n) / 3);
-  if (tier >= suffixes.length) tier = suffixes.length - 1;
+  const suffixes = [
+    '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No',
+    'Dc', 'Ud', 'Dd', 'Td', 'Qad', 'Qid', 'Sxd', 'Spd', 'Ocd', 'Nod',
+    'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QiVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg'
+  ]; // Tg = 10^93
+  // For extremely large numbers beyond suffix list, use scientific notation
+  if (!isFinite(n)) return '∞';
+  const log = Math.log10(n);
+  let tier = Math.floor(log / 3);
+  if (tier >= suffixes.length) {
+    // Scientific notation fallback for numbers > 10^93
+    const exp = Math.floor(log);
+    const mantissa = n / Math.pow(10, exp);
+    return mantissa.toFixed(2) + 'e' + exp;
+  }
   if (tier <= 0) return Math.floor(n).toLocaleString();
   const scaled = n / Math.pow(10, tier * 3);
   return (scaled >= 100 ? Math.floor(scaled) : scaled.toFixed(1)) + suffixes[tier];
@@ -1452,7 +1529,7 @@ function getGenCost(gen, quantity) {
   let totalCost = 0;
   const baseC = gen.baseCost;
   for (let i = 0; i < quantity; i++) {
-    let cost = baseC * Math.pow(1.15, gen.count + i);
+    let cost = baseC * Math.pow(1.18, gen.count + i);
     cost *= (1 - discount);
     cost *= (1 - prestigeDiscount);
     cost *= challengeCostMulti;
@@ -1467,7 +1544,7 @@ function getMaxBuyable(gen) {
   let totalCost = 0;
   while (true) {
     const baseCost = gen.baseCost;
-    let cost = baseCost * Math.pow(1.15, gen.count + count);
+    let cost = baseCost * Math.pow(1.18, gen.count + count);
     const cheapLevel = skillLevel('cheapGens');
     cost *= (1 - cheapLevel * 0.1);
     const eternalLevel = skillLevel('eternalGens');
@@ -1663,10 +1740,65 @@ function getBPS() {
     total = Math.pow(total, 0.5) * total; // ≈ total^1.5 to avoid insane numbers
   }
 
+  // Generator Overdrive: +50% per level (multiplicative)
+  const genOverdriveLevel = skillLevel('genMultiplier');
+  if (genOverdriveLevel > 0) {
+    total *= Math.pow(1.5, genOverdriveLevel);
+  }
+
+  // Cosmic Singularity: all skill effects are cubed (boost total by cubing)
+  if (skillLevel('cosmicSingularity') > 0) {
+    total = Math.pow(total, 1.5); // cubed-ish boost (total^1.5 to avoid infinity)
+  }
+
   // Overflow bonus
   if (isOverflowing) total *= 3;
 
+  // === PRODUCTION SOFTCAPS ===
+  if (skillLevel('decillionDream') === 0) {
+    // Softcap 3 (1Qi = 1e18): excess past 1Qi multiplied by 0.1
+    if (total > 1e18) {
+      const excess = total - 1e18;
+      total = 1e18 + excess * 0.1;
+    }
+    // Softcap 2 (1Qa = 1e15): excess past 1Qa multiplied by 0.25 * (1 + softcapBreak2 * 0.5)
+    if (total > 1e15) {
+      const sc2Factor = 0.25 * (1 + skillLevel('softcapBreak2') * 0.5);
+      const excess = total - 1e15;
+      total = 1e15 + excess * Math.min(sc2Factor, 1);
+    }
+    // Softcap 1 (1T = 1e12): excess past 1T multiplied by 0.5 * (1 + softcapBreak1 * 0.4)
+    if (total > 1e12) {
+      const sc1Factor = 0.5 * (1 + skillLevel('softcapBreak1') * 0.4);
+      const excess = total - 1e12;
+      total = 1e12 + excess * Math.min(sc1Factor, 1);
+    }
+  }
+
+  // Leecher drain: each leecher drains 3% BPS, max 70% total drain
+  if (state.leechers && state.leechers.length > 0) {
+    const leecherDrainPct = Math.min(0.7, state.leechers.length * 0.03);
+    total *= (1 - leecherDrainPct);
+  }
+
   return total;
+}
+
+// Get raw BPS (before softcaps and leecher drain) for leecher drain calculation
+function getRawBPS() {
+  // Save/restore leechers to get pre-drain BPS
+  const savedLeechers = state.leechers;
+  state.leechers = [];
+  const savedSCB1 = state.skills.softcapBreak1;
+  const savedSCB2 = state.skills.softcapBreak2;
+  const savedDD = state.skills.decillionDream;
+  // Temporarily pretend decillionDream is on to skip softcaps
+  if (!state.skills.decillionDream) state.skills.decillionDream = { level: 0 };
+  state.skills.decillionDream = { level: 1 };
+  const raw = getBPS();
+  state.skills.decillionDream = savedDD;
+  state.leechers = savedLeechers;
+  return raw;
 }
 
 function getGenBPS(gen) {
@@ -1703,13 +1835,26 @@ function isGenUnlocked(genId) {
 }
 
 function canPrestige() {
-  return state.totalBalls >= 10000;
+  const required = 1e6 * Math.pow(10, state.prestiges);
+  return state.totalBalls >= required;
+}
+
+function getPrestigeThreshold() {
+  return 1e6 * Math.pow(10, state.prestiges);
 }
 
 function getPrestigeReward() {
-  let pp = Math.max(1, Math.floor(Math.sqrt(state.totalBalls / 10000)));
+  let pp = Math.max(1, Math.floor(Math.sqrt(state.totalBalls / 1e6)));
+  // Prestige multiplier: grows with each prestige
+  pp *= (1 + state.prestiges * 0.05);
   // Ascension Bonus
   pp *= (1 + skillLevel('ascensionBonus') * 0.1);
+  // Mega Prestige: 2× more PP per level
+  const megaPLevel = skillLevel('megaPrestige');
+  if (megaPLevel > 0) pp *= Math.pow(2, megaPLevel);
+  // Prestige Ascension: ×5 per level
+  const paLevel = skillLevel('prestigeAscension');
+  if (paLevel > 0) pp *= Math.pow(5, paLevel);
   // Quantum Computing research
   if (hasResearch('quantumComp')) pp *= 1.5;
   return Math.floor(pp);
@@ -2015,9 +2160,10 @@ function renderSkillTree() {
   const ppReward = getPrestigeReward();
   pBtn.classList.toggle('locked', !canP);
   pBtn.classList.toggle('can-prestige', canP);
+  const threshold = getPrestigeThreshold();
   document.getElementById('prestige-desc').textContent = canP
     ? `Reset for ${ppReward} PP (from ${formatNum(state.totalBalls)} balls)`
-    : `Need 10,000 total balls (have ${formatNum(state.totalBalls)})`;
+    : `Need ${formatNum(threshold)} total balls (have ${formatNum(state.totalBalls)})`;
 
   const tierBadge = document.getElementById('prestige-tier-badge');
   if (prestiges > 0) {
@@ -2028,7 +2174,7 @@ function renderSkillTree() {
   document.getElementById('pp-count').textContent = pp;
 
   let html = '';
-  for (let tier = 1; tier <= 5; tier++) {
+  for (let tier = 1; tier <= 7; tier++) {
     const req = TIER_REQS[tier];
     const locked = tl < req.totalLevels || prestiges < req.prestiges;
     const headerClass = `tier-${tier}-header`;
@@ -2046,14 +2192,20 @@ function renderSkillTree() {
       const lv = skillLevel(id);
       const maxed = lv >= def.maxLevel;
       const cost = skillCost(id);
-      const canBuyS = !locked && !maxed && pp >= cost;
 
-      html += `<div class="skill-btn tier-${tier} ${locked ? 'locked' : maxed ? 'maxed' : canBuyS ? '' : 'locked'}" onclick="buySkill('${id}')">
+      // Prereq check
+      const prereqsMet = !def.prereq || def.prereq.every(p => skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
+      const prereqNames = def.prereq ? def.prereq.map(p => SKILL_DEFS[p]?.name || p).join(', ') : '';
+      const canBuyS = !locked && !maxed && pp >= cost && prereqsMet;
+      const prereqLocked = !locked && !maxed && !prereqsMet;
+
+      html += `<div class="skill-btn tier-${tier} ${locked ? 'locked' : prereqLocked ? 'locked prereq-locked' : maxed ? 'maxed' : canBuyS ? '' : 'locked'}" onclick="buySkill('${id}')">
         <div class="top-row">
           <span class="name">${def.name}</span>
           <span class="cost">${maxed ? 'MAXED' : cost + ' PP'}</span>
         </div>
         <div class="desc">${def.desc}</div>
+        ${prereqLocked ? `<div class="prereq-msg">🔒 Requires: ${prereqNames} maxed</div>` : ''}
         <div class="level">Level ${lv} / ${def.maxLevel}</div>
       </div>`;
     }
@@ -2071,6 +2223,12 @@ function buySkill(id) {
   const req = TIER_REQS[tier];
   const tl = totalSkillLevels();
   if (tl < req.totalLevels || state.prestiges < req.prestiges) return;
+
+  // Prereq check
+  if (def.prereq) {
+    const prereqsMet = def.prereq.every(p => skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
+    if (!prereqsMet) return;
+  }
 
   const cost = skillCost(id);
   if (state.prestigePoints < cost) return;
@@ -2841,6 +2999,20 @@ function spawnFloatingText(x, y, text, color = '#ffd93d') {
   floatingTexts.push({ x, y, text, color, life: 1.0 });
 }
 
+function spawnLeecher() {
+  const side = Math.random() < 0.5 ? 'left' : 'right';
+  state.leechers.push({
+    id: Date.now(),
+    spawnTime: Date.now(),
+    totalDrained: 0,
+    x: side === 'left' ? 30 : W - 30,
+    y: 100 + Math.random() * (H - 200),
+    r: 12,
+    phase: Math.random() * Math.PI * 2,
+  });
+  showToast('🦠 A Leecher appeared! Click it to pop it for a ball burst!', 'event', '🦠');
+}
+
 // ── Click handling ──
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
@@ -2851,6 +3023,25 @@ canvas.addEventListener('click', (e) => {
   if (state.activeChallenge?.noClick) return;
 
   state.totalClicks++;
+
+  // Check leecher clicks
+  for (let i = state.leechers.length - 1; i >= 0; i--) {
+    const l = state.leechers[i];
+    const dx = mx - l.x;
+    const dy = my - l.y;
+    if (dx*dx + dy*dy < (l.r + 15) * (l.r + 15)) {
+      const leecher_mult = 1.15 + skillLevel('leecher') * 0.2;
+      const gain = Math.floor(l.totalDrained * leecher_mult);
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      state.leechersPopped = (state.leechersPopped || 0) + 1;
+      spawnFloatingText(l.x, l.y, '+' + formatNum(gain) + ' 🦠 POPPED!', '#cc44ff');
+      state.leechers.splice(i, 1);
+      showToast(`🦠 Leecher popped! +${formatNum(gain)} balls!`, 'reward', '🦠');
+      return; // don't also click a ball
+    }
+  }
 
   // Check if clicked on a ball
   let clickedBall = null;
@@ -3078,6 +3269,38 @@ function gameLoop(timestamp) {
     // Update rush timer
     const timerEl = document.getElementById('rush-timer');
     if (timerEl) timerEl.textContent = Math.ceil((rushEndTime - now) / 1000);
+  }
+
+  // ── Leecher spawning & drain ──
+  if (bps >= 1e6 && state.leechers.length < 10) {
+    leecher_spawn_timer += dt;
+    const spawnInterval = 180; // 3 minutes
+    if (leecher_spawn_timer >= spawnInterval) {
+      leecher_spawn_timer = 0;
+      spawnLeecher();
+    }
+  } else if (bps < 1e6) {
+    leecher_spawn_timer = 0;
+  }
+  // Drain leechers (use raw BPS for drain calculation)
+  if (state.leechers.length > 0) {
+    const drainRate = 0.03 + skillLevel('leecher') * 0.05;
+    for (const leecher of state.leechers) {
+      leecher.totalDrained += bps * drainRate * dt;
+    }
+  }
+
+  // ── Ball Nova ──
+  const ballNovaLevel = skillLevel('ballNova');
+  if (ballNovaLevel > 0) {
+    if (now - state.lastBallNova >= 300000) { // 5 minutes
+      const novaBurst = bps * 7200 * ballNovaLevel; // 2 hours per level
+      state.balls += novaBurst;
+      state.totalBalls += novaBurst;
+      state.totalBallsEver += novaBurst;
+      state.lastBallNova = now;
+      showToast(`💫 Ball Nova! +${formatNum(novaBurst)} balls (${ballNovaLevel * 2}h production)`, 'reward', '💫');
+    }
   }
 
   // ── Challenge check ──
@@ -3348,6 +3571,44 @@ function render() {
         ctx.fill();
       }
     }
+  }
+
+  // Render leechers
+  const now_r = Date.now();
+  for (const leecher of (state.leechers || [])) {
+    const age = (now_r - leecher.spawnTime) / 1000;
+    leecher.phase += 0.02;
+    const pulse = Math.sin(leecher.phase) * 0.2 + 1;
+    const sizeBonus = Math.min(20, age / 30); // grows over time, max +20px
+    const r = leecher.r + sizeBonus;
+
+    // Dark purple pulsing glow
+    ctx.save();
+    ctx.shadowColor = '#9900cc';
+    ctx.shadowBlur = 15 * pulse;
+    ctx.beginPath();
+    ctx.arc(leecher.x, leecher.y, r * pulse, 0, Math.PI * 2);
+
+    const lg = ctx.createRadialGradient(leecher.x, leecher.y, 0, leecher.x, leecher.y, r * pulse);
+    lg.addColorStop(0, '#cc00ff');
+    lg.addColorStop(0.5, '#660099');
+    lg.addColorStop(1, '#220033');
+    ctx.fillStyle = lg;
+    ctx.fill();
+
+    // Leecher emoji
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.font = `${Math.floor(r * 1.2)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🦠', leecher.x, leecher.y);
+
+    // Drain indicator
+    ctx.fillStyle = '#ff44ff';
+    ctx.font = '9px sans-serif';
+    ctx.textBaseline = 'top';
+    ctx.fillText(`${formatNum(leecher.totalDrained)}`, leecher.x, leecher.y + r + 12);
+    ctx.restore();
   }
 
   // Floating texts
