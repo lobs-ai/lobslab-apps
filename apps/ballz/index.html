@@ -124,6 +124,86 @@
     font-weight: 600;
   }
 
+  /* ── Prestige Confirm Modal ── */
+  #prestige-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #prestige-modal-overlay.visible {
+    display: flex;
+  }
+  #prestige-modal {
+    background: linear-gradient(160deg, #1a0a1a, #2a1040);
+    border: 2px solid #9b3090;
+    border-radius: 14px;
+    padding: 28px 32px;
+    max-width: 340px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(155, 48, 144, 0.5);
+    animation: modalPop 0.18s ease-out;
+  }
+  @keyframes modalPop {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  #prestige-modal .modal-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #e891dc;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  #prestige-modal .modal-body {
+    font-size: 13px;
+    color: #aa6da5;
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+  #prestige-modal .modal-body strong {
+    color: #e891dc;
+  }
+  #prestige-modal .modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  #prestige-modal .btn-confirm {
+    background: linear-gradient(135deg, #5e2155, #852577);
+    border: 1px solid #9b3090;
+    border-radius: 8px;
+    color: #e891dc;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  #prestige-modal .btn-confirm:hover {
+    background: linear-gradient(135deg, #7a2b70, #a32e90);
+    transform: translateY(-1px);
+  }
+  #prestige-modal .btn-cancel {
+    background: #1a1030;
+    border: 1px solid #3a2060;
+    border-radius: 8px;
+    color: #6a5a8a;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  #prestige-modal .btn-cancel:hover {
+    background: #221440;
+    color: #9a8aaa;
+  }
+
   #prestige-btn {
     background: linear-gradient(135deg, #4a1942, #6b1d5e);
     border: 1px solid #9b3090;
@@ -242,7 +322,7 @@
   <div class="section-title">Upgrades</div>
   <div id="upgrades"></div>
 
-  <div id="prestige-btn" class="locked" onclick="doPrestige()">
+  <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
     <div class="name">⟳ PRESTIGE</div>
     <div class="desc" id="prestige-desc">Reset for multipliers (need 1,000 balls)</div>
   </div>
@@ -254,6 +334,21 @@
     </div>
     <div class="section-title">Skill Tree</div>
     <div id="skill-tree"></div>
+  </div>
+</div>
+
+<!-- Prestige Confirmation Modal -->
+<div id="prestige-modal-overlay" onclick="closePrestigeModal(event)">
+  <div id="prestige-modal">
+    <div class="modal-title">⟳ Are you sure?</div>
+    <div class="modal-body" id="prestige-modal-body">
+      This will <strong>reset all your balls and generators</strong>.<br>
+      Your skills and upgrades are kept.
+    </div>
+    <div class="modal-buttons">
+      <button class="btn-cancel" onclick="closePrestigeModal()">Cancel</button>
+      <button class="btn-confirm" onclick="confirmPrestige()">Yes, Prestige!</button>
+    </div>
   </div>
 </div>
 
@@ -705,6 +800,27 @@ function buyUpgrade(u) {
     state.balls -= u.cost;
     u.bought = true;
   }
+}
+
+function openPrestigeModal() {
+  if (state.totalBalls < 1000) return;
+  const ppEarned = getPrestigePointsEarned();
+  const body = document.getElementById('prestige-modal-body');
+  body.innerHTML = `This will <strong>reset all your balls and generators</strong>.<br>
+    Your skills and upgrades are kept.<br><br>
+    You'll earn <strong>${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''}</strong>.`;
+  document.getElementById('prestige-modal-overlay').classList.add('visible');
+}
+
+function closePrestigeModal(e) {
+  // If called from overlay click, only close if clicking the backdrop itself
+  if (e && e.target !== document.getElementById('prestige-modal-overlay')) return;
+  document.getElementById('prestige-modal-overlay').classList.remove('visible');
+}
+
+function confirmPrestige() {
+  document.getElementById('prestige-modal-overlay').classList.remove('visible');
+  doPrestige();
 }
 
 function doPrestige() {
@@ -1227,6 +1343,9 @@ loadGame();
 renderUI();
 requestAnimationFrame(loop);
 window.addEventListener('beforeunload', saveGame);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('prestige-modal-overlay').classList.remove('visible');
+});
 </script>
 </body>
 </html>
