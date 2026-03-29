@@ -1671,7 +1671,7 @@ function getBPS() {
   }
 
   // Global multipliers
-  total *= state.prestigeMulti;
+  total *= (state.prestigeMulti || 1);
 
   // BPS multiplier skill
   total *= (1 + skillLevel('bpsMulti') * 0.25);
@@ -1698,7 +1698,8 @@ function getBPS() {
 
   // Ball frenzy active (checked elsewhere, but contribute here for display)
   if (frenzyActive) {
-    total *= (5 * skillLevel('ballFrenzy'));
+    const frenzyLevel = skillLevel('ballFrenzy');
+    if (frenzyLevel > 0) total *= (5 * frenzyLevel);
   }
 
   // Challenge: frenzy always on
@@ -1943,12 +1944,12 @@ function updateTabLocks() {
   const researchBtn = document.querySelector('.tab-btn[data-tab="research"]');
   const challengeBtn = document.querySelector('.tab-btn[data-tab="challenges"]');
   if (researchBtn) {
-    if (state.prestiges >= 5 || state.completedResearch.length > 0) {
+    if (state.prestiges >= 1 || state.completedResearch.length > 0) {
       researchBtn.classList.remove('locked');
     }
   }
   if (challengeBtn) {
-    if (state.prestiges >= 10 || Object.keys(state.challengeCompleted).length > 0) {
+    if (state.prestiges >= 3 || Object.keys(state.challengeCompleted).length > 0) {
       challengeBtn.classList.remove('locked');
     }
   }
