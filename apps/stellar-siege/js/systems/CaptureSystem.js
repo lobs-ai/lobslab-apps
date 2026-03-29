@@ -43,7 +43,7 @@ export class CaptureSystem {
 
     for (const swarm of world.swarms) {
       if (!swarm.alive) continue;
-      if (swarm.targetId !== node.id) continue;
+      if (swarm.target.type !== 'node' || swarm.target.nodeId !== node.id) continue;
       if (swarm.owner === node.owner) continue; // friendly — not an attacker
 
       const aliveCount = swarm.motes.filter(m => m.alive).length;
@@ -56,7 +56,7 @@ export class CaptureSystem {
     // Fallback: any swarm targeting this node (even if all motes just delivered)
     if (!best) {
       for (const swarm of world.swarms) {
-        if (swarm.targetId !== node.id) continue;
+        if (swarm.target.type !== 'node' || swarm.target.nodeId !== node.id) continue;
         if (swarm.owner === node.owner) continue;
         best = swarm;
         break;

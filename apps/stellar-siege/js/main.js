@@ -27,9 +27,9 @@ inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   }
 };
 
-inputManager.onRedirectSwarm = (swarm, newTargetNode) => {
+inputManager.onRedirectSwarm = (swarm, newTargetNode, newTargetPos) => {
   if (!game.world) return;
-  game.redirectSwarm(swarm, newTargetNode);
+  game.redirectSwarm(swarm, newTargetNode, newTargetPos);
 };
 
 // ============================================================================

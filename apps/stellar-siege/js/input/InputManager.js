@@ -222,9 +222,13 @@ export class InputManager {
     // --- Handle swarm redirect completion ---
     if (this.isRedirecting && this.selectedSwarm && world) {
       const target = world.getNodeAt(this._mouseX, this._mouseY);
-      if (target && target.id !== this.selectedSwarm.targetId) {
-        if (this.onRedirectSwarm) {
-          this.onRedirectSwarm(this.selectedSwarm, target);
+      if (this.onRedirectSwarm) {
+        if (target) {
+          // Redirect to a node
+          this.onRedirectSwarm(this.selectedSwarm, target, null);
+        } else {
+          // Redirect to empty space — hold position there
+          this.onRedirectSwarm(this.selectedSwarm, null, { x: this._mouseX, y: this._mouseY });
         }
       }
       this._cancelRedirect();

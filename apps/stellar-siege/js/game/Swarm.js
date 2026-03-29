@@ -4,7 +4,6 @@ let nextSwarmId = 1;
  * A Mote is one particle in a swarm — represents 1 unit of energy.
  */
 export function createMote(x, y) {
-  // Slight random offset so motes spread into a cloud
   const spread = 12;
   return {
     x: x + (Math.random() - 0.5) * spread,
@@ -16,7 +15,16 @@ export function createMote(x, y) {
 }
 
 /**
- * A Swarm is a group of motes traveling together toward a target node.
+ * Target descriptor — either a node or a free position on the map.
+ *   { type: 'node',     nodeId }
+ *   { type: 'position', x, y  }
+ */
+export function nodeTarget(nodeId)  { return { type: 'node', nodeId }; }
+export function posTarget(x, y)    { return { type: 'position', x, y }; }
+
+/**
+ * A Swarm is a group of motes traveling together.
+ * `target` is a target descriptor (node or position).
  */
 export function createSwarm(sourceNode, targetNode, amount, owner) {
   const motes = [];
@@ -28,7 +36,7 @@ export function createSwarm(sourceNode, targetNode, amount, owner) {
     id: nextSwarmId++,
     owner,
     sourceId: sourceNode.id,
-    targetId: targetNode.id,
+    target: nodeTarget(targetNode.id),
     motes,
     alive: true,
   };

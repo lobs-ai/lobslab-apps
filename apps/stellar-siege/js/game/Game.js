@@ -6,7 +6,7 @@ import { ProductionSystem } from '../systems/ProductionSystem.js';
 import { SwarmSystem } from '../systems/SwarmSystem.js';
 import { CaptureSystem } from '../systems/CaptureSystem.js';
 import { AISystem } from '../systems/AISystem.js';
-import { createSwarm, resetSwarmIds } from './Swarm.js';
+import { createSwarm, resetSwarmIds, nodeTarget, posTarget } from './Swarm.js';
 
 /**
  * Game states.
@@ -143,19 +143,20 @@ export class Game {
   }
 
   /**
-   * Redirect an in-flight player swarm to a new target node.
-   * SwarmSystem steers all motes toward targetId each tick, so
-   * simply updating the id is sufficient.
-   *
-   * @param {import('./Swarm.js').Swarm} swarm
-   * @param {import('./Node.js').Node}   newTarget
+   * Redirect a player swarm to a new target — either a node or a map position.
+   * @param {Swarm}      swarm
+   * @param {Node|null}  targetNode  - if clicking a node
+   * @param {{x,y}|null} targetPos   - if clicking empty space
    */
-  redirectSwarm(swarm, newTarget) {
-    if (!swarm || !newTarget) return;
-    if (!swarm.alive) return;
-    if (swarm.owner !== 0) return; // only the human player can redirect
-    if (swarm.targetId === newTarget.id) return; // already heading there
-    swarm.targetId = newTarget.id;
+  redirectSwarm(swarm, targetNode, targetPos) {
+    if (!swarm || !swarm.alive) return;
+    if (swarm.owner !== 0) return; // only human can redirect
+
+    if (targetNode) {
+      swarm.target = nodeTarget(targetNode.id);
+    } else if (targetPos) {
+      swarm.target = posTarget(targetPos.x, targetPos.y);
+    }
   }
 
   /**

@@ -64,7 +64,7 @@ class AIController {
     for (const node of myNodes) {
       // Check if enemy swarms are targeting this node
       const underAttack = world.swarms.some(
-        s => s.alive && s.targetId === node.id && s.owner !== this.playerId
+        s => s.alive && s.target.type === 'node' && s.target.nodeId === node.id && s.owner !== this.playerId
       );
 
       if (!underAttack) continue;
@@ -150,7 +150,7 @@ class AIController {
         if (n.energy < n.maxEnergy * minEnergyFraction) return false;
         // Skip nodes already under attack
         const underAttack = world.swarms.some(
-          s => s.alive && s.targetId === n.id && s.owner !== this.playerId
+          s => s.alive && s.target.type === 'node' && s.target.nodeId === n.id && s.owner !== this.playerId
         );
         return !underAttack;
       })
