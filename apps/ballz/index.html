@@ -14,6 +14,7 @@
     overflow: hidden;
     height: 100vh;
     display: flex;
+    position: relative;
   }
 
   canvas {
@@ -385,7 +386,53 @@
   }
   #prestige-btn.can-prestige { animation: prestigePulse 2s ease-in-out infinite; }
 
-  /* ── Skill tree ── */
+  /* ── Skill Tree Overlay ── */
+  #skill-tree-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 370px;
+    bottom: 0;
+    background: rgba(10, 10, 26, 0.97);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #2a2a4a;
+    flex-shrink: 0;
+  }
+  .overlay-header h2 {
+    color: #cc88ff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .overlay-close {
+    background: none;
+    border: 1px solid #555;
+    color: #999;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+  .overlay-close:hover {
+    color: #fff;
+    border-color: #cc88ff;
+    background: rgba(200, 100, 255, 0.15);
+  }
+
   /* ── Skill Tree — Radial Node Graph ── */
   #skill-tree {
     position: relative;
@@ -679,6 +726,17 @@
 </head>
 <body>
 <canvas id="c"></canvas>
+<div id="skill-tree-overlay" style="display:none">
+  <div class="overlay-header">
+    <h2>🔮 Skill Tree</h2>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="overlay-pp-count" style="color:#ffaa00;font-size:14px"></span>
+      <button onclick="closeSkillTree()" class="overlay-close">&times;</button>
+    </div>
+  </div>
+  <div id="skill-tree" style="overflow:auto;flex:1;padding:8px 0"></div>
+  <div id="skill-tooltip"></div>
+</div>
 <div id="ui">
   <div id="ui-header">
     <h1>B A L L Z</h1>
@@ -736,9 +794,8 @@
         <div class="value" id="pp-count">0</div>
       </div>
       <div style="margin-top:8px">
-        <button onclick="openSkillTreeWindow()" style="width:100%;background:linear-gradient(135deg,#1a1030,#2a1545);border:1px solid #8855bb;border-radius:10px;padding:12px;color:#cc88ff;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.background='linear-gradient(135deg,#251540,#351a55)'" onmouseout="this.style.background='linear-gradient(135deg,#1a1030,#2a1545)'">🔮 Open Skill Tree</button>
+        <button onclick="openSkillTree()" style="width:100%;background:linear-gradient(135deg,#1a1030,#2a1545);border:1px solid #8855bb;border-radius:10px;padding:12px;color:#cc88ff;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.background='linear-gradient(135deg,#251540,#351a55)'" onmouseout="this.style.background='linear-gradient(135deg,#1a1030,#2a1545)'">🔮 View Skill Tree</button>
       </div>
-      <div style="font-size:10px;color:#555;text-align:center;margin-top:4px">Opens in a new window — buy skills there</div>
     </div>
 
     <!-- Challenges Tab -->
@@ -2223,169 +2280,21 @@ function buySkill(id) {
   state.prestigePoints -= cost;
   state.skills[id].level++;
   renderSkillTree();
+  // Update overlay PP count
+  const ppEl = document.getElementById('overlay-pp-count');
+  if (ppEl) ppEl.textContent = '✨ ' + formatNum(state.prestigePoints) + ' PP | ×' + state.prestiges + ' Prestiges';
 }
 
-function openSkillTreeWindow() {
-  const popup = window.open('', 'skillTree', 'width=420,height=700,resizable=yes,scrollbars=yes');
-  if (!popup) {
-    alert('Popup blocked! Please allow popups for this page.');
-    return;
-  }
+function openSkillTree() {
+  const overlay = document.getElementById('skill-tree-overlay');
+  overlay.style.display = 'flex';
+  renderSkillTree();
+  const ppEl = document.getElementById('overlay-pp-count');
+  if (ppEl) ppEl.textContent = '✨ ' + formatNum(state.prestigePoints) + ' PP | ×' + state.prestiges + ' Prestiges';
+}
 
-  // Expose helpers the popup needs
-  window._ballzBuySkill = function(id) {
-    buySkill(id);
-    if (popup && !popup.closed) popup._refresh && popup._refresh();
-  };
-
-  function buildPopupHTML() {
-    const state_  = window.state;
-    const tl      = Object.values(state_.skills).reduce((a, s) => a + (s.level || 0), 0);
-    const pp      = state_.prestigePoints;
-    const prestiges = state_.prestiges;
-
-    function _skillLevel(id) { return state_.skills[id]?.level || 0; }
-    function _skillCost(id) {
-      const def = SKILL_DEFS[id]; if (!def) return 0;
-      const lv = _skillLevel(id);
-      return Math.ceil(def.baseCost * Math.pow(def.costScale || 1.5, lv));
-    }
-    function _canBuy(id) {
-      const def = SKILL_DEFS[id]; if (!def) return false;
-      const lv = _skillLevel(id); if (lv >= def.maxLevel) return false;
-      const req = TIER_REQS[def.tier];
-      if (tl < req.totalLevels || prestiges < req.prestiges) return false;
-      if (def.prereq && !def.prereq.every(p => _skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99))) return false;
-      return pp >= _skillCost(id);
-    }
-
-    const layout = getTreeLayout();
-    let maxY = 0;
-    for (const pos of Object.values(layout)) { if (pos.y > maxY) maxY = pos.y; }
-    const treeH = maxY + 60;
-
-    let svgLines = '';
-    const allSkills = Object.entries(SKILL_DEFS);
-
-    for (const [id, def] of allSkills) {
-      if (def.tier === 1 && layout[id]) {
-        const p = layout[id]; const lv = _skillLevel(id);
-        const tierLocked = tl < TIER_REQS[1].totalLevels || prestiges < TIER_REQS[1].prestiges;
-        const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : 'locked';
-        svgLines += `<line x1="${TREE_CX}" y1="${TREE_CORE_Y}" x2="${p.x}" y2="${p.y}" stroke="${TIER_COLORS[1]}" class="${cls}"/>`;
-      }
-    }
-    for (const [id, def] of allSkills) {
-      if (def.prereq && layout[id]) {
-        for (const prereqId of def.prereq) {
-          if (layout[prereqId]) {
-            const from = layout[prereqId]; const to = layout[id]; const lv = _skillLevel(id);
-            const prereqLv = _skillLevel(prereqId);
-            const prereqMaxed = prereqLv >= (SKILL_DEFS[prereqId]?.maxLevel || 99);
-            const cls = lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : prereqMaxed ? '' : 'locked';
-            svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[def.tier]}" class="${cls}"/>`;
-          }
-        }
-      }
-    }
-    for (let tier = 1; tier <= 5; tier++) {
-      const nextTier = tier + 1;
-      const nextSkills = allSkills.filter(([, d]) => d.tier === nextTier && !d.prereq);
-      if (nextSkills.length === 0) continue;
-      const curSkills = allSkills.filter(([, d]) => d.tier === tier);
-      for (const [nid] of nextSkills) {
-        if (!layout[nid]) continue;
-        let closest = null, closestDist = Infinity;
-        for (const [cid] of curSkills) {
-          if (!layout[cid]) continue;
-          const dx = layout[nid].x - layout[cid].x; const dy = layout[nid].y - layout[cid].y;
-          const d = dx*dx + dy*dy;
-          if (d < closestDist) { closestDist = d; closest = cid; }
-        }
-        if (closest && layout[closest]) {
-          const from = layout[closest]; const to = layout[nid];
-          const lv = _skillLevel(nid); const nDef = SKILL_DEFS[nid];
-          const tierLocked = tl < TIER_REQS[nextTier].totalLevels || prestiges < TIER_REQS[nextTier].prestiges;
-          const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= nDef.maxLevel ? 'maxed' : 'active') : 'locked';
-          svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[nextTier]}" class="${cls}"/>`;
-        }
-      }
-    }
-
-    let nodesHtml = `<div class="skill-core-node" style="left:${TREE_CX}px;top:${TREE_CORE_Y}px">🔮</div>`;
-    const tierRadius = { 1:70, 2:135, 3:200, 4:265, 5:330, 6:395, 7:460 };
-    const shortNames = { 1:'Foundation', 2:'Advanced', 3:'Expert', 4:'Legendary', 5:'Transcendent', 6:'Cosmic', 7:'Transcendence II' };
-    for (let tier = 1; tier <= 7; tier++) {
-      const req = TIER_REQS[tier];
-      const locked = tl < req.totalLevels || prestiges < req.prestiges;
-      const labelY = TREE_CORE_Y + tierRadius[tier] - 20;
-      nodesHtml += `<div class="tier-ring-label tier-${tier}" style="left:${TREE_CX}px;top:${labelY}px;${locked?'opacity:0.15':''}">${shortNames[tier]}${locked?' 🔒':''}</div>`;
-    }
-
-    for (const [id, def] of allSkills) {
-      if (!layout[id]) continue;
-      const pos = layout[id]; const lv = _skillLevel(id); const maxed = lv >= def.maxLevel;
-      const cost = _skillCost(id); const req = TIER_REQS[def.tier];
-      const tierLocked = tl < req.totalLevels || prestiges < req.prestiges;
-      const prereqsMet = !def.prereq || def.prereq.every(p => _skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
-      const canBuy = !tierLocked && !maxed && pp >= cost && prereqsMet;
-      const emoji = def.name.match(/^(\S+)/)?.[1] || '?';
-      let cls = `skill-node tier-${def.tier}`;
-      if (tierLocked) cls += ' tier-locked';
-      else if (maxed) cls += ' maxed';
-      else if (lv > 0) cls += ' has-levels';
-      else if (!prereqsMet) cls += ' locked';
-      else if (canBuy) cls += ' available';
-      const title = `${def.name} (Lv ${lv}/${def.maxLevel})\n${def.desc}\nCost: ${cost} PP${tierLocked ? '\n🔒 Tier locked' : ''}${!prereqsMet && def.prereq ? '\n🔒 Requires: ' + def.prereq.map(p => SKILL_DEFS[p]?.name || p).join(', ') + ' maxed' : ''}`;
-      nodesHtml += `<div class="${cls}" style="left:${pos.x}px;top:${pos.y}px" onclick="parent_buy('${id}')" title="${title.replace(/"/g,'&quot;')}">${emoji}${lv > 0 ? `<div class="node-level">${lv}</div>` : ''}</div>`;
-    }
-
-    const ppStr = state_.prestigePoints;
-    const presStr = state_.prestiges;
-    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Skill Tree</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a1a;color:#ccc;font-family:'Segoe UI',sans-serif;overflow-x:hidden}
-#header{position:sticky;top:0;z-index:100;background:#10101f;border-bottom:1px solid #2a2a4a;padding:8px 12px;display:flex;align-items:center;justify-content:space-between}
-#header h2{font-size:14px;color:#cc88ff}
-#pp-info{font-size:13px;color:#ffaa00}
-#tree-wrap{position:relative;width:360px;margin:0 auto;min-height:${treeH}px;overflow-x:visible}
-.skill-core-node{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#3a1060,#1a0530);border:2px solid #9955dd;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:default;box-shadow:0 0 14px #9955dd88;z-index:2}
-.skill-node{position:absolute;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;z-index:2;border:2px solid #555;background:#1a1a2e;transition:transform .15s,box-shadow .15s}
-.skill-node:hover{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 0 12px #fff6}
-.skill-node.tier-1{border-color:#4488ff}.skill-node.tier-2{border-color:#44cc88}.skill-node.tier-3{border-color:#cc8844}.skill-node.tier-4{border-color:#cc44cc}.skill-node.tier-5{border-color:#ff6644}.skill-node.tier-6{border-color:#ff44aa}.skill-node.tier-7{border-color:#fff700}
-.skill-node.available{box-shadow:0 0 8px currentColor;opacity:1}
-.skill-node.tier-locked{opacity:0.2;cursor:default}
-.skill-node.locked{opacity:0.35;cursor:default}
-.skill-node.has-levels{opacity:0.85}
-.skill-node.maxed{opacity:1;box-shadow:0 0 10px gold}
-.node-level{position:absolute;bottom:-2px;right:-2px;background:#222;border:1px solid #666;border-radius:4px;font-size:9px;color:#fff;padding:0 2px;line-height:14px}
-.tier-ring-label{position:absolute;transform:translate(-50%,-50%);font-size:9px;color:#666;white-space:nowrap;pointer-events:none}
-.tier-ring-label.tier-1{color:#4488ff}.tier-ring-label.tier-2{color:#44cc88}.tier-ring-label.tier-3{color:#cc8844}.tier-ring-label.tier-4{color:#cc44cc}.tier-ring-label.tier-5{color:#ff6644}.tier-ring-label.tier-6{color:#ff44aa}.tier-ring-label.tier-7{color:#fff700}
-.tree-lines{position:absolute;top:0;left:0;pointer-events:none;z-index:1}
-.tree-lines line{stroke-width:1.5;stroke-opacity:0.5}.tree-lines line.locked{stroke-opacity:0.15}.tree-lines line.active{stroke-opacity:0.8}.tree-lines line.maxed{stroke-opacity:1;stroke-width:2}
-</style></head><body>
-<div id="header"><h2>🔮 Skill Tree</h2><span id="pp-info">✨ ${ppStr} PP | ×${presStr} Prestiges</span></div>
-<div style="padding:8px 0">
-<div id="tree-wrap">
-<svg class="tree-lines" viewBox="0 0 350 ${treeH}" preserveAspectRatio="none" style="width:350px;height:${treeH}px">${svgLines}</svg>
-${nodesHtml}
-</div></div>
-<scr${''}ipt>
-function parent_buy(id){window.opener._ballzBuySkill(id);}
-</scr${''}ipt></body></html>`;
-  }
-
-  popup.document.open();
-  popup.document.write(buildPopupHTML());
-  popup.document.close();
-
-  // Attach refresh function so buySkill can refresh the popup
-  popup._refresh = function() {
-    popup.document.open();
-    popup.document.write(buildPopupHTML());
-    popup.document.close();
-  };
+function closeSkillTree() {
+  document.getElementById('skill-tree-overlay').style.display = 'none';
 }
 
 // ══════════════════════════════════════════════════════
