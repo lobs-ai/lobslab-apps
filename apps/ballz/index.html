@@ -3575,7 +3575,7 @@ function render() {
       const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 0, b.x, b.y, b.r);
       g.addColorStop(0, '#fff');
       g.addColorStop(0.2, b.color);
-      g.addColorStop(1, b.color + '88');
+      g.addColorStop(1, b.color.replace('hsl(', 'hsla(').replace(')', ', 0.53)'));
       ctx.fillStyle = g;
       ctx.fill();
     }
