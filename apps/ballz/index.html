@@ -386,73 +386,150 @@
   #prestige-btn.can-prestige { animation: prestigePulse 2s ease-in-out infinite; }
 
   /* ── Skill tree ── */
-  .skill-tier-header {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    margin-top: 8px;
+  /* ── Skill Tree — Radial Node Graph ── */
+  #skill-tree {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
   }
-  .skill-tier-header.locked { opacity: 0.4; }
-  .skill-tier-header .tier-req { font-size: 10px; font-weight: 400; opacity: 0.7; display: block; margin-top: 2px; }
+  #skill-tree svg.tree-lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #skill-tree svg.tree-lines line {
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  #skill-tree svg.tree-lines line.active { stroke-width: 2.5; }
+  #skill-tree svg.tree-lines line.locked { opacity: 0.15; stroke-dasharray: 4 3; }
+  #skill-tree svg.tree-lines line.maxed { stroke-width: 3; }
 
-  .tier-1-header { background: #1a2a1a; color: #6bcb77; border: 1px solid #2a4a2a; }
-  .tier-2-header { background: #1a1a2a; color: #4d96ff; border: 1px solid #2a2a5a; }
-  .tier-3-header { background: #2a1a2a; color: #cc65fe; border: 1px solid #4a2a5a; }
-  .tier-4-header { background: #2a2a1a; color: #ffd93d; border: 1px solid #5a5a2a; }
-  .tier-5-header { background: #2a1a1a; color: #ff6b6b; border: 1px solid #5a2a2a; }
+  .skill-node {
+    position: absolute;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    border: 2px solid #3a2060;
+    background: #1a1030;
+    transform: translate(-50%, -50%);
+    user-select: none;
+  }
+  .skill-node:hover:not(.locked):not(.maxed) {
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: 10;
+  }
+  .skill-node.available {
+    animation: node-pulse 2s ease-in-out infinite;
+    border-color: #e891dc;
+    box-shadow: 0 0 12px rgba(232,145,220,0.4);
+  }
+  .skill-node.has-levels { border-color: #8855bb; background: #251545; }
+  .skill-node.maxed { border-color: #ffd93d; background: #2a2510; box-shadow: 0 0 10px rgba(255,217,61,0.3); }
+  .skill-node.locked { opacity: 0.25; cursor: not-allowed; }
+  .skill-node.tier-locked { opacity: 0.12; cursor: not-allowed; filter: grayscale(1); }
 
-  .skill-btn {
+  /* Tier color accents */
+  .skill-node.tier-1 { border-color: #2a4a2a; }
+  .skill-node.tier-1.has-levels { border-color: #6bcb77; box-shadow: 0 0 8px rgba(107,203,119,0.3); }
+  .skill-node.tier-2 { border-color: #2a2a5a; }
+  .skill-node.tier-2.has-levels { border-color: #4d96ff; box-shadow: 0 0 8px rgba(77,150,255,0.3); }
+  .skill-node.tier-3 { border-color: #4a2a5a; }
+  .skill-node.tier-3.has-levels { border-color: #cc65fe; box-shadow: 0 0 8px rgba(204,101,254,0.3); }
+  .skill-node.tier-4 { border-color: #5a5a2a; }
+  .skill-node.tier-4.has-levels { border-color: #ffd93d; box-shadow: 0 0 8px rgba(255,217,61,0.3); }
+  .skill-node.tier-5 { border-color: #5a2a2a; }
+  .skill-node.tier-5.has-levels { border-color: #ff6b6b; box-shadow: 0 0 8px rgba(255,107,107,0.3); }
+  .skill-node.tier-6 { border-color: #5a3a1a; }
+  .skill-node.tier-6.has-levels { border-color: #ff9933; box-shadow: 0 0 8px rgba(255,153,51,0.3); }
+  .skill-node.tier-7 { border-color: #444; }
+  .skill-node.tier-7.has-levels { border-color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.4); }
+
+  .skill-node .node-level {
+    position: absolute;
+    bottom: -3px; right: -3px;
     background: #1a1030;
     border: 1px solid #3a2060;
+    border-radius: 50%;
+    width: 16px; height: 16px;
+    font-size: 8px; font-weight: 700;
+    color: #e891dc;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 3;
+  }
+  .skill-node.maxed .node-level { background: #2a2510; border-color: #ffd93d; color: #ffd93d; }
+
+  @keyframes node-pulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(232,145,220,0.4); }
+    50% { box-shadow: 0 0 20px rgba(232,145,220,0.7); }
+  }
+
+  /* Core node — center of tree */
+  .skill-core-node {
+    position: absolute;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    z-index: 5;
+    border: 3px solid #e891dc;
+    background: radial-gradient(circle at 40% 40%, #3a1555, #1a0a2a);
+    box-shadow: 0 0 25px rgba(232,145,220,0.5), inset 0 0 15px rgba(232,145,220,0.2);
+    transform: translate(-50%, -50%);
+    animation: core-glow 3s ease-in-out infinite;
+  }
+  @keyframes core-glow {
+    0%, 100% { box-shadow: 0 0 25px rgba(232,145,220,0.5), inset 0 0 15px rgba(232,145,220,0.2); }
+    50% { box-shadow: 0 0 40px rgba(232,145,220,0.8), inset 0 0 20px rgba(232,145,220,0.3); }
+  }
+
+  /* Tier ring labels */
+  .tier-ring-label {
+    position: absolute;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .tier-ring-label.tier-1 { color: #6bcb77; }
+  .tier-ring-label.tier-2 { color: #4d96ff; }
+  .tier-ring-label.tier-3 { color: #cc65fe; }
+  .tier-ring-label.tier-4 { color: #ffd93d; }
+  .tier-ring-label.tier-5 { color: #ff6b6b; }
+  .tier-ring-label.tier-6 { color: #ff9933; }
+  .tier-ring-label.tier-7 { color: #ffffff; }
+
+  /* Skill tooltip */
+  .skill-tooltip {
+    position: fixed;
+    z-index: 100;
+    background: #1a1030;
+    border: 1px solid #5a3090;
     border-radius: 10px;
-    padding: 9px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    padding: 10px 14px;
+    max-width: 220px;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    display: none;
   }
-
-  .skill-btn:hover:not(.locked):not(.maxed) {
-    background: #251545;
-    border-color: #6a3a9a;
-    transform: translateY(-1px);
-  }
-
-  .skill-btn.locked { opacity: 0.35; cursor: not-allowed; }
-  .skill-btn.maxed { opacity: 0.55; border-color: #4a3070; cursor: default; }
-
-  .skill-btn .top-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .skill-btn .name { font-size: 12px; font-weight: 600; color: #d0b0f0; }
-  .skill-btn .cost { font-size: 11px; font-weight: 700; color: #e891dc; }
-  .skill-btn .desc { font-size: 10px; color: #776; }
-  .skill-btn .level { font-size: 10px; color: #9b3090; font-weight: 600; }
-
-  .skill-btn.tier-1 { border-color: #2a4a2a; }
-  .skill-btn.tier-1:hover:not(.locked):not(.maxed) { border-color: #4a8a4a; }
-  .skill-btn.tier-2 { border-color: #2a2a5a; }
-  .skill-btn.tier-2:hover:not(.locked):not(.maxed) { border-color: #4a4a9a; }
-  .skill-btn.tier-3 { border-color: #4a2a5a; }
-  .skill-btn.tier-3:hover:not(.locked):not(.maxed) { border-color: #7a4a8a; }
-  .skill-btn.tier-4 { border-color: #5a5a2a; }
-  .skill-btn.tier-4:hover:not(.locked):not(.maxed) { border-color: #9a9a4a; }
-  .skill-btn.tier-5 { border-color: #5a2a2a; }
-  .skill-btn.tier-5:hover:not(.locked):not(.maxed) { border-color: #9a4a4a; }
-  .tier-6-header { background: #2a1a0a; color: #ff9933; border: 1px solid #5a3a1a; }
-  .tier-7-header { background: #0a0a0a; color: #ffffff; border: 1px solid #444; }
-  .skill-btn.tier-6 { border-color: #5a3a1a; }
-  .skill-btn.tier-6:hover:not(.locked):not(.maxed) { border-color: #9a6a2a; }
-  .skill-btn.tier-7 { border-color: #444; }
-  .skill-btn.tier-7:hover:not(.locked):not(.maxed) { border-color: #888; }
-  .skill-btn.prereq-locked { opacity: 0.25; cursor: not-allowed; background: #0a0510; }
-  .skill-btn.prereq-locked .prereq-msg { color: #ff6666; font-size: 9px; font-style: italic; }
+  .skill-tooltip.visible { display: block; }
+  .skill-tooltip .tt-name { font-size: 13px; font-weight: 700; color: #d0b0f0; margin-bottom: 3px; }
+  .skill-tooltip .tt-desc { font-size: 11px; color: #887; margin-bottom: 5px; }
+  .skill-tooltip .tt-level { font-size: 10px; color: #9b3090; font-weight: 600; }
+  .skill-tooltip .tt-cost { font-size: 11px; color: #e891dc; font-weight: 600; margin-top: 2px; }
+  .skill-tooltip .tt-prereq { font-size: 9px; color: #ff6666; font-style: italic; margin-top: 3px; }
+  .skill-tooltip .tt-tier-req { font-size: 9px; color: #666; margin-top: 3px; }
 
   .prestige-points-bar {
     background: linear-gradient(135deg, #1a1030, #2a1545);
@@ -775,6 +852,14 @@
           <div class="value" id="pp-count">0</div>
         </div>
         <div id="skill-tree"></div>
+      </div>
+      <div class="skill-tooltip" id="skill-tooltip">
+        <div class="tt-name"></div>
+        <div class="tt-desc"></div>
+        <div class="tt-level"></div>
+        <div class="tt-cost"></div>
+        <div class="tt-prereq"></div>
+        <div class="tt-tier-req"></div>
       </div>
     </div>
 
@@ -2150,6 +2235,88 @@ function buyUpgrade(id) {
 //  RENDER: SKILL TREE
 // ══════════════════════════════════════════════════════
 
+// ── Skill Tree Layout — radial node positions ──
+const TREE_CX = 175; // center x
+const TREE_CORE_Y = 55; // core node y
+const TIER_COLORS = {
+  1: '#6bcb77', 2: '#4d96ff', 3: '#cc65fe', 4: '#ffd93d',
+  5: '#ff6b6b', 6: '#ff9933', 7: '#ffffff'
+};
+
+// Build layout: assign x,y positions to every skill node
+// Tiers radiate outward in concentric arcs from the core
+function buildTreeLayout() {
+  const layout = {};
+  const cx = TREE_CX;
+  const coreY = TREE_CORE_Y;
+  const maxX = 330; // right boundary
+  const minX = 20;  // left boundary
+  const maxHalfW = Math.min(cx - minX, maxX - cx); // 155px from center
+
+  // Tier ring radii (vertical distance from core, y-axis dominant)
+  const tierRadius = { 1: 70, 2: 135, 3: 200, 4: 265, 5: 330, 6: 395, 7: 460 };
+
+  for (let tier = 1; tier <= 7; tier++) {
+    const skills = Object.entries(SKILL_DEFS).filter(([, d]) => d.tier === tier);
+    const count = skills.length;
+    const r = tierRadius[tier];
+
+    if (tier <= 5) {
+      // Calculate max arc spread that keeps nodes within bounds
+      // At angle θ from vertical (90°), x-displacement = r * cos(θ)
+      // We need r * cos(θ) <= maxHalfW, so θ >= acos(maxHalfW/r)
+      const maxAngleDeg = r > maxHalfW
+        ? Math.acos(maxHalfW / r) * (180 / Math.PI) // min angle from horizontal
+        : 0; // full semicircle ok
+      const safeSpread = 180 - 2 * maxAngleDeg - 10; // 10° safety margin
+      const arcSpread = Math.min(safeSpread, 170);
+      const startAngle = (90 - arcSpread / 2) * (Math.PI / 180);
+      const endAngle = (90 + arcSpread / 2) * (Math.PI / 180);
+
+      skills.forEach(([id], i) => {
+        const t = count === 1 ? 0.5 : i / (count - 1);
+        const angle = startAngle + t * (endAngle - startAngle);
+        const x = cx + r * Math.cos(angle);
+        const y = coreY + r * Math.sin(angle);
+        layout[id] = { x: Math.round(x), y: Math.round(y) };
+      });
+    } else {
+      // Tier 6-7: position based on prereq locations, extending outward
+      skills.forEach(([id, def], i) => {
+        if (def.prereq && def.prereq[0] && layout[def.prereq[0]]) {
+          const parent = layout[def.prereq[0]];
+          const dx = parent.x - cx;
+          const dy = parent.y - coreY;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const nx = dx / dist, ny = dy / dist;
+          const extension = 65; // fixed step outward
+          let newX = Math.round(parent.x + nx * extension);
+          let newY = Math.round(parent.y + ny * extension);
+          // Clamp x to bounds
+          newX = Math.max(minX, Math.min(maxX, newX));
+          layout[id] = { x: newX, y: newY };
+        } else {
+          // Fallback: even spread
+          const spacing = (maxX - minX) / (count + 1);
+          layout[id] = {
+            x: Math.round(minX + spacing * (i + 1)),
+            y: Math.round(coreY + r)
+          };
+        }
+      });
+    }
+  }
+
+  return layout;
+}
+
+// Cache the layout so positions don't shift every render
+let _treeLayout = null;
+function getTreeLayout() {
+  if (!_treeLayout) _treeLayout = buildTreeLayout();
+  return _treeLayout;
+}
+
 function renderSkillTree() {
   const el = document.getElementById('skill-tree');
   const tl = totalSkillLevels();
@@ -2175,44 +2342,166 @@ function renderSkillTree() {
 
   document.getElementById('pp-count').textContent = pp;
 
-  let html = '';
+  const layout = getTreeLayout();
+
+  // Calculate total tree height
+  let maxY = 0;
+  for (const pos of Object.values(layout)) {
+    if (pos.y > maxY) maxY = pos.y;
+  }
+  const treeH = maxY + 50;
+  el.style.minHeight = treeH + 'px';
+
+  // Build SVG lines first
+  let svgLines = '';
+  const allSkills = Object.entries(SKILL_DEFS);
+
+  // Draw connections: core → tier1, tier(N) → tier(N+1) nearest, and explicit prereqs
+  // Core to tier 1 connections
+  for (const [id, def] of allSkills) {
+    if (def.tier === 1 && layout[id]) {
+      const p = layout[id];
+      const lv = skillLevel(id);
+      const tierLocked = tl < TIER_REQS[1].totalLevels || prestiges < TIER_REQS[1].prestiges;
+      const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : 'locked';
+      svgLines += `<line x1="${TREE_CX}" y1="${TREE_CORE_Y}" x2="${p.x}" y2="${p.y}" stroke="${TIER_COLORS[1]}" class="${cls}"/>`;
+    }
+  }
+
+  // Explicit prereq connections (tier 6-7)
+  for (const [id, def] of allSkills) {
+    if (def.prereq && layout[id]) {
+      for (const prereqId of def.prereq) {
+        if (layout[prereqId]) {
+          const from = layout[prereqId];
+          const to = layout[id];
+          const lv = skillLevel(id);
+          const prereqLv = skillLevel(prereqId);
+          const prereqMaxed = prereqLv >= (SKILL_DEFS[prereqId]?.maxLevel || 99);
+          const cls = lv > 0 ? (lv >= def.maxLevel ? 'maxed' : 'active') : prereqMaxed ? '' : 'locked';
+          svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[def.tier]}" class="${cls}"/>`;
+        }
+      }
+    }
+  }
+
+  // Inter-tier branch connections (tier N nodes connect to closest tier N+1 nodes)
+  for (let tier = 1; tier <= 5; tier++) {
+    const nextTier = tier + 1;
+    const nextSkills = allSkills.filter(([, d]) => d.tier === nextTier && !d.prereq);
+    if (nextSkills.length === 0) continue;
+    const curSkills = allSkills.filter(([, d]) => d.tier === tier);
+
+    for (const [nid] of nextSkills) {
+      if (!layout[nid]) continue;
+      // Find closest tier N node
+      let closest = null, closestDist = Infinity;
+      for (const [cid] of curSkills) {
+        if (!layout[cid]) continue;
+        const dx = layout[nid].x - layout[cid].x;
+        const dy = layout[nid].y - layout[cid].y;
+        const d = dx * dx + dy * dy;
+        if (d < closestDist) { closestDist = d; closest = cid; }
+      }
+      if (closest && layout[closest]) {
+        const from = layout[closest];
+        const to = layout[nid];
+        const lv = skillLevel(nid);
+        const nDef = SKILL_DEFS[nid];
+        const tierLocked = tl < TIER_REQS[nextTier].totalLevels || prestiges < TIER_REQS[nextTier].prestiges;
+        const cls = tierLocked ? 'locked' : lv > 0 ? (lv >= nDef.maxLevel ? 'maxed' : 'active') : 'locked';
+        svgLines += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${TIER_COLORS[nextTier]}" class="${cls}"/>`;
+      }
+    }
+  }
+
+  // Build nodes HTML
+  let nodesHtml = '';
+
+  // Core node
+  nodesHtml += `<div class="skill-core-node" style="left:${TREE_CX}px;top:${TREE_CORE_Y}px">🔮</div>`;
+
+  // Tier ring labels
+  const tierRadius = { 1: 70, 2: 135, 3: 200, 4: 265, 5: 330, 6: 395, 7: 460 };
   for (let tier = 1; tier <= 7; tier++) {
     const req = TIER_REQS[tier];
     const locked = tl < req.totalLevels || prestiges < req.prestiges;
-    const headerClass = `tier-${tier}-header`;
-    const reqText = req.totalLevels > 0 || req.prestiges > 0
-      ? `Requires: ${req.totalLevels > 0 ? req.totalLevels + ' skill levels' : ''}${req.totalLevels > 0 && req.prestiges > 0 ? ' + ' : ''}${req.prestiges > 0 ? req.prestiges + ' prestiges' : ''}`
-      : 'No requirements';
-
-    html += `<div class="skill-tier-header ${headerClass} ${locked ? 'locked' : ''}">
-      ${TIER_NAMES[tier]}
-      ${locked ? `<span class="tier-req">${reqText} (${tl}/${req.totalLevels} levels, ${prestiges}/${req.prestiges} prestiges)</span>` : `<span class="tier-req">${reqText} ✓</span>`}
-    </div>`;
-
-    const tierSkills = Object.entries(SKILL_DEFS).filter(([, d]) => d.tier === tier);
-    for (const [id, def] of tierSkills) {
-      const lv = skillLevel(id);
-      const maxed = lv >= def.maxLevel;
-      const cost = skillCost(id);
-
-      // Prereq check
-      const prereqsMet = !def.prereq || def.prereq.every(p => skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
-      const prereqNames = def.prereq ? def.prereq.map(p => SKILL_DEFS[p]?.name || p).join(', ') : '';
-      const canBuyS = !locked && !maxed && pp >= cost && prereqsMet;
-      const prereqLocked = !locked && !maxed && !prereqsMet;
-
-      html += `<div class="skill-btn tier-${tier} ${locked ? 'locked' : prereqLocked ? 'locked prereq-locked' : maxed ? 'maxed' : canBuyS ? '' : 'locked'}" onclick="buySkill('${id}')">
-        <div class="top-row">
-          <span class="name">${def.name}</span>
-          <span class="cost">${maxed ? 'MAXED' : cost + ' PP'}</span>
-        </div>
-        <div class="desc">${def.desc}</div>
-        ${prereqLocked ? `<div class="prereq-msg">🔒 Requires: ${prereqNames} maxed</div>` : ''}
-        <div class="level">Level ${lv} / ${def.maxLevel}</div>
-      </div>`;
-    }
+    const labelY = TREE_CORE_Y + tierRadius[tier] - 20;
+    const shortNames = { 1:'Foundation', 2:'Advanced', 3:'Expert', 4:'Legendary', 5:'Transcendent', 6:'Cosmic', 7:'Transcendence II' };
+    nodesHtml += `<div class="tier-ring-label tier-${tier}" style="left:${TREE_CX}px;top:${labelY}px;${locked ? 'opacity:0.15' : ''}">${shortNames[tier]}${locked ? ' 🔒' : ''}</div>`;
   }
-  el.innerHTML = html;
+
+  // Skill nodes
+  for (const [id, def] of allSkills) {
+    if (!layout[id]) continue;
+    const pos = layout[id];
+    const lv = skillLevel(id);
+    const maxed = lv >= def.maxLevel;
+    const cost = skillCost(id);
+    const req = TIER_REQS[def.tier];
+    const tierLocked = tl < req.totalLevels || prestiges < req.prestiges;
+    const prereqsMet = !def.prereq || def.prereq.every(p => skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
+    const canBuy = !tierLocked && !maxed && pp >= cost && prereqsMet;
+
+    // Extract emoji from name
+    const emoji = def.name.match(/^(\S+)/)?.[1] || '?';
+
+    let cls = `skill-node tier-${def.tier}`;
+    if (tierLocked) cls += ' tier-locked';
+    else if (maxed) cls += ' maxed';
+    else if (lv > 0) cls += ' has-levels';
+    else if (!prereqsMet) cls += ' locked';
+    else if (canBuy) cls += ' available';
+
+    nodesHtml += `<div class="${cls}" style="left:${pos.x}px;top:${pos.y}px"
+      onclick="buySkill('${id}')"
+      onmouseenter="showSkillTooltip(event,'${id}')"
+      onmouseleave="hideSkillTooltip()"
+      ontouchstart="showSkillTooltip(event,'${id}')">
+      ${emoji}
+      ${lv > 0 ? `<div class="node-level">${lv}</div>` : ''}
+    </div>`;
+  }
+
+  el.innerHTML = `<svg class="tree-lines" viewBox="0 0 350 ${treeH}" preserveAspectRatio="none" style="width:350px;height:${treeH}px">${svgLines}</svg>${nodesHtml}`;
+}
+
+function showSkillTooltip(e, id) {
+  const def = SKILL_DEFS[id];
+  if (!def) return;
+  const tt = document.getElementById('skill-tooltip');
+  const lv = skillLevel(id);
+  const maxed = lv >= def.maxLevel;
+  const cost = skillCost(id);
+  const tl = totalSkillLevels();
+  const req = TIER_REQS[def.tier];
+  const tierLocked = tl < req.totalLevels || state.prestiges < req.prestiges;
+  const prereqsMet = !def.prereq || def.prereq.every(p => skillLevel(p) >= (SKILL_DEFS[p]?.maxLevel || 99));
+
+  tt.querySelector('.tt-name').textContent = def.name;
+  tt.querySelector('.tt-desc').textContent = def.desc;
+  tt.querySelector('.tt-level').textContent = `Level ${lv} / ${def.maxLevel}`;
+  tt.querySelector('.tt-cost').textContent = maxed ? '✓ MAXED' : `Cost: ${cost} PP`;
+  tt.querySelector('.tt-prereq').textContent = !prereqsMet && def.prereq
+    ? `🔒 Requires: ${def.prereq.map(p => SKILL_DEFS[p]?.name || p).join(', ')} maxed`
+    : '';
+  tt.querySelector('.tt-tier-req').textContent = tierLocked
+    ? `Tier locked — need ${req.totalLevels} levels + ${req.prestiges} prestiges`
+    : '';
+
+  // Position near cursor but stay in viewport
+  const rect = tt.getBoundingClientRect();
+  let x = e.clientX + 12;
+  let y = e.clientY - 10;
+  if (x + 230 > window.innerWidth) x = e.clientX - 230;
+  if (y + 150 > window.innerHeight) y = e.clientY - 150;
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+  tt.classList.add('visible');
+}
+
+function hideSkillTooltip() {
+  document.getElementById('skill-tooltip').classList.remove('visible');
 }
 
 function buySkill(id) {
