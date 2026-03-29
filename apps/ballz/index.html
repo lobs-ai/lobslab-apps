@@ -2371,9 +2371,9 @@ body{background:#0a0a1a;color:#ccc;font-family:'Segoe UI',sans-serif;overflow-x:
 <svg class="tree-lines" viewBox="0 0 350 ${treeH}" preserveAspectRatio="none" style="width:350px;height:${treeH}px">${svgLines}</svg>
 ${nodesHtml}
 </div></div>
-<script>
+<scr${''}ipt>
 function parent_buy(id){window.opener._ballzBuySkill(id);}
-</script></body></html>`;
+</scr${''}ipt></body></html>`;
   }
 
   popup.document.open();
@@ -2399,7 +2399,7 @@ function openPrestigeModal() {
   const infinite = skillLevel('infinitePrestige') > 0;
   body.innerHTML = infinite
     ? `You will gain <strong>${pp} Prestige Points</strong>.<br>Your generators will NOT be reset! (Infinite Prestige)`
-    : `This will <strong>reset all your balls and generators</strong>.<br>You will gain <strong>${pp} Prestige Points</strong> to spend on skills.<br>Your skills and fusion balls are kept.`;
+    : `This will <strong>reset all your balls and generators</strong>.<br>You will gain <strong>${pp} Prestige Points</strong> to spend on skills.<br>Your skills are kept.`;
   document.getElementById('prestige-modal-overlay').classList.add('visible');
 }
 
