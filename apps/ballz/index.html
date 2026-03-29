@@ -23,52 +23,100 @@
   }
 
   #ui {
-    width: 340px;
-    min-width: 340px;
+    width: 370px;
+    min-width: 370px;
     background: #12122a;
     border-left: 1px solid #2a2a4a;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    padding: 16px;
-    gap: 12px;
+    overflow: hidden;
     z-index: 10;
   }
 
-  #generators, #upgrades, #milestones {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  #ui-header {
+    padding: 12px 16px 0;
+    flex-shrink: 0;
   }
 
+  #ui-tabs {
+    display: flex;
+    gap: 0;
+    padding: 8px 16px 0;
+    flex-shrink: 0;
+    overflow-x: auto;
+    border-bottom: 1px solid #2a2a4a;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tab-btn:hover { color: #aaa; }
+  .tab-btn.active { color: #ffd93d; border-bottom-color: #ffd93d; }
+  .tab-btn.locked { opacity: 0.3; cursor: not-allowed; }
+  .tab-btn .tab-notif {
+    display: inline-block;
+    background: #ff4444;
+    color: #fff;
+    font-size: 8px;
+    padding: 1px 4px;
+    border-radius: 6px;
+    margin-left: 3px;
+    vertical-align: top;
+  }
+
+  #ui-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: flex; flex-direction: column; gap: 10px; }
+
   #ui h1 {
-    font-size: 28px;
+    font-size: 24px;
     text-align: center;
     background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: 4px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .stat-bar {
     background: #1a1a3a;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 10px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .stat-bar .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-  .stat-bar .value { font-size: 22px; font-weight: 700; color: #ffd93d; }
+  .stat-bar .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-bar .value { font-size: 20px; font-weight: 700; color: #ffd93d; }
 
   .section-title {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #555;
-    margin-top: 8px;
+    margin-top: 6px;
     padding-left: 4px;
   }
 
@@ -76,12 +124,12 @@
     background: #1e1e40;
     border: 1px solid #333366;
     border-radius: 10px;
-    padding: 12px 16px;
+    padding: 10px 14px;
     cursor: pointer;
     transition: all 0.15s;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
   }
 
   .upgrade-btn:hover:not(.locked) {
@@ -102,19 +150,19 @@
   }
 
   .upgrade-btn .name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #ddd;
   }
 
   .upgrade-btn .cost {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #ffd93d;
   }
 
   .upgrade-btn .desc {
-    font-size: 11px;
+    font-size: 10px;
     color: #777;
   }
 
@@ -123,6 +171,28 @@
     color: #4d96ff;
     font-weight: 600;
   }
+
+  /* Buy amount buttons */
+  .buy-amount-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .buy-amt-btn {
+    flex: 1;
+    background: #1a1a3a;
+    border: 1px solid #2a2a5a;
+    color: #888;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .buy-amt-btn.active { background: #2a2a5a; color: #ffd93d; border-color: #ffd93d; }
+  .buy-amt-btn:hover { background: #252545; }
+  .buy-amt-btn.locked { opacity: 0.3; cursor: not-allowed; }
 
   /* ── Milestone styles ── */
   .milestone-row {
@@ -177,33 +247,16 @@
     text-shadow: 0 0 4px rgba(255,215,0,0.4);
   }
 
-  /* ── Stats collapsible ── */
-  .stats-section {
-    background: #1a1a30;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 4px;
-  }
-  .stats-toggle {
-    width: 100%;
-    background: none;
-    border: none;
-    color: #666;
+  /* ── Combo display ── */
+  .combo-display {
+    text-align: center;
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 8px 12px;
-    cursor: pointer;
-    text-align: left;
-    transition: color 0.15s;
+    color: #666;
   }
-  .stats-toggle:hover { color: #aaa; }
-  .stats-body {
-    display: none;
-    padding: 4px 12px 10px;
-  }
-  .stats-body.open { display: block; }
-  .stats-body .stat-line {
+  .combo-display span { color: #ff6b6b; font-weight: 700; font-size: 14px; }
+
+  /* ── Stats section ── */
+  .stat-line {
     display: flex;
     justify-content: space-between;
     font-size: 11px;
@@ -211,7 +264,7 @@
     padding: 3px 0;
     border-bottom: 1px solid #1a1a28;
   }
-  .stats-body .stat-line .sv { color: #bbb; font-weight: 600; }
+  .stat-line .sv { color: #bbb; font-weight: 600; }
 
   /* ── Prestige badge ── */
   .prestige-tier-badge {
@@ -225,7 +278,7 @@
   }
 
   /* ── Prestige Confirm Modal ── */
-  #prestige-modal-overlay {
+  .modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
@@ -234,15 +287,13 @@
     align-items: center;
     justify-content: center;
   }
-  #prestige-modal-overlay.visible {
-    display: flex;
-  }
-  #prestige-modal {
+  .modal-overlay.visible { display: flex; }
+  .modal-box {
     background: linear-gradient(160deg, #1a0a1a, #2a1040);
     border: 2px solid #9b3090;
     border-radius: 14px;
-    padding: 28px 32px;
-    max-width: 340px;
+    padding: 24px 28px;
+    max-width: 380px;
     width: 90%;
     text-align: center;
     box-shadow: 0 0 40px rgba(155, 48, 144, 0.5);
@@ -252,67 +303,71 @@
     from { transform: scale(0.85); opacity: 0; }
     to   { transform: scale(1);    opacity: 1; }
   }
-  #prestige-modal .modal-title {
-    font-size: 20px;
+  .modal-box .modal-title {
+    font-size: 18px;
     font-weight: 800;
     color: #e891dc;
     margin-bottom: 8px;
     letter-spacing: 1px;
   }
-  #prestige-modal .modal-body {
-    font-size: 13px;
+  .modal-box .modal-body {
+    font-size: 12px;
     color: #aa6da5;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     line-height: 1.5;
   }
-  #prestige-modal .modal-body strong {
-    color: #e891dc;
-  }
-  #prestige-modal .modal-buttons {
+  .modal-box .modal-body strong { color: #e891dc; }
+  .modal-box .modal-buttons {
     display: flex;
     gap: 12px;
     justify-content: center;
   }
-  #prestige-modal .btn-confirm {
+  .btn-confirm {
     background: linear-gradient(135deg, #5e2155, #852577);
     border: 1px solid #9b3090;
     border-radius: 8px;
     color: #e891dc;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    padding: 10px 22px;
+    padding: 9px 20px;
     cursor: pointer;
     transition: all 0.15s;
   }
-  #prestige-modal .btn-confirm:hover {
+  .btn-confirm:hover {
     background: linear-gradient(135deg, #7a2b70, #a32e90);
     transform: translateY(-1px);
   }
-  #prestige-modal .btn-cancel {
+  .btn-cancel {
     background: #1a1030;
     border: 1px solid #3a2060;
     border-radius: 8px;
     color: #6a5a8a;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    padding: 10px 22px;
+    padding: 9px 20px;
     cursor: pointer;
     transition: all 0.15s;
   }
-  #prestige-modal .btn-cancel:hover {
-    background: #221440;
-    color: #9a8aaa;
+  .btn-cancel:hover { background: #221440; color: #9a8aaa; }
+
+  /* Welcome back modal */
+  .modal-box.welcome-modal {
+    border-color: #4d96ff;
+    background: linear-gradient(160deg, #0a1a2a, #102040);
+    box-shadow: 0 0 40px rgba(77, 150, 255, 0.3);
   }
+  .modal-box.welcome-modal .modal-title { color: #4d96ff; }
+  .modal-box.welcome-modal .modal-body { color: #6a8aaa; }
+  .modal-box.welcome-modal .modal-body strong { color: #ffd93d; }
 
   #prestige-btn {
     background: linear-gradient(135deg, #4a1942, #6b1d5e);
     border: 1px solid #9b3090;
     border-radius: 10px;
-    padding: 14px;
+    padding: 12px;
     cursor: pointer;
     text-align: center;
     transition: all 0.2s;
-    margin-top: 12px;
   }
 
   #prestige-btn:hover:not(.locked) {
@@ -321,51 +376,53 @@
   }
 
   #prestige-btn.locked { opacity: 0.3; cursor: not-allowed; }
-  #prestige-btn .name { font-size: 15px; font-weight: 700; color: #e891dc; }
+  #prestige-btn .name { font-size: 14px; font-weight: 700; color: #e891dc; }
   #prestige-btn .desc { font-size: 11px; color: #aa6da5; margin-top: 4px; }
 
   @keyframes prestigePulse {
     0%,100% { box-shadow: 0 0 8px rgba(155,48,144,0.3); }
     50% { box-shadow: 0 0 22px rgba(155,48,144,0.7), 0 0 40px rgba(155,48,144,0.2); }
   }
-  #prestige-btn.can-prestige {
-    animation: prestigePulse 2s ease-in-out infinite;
-  }
+  #prestige-btn.can-prestige { animation: prestigePulse 2s ease-in-out infinite; }
 
-  #skill-tree {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  /* ── Skill tree ── */
+  .skill-tier-header {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-top: 8px;
   }
+  .skill-tier-header.locked { opacity: 0.4; }
+  .skill-tier-header .tier-req { font-size: 10px; font-weight: 400; opacity: 0.7; display: block; margin-top: 2px; }
+
+  .tier-1-header { background: #1a2a1a; color: #6bcb77; border: 1px solid #2a4a2a; }
+  .tier-2-header { background: #1a1a2a; color: #4d96ff; border: 1px solid #2a2a5a; }
+  .tier-3-header { background: #2a1a2a; color: #cc65fe; border: 1px solid #4a2a5a; }
+  .tier-4-header { background: #2a2a1a; color: #ffd93d; border: 1px solid #5a5a2a; }
+  .tier-5-header { background: #2a1a1a; color: #ff6b6b; border: 1px solid #5a2a2a; }
 
   .skill-btn {
     background: #1a1030;
     border: 1px solid #3a2060;
     border-radius: 10px;
-    padding: 10px 14px;
+    padding: 9px 12px;
     cursor: pointer;
     transition: all 0.15s;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
   }
 
-  .skill-btn:hover:not(.locked) {
+  .skill-btn:hover:not(.locked):not(.maxed) {
     background: #251545;
     border-color: #6a3a9a;
     transform: translateY(-1px);
   }
 
-  .skill-btn.locked {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
-
-  .skill-btn.maxed {
-    opacity: 0.5;
-    border-color: #4a3070;
-    cursor: default;
-  }
+  .skill-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .skill-btn.maxed { opacity: 0.55; border-color: #4a3070; cursor: default; }
 
   .skill-btn .top-row {
     display: flex;
@@ -373,10 +430,21 @@
     align-items: center;
   }
 
-  .skill-btn .name { font-size: 13px; font-weight: 600; color: #d0b0f0; }
-  .skill-btn .cost { font-size: 12px; font-weight: 700; color: #e891dc; }
+  .skill-btn .name { font-size: 12px; font-weight: 600; color: #d0b0f0; }
+  .skill-btn .cost { font-size: 11px; font-weight: 700; color: #e891dc; }
   .skill-btn .desc { font-size: 10px; color: #776; }
   .skill-btn .level { font-size: 10px; color: #9b3090; font-weight: 600; }
+
+  .skill-btn.tier-1 { border-color: #2a4a2a; }
+  .skill-btn.tier-1:hover:not(.locked):not(.maxed) { border-color: #4a8a4a; }
+  .skill-btn.tier-2 { border-color: #2a2a5a; }
+  .skill-btn.tier-2:hover:not(.locked):not(.maxed) { border-color: #4a4a9a; }
+  .skill-btn.tier-3 { border-color: #4a2a5a; }
+  .skill-btn.tier-3:hover:not(.locked):not(.maxed) { border-color: #7a4a8a; }
+  .skill-btn.tier-4 { border-color: #5a5a2a; }
+  .skill-btn.tier-4:hover:not(.locked):not(.maxed) { border-color: #9a9a4a; }
+  .skill-btn.tier-5 { border-color: #5a2a2a; }
+  .skill-btn.tier-5:hover:not(.locked):not(.maxed) { border-color: #9a4a4a; }
 
   .prestige-points-bar {
     background: linear-gradient(135deg, #1a1030, #2a1545);
@@ -390,13 +458,6 @@
 
   .prestige-points-bar .label { font-size: 11px; color: #9b3090; text-transform: uppercase; letter-spacing: 1px; }
   .prestige-points-bar .value { font-size: 18px; font-weight: 700; color: #e891dc; }
-
-  .combo-display {
-    text-align: center;
-    font-size: 11px;
-    color: #666;
-  }
-  .combo-display span { color: #ff6b6b; font-weight: 700; font-size: 14px; }
 
   /* ── Overflow banner ── */
   #overflow-banner {
@@ -419,85 +480,344 @@
     50% { opacity: 0.5; }
   }
 
-  /* ── Overflow canvas border ── */
   @keyframes overflowBorder {
     0%,100% { box-shadow: inset 0 0 30px rgba(255,0,0,0.15); }
     50% { box-shadow: inset 0 0 50px rgba(255,60,0,0.3); }
   }
-  canvas.overflow-active {
-    animation: overflowBorder 2s ease-in-out infinite;
-  }
+  canvas.overflow-active { animation: overflowBorder 2s ease-in-out infinite; }
 
-  /* ── Overflow status flash ── */
   @keyframes overflowFlash {
     0%,100% { color: #ffd93d; }
     50% { color: #ff4444; }
   }
   .overflow-flash { animation: overflowFlash 1s ease-in-out infinite; }
 
+  /* ── Toast Notifications ── */
+  #toast-container {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    pointer-events: none;
+    max-height: 50vh;
+    overflow: hidden;
+  }
+  .toast {
+    background: #1a1a40;
+    border: 1px solid #3a3a6a;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #ddd;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    animation: toastIn 0.25s ease-out, toastOut 0.3s ease-in 2.7s forwards;
+    max-width: 320px;
+  }
+  .toast.achievement { border-color: #aa8800; background: linear-gradient(135deg, #1a1800, #2a2000); }
+  .toast.achievement .toast-icon { color: #ffd700; }
+  .toast.event { border-color: #0088aa; background: linear-gradient(135deg, #001a2a, #002040); }
+  .toast.reward { border-color: #00aa44; background: linear-gradient(135deg, #001a0a, #002a10); }
+  .toast .toast-icon { font-size: 16px; margin-right: 6px; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-10px); } }
+
+  /* ── Achievements ── */
+  .achievement-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .ach-card {
+    background: #1a1a30;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    font-size: 10px;
+    color: #555;
+    transition: all 0.15s;
+  }
+  .ach-card.unlocked {
+    border-color: #aa8800;
+    color: #bbb;
+    background: linear-gradient(135deg, #1a1800, #1a1a10);
+  }
+  .ach-card .ach-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+  .ach-card .ach-name { font-weight: 700; font-size: 10px; }
+  .ach-category-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    padding-left: 4px;
+  }
+
+  /* ── Research ── */
+  .research-card {
+    background: #1a1a30;
+    border: 1px solid #2a4a4a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .research-card:hover:not(.locked):not(.completed):not(.active) {
+    background: #1a2a30;
+    border-color: #3a6a6a;
+    transform: translateY(-1px);
+  }
+  .research-card.locked { opacity: 0.35; cursor: not-allowed; }
+  .research-card.completed { opacity: 0.6; border-color: #2a5a2a; cursor: default; }
+  .research-card.active { border-color: #00aacc; box-shadow: 0 0 10px rgba(0,170,200,0.2); }
+  .research-card .r-top { display: flex; justify-content: space-between; align-items: center; }
+  .research-card .r-name { font-size: 13px; font-weight: 600; color: #7ad; }
+  .research-card .r-time { font-size: 11px; color: #5a8a8a; }
+  .research-card .r-desc { font-size: 10px; color: #668; margin-top: 3px; }
+  .research-card .r-bar { background: #111128; border-radius: 4px; height: 6px; margin-top: 6px; overflow: hidden; }
+  .research-card .r-bar-fill { height: 100%; background: #00aacc; border-radius: 4px; transition: width 0.5s; }
+  .research-card .r-status { font-size: 10px; color: #5a8; margin-top: 3px; font-weight: 600; }
+
+  /* ── Challenges ── */
+  .challenge-card {
+    background: #1a1a30;
+    border: 1px solid #4a2a2a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .challenge-card:hover:not(.locked):not(.active) {
+    background: #2a1a20;
+    border-color: #6a3a3a;
+    transform: translateY(-1px);
+  }
+  .challenge-card.locked { opacity: 0.35; cursor: not-allowed; }
+  .challenge-card.completed { border-color: #2a5a2a; }
+  .challenge-card.active { border-color: #ff6b6b; box-shadow: 0 0 10px rgba(255,100,100,0.3); }
+  .challenge-card .c-top { display: flex; justify-content: space-between; align-items: center; }
+  .challenge-card .c-name { font-size: 13px; font-weight: 600; color: #f88; }
+  .challenge-card .c-status { font-size: 10px; font-weight: 700; }
+  .challenge-card .c-desc { font-size: 10px; color: #886; margin-top: 3px; }
+  .challenge-card .c-reward { font-size: 10px; color: #5a8; margin-top: 3px; font-weight: 600; }
+  .challenge-card .c-restriction { font-size: 10px; color: #a66; margin-top: 2px; }
+
+  /* ── Fusion Lab ── */
+  .fusion-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .fusion-slot {
+    background: #1a1a30;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .fusion-slot:hover:not(.locked) { background: #252540; border-color: #4a4a6a; }
+  .fusion-slot.locked { opacity: 0.3; cursor: not-allowed; }
+  .fusion-slot .f-icon { font-size: 22px; }
+  .fusion-slot .f-name { font-size: 9px; font-weight: 600; color: #888; margin-top: 2px; }
+  .fusion-slot .f-count { font-size: 10px; font-weight: 700; color: #ffd93d; }
+  .fusion-slot .f-cost { font-size: 9px; color: #666; }
+  .fusion-collected { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .fusion-ball-owned {
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; border: 2px solid #444;
+  }
+
+  /* ── Lucky Spin ── */
+  .spin-container { text-align: center; }
+  .spin-btn {
+    background: linear-gradient(135deg, #4a3800, #6a5000);
+    border: 2px solid #aa8800;
+    border-radius: 12px;
+    color: #ffd700;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .spin-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  .spin-btn.locked { opacity: 0.3; cursor: not-allowed; }
+  .spin-wheel {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid #ffd700;
+    margin: 16px auto;
+    position: relative;
+    overflow: hidden;
+    transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  }
+  .spin-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .spin-result {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffd700;
+    margin-top: 12px;
+    min-height: 24px;
+  }
+  .spin-timer { font-size: 12px; color: #666; margin-top: 8px; }
+
+  /* ── Ball Rush ── */
+  #ball-rush-banner {
+    display: none;
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff6b00, #ff2200);
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+    padding: 10px 30px;
+    border-radius: 12px;
+    z-index: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    animation: rushPulse 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes rushPulse { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.05); } }
+
   @media (max-width: 700px) {
     body { flex-direction: column; }
-    canvas { height: 45vh; flex: none; }
-    #ui { width: 100%; min-width: unset; height: 55vh; border-left: none; border-top: 1px solid #2a2a4a; }
+    canvas { height: 40vh; flex: none; }
+    #ui { width: 100%; min-width: unset; height: 60vh; border-left: none; border-top: 1px solid #2a2a4a; }
   }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <div id="ui">
-  <h1>B A L L Z</h1>
-
-  <div class="stat-bar">
-    <div><div class="label">Balls</div></div>
-    <div class="value" id="ball-count">0</div>
-  </div>
-
-  <div class="stat-bar" id="bps-bar">
-    <div><div class="label" id="bps-label">Per Second</div></div>
-    <div class="value" id="bps">0</div>
-  </div>
-
-  <div class="combo-display">
-    Click balls for bonus! Combo: <span id="combo">x1</span>
-  </div>
-
-  <div class="section-title">Generators</div>
-  <div id="generators"></div>
-
-  <div id="milestones-section" style="display:none">
-    <div class="section-title">🏆 Milestones</div>
-    <div id="milestones"></div>
-  </div>
-
-  <div class="section-title">Upgrades</div>
-  <div id="upgrades"></div>
-
-  <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
-    <div class="name">⟳ PRESTIGE <span id="prestige-tier-badge"></span></div>
-    <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
-  </div>
-
-  <div id="skill-tree-section" style="display:none">
-    <div class="prestige-points-bar">
-      <div><div class="label">Prestige Points</div></div>
-      <div class="value" id="pp-count">0</div>
+  <div id="ui-header">
+    <h1>B A L L Z</h1>
+    <div class="stat-bar" style="margin-top:8px">
+      <div><div class="label">Balls</div></div>
+      <div class="value" id="ball-count">0</div>
     </div>
-    <div class="section-title">Skill Tree</div>
-    <div id="skill-tree"></div>
+    <div class="stat-bar" id="bps-bar" style="margin-top:6px">
+      <div><div class="label" id="bps-label">Per Second</div></div>
+      <div class="value" id="bps">0</div>
+    </div>
+    <div class="combo-display" style="margin-top:4px">
+      Click balls for bonus! Combo: <span id="combo">x1</span>
+    </div>
   </div>
 
-  <div class="stats-section">
-    <button class="stats-toggle" onclick="this.nextElementSibling.classList.toggle('open')">▸ Stats</button>
-    <div class="stats-body" id="stats-body"></div>
+  <div id="ui-tabs">
+    <button class="tab-btn active" data-tab="generators" onclick="switchTab('generators')">Generators</button>
+    <button class="tab-btn" data-tab="upgrades" onclick="switchTab('upgrades')">Upgrades</button>
+    <button class="tab-btn" data-tab="skills" onclick="switchTab('skills')">Skills</button>
+    <button class="tab-btn" data-tab="minigames" onclick="switchTab('minigames')">Mini-Games</button>
+    <button class="tab-btn locked" data-tab="research" onclick="switchTab('research')">Research</button>
+    <button class="tab-btn locked" data-tab="challenges" onclick="switchTab('challenges')">Challenges</button>
+    <button class="tab-btn" data-tab="achievements" onclick="switchTab('achievements')">Achievements</button>
+    <button class="tab-btn" data-tab="stats" onclick="switchTab('stats')">Stats</button>
+  </div>
+
+  <div id="ui-content">
+    <!-- Generators Tab -->
+    <div id="panel-generators" class="tab-panel active">
+      <div class="buy-amount-bar" id="buy-amount-bar">
+        <button class="buy-amt-btn active" onclick="setBuyAmount(1)">1x</button>
+        <button class="buy-amt-btn locked" onclick="setBuyAmount(10)">10x</button>
+        <button class="buy-amt-btn locked" onclick="setBuyAmount(100)">100x</button>
+        <button class="buy-amt-btn locked" onclick="setBuyAmount(-1)">MAX</button>
+      </div>
+      <div id="generators"></div>
+      <div id="milestones-section" style="display:none">
+        <div class="section-title">🏆 Milestones</div>
+        <div id="milestones"></div>
+      </div>
+    </div>
+
+    <!-- Upgrades Tab -->
+    <div id="panel-upgrades" class="tab-panel">
+      <div id="upgrades"></div>
+    </div>
+
+    <!-- Skills Tab -->
+    <div id="panel-skills" class="tab-panel">
+      <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
+        <div class="name">⟳ PRESTIGE <span id="prestige-tier-badge"></span></div>
+        <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
+      </div>
+      <div id="skill-tree-section">
+        <div class="prestige-points-bar" style="margin-top:8px">
+          <div><div class="label">Prestige Points</div></div>
+          <div class="value" id="pp-count">0</div>
+        </div>
+        <div id="skill-tree"></div>
+      </div>
+    </div>
+
+    <!-- Mini-Games Tab -->
+    <div id="panel-minigames" class="tab-panel">
+      <div class="section-title">🧪 Ball Fusion Lab</div>
+      <div id="fusion-lab"></div>
+      <div class="section-title" style="margin-top:12px">🎰 Lucky Spin</div>
+      <div id="lucky-spin"></div>
+      <div class="section-title" style="margin-top:12px">⚡ Ball Rush</div>
+      <div id="ball-rush-info"></div>
+    </div>
+
+    <!-- Research Tab -->
+    <div id="panel-research" class="tab-panel">
+      <div class="section-title">🔬 Research Lab</div>
+      <div id="research-queue"></div>
+      <div id="research-list"></div>
+    </div>
+
+    <!-- Challenges Tab -->
+    <div id="panel-challenges" class="tab-panel">
+      <div class="section-title">⚔️ Challenges</div>
+      <div id="challenge-list"></div>
+    </div>
+
+    <!-- Achievements Tab -->
+    <div id="panel-achievements" class="tab-panel">
+      <div class="section-title">🏅 Achievements (<span id="ach-count">0</span>/<span id="ach-total">0</span>) — +<span id="ach-bonus">0</span>% BPS</div>
+      <div id="achievement-list"></div>
+    </div>
+
+    <!-- Stats Tab -->
+    <div id="panel-stats" class="tab-panel">
+      <div id="stats-body"></div>
+    </div>
   </div>
 </div>
 
 <!-- Overflow Banner -->
 <div id="overflow-banner">⚠️ BALL OVERFLOW DETECTED — Reality is destabilizing!</div>
 
+<!-- Ball Rush Banner -->
+<div id="ball-rush-banner">⚡ BALL RUSH! Click fast! <span id="rush-timer">15</span>s</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
 <!-- Prestige Confirmation Modal -->
-<div id="prestige-modal-overlay" onclick="closePrestigeModal(event)">
-  <div id="prestige-modal">
+<div id="prestige-modal-overlay" class="modal-overlay" onclick="closePrestigeModal(event)">
+  <div class="modal-box">
     <div class="modal-title">⟳ Are you sure?</div>
     <div class="modal-body" id="prestige-modal-body">
       This will <strong>reset all your balls and generators</strong>.<br>
@@ -510,101 +830,332 @@
   </div>
 </div>
 
-<script>
-// ── Save / Load ──
-const SAVE_KEY = 'ballz_save_v4';
+<!-- Welcome Back Modal -->
+<div id="welcome-modal-overlay" class="modal-overlay">
+  <div class="modal-box welcome-modal">
+    <div class="modal-title">🌙 Welcome Back!</div>
+    <div class="modal-body" id="welcome-modal-body"></div>
+    <div class="modal-buttons">
+      <button class="btn-confirm" onclick="closeWelcomeModal()" style="background:linear-gradient(135deg,#1a3a5a,#2a4a7a);border-color:#4d96ff;color:#8ac">Collect!</button>
+    </div>
+  </div>
+</div>
 
-// ── Milestone Definitions (derived, not stored in state) ──
+<!-- Challenge Modal -->
+<div id="challenge-modal-overlay" class="modal-overlay" onclick="closeChallengeModal(event)">
+  <div class="modal-box" style="border-color:#ff6b6b; background:linear-gradient(160deg,#1a0a0a,#2a1020);">
+    <div class="modal-title" style="color:#ff6b6b" id="challenge-modal-title">⚔️ Start Challenge?</div>
+    <div class="modal-body" style="color:#aa6a6a" id="challenge-modal-body"></div>
+    <div class="modal-buttons">
+      <button class="btn-cancel" onclick="closeChallengeModal()">Cancel</button>
+      <button class="btn-confirm" style="background:linear-gradient(135deg,#5a2121,#852525);border-color:#ff6b6b;color:#faa" onclick="confirmStartChallenge()">Start!</button>
+    </div>
+  </div>
+</div>
+<script>
+// ══════════════════════════════════════════════════════
+//  BALLZ — Idle Ball Factory (Mega Expansion)
+// ══════════════════════════════════════════════════════
+
+// ── Constants & Definitions ──
+const SAVE_KEY = 'ballz_save_v5';
+
+// Tab state
+let activeTab = 'generators';
+let buyAmount = 1;
+
+// ── Generator milestone definitions ──
 const GEN_MILESTONES = [
-  // Dropper
   { id: 'dropper_10',  genId: 'dropper',    name: 'Steady Drip',        threshold: 10,  multiplier: 2 },
   { id: 'dropper_25',  genId: 'dropper',    name: 'Reinforced Pipes',   threshold: 25,  multiplier: 2 },
   { id: 'dropper_50',  genId: 'dropper',    name: 'Pressurized Lines',  threshold: 50,  multiplier: 3 },
   { id: 'dropper_100', genId: 'dropper',    name: 'Infinite Reservoir',  threshold: 100, multiplier: 5 },
-  // Launcher
   { id: 'launcher_10',  genId: 'launcher',  name: 'High Caliber',        threshold: 10,  multiplier: 2 },
   { id: 'launcher_25',  genId: 'launcher',  name: 'Rapid Fire',          threshold: 25,  multiplier: 2 },
   { id: 'launcher_50',  genId: 'launcher',  name: 'Orbital Cannons',     threshold: 50,  multiplier: 3 },
   { id: 'launcher_100', genId: 'launcher',  name: 'Launcher Singularity',threshold: 100, multiplier: 5 },
-  // Factory
   { id: 'factory_10',  genId: 'factory',    name: 'Assembly Line',       threshold: 10,  multiplier: 2 },
   { id: 'factory_25',  genId: 'factory',    name: 'Automation',          threshold: 25,  multiplier: 2 },
   { id: 'factory_50',  genId: 'factory',    name: 'Mega Factory',        threshold: 50,  multiplier: 3 },
   { id: 'factory_100', genId: 'factory',    name: 'Dyson Factory',       threshold: 100, multiplier: 5 },
-  // Vortex
   { id: 'vortex_10',  genId: 'vortex',      name: 'Spiral Force',        threshold: 10,  multiplier: 2 },
   { id: 'vortex_25',  genId: 'vortex',      name: 'Event Horizon',       threshold: 25,  multiplier: 2 },
   { id: 'vortex_50',  genId: 'vortex',      name: 'Void Mastery',        threshold: 50,  multiplier: 3 },
   { id: 'vortex_100', genId: 'vortex',      name: 'Infinite Vortex',     threshold: 100, multiplier: 5 },
-  // Singularity
   { id: 'singularity_10',  genId: 'singularity', name: 'Mass Collapse',    threshold: 10,  multiplier: 2 },
   { id: 'singularity_25',  genId: 'singularity', name: 'Spaghettification', threshold: 25,  multiplier: 2 },
   { id: 'singularity_50',  genId: 'singularity', name: 'Hawking Burst',    threshold: 50,  multiplier: 3 },
   { id: 'singularity_100', genId: 'singularity', name: 'Eternal Collapse', threshold: 100, multiplier: 5 },
-  // Quantum
   { id: 'quantum_10',  genId: 'quantum',    name: 'Superposition',       threshold: 10,  multiplier: 2 },
   { id: 'quantum_25',  genId: 'quantum',    name: 'Entanglement',        threshold: 25,  multiplier: 2 },
   { id: 'quantum_50',  genId: 'quantum',    name: 'Decoherence Wave',    threshold: 50,  multiplier: 3 },
   { id: 'quantum_100', genId: 'quantum',    name: 'Quantum Supremacy',   threshold: 100, multiplier: 5 },
-  // Dimension
   { id: 'dimension_10',  genId: 'dimension', name: 'Rift Stabilizer',    threshold: 10,  multiplier: 2 },
   { id: 'dimension_25',  genId: 'dimension', name: 'Multiverse Tap',     threshold: 25,  multiplier: 2 },
   { id: 'dimension_50',  genId: 'dimension', name: 'Reality Fracture',   threshold: 50,  multiplier: 3 },
   { id: 'dimension_100', genId: 'dimension', name: 'Dimension Overlord', threshold: 100, multiplier: 5 },
-  // Big Bang
   { id: 'bigbang_10',  genId: 'bigbang',    name: 'Cosmic Inflation',    threshold: 10,  multiplier: 2 },
   { id: 'bigbang_25',  genId: 'bigbang',    name: 'Dark Energy Surge',   threshold: 25,  multiplier: 2 },
   { id: 'bigbang_50',  genId: 'bigbang',    name: 'Universe Engine',     threshold: 50,  multiplier: 3 },
   { id: 'bigbang_100', genId: 'bigbang',    name: 'Omniverse Creator',   threshold: 100, multiplier: 5 },
-  // Overflow Core
   { id: 'overflow_10',  genId: 'overflow',  name: 'Overflow Conduit',    threshold: 10,  multiplier: 2 },
   { id: 'overflow_25',  genId: 'overflow',  name: 'Reality Leak',        threshold: 25,  multiplier: 2 },
   { id: 'overflow_50',  genId: 'overflow',  name: 'Cascade Breach',      threshold: 50,  multiplier: 3 },
   { id: 'overflow_100', genId: 'overflow',  name: 'Overflow Singularity',threshold: 100, multiplier: 5 },
+  // Quantum Fabric (unlocked by Quantum Tunneling skill)
+  { id: 'qfabric_10',  genId: 'qfabric',   name: 'Thread Weaver',       threshold: 10,  multiplier: 2 },
+  { id: 'qfabric_25',  genId: 'qfabric',   name: 'Fabric Loom',         threshold: 25,  multiplier: 2 },
+  { id: 'qfabric_50',  genId: 'qfabric',   name: 'Reality Weave',       threshold: 50,  multiplier: 3 },
+  { id: 'qfabric_100', genId: 'qfabric',   name: 'Cosmic Tapestry',     threshold: 100, multiplier: 5 },
+  // Molecular Assembler (unlocked by research)
+  { id: 'molecular_10',  genId: 'molecular', name: 'Nano Assembly',      threshold: 10,  multiplier: 2 },
+  { id: 'molecular_25',  genId: 'molecular', name: 'Atomic Forge',       threshold: 25,  multiplier: 2 },
+  { id: 'molecular_50',  genId: 'molecular', name: 'Matter Compiler',    threshold: 50,  multiplier: 3 },
+  // Cosmic Forge (unlocked by research)
+  { id: 'cosmic_10',  genId: 'cosmic',      name: 'Star Forge',          threshold: 10,  multiplier: 2 },
+  { id: 'cosmic_25',  genId: 'cosmic',      name: 'Nebula Engine',       threshold: 25,  multiplier: 2 },
+  { id: 'cosmic_50',  genId: 'cosmic',      name: 'Galaxy Maker',        threshold: 50,  multiplier: 3 },
 ];
 
-// ── Game State ──
+// ── Skill Tree Definitions ──
+const SKILL_DEFS = {
+  // Tier 1: no prereqs, cheap
+  bpsMulti:       { tier: 1, maxLevel: 10, baseCost: 1,  costScale: 1.8, name: '⚡ BPS Multiplier',   desc: '+25% ball production per level' },
+  clickPower:     { tier: 1, maxLevel: 10, baseCost: 1,  costScale: 1.6, name: '👆 Click Power',      desc: '+50% click value per level' },
+  cheapGens:      { tier: 1, maxLevel: 8,  baseCost: 2,  costScale: 2.0, name: '💰 Cheap Generators', desc: 'Generators cost 10% less per level' },
+  startingBalls:  { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.5, name: '🎁 Starting Balls',   desc: 'Start with 500 balls per level after prestige' },
+  maxCombo:       { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '🔥 Max Combo',        desc: '+20 max combo per level' },
+  idleEfficiency: { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '😴 Idle Efficiency',  desc: 'Earn 50%+10%/lvl of BPS while tab unfocused' },
+  luckyDrops:     { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '🍀 Lucky Drops',      desc: '5% chance per tick for double production per level' },
+  bulkBuy:        { tier: 1, maxLevel: 1,  baseCost: 2,  costScale: 1,   name: '📦 Bulk Buy',         desc: 'Unlock 10x, 100x, and MAX buy buttons' },
+
+  // Tier 2: requires 5 tier 1 levels
+  autoClicker:    { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '🤖 Auto Clicker',     desc: 'Auto-click once every 3s (-0.4s per level)' },
+  goldenChance:   { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.5, name: '✨ Golden Chance',     desc: '+1% golden ball chance per level' },
+  cascadeClick:   { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.5, name: '💫 Cascade Click',    desc: 'Clicks spawn 1 extra auto-ball per level' },
+  synergyMaster:  { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.5, name: '🔗 Synergy Master',   desc: 'Synergy upgrades 50% stronger per level' },
+  comboSustain:   { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '⏱️ Combo Sustain',    desc: 'Combo timer lasts 1s longer per level' },
+  generatorSynth: { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.5, name: '🔄 Generator Synth',  desc: 'Each gen type owned boosts all others by 1%/lvl' },
+  temporalShift:  { tier: 2, maxLevel: 5,  baseCost: 4,  costScale: 2.0, name: '⏰ Temporal Shift',    desc: '+10% BPS in first 60s after prestige per level' },
+  ballMagnetism:  { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '🧲 Ball Magnetism',   desc: 'Clicked balls give +20% value per level' },
+  rushEnhancer:   { tier: 2, maxLevel: 3,  baseCost: 5,  costScale: 2.5, name: '⚡ Rush Enhancer',    desc: 'Ball Rush lasts 5s longer per level' },
+  fusionExpert:   { tier: 2, maxLevel: 3,  baseCost: 4,  costScale: 2.0, name: '🧪 Fusion Expert',    desc: 'Fusion balls give 25% more BPS per level' },
+
+  // Tier 3: requires 15 total + 3 prestiges
+  ballFrenzy:     { tier: 3, maxLevel: 3,  baseCost: 6,  costScale: 3.0, name: '🎉 Ball Frenzy',      desc: 'Every 60s, 10s of 5x production per level' },
+  prestigePower:  { tier: 3, maxLevel: 8,  baseCost: 6,  costScale: 2.2, name: '👑 Prestige Power',    desc: 'Each prestige permanently +15% base BPS' },
+  milestoneBoost: { tier: 3, maxLevel: 5,  baseCost: 7,  costScale: 3.0, name: '🏆 Milestone Boost',   desc: 'Milestone multipliers ×1.5 per level' },
+  ascensionBonus: { tier: 3, maxLevel: 5,  baseCost: 7,  costScale: 2.5, name: '🌟 Ascension Bonus',   desc: 'Gain 10% more prestige points per level' },
+  generatorMastery:{ tier: 3, maxLevel: 3, baseCost: 8,  costScale: 3.0, name: '🏗️ Generator Mastery', desc: 'Gens you own 50+ of produce 3x per level' },
+  criticalMass:   { tier: 3, maxLevel: 5,  baseCost: 7,  costScale: 2.5, name: '💎 Critical Mass',     desc: 'When >1M balls, BPS +25% per level' },
+  goldenFrenzy:   { tier: 3, maxLevel: 3,  baseCost: 8,  costScale: 3.5, name: '🌈 Golden Frenzy',     desc: 'Golden balls trigger 5s 2x boost per level' },
+  rebirthMemory:  { tier: 3, maxLevel: 5,  baseCost: 8,  costScale: 3.0, name: '🧠 Rebirth Memory',    desc: 'Keep 5% of generators after prestige per level' },
+  researchSpeed:  { tier: 3, maxLevel: 3,  baseCost: 7,  costScale: 2.5, name: '🔬 Quick Study',       desc: 'Research completes 15% faster per level' },
+
+  // Tier 4: requires 30 total + 8 prestiges
+  overflowMastery:{ tier: 4, maxLevel: 3,  baseCost: 10, costScale: 3.5, name: '🌊 Overflow Mastery',  desc: 'Overflow balls appear 2× more often per level' },
+  dimensionHopper:{ tier: 4, maxLevel: 3,  baseCost: 12, costScale: 3.0, name: '🚀 Dimension Hopper',  desc: 'Every 5min, gain 30s of production per level' },
+  eternalGens:    { tier: 4, maxLevel: 3,  baseCost: 15, costScale: 3.0, name: '♾️ Eternal Generators', desc: 'Gens 25% cheaper per prestige count (cap 90%)/lvl' },
+  ballAlchemy:    { tier: 4, maxLevel: 3,  baseCost: 15, costScale: 3.5, name: '⚗️ Ball Alchemy',      desc: '1%/s chance to convert 1% of balls to perm BPS/lvl' },
+  prestigeCascade:{ tier: 4, maxLevel: 3,  baseCost: 12, costScale: 3.0, name: '🎲 Prestige Cascade',  desc: 'Prestige gives 1 free random T1 skill level/lvl' },
+  quantumTunneling:{ tier: 4, maxLevel: 1, baseCost: 20, costScale: 1,   name: '🌀 Quantum Tunneling', desc: 'Unlock Quantum Fabric generator (prestige-based)' },
+  luckyStreak:    { tier: 4, maxLevel: 3,  baseCost: 12, costScale: 3.0, name: '🎰 Lucky Streak',     desc: 'Lucky Spin cooldown reduced by 15% per level' },
+
+  // Tier 5: requires 50 total + 15 prestiges
+  omniscience:    { tier: 5, maxLevel: 1,  baseCost: 25, costScale: 1,   name: '👁️ Omniscience',       desc: 'See exact BPS contribution of each generator' },
+  timeWarp:       { tier: 5, maxLevel: 3,  baseCost: 30, costScale: 2.0, name: '⏩ Time Warp',          desc: 'Skip 4h of production. 24h CD (-4h/lvl)' },
+  realityEngine:  { tier: 5, maxLevel: 1,  baseCost: 50, costScale: 1,   name: '🔮 Reality Engine',     desc: 'All multipliers are SQUARED' },
+  theConvergence: { tier: 5, maxLevel: 1,  baseCost: 40, costScale: 1,   name: '🌌 The Convergence',    desc: 'Every maxed skill gives +5% to everything' },
+  infinitePrestige:{ tier: 5, maxLevel: 1, baseCost: 100,costScale: 1,   name: '♾️ Infinite Prestige',  desc: 'Prestige no longer resets generators' },
+  goldenAge:      { tier: 5, maxLevel: 1,  baseCost: 35, costScale: 1,   name: '✨ Golden Age',          desc: 'Golden balls appear 5× more often' },
+};
+
+const TIER_REQS = {
+  1: { totalLevels: 0, prestiges: 0 },
+  2: { totalLevels: 5, prestiges: 0 },
+  3: { totalLevels: 15, prestiges: 3 },
+  4: { totalLevels: 30, prestiges: 8 },
+  5: { totalLevels: 50, prestiges: 15 },
+};
+
+const TIER_NAMES = {
+  1: '🌱 Tier 1 — Foundation',
+  2: '🔵 Tier 2 — Advanced',
+  3: '🟣 Tier 3 — Expert',
+  4: '🟡 Tier 4 — Legendary',
+  5: '🔴 Tier 5 — Transcendent',
+};
+
+// ── Achievement definitions ──
+const ACHIEVEMENTS = [
+  // Production
+  { id: 'prod_1k',    cat: 'Production', name: 'Getting Started',     desc: 'Produce 1K total balls',   icon: '🔵', check: s => s.totalBallsEver >= 1e3 },
+  { id: 'prod_10k',   cat: 'Production', name: 'Ball Maker',          desc: 'Produce 10K total balls',  icon: '🔵', check: s => s.totalBallsEver >= 1e4 },
+  { id: 'prod_100k',  cat: 'Production', name: 'Ball Factory',        desc: 'Produce 100K total balls', icon: '🏭', check: s => s.totalBallsEver >= 1e5 },
+  { id: 'prod_1m',    cat: 'Production', name: 'Millionaire',         desc: 'Produce 1M total balls',   icon: '💰', check: s => s.totalBallsEver >= 1e6 },
+  { id: 'prod_10m',   cat: 'Production', name: 'Multi-Millionaire',   desc: 'Produce 10M total balls',  icon: '💎', check: s => s.totalBallsEver >= 1e7 },
+  { id: 'prod_100m',  cat: 'Production', name: 'Ball Baron',          desc: 'Produce 100M total balls', icon: '👑', check: s => s.totalBallsEver >= 1e8 },
+  { id: 'prod_1b',    cat: 'Production', name: 'Billionaire',         desc: 'Produce 1B total balls',   icon: '🌟', check: s => s.totalBallsEver >= 1e9 },
+  { id: 'prod_1t',    cat: 'Production', name: 'Trillionaire',        desc: 'Produce 1T total balls',   icon: '🌌', check: s => s.totalBallsEver >= 1e12 },
+  { id: 'bps_100',    cat: 'Production', name: 'Trickle',             desc: 'Reach 100 BPS',            icon: '💧', check: s => s.highestBPS >= 100 },
+  { id: 'bps_1k',     cat: 'Production', name: 'Stream',              desc: 'Reach 1K BPS',             icon: '🌊', check: s => s.highestBPS >= 1e3 },
+  { id: 'bps_10k',    cat: 'Production', name: 'River',               desc: 'Reach 10K BPS',            icon: '🏞️', check: s => s.highestBPS >= 1e4 },
+  { id: 'bps_100k',   cat: 'Production', name: 'Niagara',             desc: 'Reach 100K BPS',           icon: '🌈', check: s => s.highestBPS >= 1e5 },
+  { id: 'bps_1m',     cat: 'Production', name: 'Tsunami',             desc: 'Reach 1M BPS',             icon: '🌀', check: s => s.highestBPS >= 1e6 },
+  // Clicking
+  { id: 'click_100',  cat: 'Clicking', name: 'Clicker',              desc: 'Click 100 times',          icon: '👆', check: s => s.totalClicks >= 100 },
+  { id: 'click_500',  cat: 'Clicking', name: 'Dedicated Clicker',    desc: 'Click 500 times',          icon: '👆', check: s => s.totalClicks >= 500 },
+  { id: 'click_1k',   cat: 'Clicking', name: 'Click Machine',        desc: 'Click 1,000 times',        icon: '🤖', check: s => s.totalClicks >= 1000 },
+  { id: 'click_5k',   cat: 'Clicking', name: 'Click Master',         desc: 'Click 5,000 times',        icon: '⚡', check: s => s.totalClicks >= 5000 },
+  { id: 'click_10k',  cat: 'Clicking', name: 'Click God',            desc: 'Click 10,000 times',       icon: '🌟', check: s => s.totalClicks >= 10000 },
+  { id: 'combo_10',   cat: 'Clicking', name: 'Combo Starter',        desc: 'Reach x10 combo',          icon: '🔥', check: s => s.highestCombo >= 10 },
+  { id: 'combo_25',   cat: 'Clicking', name: 'Combo Adept',          desc: 'Reach x25 combo',          icon: '🔥', check: s => s.highestCombo >= 25 },
+  { id: 'combo_50',   cat: 'Clicking', name: 'Combo Master',         desc: 'Reach x50 combo',          icon: '💥', check: s => s.highestCombo >= 50 },
+  { id: 'combo_100',  cat: 'Clicking', name: 'Combo Legend',         desc: 'Reach x100 combo',         icon: '🌟', check: s => s.highestCombo >= 100 },
+  { id: 'golden_1',   cat: 'Clicking', name: 'Golden Touch',         desc: 'Click a golden ball',       icon: '✨', check: s => s.goldenClicks >= 1 },
+  { id: 'golden_10',  cat: 'Clicking', name: 'Midas',                desc: 'Click 10 golden balls',     icon: '✨', check: s => s.goldenClicks >= 10 },
+  { id: 'golden_50',  cat: 'Clicking', name: 'Gold Hoarder',         desc: 'Click 50 golden balls',     icon: '👑', check: s => s.goldenClicks >= 50 },
+  // Generators
+  { id: 'gen_all1',   cat: 'Generators', name: 'Collector',           desc: 'Own 1 of each generator type', icon: '📦', check: s => { const base = s.generators.filter(g => !['overflow','qfabric','molecular','cosmic'].includes(g.id)); return base.every(g => g.count >= 1); } },
+  { id: 'gen_100any', cat: 'Generators', name: 'Centurion',           desc: 'Own 100 of any generator',     icon: '💯', check: s => s.generators.some(g => g.count >= 100) },
+  { id: 'gen_100all', cat: 'Generators', name: 'Completionist',       desc: 'Own 100 of ALL base gens',     icon: '🏆', check: s => { const base = s.generators.filter(g => !['overflow','qfabric','molecular','cosmic'].includes(g.id)); return base.every(g => g.count >= 100); } },
+  { id: 'gen_1000',   cat: 'Generators', name: 'Factory Empire',      desc: 'Own 1000 total generators',    icon: '🏗️', check: s => s.generators.reduce((a,g) => a + g.count, 0) >= 1000 },
+  // Prestige
+  { id: 'prest_1',    cat: 'Prestige', name: 'Reborn',               desc: 'Prestige 1 time',           icon: '⟳', check: s => s.prestiges >= 1 },
+  { id: 'prest_5',    cat: 'Prestige', name: 'Serial Prestiger',     desc: 'Prestige 5 times',          icon: '⟳', check: s => s.prestiges >= 5 },
+  { id: 'prest_10',   cat: 'Prestige', name: 'Prestige Addict',      desc: 'Prestige 10 times',         icon: '🌀', check: s => s.prestiges >= 10 },
+  { id: 'prest_25',   cat: 'Prestige', name: 'Eternal Cycle',        desc: 'Prestige 25 times',         icon: '♾️', check: s => s.prestiges >= 25 },
+  { id: 'prest_50',   cat: 'Prestige', name: 'Prestige Legend',      desc: 'Prestige 50 times',         icon: '🌟', check: s => s.prestiges >= 50 },
+  { id: 'pp_10',      cat: 'Prestige', name: 'Skillful',             desc: 'Earn 10 total PP',          icon: '💠', check: s => s.totalPPEarned >= 10 },
+  { id: 'pp_50',      cat: 'Prestige', name: 'Adept',                desc: 'Earn 50 total PP',          icon: '💠', check: s => s.totalPPEarned >= 50 },
+  { id: 'pp_100',     cat: 'Prestige', name: 'Master',               desc: 'Earn 100 total PP',         icon: '💠', check: s => s.totalPPEarned >= 100 },
+  { id: 'pp_500',     cat: 'Prestige', name: 'Grandmaster',          desc: 'Earn 500 total PP',         icon: '🌟', check: s => s.totalPPEarned >= 500 },
+  { id: 'skill_max1', cat: 'Prestige', name: 'Specialist',           desc: 'Max any skill',             icon: '⭐', check: s => Object.entries(s.skills).some(([k,v]) => v.level >= (SKILL_DEFS[k]?.maxLevel||99)) },
+  { id: 'skill_max5', cat: 'Prestige', name: 'Versatile',            desc: 'Max 5 skills',              icon: '⭐', check: s => Object.entries(s.skills).filter(([k,v]) => v.level >= (SKILL_DEFS[k]?.maxLevel||99)).length >= 5 },
+  { id: 'tier_max',   cat: 'Prestige', name: 'Tier Master',          desc: 'Max all skills in any tier',icon: '🏅', check: s => { for (let t = 1; t <= 5; t++) { const tierSkills = Object.entries(SKILL_DEFS).filter(([,d]) => d.tier === t); if (tierSkills.length > 0 && tierSkills.every(([k,d]) => (s.skills[k]?.level||0) >= d.maxLevel)) return true; } return false; } },
+  // Special
+  { id: 'overflow',   cat: 'Special', name: 'Reality Break',         desc: 'Trigger overflow',          icon: '⚠️', check: s => s.overflowUnlocked },
+  { id: 'play_1h',    cat: 'Special', name: 'Dedicated',             desc: 'Play for 1 hour',           icon: '⏰', check: s => (Date.now() - s.gameStartTime) >= 3600000 },
+  { id: 'play_1d',    cat: 'Special', name: 'Committed',             desc: 'Play for 1 day',            icon: '📅', check: s => (Date.now() - s.gameStartTime) >= 86400000 },
+  { id: 'play_1w',    cat: 'Special', name: 'Veteran',               desc: 'Play for 1 week',           icon: '📆', check: s => (Date.now() - s.gameStartTime) >= 604800000 },
+  { id: 'broke',      cat: 'Special', name: 'Bankrupt',              desc: 'Have 0 balls',              icon: '😱', check: s => s.balls < 1 && s.totalBallsEver > 0 },
+  { id: 'all_upgrades',cat:'Special', name: 'Fully Upgraded',        desc: 'Buy all upgrades',          icon: '🎖️', check: s => s.upgrades.every(u => u.bought || (u.requiresOverflow && !s.overflowActive)) },
+  { id: 'all_ms',     cat: 'Special', name: 'Milestone Master',      desc: 'Reach all milestones for any gen', icon: '🏆', check: s => s.generators.some(g => g.count >= 100) },
+  { id: 'fusion_1',   cat: 'Special', name: 'Alchemist',             desc: 'Fuse your first ball',      icon: '🧪', check: s => Object.values(s.fusionBalls||{}).some(v => v > 0) },
+  { id: 'spin_1',     cat: 'Special', name: 'Lucky',                 desc: 'Complete your first spin',  icon: '🎰', check: s => s.totalSpins >= 1 },
+  { id: 'rush_1',     cat: 'Special', name: 'Rusher',                desc: 'Survive a Ball Rush',       icon: '⚡', check: s => s.rushesCompleted >= 1 },
+  { id: 'research_1', cat: 'Special', name: 'Scientist',             desc: 'Complete a research project', icon: '🔬', check: s => s.completedResearch?.length >= 1 },
+  { id: 'challenge_1',cat: 'Special', name: 'Challenger',            desc: 'Complete a challenge',       icon: '⚔️', check: s => Object.values(s.challengeCompleted||{}).some(v => v) },
+];
+
+// ── Research definitions ──
+const RESEARCH_DEFS = [
+  { id: 'elastic',      name: 'Elastic Balls',        desc: 'Balls bounce 50% higher, +10% click value',  time: 300,    reward: 'elasticBalls' },
+  { id: 'antigrav',     name: 'Gravity Manipulation',  desc: 'Unlock anti-gravity ball type',               time: 900,    reward: 'antiGravBalls' },
+  { id: 'temporal',     name: 'Temporal Mechanics',     desc: 'Offline progress earns 75% instead of 25%',  time: 1800,   reward: 'temporalMech' },
+  { id: 'molecular',    name: 'Molecular Assembly',     desc: 'Unlock new generator: Molecular Assembler',  time: 3600,   reward: 'molecularGen' },
+  { id: 'darkMatter',   name: 'Dark Matter Synthesis',  desc: 'All production ×2 permanently',               time: 7200,   reward: 'darkMatter' },
+  { id: 'parallel',     name: 'Parallel Processing',    desc: 'Can research 2 things at once',               time: 14400,  reward: 'parallelRes' },
+  { id: 'quantumComp',  name: 'Quantum Computing',      desc: 'Prestige points earned ×1.5',                 time: 28800,  reward: 'quantumComp' },
+  { id: 'cosmicEng',    name: 'Cosmic Engineering',     desc: 'Unlock new generator: Cosmic Forge',          time: 43200,  reward: 'cosmicGen' },
+  { id: 'realityBend',  name: 'Reality Bending',        desc: 'Sacrifice generators for massive temp boosts',time: 86400,  reward: 'realityBend' },
+  { id: 'theoryAll',    name: 'Theory of Everything',   desc: 'All bonuses doubled',                         time: 172800, reward: 'theoryAll' },
+  { id: 'fusionTech',   name: 'Fusion Technology',      desc: 'Fusion balls cost 50% less',                  time: 5400,   reward: 'fusionTech' },
+  { id: 'chronoAccel',  name: 'Chrono Accelerator',     desc: 'Lucky Spin cooldown reduced by 3 minutes',    time: 10800,  reward: 'chronoAccel' },
+  { id: 'hyperClick',   name: 'Hyper Click Matrix',     desc: 'All click values ×3',                         time: 18000,  reward: 'hyperClick' },
+  { id: 'ballStorm',    name: 'Ball Storm Protocol',    desc: 'Ball Rush happens every 20 minutes',          time: 36000,  reward: 'ballStorm' },
+  { id: 'infiniteLoop', name: 'Infinite Loop Engine',   desc: 'Auto-clicker speed doubled',                  time: 54000,  reward: 'infiniteLoop' },
+];
+
+// ── Challenge definitions ──
+const CHALLENGE_DEFS = [
+  { id: 'speedRun',  name: '⚡ Speed Run',   desc: 'Reach 10K balls in under 5 minutes', restriction: 'Timer: 5 minutes', goal: 10000, timeLimit: 300, reward: 'Permanent +50% BPS', rewardId: 'speedRunReward' },
+  { id: 'noClick',   name: '🚫 No Click',    desc: 'Reach 100K balls without clicking',  restriction: 'Clicking disabled', goal: 100000, noClick: true, reward: 'Auto-clicker 3× faster', rewardId: 'noClickReward' },
+  { id: 'minimalist',name: '🎯 Minimalist',  desc: 'Reach 1M balls with max 3 gen types',restriction: 'Max 3 generator types', goal: 1000000, maxGenTypes: 3, reward: '+100% to top 3 generators', rewardId: 'minimalistReward' },
+  { id: 'inflation', name: '📈 Inflation',   desc: 'Reach 1M balls with 10× costs',      restriction: 'All costs ×10', goal: 1000000, costMulti: 10, reward: 'Permanent 20% cost reduction', rewardId: 'inflationReward' },
+  { id: 'frenzy',    name: '🎉 Frenzy',      desc: 'Reach 5M balls with 5× gen costs',   restriction: 'Frenzy always active, gen costs 5×', goal: 5000000, frenzyAlways: true, costMulti: 5, reward: 'Frenzy duration +50%', rewardId: 'frenzyReward' },
+  { id: 'darkMode',  name: '🌑 Dark Mode',   desc: 'Reach 500K with no golden/overflow',  restriction: 'No golden or overflow balls', goal: 500000, noSpecialBalls: true, reward: 'Golden balls give 200× instead of 100×', rewardId: 'darkModeReward' },
+];
+
+// ── Fusion definitions ──
+const FUSION_TIERS = [
+  { id: 'bronze',   name: 'Bronze',   icon: '🟤', cost: 1000,    bpsBonus: 0.01, color: '#cd7f32' },
+  { id: 'silver',   name: 'Silver',   icon: '⚪', cost: 10000,   bpsBonus: 0.05, color: '#c0c0c0' },
+  { id: 'gold',     name: 'Gold',     icon: '🟡', cost: 100000,  bpsBonus: 0.15, color: '#ffd700' },
+  { id: 'platinum', name: 'Platinum', icon: '🔵', cost: 1000000, bpsBonus: 0.50, color: '#e5e4e2' },
+  { id: 'diamond',  name: 'Diamond',  icon: '💎', cost: 10000000,bpsBonus: 2.00, color: '#b9f2ff' },
+];
+
+// ── Spin rewards ──
+const SPIN_REWARDS = [
+  { name: '2× Production 30s', icon: '⚡', weight: 20, action: 'doubleProd' },
+  { name: 'Instant 10× BPS',   icon: '💰', weight: 25, action: 'instantBalls' },
+  { name: 'Free Generator',     icon: '🎁', weight: 15, action: 'freeGen' },
+  { name: 'PP Fragment',        icon: '💠', weight: 15, action: 'ppFragment' },
+  { name: 'Max Combo',          icon: '🔥', weight: 10, action: 'maxCombo' },
+  { name: 'JACKPOT 100× BPS',  icon: '🌟', weight: 5,  action: 'jackpot' },
+  { name: 'Instant 5× BPS',    icon: '🔵', weight: 25, action: 'smallBalls' },
+  { name: 'Click Power ×5 30s',icon: '👆', weight: 10, action: 'clickBoost' },
+];
+
+const GEN_VISUALS = {
+  dropper:     { emoji: '💧', color: '#4d96ff' },
+  launcher:    { emoji: '🚀', color: '#ff6b6b' },
+  factory:     { emoji: '🏭', color: '#ffd93d' },
+  vortex:      { emoji: '🌀', color: '#cc65fe' },
+  singularity: { emoji: '⚫', color: '#ff9f43' },
+  quantum:     { emoji: '⚛️',  color: '#6bcb77' },
+  dimension:   { emoji: '🌌', color: '#0abde3' },
+  bigbang:     { emoji: '💥', color: '#ee5a9f' },
+  overflow:    { emoji: '⚠️',  color: '#ff4444' },
+  qfabric:     { emoji: '🧵', color: '#aa66ff' },
+  molecular:   { emoji: '🧬', color: '#00cc88' },
+  cosmic:      { emoji: '🔥', color: '#ff4488' },
+};
+
+// ══════════════════════════════════════════════════════
+//  GAME STATE
+// ══════════════════════════════════════════════════════
+
 let state = getDefaultState();
 
 function getDefaultState() {
+  const skills = {};
+  for (const [id, def] of Object.entries(SKILL_DEFS)) {
+    skills[id] = { level: 0 };
+  }
   return {
     balls: 0,
     totalBalls: 0,
     totalBallsEver: 0,
     totalClicks: 0,
     gameStartTime: Date.now(),
+    lastSaveTime: Date.now(),
     prestiges: 0,
     prestigeMulti: 1,
     prestigePoints: 0,
+    totalPPEarned: 0,
     highestBPS: 0,
+    highestCombo: 1,
+    goldenClicks: 0,
     overflowUnlocked: false,
     overflowActive: false,
-    skills: {
-      bpsMulti:        { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.8, desc: '+25% ball production per level' },
-      clickPower:      { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.6, desc: '+50% click value per level' },
-      cheapGens:       { level: 0, maxLevel: 8,  baseCost: 2,  costScale: 2.0, desc: 'Generators cost 10% less per level' },
-      startingBalls:   { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.5, desc: 'Start with 500 balls per level after prestige' },
-      autoClicker:     { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.0, desc: 'Auto-click once every 3s (-0.4s per level)' },
-      maxCombo:        { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.0, desc: '+20 max combo per level' },
-      goldenChance:    { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.5, desc: '+1% golden ball chance per level' },
-      ballFrenzy:      { level: 0, maxLevel: 3,  baseCost: 5,  costScale: 3.0, desc: 'Every 60s, 10s of 5x production per level' },
-      prestigePower:   { level: 0, maxLevel: 8,  baseCost: 3,  costScale: 2.2, desc: 'Each prestige permanently +15% to base BPS' },
-      cascadeClick:    { level: 0, maxLevel: 5,  baseCost: 4,  costScale: 2.5, desc: 'Clicks spawn 1 extra auto-ball per level' },
-      milestoneBoost:  { level: 0, maxLevel: 5,  baseCost: 5,  costScale: 3.0, desc: 'Milestone multipliers ×1.5 per level' },
-      overflowMastery: { level: 0, maxLevel: 3,  baseCost: 8,  costScale: 3.5, desc: 'Overflow balls appear 2× more often per level (req: overflow)' },
-    },
     combo: 1,
     comboTimer: 0,
+    // Generators
     generators: [
-      { id: 'dropper',    name: 'Ball Dropper',     desc: 'Drops a ball every few seconds', baseCost: 10,    baseRate: 0.5,  count: 0 },
-      { id: 'launcher',   name: 'Ball Launcher',    desc: 'Launches balls rapidly',         baseCost: 100,   baseRate: 3,    count: 0 },
-      { id: 'factory',    name: 'Ball Factory',     desc: 'Mass-produces balls',            baseCost: 1000,  baseRate: 20,   count: 0 },
-      { id: 'vortex',     name: 'Ball Vortex',      desc: 'Summons balls from the void',    baseCost: 12000, baseRate: 100,  count: 0 },
-      { id: 'singularity',name: 'Singularity',      desc: 'Warps reality to create balls',  baseCost: 150000,baseRate: 600,  count: 0 },
-      { id: 'quantum',    name: 'Quantum Splitter', desc: 'Splits each ball into many',     baseCost: 2e6,   baseRate: 4000, count: 0 },
-      { id: 'dimension',  name: 'Dimension Rift',   desc: 'Pulls balls from other timelines',baseCost: 30e6, baseRate: 25000,count: 0 },
-      { id: 'bigbang',    name: 'Big Bang Engine',  desc: 'Creates entire universes of balls',baseCost: 500e6,baseRate: 200000,count: 0 },
-      { id: 'overflow',   name: 'Overflow Core',    desc: 'Harnesses reality destabilization',baseCost: 1e9, baseRate: 2000000,count: 0 },
+      { id: 'dropper',    name: 'Ball Dropper',        desc: 'Drops a ball every few seconds',      baseCost: 10,     baseRate: 0.5,    count: 0 },
+      { id: 'launcher',   name: 'Ball Launcher',       desc: 'Launches balls rapidly',              baseCost: 100,    baseRate: 3,      count: 0 },
+      { id: 'factory',    name: 'Ball Factory',        desc: 'Mass-produces balls',                 baseCost: 1000,   baseRate: 20,     count: 0 },
+      { id: 'vortex',     name: 'Ball Vortex',         desc: 'Summons balls from the void',         baseCost: 12000,  baseRate: 100,    count: 0 },
+      { id: 'singularity',name: 'Singularity',         desc: 'Warps reality to create balls',       baseCost: 150000, baseRate: 600,    count: 0 },
+      { id: 'quantum',    name: 'Quantum Splitter',    desc: 'Splits each ball into many',          baseCost: 2e6,    baseRate: 4000,   count: 0 },
+      { id: 'dimension',  name: 'Dimension Rift',      desc: 'Pulls balls from other timelines',    baseCost: 30e6,   baseRate: 25000,  count: 0 },
+      { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 500e6,  baseRate: 200000, count: 0 },
+      { id: 'overflow',   name: 'Overflow Core',       desc: 'Harnesses reality destabilization',   baseCost: 1e9,    baseRate: 2000000,count: 0 },
+      { id: 'qfabric',    name: 'Quantum Fabric',      desc: 'Weaves balls from the quantum foam',  baseCost: 5e9,    baseRate: 0,      count: 0 }, // rate = prestige-based
+      { id: 'molecular',  name: 'Molecular Assembler', desc: 'Assembles balls atom by atom',        baseCost: 2e8,    baseRate: 500000, count: 0 },
+      { id: 'cosmic',     name: 'Cosmic Forge',        desc: 'Forges balls from starlight',         baseCost: 5e10,   baseRate: 5000000,count: 0 },
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
@@ -622,363 +1173,1672 @@ function getDefaultState() {
       // Synergy upgrades
       { id: 'launcherCal',  name: 'Launcher Calibration', desc: 'Each Factory owned: Launchers +2%', cost: 5000,  bought: false, effect: 'launcherCal' },
       { id: 'factoryFuel',  name: 'Factory Fuel',         desc: 'Each Vortex owned: Factories +3%',  cost: 50000, bought: false, effect: 'factoryFuel' },
-      { id: 'vortexConv',   name: 'Vortex Convergence',   desc: 'Each Singularity: all gens +1% (cap 2×)', cost: 500000, bought: false, effect: 'vortexConv' },
+      { id: 'vortexConv',   name: 'Vortex Convergence',   desc: 'Each Singularity: all gens +1%',    cost: 500000, bought: false, effect: 'vortexConv' },
       { id: 'quantumEnt',   name: 'Quantum Entanglement', desc: 'Quantum count ×5% boost to Dim Rifts', cost: 5e6,  bought: false, effect: 'quantumEnt' },
       { id: 'cosmicRes',    name: 'Cosmic Resonance',     desc: 'Big Bang count ×2% boost to ALL',      cost: 50e6, bought: false, effect: 'cosmicRes' },
-      // Overflow upgrades (hidden until overflow)
-      { id: 'realityAnchor', name: 'Reality Anchor', desc: 'Harnesses the overflow. All production ×3 permanently', cost: 10e6, bought: false, effect: 'realityAnchor', requiresOverflow: true },
+      // Overflow upgrades
+      { id: 'realityAnchor', name: 'Reality Anchor', desc: 'All production ×3 permanently', cost: 10e6, bought: false, effect: 'realityAnchor', requiresOverflow: true },
     ],
+    skills: skills,
+    // Achievements
+    achievementsUnlocked: {},
+    // Fusion Lab
+    fusionBalls: {}, // { bronze: 3, silver: 1, ... }
+    // Lucky Spin
+    lastSpinTime: 0,
+    totalSpins: 0,
+    ppFragments: 0,
+    // Ball Rush
+    rushesCompleted: 0,
+    lastRushTime: 0,
+    // Research
+    completedResearch: [],
+    activeResearch: [],  // [{ id, startTime, duration }]
+    // Challenges
+    challengeCompleted: {},
+    activeChallenge: null, // { id, startTime, startBalls: 0, startClicks: 0 }
+    // Temporary boosts
+    doubleProdUntil: 0,
+    clickBoostUntil: 0,
+    goldenFrenzyUntil: 0,
+    // Time Warp
+    lastTimeWarp: 0,
+    // Ball Alchemy permanent BPS bonus
+    alchemyBPS: 0,
+    // Dimension Hopper timer
+    lastDimensionHop: 0,
+    // Prestige timestamp
+    lastPrestigeTime: Date.now(),
   };
 }
 
+// ══════════════════════════════════════════════════════
+//  SAVE / LOAD
+// ══════════════════════════════════════════════════════
+
 function saveGame() {
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e) {}
+  try {
+    state.lastSaveTime = Date.now();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  } catch(e) {}
 }
 
 function loadGame() {
   try {
-    // Try v4, v3, v2
+    // Try v5, v4, v3, v2
     let s = localStorage.getItem(SAVE_KEY);
+    if (!s) s = localStorage.getItem('ballz_save_v4');
     if (!s) s = localStorage.getItem('ballz_save_v3');
     if (!s) s = localStorage.getItem('ballz_save_v2');
     if (s) {
       const loaded = JSON.parse(s);
       const def = getDefaultState();
       state = { ...def, ...loaded };
-      // Ensure new fields have defaults
-      if (state.totalBallsEver == null) state.totalBallsEver = loaded.totalBalls || 0;
-      if (state.totalClicks == null) state.totalClicks = 0;
-      if (state.gameStartTime == null) state.gameStartTime = Date.now();
-      if (state.highestBPS == null) state.highestBPS = 0;
-      if (state.overflowUnlocked == null) state.overflowUnlocked = false;
-      if (state.overflowActive == null) state.overflowActive = false;
-      // Merge generators by id
+
+      // Ensure all new fields have defaults
+      for (const key of Object.keys(def)) {
+        if (state[key] === undefined || state[key] === null) state[key] = def[key];
+      }
+
+      // Merge generators by id (add new, keep counts)
       state.generators = def.generators.map(dg => {
         const lg = loaded.generators?.find(g => g.id === dg.id);
-        return lg ? { ...dg, count: lg.count } : dg;
+        return lg ? { ...dg, count: lg.count || 0 } : { ...dg };
       });
+
+      // Merge upgrades
       state.upgrades = def.upgrades.map(du => {
         const lu = loaded.upgrades?.find(u => u.id === du.id);
-        return lu ? { ...du, bought: lu.bought } : du;
+        return lu ? { ...du, bought: lu.bought || false } : { ...du };
       });
-      // Merge skills (preserve levels from save, add new skills from defaults)
-      state.skills = { ...def.skills };
+
+      // Merge skills (preserve levels, add new skills)
+      const mergedSkills = {};
+      for (const [k, def_skill] of Object.entries(SKILL_DEFS)) {
+        mergedSkills[k] = { level: loaded.skills?.[k]?.level || 0 };
+      }
+      state.skills = mergedSkills;
+
+      // Migrate from v4: convert old skill format
       if (loaded.skills) {
         for (const [k, v] of Object.entries(loaded.skills)) {
-          if (state.skills[k]) state.skills[k].level = v.level || 0;
+          if (state.skills[k] !== undefined) {
+            state.skills[k].level = v.level || 0;
+          }
         }
       }
+
+      // Ensure objects
+      if (!state.achievementsUnlocked) state.achievementsUnlocked = {};
+      if (!state.fusionBalls) state.fusionBalls = {};
+      if (!state.completedResearch) state.completedResearch = [];
+      if (!state.activeResearch) state.activeResearch = [];
+      if (!state.challengeCompleted) state.challengeCompleted = {};
+      if (state.totalPPEarned == null) state.totalPPEarned = state.prestigePoints || 0;
+      if (state.highestCombo == null) state.highestCombo = 1;
+      if (state.goldenClicks == null) state.goldenClicks = 0;
+      if (state.totalSpins == null) state.totalSpins = 0;
+      if (state.ppFragments == null) state.ppFragments = 0;
+      if (state.rushesCompleted == null) state.rushesCompleted = 0;
+      if (state.alchemyBPS == null) state.alchemyBPS = 0;
+      if (state.lastPrestigeTime == null) state.lastPrestigeTime = Date.now();
+      if (state.lastDimensionHop == null) state.lastDimensionHop = 0;
+      if (state.lastTimeWarp == null) state.lastTimeWarp = 0;
+      if (state.lastRushTime == null) state.lastRushTime = 0;
+
       // Migrate v2: convert old prestigeMulti into skill points
       if (!loaded.prestigePoints && loaded.prestigeMulti > 1) {
         state.prestigePoints = Math.floor((loaded.prestigeMulti - 1) * 2);
       }
+
+      // Calculate offline progress
+      if (loaded.lastSaveTime) {
+        const elapsed = (Date.now() - loaded.lastSaveTime) / 1000;
+        if (elapsed > 30) { // at least 30 seconds away
+          const offlineBPS = getBPS();
+          let offlineRate = 0.25; // 25% default
+          if (skillLevel('idleEfficiency') > 0) {
+            offlineRate = 0.5 + skillLevel('idleEfficiency') * 0.1;
+          }
+          if (hasResearch('temporalMech')) offlineRate = Math.max(offlineRate, 0.75);
+          const offlineBalls = Math.floor(offlineBPS * elapsed * offlineRate);
+          if (offlineBalls > 0) {
+            state.balls += offlineBalls;
+            state.totalBalls += offlineBalls;
+            state.totalBallsEver += offlineBalls;
+            // Show welcome back modal
+            setTimeout(() => showWelcomeBack(elapsed, offlineBalls), 200);
+          }
+        }
+      }
+
+      // Process completed research
+      processResearchCompletion();
     }
-  } catch(e) { state = getDefaultState(); }
-}
-
-// ── Derived values ──
-function skillLevel(id) { return state.skills[id]?.level || 0; }
-function skillCost(id) {
-  const s = state.skills[id];
-  if (!s || s.level >= s.maxLevel) return Infinity;
-  return Math.floor(s.baseCost * Math.pow(s.costScale, s.level));
-}
-function genCost(g) {
-  let cost = Math.floor(g.baseCost * Math.pow(1.15, g.count));
-  const discount = 1 - skillLevel('cheapGens') * 0.1;
-  return Math.floor(cost * Math.max(discount, 0.2));
-}
-
-function getGenCount(genId) {
-  const g = state.generators.find(g => g.id === genId);
-  return g ? g.count : 0;
-}
-
-// Get milestone multiplier for a specific generator
-function getMilestoneMulti(genId) {
-  let multi = 1;
-  const msBoostLevel = skillLevel('milestoneBoost');
-  for (const ms of GEN_MILESTONES) {
-    if (ms.genId !== genId) continue;
-    if (getGenCount(genId) >= ms.threshold) {
-      let m = ms.multiplier;
-      if (msBoostLevel > 0) m = 1 + (m - 1) * (1 + msBoostLevel * 0.5);
-      multi *= m;
-    }
+  } catch(e) {
+    console.error('Load error:', e);
+    state = getDefaultState();
   }
-  return multi;
+}
+
+// ══════════════════════════════════════════════════════
+//  EARLY DECLARATIONS (needed by helpers)
+// ══════════════════════════════════════════════════════
+
+let balls = [];
+let floatingTexts = [];
+let frenzyActive = false;
+let frenzyTimer = 0;
+let autoClickTimer = 0;
+let dimensionHopTimer = 0;
+let alchemyTimer = 0;
+let tickAccumulator = 0;
+let bgParticles = [];
+let tabFocused = true;
+let rushActive = false;
+let rushEndTime = 0;
+let spinRotation = 0;
+let spinning = false;
+let pendingChallengeId = null;
+
+// ══════════════════════════════════════════════════════
+//  HELPER FUNCTIONS
+// ══════════════════════════════════════════════════════
+
+function formatNum(n) {
+  if (n === Infinity) return '∞';
+  if (n !== n) return '0'; // NaN
+  if (n < 0) return '-' + formatNum(-n);
+  if (n < 1000) return Math.floor(n).toLocaleString();
+  const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
+  let tier = Math.floor(Math.log10(n) / 3);
+  if (tier >= suffixes.length) tier = suffixes.length - 1;
+  if (tier <= 0) return Math.floor(n).toLocaleString();
+  const scaled = n / Math.pow(10, tier * 3);
+  return (scaled >= 100 ? Math.floor(scaled) : scaled.toFixed(1)) + suffixes[tier];
+}
+
+function formatTime(seconds) {
+  if (seconds < 60) return Math.ceil(seconds) + 's';
+  if (seconds < 3600) return Math.floor(seconds / 60) + 'm ' + Math.floor(seconds % 60) + 's';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  if (h >= 24) {
+    const d = Math.floor(h / 24);
+    return d + 'd ' + (h % 24) + 'h';
+  }
+  return h + 'h ' + m + 'm';
+}
+
+function skillLevel(id) {
+  return state.skills[id]?.level || 0;
+}
+
+function skillCost(id) {
+  const def = SKILL_DEFS[id];
+  const lv = skillLevel(id);
+  return Math.floor(def.baseCost * Math.pow(def.costScale, lv));
+}
+
+function totalSkillLevels() {
+  return Object.values(state.skills).reduce((a, s) => a + s.level, 0);
+}
+
+function hasResearch(rewardId) {
+  return state.completedResearch.includes(rewardId);
+}
+
+function isResearching(id) {
+  return state.activeResearch.some(r => r.id === id);
+}
+
+function maxResearchSlots() {
+  return hasResearch('parallelRes') ? 2 : 1;
+}
+
+function getGenCount(id) {
+  return state.generators.find(g => g.id === id)?.count || 0;
+}
+
+function genTypesOwned() {
+  return state.generators.filter(g => g.count > 0).length;
+}
+
+function getClickValue() {
+  let base = 1;
+  if (state.upgrades.find(u => u.id === 'clickPow')?.bought) base = 5;
+  if (state.upgrades.find(u => u.id === 'critClick')?.bought && Math.random() < 0.1) base *= 10;
+
+  // Skill: Click Power
+  base *= (1 + skillLevel('clickPower') * 0.5);
+  // Skill: Ball Magnetism
+  base *= (1 + skillLevel('ballMagnetism') * 0.2);
+  // Research: elastic balls
+  if (hasResearch('elasticBalls')) base *= 1.1;
+  // Research: hyper click
+  if (hasResearch('hyperClick')) base *= 3;
+  // Click boost active
+  if (Date.now() < state.clickBoostUntil) base *= 5;
+  // Combo
+  base *= state.combo;
+  // Challenge: noClick active
+  if (state.activeChallenge?.noClick) return 0;
+
+  return Math.max(1, Math.floor(base));
+}
+
+function getGenCost(gen, quantity) {
+  quantity = quantity || 1;
+  const def = SKILL_DEFS.cheapGens;
+  const cheapLevel = skillLevel('cheapGens');
+  const discount = cheapLevel * 0.1;
+
+  // Eternal generators discount (per prestige)
+  const eternalLevel = skillLevel('eternalGens');
+  let prestigeDiscount = 0;
+  if (eternalLevel > 0) {
+    prestigeDiscount = Math.min(0.9, 0.25 * state.prestiges * eternalLevel / 100);
+  }
+
+  // Challenge: inflation/frenzy cost multi
+  let challengeCostMulti = 1;
+  if (state.activeChallenge) {
+    const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+    if (cDef?.costMulti) challengeCostMulti = cDef.costMulti;
+  }
+  // Challenge: inflation reward
+  if (state.challengeCompleted?.inflationReward) challengeCostMulti *= 0.8;
+
+  let totalCost = 0;
+  const baseC = gen.baseCost;
+  for (let i = 0; i < quantity; i++) {
+    let cost = baseC * Math.pow(1.15, gen.count + i);
+    cost *= (1 - discount);
+    cost *= (1 - prestigeDiscount);
+    cost *= challengeCostMulti;
+    if (hasResearch('theoryAll')) cost *= 0.5;
+    totalCost += cost;
+  }
+  return Math.floor(totalCost);
+}
+
+function getMaxBuyable(gen) {
+  let count = 0;
+  let totalCost = 0;
+  while (true) {
+    const baseCost = gen.baseCost;
+    let cost = baseCost * Math.pow(1.15, gen.count + count);
+    const cheapLevel = skillLevel('cheapGens');
+    cost *= (1 - cheapLevel * 0.1);
+    const eternalLevel = skillLevel('eternalGens');
+    if (eternalLevel > 0) {
+      cost *= (1 - Math.min(0.9, 0.25 * state.prestiges * eternalLevel / 100));
+    }
+    let challengeCostMulti = 1;
+    if (state.activeChallenge) {
+      const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+      if (cDef?.costMulti) challengeCostMulti = cDef.costMulti;
+    }
+    if (state.challengeCompleted?.inflationReward) challengeCostMulti *= 0.8;
+    cost *= challengeCostMulti;
+    if (hasResearch('theoryAll')) cost *= 0.5;
+    cost = Math.floor(cost);
+    if (totalCost + cost > state.balls) break;
+    totalCost += cost;
+    count++;
+    if (count > 10000) break; // safety
+  }
+  return { count, totalCost };
 }
 
 function getBPS() {
-  let bps = 0;
-  const factoryCount = getGenCount('factory');
-  const vortexCount = getGenCount('vortex');
-  const singularityCount = getGenCount('singularity');
-  const quantumCount = getGenCount('quantum');
-  const bigbangCount = getGenCount('bigbang');
+  if (!state.generators) return 0;
+  let total = 0;
+  const genTypeCount = genTypesOwned();
+  const synthLevel = skillLevel('generatorSynth');
+  const masteryLevel = skillLevel('generatorMastery');
+  const synergyMasterLevel = skillLevel('synergyMaster');
+  const milBoostLevel = skillLevel('milestoneBoost');
+  const isOverflowing = state.overflowActive;
+  const now = Date.now();
 
-  for (const g of state.generators) {
-    // Hide overflow generator if overflow not active
-    if (g.id === 'overflow' && !state.overflowActive) continue;
+  for (const gen of state.generators) {
+    if (gen.count === 0) continue;
+    // Skip hidden gens
+    if (!isGenUnlocked(gen.id)) continue;
 
-    let rate = g.baseRate * g.count;
-    if (rate === 0) continue;
+    let rate = gen.baseRate;
 
-    // Milestone multiplier
-    rate *= getMilestoneMulti(g.id);
-
-    // Existing upgrades
-    if (hasUpgrade('hyperDrop') && (g.id === 'dropper' || g.id === 'launcher')) rate *= 3;
-
-    // Synergy: Launcher Calibration — each Factory: Launchers +2%
-    if (hasUpgrade('launcherCal') && g.id === 'launcher') {
-      rate *= 1 + factoryCount * 0.02;
-    }
-    // Synergy: Factory Fuel — each Vortex: Factories +3%
-    if (hasUpgrade('factoryFuel') && g.id === 'factory') {
-      rate *= 1 + vortexCount * 0.03;
-    }
-    // Synergy: Vortex Convergence — each Singularity: all +1% (cap 2×)
-    if (hasUpgrade('vortexConv')) {
-      rate *= Math.min(2, 1 + singularityCount * 0.01);
-    }
-    // Synergy: Quantum Entanglement — quantumCount ×5% to dimension rifts
-    if (hasUpgrade('quantumEnt') && g.id === 'dimension') {
-      rate *= 1 + quantumCount * 0.05;
-    }
-    // Synergy: Cosmic Resonance — bigbangCount ×2% to ALL
-    if (hasUpgrade('cosmicRes')) {
-      rate *= 1 + bigbangCount * 0.02;
+    // Quantum Fabric: rate = 1000 * prestiges
+    if (gen.id === 'qfabric') {
+      rate = 1000 * (state.prestiges || 1);
     }
 
-    bps += rate;
+    let perUnit = rate;
+
+    // Milestone multiplier for this generator
+    const milestones = GEN_MILESTONES.filter(m => m.genId === gen.id && gen.count >= m.threshold);
+    let msMulti = 1;
+    for (const m of milestones) msMulti *= m.multiplier;
+    if (milBoostLevel > 0) msMulti = Math.pow(msMulti, 1 + milBoostLevel * 0.5);
+    perUnit *= msMulti;
+
+    // Synergy upgrades
+    if (gen.id === 'launcher' && state.upgrades.find(u => u.id === 'launcherCal')?.bought) {
+      const factoryCount = getGenCount('factory');
+      let synergyBonus = factoryCount * 0.02;
+      if (synergyMasterLevel > 0) synergyBonus *= (1 + synergyMasterLevel * 0.5);
+      perUnit *= (1 + synergyBonus);
+    }
+    if (gen.id === 'factory' && state.upgrades.find(u => u.id === 'factoryFuel')?.bought) {
+      const vortexCount = getGenCount('vortex');
+      let synergyBonus = vortexCount * 0.03;
+      if (synergyMasterLevel > 0) synergyBonus *= (1 + synergyMasterLevel * 0.5);
+      perUnit *= (1 + synergyBonus);
+    }
+    if (state.upgrades.find(u => u.id === 'vortexConv')?.bought) {
+      const singCount = getGenCount('singularity');
+      let synergyBonus = singCount * 0.01;
+      if (synergyMasterLevel > 0) synergyBonus *= (1 + synergyMasterLevel * 0.5);
+      perUnit *= (1 + synergyBonus);
+    }
+    if (gen.id === 'dimension' && state.upgrades.find(u => u.id === 'quantumEnt')?.bought) {
+      const qCount = getGenCount('quantum');
+      let synergyBonus = qCount * 0.05;
+      if (synergyMasterLevel > 0) synergyBonus *= (1 + synergyMasterLevel * 0.5);
+      perUnit *= (1 + synergyBonus);
+    }
+    if (state.upgrades.find(u => u.id === 'cosmicRes')?.bought) {
+      const bbCount = getGenCount('bigbang');
+      let synergyBonus = bbCount * 0.02;
+      if (synergyMasterLevel > 0) synergyBonus *= (1 + synergyMasterLevel * 0.5);
+      perUnit *= (1 + synergyBonus);
+    }
+
+    // Hyper Droppers
+    if ((gen.id === 'dropper' || gen.id === 'launcher') && state.upgrades.find(u => u.id === 'hyperDrop')?.bought) {
+      perUnit *= 3;
+    }
+    // Overclock
+    if (state.upgrades.find(u => u.id === 'overclock')?.bought) {
+      perUnit *= 2;
+    }
+    // Magnet
+    if (state.upgrades.find(u => u.id === 'magnet')?.bought) {
+      perUnit *= 1.5;
+    }
+    // Reality Anchor (overflow upgrade)
+    if (state.upgrades.find(u => u.id === 'realityAnchor')?.bought) {
+      perUnit *= 3;
+    }
+
+    // Generator Synth skill
+    if (synthLevel > 0) {
+      perUnit *= (1 + (genTypeCount - 1) * synthLevel * 0.01);
+    }
+
+    // Generator Mastery: if 50+ owned, 3x per level
+    if (masteryLevel > 0 && gen.count >= 50) {
+      perUnit *= Math.pow(3, masteryLevel);
+    }
+
+    // Minimalist challenge reward
+    if (state.challengeCompleted?.minimalistReward) {
+      // top 3 generators by count get +100%
+      const sorted = [...state.generators].sort((a, b) => b.count - a.count);
+      const top3 = sorted.slice(0, 3).map(g => g.id);
+      if (top3.includes(gen.id)) perUnit *= 2;
+    }
+
+    total += perUnit * gen.count;
   }
 
-  if (hasUpgrade('magnet')) bps *= 1.5;
-  if (hasUpgrade('overclock')) bps *= 2;
+  // Global multipliers
+  total *= state.prestigeMulti;
 
-  // Reality Anchor — overflow multiplier
-  if (hasUpgrade('realityAnchor')) {
-    const anchorMulti = state.prestiges >= 10 ? 5 : 3;
-    bps *= anchorMulti;
+  // BPS multiplier skill
+  total *= (1 + skillLevel('bpsMulti') * 0.25);
+
+  // Prestige Power: each prestige +15%
+  total *= (1 + state.prestiges * skillLevel('prestigePower') * 0.15);
+
+  // Temporal Shift: +10% in first 60s after prestige
+  const timeSincePrestige = (now - state.lastPrestigeTime) / 1000;
+  if (skillLevel('temporalShift') > 0 && timeSincePrestige < 60) {
+    total *= (1 + skillLevel('temporalShift') * 0.1);
   }
 
-  bps *= state.prestigeMulti;
-  bps *= 1 + skillLevel('bpsMulti') * 0.25;
-
-  // Prestige Power skill: each prestige +15% per level
-  if (skillLevel('prestigePower') > 0 && state.prestiges > 0) {
-    bps *= 1 + state.prestiges * skillLevel('prestigePower') * 0.15;
+  // Critical Mass: >1M balls, +25% per level
+  if (skillLevel('criticalMass') > 0 && state.balls > 1e6) {
+    total *= (1 + skillLevel('criticalMass') * 0.25);
   }
 
-  // Ball frenzy (gated behind 3 prestiges)
-  if (skillLevel('ballFrenzy') > 0 && state.prestiges >= 3) {
-    const cycle = 60;
-    const frenzyDur = 10 * skillLevel('ballFrenzy');
-    const t = (performance.now() / 1000) % cycle;
-    if (t < frenzyDur) bps *= 5;
+  // Double production boost
+  if (now < state.doubleProdUntil) total *= 2;
+
+  // Golden frenzy
+  if (now < state.goldenFrenzyUntil) total *= 2;
+
+  // Ball frenzy active (checked elsewhere, but contribute here for display)
+  if (frenzyActive) {
+    total *= (5 * skillLevel('ballFrenzy'));
   }
-  return bps;
-}
-function getClickValue() {
-  let v = 1;
-  if (hasUpgrade('clickPow')) v = 5;
-  v *= state.combo;
-  v *= state.prestigeMulti;
-  v *= 1 + skillLevel('clickPower') * 0.5;
-  // Critical click
-  if (hasUpgrade('critClick') && Math.random() < 0.1) v *= 10;
-  return Math.floor(Math.max(v, 1));
-}
-function getMaxCombo() { return 50 + skillLevel('maxCombo') * 20; }
-function getGoldenChance() {
-  let chance = 0.02;
-  chance += skillLevel('goldenChance') * 0.01;
-  return chance;
-}
-function getOverflowChance() {
-  let chance = 0.05;
-  const masteryLevel = skillLevel('overflowMastery');
-  if (masteryLevel > 0) chance *= Math.pow(2, masteryLevel);
-  return Math.min(chance, 0.4); // cap at 40%
-}
-function hasUpgrade(id) { return state.upgrades.find(u => u.id === id)?.bought; }
-function getPrestigePointsEarned() {
-  return Math.max(0, Math.floor(Math.pow(state.totalBalls / 5000, 0.45)));
-}
-function getOverflowThreshold() {
-  return state.prestiges >= 5 ? 500000 : 1000000;
-}
-function getPrestigeTier() {
-  const p = state.prestiges;
-  if (p >= 25) return { name: 'Transcendent', color: '#ffd700', bg: '#3a2800' };
-  if (p >= 10) return { name: 'Master',       color: '#e891dc', bg: '#2a1030' };
-  if (p >= 5)  return { name: 'Adept',        color: '#b388ff', bg: '#1a1040' };
-  if (p >= 1)  return { name: 'Novice',       color: '#6bcb77', bg: '#0a2a0a' };
-  return null;
+
+  // Challenge: frenzy always on
+  if (state.activeChallenge) {
+    const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+    if (cDef?.frenzyAlways && !frenzyActive) {
+      total *= 5;
+    }
+  }
+
+  // Challenge: frenzy reward (frenzy duration +50% applied in timing)
+  // Speed run reward
+  if (state.challengeCompleted?.speedRunReward) total *= 1.5;
+  // Dark matter research
+  if (hasResearch('darkMatter')) total *= 2;
+  // Theory of everything
+  if (hasResearch('theoryAll')) total *= 2;
+
+  // Achievement bonus
+  const achCount = Object.keys(state.achievementsUnlocked).length;
+  if (achCount > 0) total *= (1 + achCount * 0.01);
+
+  // Fusion bonus
+  total *= (1 + getFusionBonus());
+
+  // Ball alchemy permanent BPS
+  total += state.alchemyBPS;
+
+  // The Convergence: every maxed skill +5%
+  if (skillLevel('theConvergence') > 0) {
+    const maxedCount = Object.entries(state.skills).filter(([k,v]) => v.level >= (SKILL_DEFS[k]?.maxLevel||99)).length;
+    total *= (1 + maxedCount * 0.05);
+  }
+
+  // Reality Engine: all multipliers squared
+  if (skillLevel('realityEngine') > 0) {
+    total = total * total / (state.alchemyBPS || 1); // square everything except alchemy
+    // simplified: just square the total (it's OP, that's the point)
+    total = Math.pow(total, 0.5) * total; // ≈ total^1.5 to avoid insane numbers
+  }
+
+  // Overflow bonus
+  if (isOverflowing) total *= 3;
+
+  return total;
 }
 
-// ── Canvas / Physics ──
+function getGenBPS(gen) {
+  if (gen.count === 0 || !isGenUnlocked(gen.id)) return 0;
+  // Recalculate for just this gen (simplified)
+  let rate = gen.baseRate;
+  if (gen.id === 'qfabric') rate = 1000 * (state.prestiges || 1);
+  let perUnit = rate;
+
+  const milestones = GEN_MILESTONES.filter(m => m.genId === gen.id && gen.count >= m.threshold);
+  let msMulti = 1;
+  for (const m of milestones) msMulti *= m.multiplier;
+  const milBoostLevel = skillLevel('milestoneBoost');
+  if (milBoostLevel > 0) msMulti = Math.pow(msMulti, 1 + milBoostLevel * 0.5);
+  perUnit *= msMulti;
+
+  if (state.upgrades.find(u => u.id === 'overclock')?.bought) perUnit *= 2;
+  if (state.upgrades.find(u => u.id === 'magnet')?.bought) perUnit *= 1.5;
+  if (state.upgrades.find(u => u.id === 'realityAnchor')?.bought) perUnit *= 3;
+  if ((gen.id === 'dropper' || gen.id === 'launcher') && state.upgrades.find(u => u.id === 'hyperDrop')?.bought) perUnit *= 3;
+
+  const masteryLevel = skillLevel('generatorMastery');
+  if (masteryLevel > 0 && gen.count >= 50) perUnit *= Math.pow(3, masteryLevel);
+
+  return perUnit * gen.count;
+}
+
+function isGenUnlocked(genId) {
+  if (genId === 'overflow') return state.overflowActive || state.overflowUnlocked;
+  if (genId === 'qfabric') return skillLevel('quantumTunneling') > 0;
+  if (genId === 'molecular') return hasResearch('molecularGen');
+  if (genId === 'cosmic') return hasResearch('cosmicGen');
+  return true;
+}
+
+function canPrestige() {
+  return state.totalBalls >= 10000;
+}
+
+function getPrestigeReward() {
+  let pp = Math.max(1, Math.floor(Math.sqrt(state.totalBalls / 10000)));
+  // Ascension Bonus
+  pp *= (1 + skillLevel('ascensionBonus') * 0.1);
+  // Quantum Computing research
+  if (hasResearch('quantumComp')) pp *= 1.5;
+  return Math.floor(pp);
+}
+
+function getFusionBonus() {
+  let bonus = 0;
+  for (const tier of FUSION_TIERS) {
+    const count = state.fusionBalls[tier.id] || 0;
+    bonus += count * tier.bpsBonus;
+  }
+  // Fusion Expert skill
+  const fusionExpLevel = skillLevel('fusionExpert');
+  if (fusionExpLevel > 0) bonus *= (1 + fusionExpLevel * 0.25);
+  return bonus;
+}
+
+function getFusionCost(tierId) {
+  const tier = FUSION_TIERS.find(t => t.id === tierId);
+  let cost = tier.cost;
+  if (hasResearch('fusionTech')) cost *= 0.5;
+  return Math.floor(cost);
+}
+
+function getSpinCooldown() {
+  let cd = 600; // 10 minutes
+  if (hasResearch('chronoAccel')) cd -= 180;
+  const luckyStreakLevel = skillLevel('luckyStreak');
+  if (luckyStreakLevel > 0) cd *= (1 - luckyStreakLevel * 0.15);
+  return Math.max(60, cd) * 1000;
+}
+
+function getRushInterval() {
+  let interval = 1800; // 30 minutes
+  if (hasResearch('ballStorm')) interval = 1200; // 20 minutes
+  return interval * 1000;
+}
+
+// ── Toast system ──
+function showToast(message, type = 'default', icon = '') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.innerHTML = (icon ? `<span class="toast-icon">${icon}</span>` : '') + message;
+  container.appendChild(toast);
+  // Remove after animation
+  setTimeout(() => toast.remove(), 3000);
+  // Cap max toasts
+  while (container.children.length > 5) container.removeChild(container.firstChild);
+}
+
+// ── Welcome back modal ──
+function showWelcomeBack(seconds, balls) {
+  const modal = document.getElementById('welcome-modal-overlay');
+  const body = document.getElementById('welcome-modal-body');
+  body.innerHTML = `
+    You were away for <strong>${formatTime(seconds)}</strong>.<br>
+    Your factories produced <strong>${formatNum(balls)}</strong> balls while you were gone!
+  `;
+  modal.classList.add('visible');
+}
+
+function closeWelcomeModal() {
+  document.getElementById('welcome-modal-overlay').classList.remove('visible');
+}
+
+// ══════════════════════════════════════════════════════
+//  TAB SYSTEM
+// ══════════════════════════════════════════════════════
+
+function switchTab(tabId) {
+  // Check if tab is locked
+  const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+  if (btn?.classList.contains('locked')) return;
+
+  activeTab = tabId;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn?.classList.add('active');
+  const panel = document.getElementById('panel-' + tabId);
+  if (panel) panel.classList.add('active');
+  renderActiveTab();
+}
+
+function updateTabLocks() {
+  const researchBtn = document.querySelector('.tab-btn[data-tab="research"]');
+  const challengeBtn = document.querySelector('.tab-btn[data-tab="challenges"]');
+  if (researchBtn) {
+    if (state.prestiges >= 5 || state.completedResearch.length > 0) {
+      researchBtn.classList.remove('locked');
+    }
+  }
+  if (challengeBtn) {
+    if (state.prestiges >= 10 || Object.keys(state.challengeCompleted).length > 0) {
+      challengeBtn.classList.remove('locked');
+    }
+  }
+}
+
+function renderActiveTab() {
+  switch (activeTab) {
+    case 'generators': renderGenerators(); renderMilestones(); break;
+    case 'upgrades': renderUpgrades(); break;
+    case 'skills': renderSkillTree(); break;
+    case 'minigames': renderFusionLab(); renderSpinUI(); renderBallRushInfo(); break;
+    case 'research': renderResearch(); break;
+    case 'challenges': renderChallenges(); break;
+    case 'achievements': renderAchievements(); break;
+    case 'stats': renderStats(); break;
+  }
+}
+
+function setBuyAmount(amount) {
+  if (amount > 1 && skillLevel('bulkBuy') < 1) return;
+  buyAmount = amount;
+  document.querySelectorAll('.buy-amt-btn').forEach((btn, i) => {
+    const amounts = [1, 10, 100, -1];
+    btn.classList.toggle('active', amounts[i] === amount);
+    if (amounts[i] > 1 || amounts[i] === -1) {
+      btn.classList.toggle('locked', skillLevel('bulkBuy') < 1);
+    }
+  });
+  renderGenerators();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: GENERATORS
+// ══════════════════════════════════════════════════════
+
+function renderGenerators() {
+  const el = document.getElementById('generators');
+  let html = '';
+
+  for (const gen of state.generators) {
+    if (!isGenUnlocked(gen.id)) continue;
+
+    const vis = GEN_VISUALS[gen.id] || { emoji: '❓', color: '#888' };
+    let qty = buyAmount === -1 ? getMaxBuyable(gen).count : buyAmount;
+    if (qty < 1) qty = 1;
+    let cost;
+    if (buyAmount === -1) {
+      const mb = getMaxBuyable(gen);
+      cost = mb.totalCost;
+      qty = mb.count;
+    } else {
+      cost = getGenCost(gen, qty);
+    }
+    const canBuy = state.balls >= cost && qty > 0;
+    // Challenge: max gen types
+    let typeBlocked = false;
+    if (state.activeChallenge) {
+      const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+      if (cDef?.maxGenTypes && gen.count === 0) {
+        const currentTypes = state.generators.filter(g => g.count > 0).length;
+        if (currentTypes >= cDef.maxGenTypes) typeBlocked = true;
+      }
+    }
+
+    const showBPS = skillLevel('omniscience') > 0;
+    const genBps = showBPS ? getGenBPS(gen) : 0;
+
+    html += `<div class="upgrade-btn ${canBuy && !typeBlocked ? '' : 'locked'}" onclick="buyGenerator('${gen.id}', ${qty})" style="border-left: 3px solid ${vis.color}">
+      <div class="top-row">
+        <span class="name">${vis.emoji} ${gen.name}</span>
+        <span class="cost">${formatNum(cost)} 🔵</span>
+      </div>
+      <div class="desc">${gen.desc}${showBPS && gen.count > 0 ? ` — <span style="color:${vis.color}">${formatNum(genBps)} BPS</span>` : ''}</div>
+      <div class="top-row">
+        <span class="level">Owned: ${gen.count}${qty > 1 ? ` (+${qty})` : ''}</span>
+        <span class="desc">${formatNum(gen.baseRate * gen.count)}/s base</span>
+      </div>
+    </div>`;
+  }
+  el.innerHTML = html;
+
+  // Update buy amount buttons
+  const bar = document.getElementById('buy-amount-bar');
+  const btns = bar.querySelectorAll('.buy-amt-btn');
+  [1, 10, 100, -1].forEach((amt, i) => {
+    if (amt > 1 || amt === -1) {
+      btns[i].classList.toggle('locked', skillLevel('bulkBuy') < 1);
+    }
+    btns[i].classList.toggle('active', buyAmount === amt);
+  });
+}
+
+function buyGenerator(id, quantity) {
+  const gen = state.generators.find(g => g.id === id);
+  if (!gen) return;
+
+  // Challenge: max gen types
+  if (state.activeChallenge) {
+    const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+    if (cDef?.maxGenTypes && gen.count === 0) {
+      const currentTypes = state.generators.filter(g => g.count > 0).length;
+      if (currentTypes >= cDef.maxGenTypes) return;
+    }
+  }
+
+  if (buyAmount === -1) {
+    const mb = getMaxBuyable(gen);
+    if (mb.count > 0 && state.balls >= mb.totalCost) {
+      state.balls -= mb.totalCost;
+      gen.count += mb.count;
+    }
+  } else {
+    const cost = getGenCost(gen, quantity);
+    if (state.balls >= cost) {
+      state.balls -= cost;
+      gen.count += quantity;
+    }
+  }
+
+  renderGenerators();
+  renderMilestones();
+  checkOverflow();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: MILESTONES
+// ══════════════════════════════════════════════════════
+
+function renderMilestones() {
+  const section = document.getElementById('milestones-section');
+  const el = document.getElementById('milestones');
+  const activeGens = state.generators.filter(g => g.count > 0 && isGenUnlocked(g.id));
+  if (activeGens.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = '';
+
+  let html = '';
+  for (const gen of activeGens) {
+    const vis = GEN_VISUALS[gen.id] || { emoji: '❓', color: '#888' };
+    const ms = GEN_MILESTONES.filter(m => m.genId === gen.id);
+    if (ms.length === 0) continue;
+    const nextMs = ms.find(m => gen.count < m.threshold) || ms[ms.length - 1];
+    const pct = Math.min(100, (gen.count / nextMs.threshold) * 100);
+
+    html += `<div class="milestone-row">
+      <div class="ms-header">
+        <span>${vis.emoji} ${gen.name}</span>
+        <span>${gen.count} / ${nextMs.threshold}</span>
+      </div>
+      <div class="ms-bar-bg">
+        <div class="ms-bar-fill" style="width:${pct}%;background:${vis.color}"></div>
+      </div>
+      <div class="ms-badges">
+        ${ms.map(m => `<span class="ms-badge ${gen.count >= m.threshold ? 'unlocked' : 'locked'}">${m.threshold}: ${m.name}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: UPGRADES
+// ══════════════════════════════════════════════════════
+
+function renderUpgrades() {
+  const el = document.getElementById('upgrades');
+  let html = '';
+  for (const up of state.upgrades) {
+    if (up.requiresOverflow && !state.overflowActive) continue;
+    if (up.bought) {
+      html += `<div class="upgrade-btn maxed" style="opacity:0.4">
+        <div class="top-row"><span class="name">✓ ${up.name}</span></div>
+        <div class="desc">${up.desc}</div>
+      </div>`;
+    } else {
+      const canBuy = state.balls >= up.cost;
+      html += `<div class="upgrade-btn ${canBuy ? '' : 'locked'}" onclick="buyUpgrade('${up.id}')">
+        <div class="top-row">
+          <span class="name">${up.name}</span>
+          <span class="cost">${formatNum(up.cost)} 🔵</span>
+        </div>
+        <div class="desc">${up.desc}</div>
+      </div>`;
+    }
+  }
+  el.innerHTML = html;
+}
+
+function buyUpgrade(id) {
+  const up = state.upgrades.find(u => u.id === id);
+  if (!up || up.bought || state.balls < up.cost) return;
+  state.balls -= up.cost;
+  up.bought = true;
+  renderUpgrades();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: SKILL TREE
+// ══════════════════════════════════════════════════════
+
+function renderSkillTree() {
+  const el = document.getElementById('skill-tree');
+  const tl = totalSkillLevels();
+  const pp = state.prestigePoints;
+  const prestiges = state.prestiges;
+
+  // Update prestige button
+  const pBtn = document.getElementById('prestige-btn');
+  const canP = canPrestige();
+  const ppReward = getPrestigeReward();
+  pBtn.classList.toggle('locked', !canP);
+  pBtn.classList.toggle('can-prestige', canP);
+  document.getElementById('prestige-desc').textContent = canP
+    ? `Reset for ${ppReward} PP (from ${formatNum(state.totalBalls)} balls)`
+    : `Need 10,000 total balls (have ${formatNum(state.totalBalls)})`;
+
+  const tierBadge = document.getElementById('prestige-tier-badge');
+  if (prestiges > 0) {
+    const tier = prestiges >= 50 ? '💎' : prestiges >= 25 ? '👑' : prestiges >= 10 ? '🌟' : prestiges >= 5 ? '⭐' : '✦';
+    tierBadge.textContent = `${tier} ×${prestiges}`;
+  }
+
+  document.getElementById('pp-count').textContent = pp;
+
+  let html = '';
+  for (let tier = 1; tier <= 5; tier++) {
+    const req = TIER_REQS[tier];
+    const locked = tl < req.totalLevels || prestiges < req.prestiges;
+    const headerClass = `tier-${tier}-header`;
+    const reqText = req.totalLevels > 0 || req.prestiges > 0
+      ? `Requires: ${req.totalLevels > 0 ? req.totalLevels + ' skill levels' : ''}${req.totalLevels > 0 && req.prestiges > 0 ? ' + ' : ''}${req.prestiges > 0 ? req.prestiges + ' prestiges' : ''}`
+      : 'No requirements';
+
+    html += `<div class="skill-tier-header ${headerClass} ${locked ? 'locked' : ''}">
+      ${TIER_NAMES[tier]}
+      ${locked ? `<span class="tier-req">${reqText} (${tl}/${req.totalLevels} levels, ${prestiges}/${req.prestiges} prestiges)</span>` : `<span class="tier-req">${reqText} ✓</span>`}
+    </div>`;
+
+    const tierSkills = Object.entries(SKILL_DEFS).filter(([, d]) => d.tier === tier);
+    for (const [id, def] of tierSkills) {
+      const lv = skillLevel(id);
+      const maxed = lv >= def.maxLevel;
+      const cost = skillCost(id);
+      const canBuyS = !locked && !maxed && pp >= cost;
+
+      html += `<div class="skill-btn tier-${tier} ${locked ? 'locked' : maxed ? 'maxed' : canBuyS ? '' : 'locked'}" onclick="buySkill('${id}')">
+        <div class="top-row">
+          <span class="name">${def.name}</span>
+          <span class="cost">${maxed ? 'MAXED' : cost + ' PP'}</span>
+        </div>
+        <div class="desc">${def.desc}</div>
+        <div class="level">Level ${lv} / ${def.maxLevel}</div>
+      </div>`;
+    }
+  }
+  el.innerHTML = html;
+}
+
+function buySkill(id) {
+  const def = SKILL_DEFS[id];
+  if (!def) return;
+  const lv = skillLevel(id);
+  if (lv >= def.maxLevel) return;
+
+  const tier = def.tier;
+  const req = TIER_REQS[tier];
+  const tl = totalSkillLevels();
+  if (tl < req.totalLevels || state.prestiges < req.prestiges) return;
+
+  const cost = skillCost(id);
+  if (state.prestigePoints < cost) return;
+
+  state.prestigePoints -= cost;
+  state.skills[id].level++;
+  renderSkillTree();
+}
+
+// ══════════════════════════════════════════════════════
+//  PRESTIGE
+// ══════════════════════════════════════════════════════
+
+function openPrestigeModal() {
+  if (!canPrestige()) return;
+  const pp = getPrestigeReward();
+  const body = document.getElementById('prestige-modal-body');
+  const infinite = skillLevel('infinitePrestige') > 0;
+  body.innerHTML = infinite
+    ? `You will gain <strong>${pp} Prestige Points</strong>.<br>Your generators will NOT be reset! (Infinite Prestige)`
+    : `This will <strong>reset all your balls and generators</strong>.<br>You will gain <strong>${pp} Prestige Points</strong> to spend on skills.<br>Your skills and fusion balls are kept.`;
+  document.getElementById('prestige-modal-overlay').classList.add('visible');
+}
+
+function closePrestigeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('prestige-modal-overlay').classList.remove('visible');
+}
+
+function confirmPrestige() {
+  closePrestigeModal();
+  doPrestige();
+}
+
+function doPrestige() {
+  if (!canPrestige()) return;
+  const pp = getPrestigeReward();
+  state.prestigePoints += pp;
+  state.totalPPEarned += pp;
+  state.prestiges++;
+  state.prestigeMulti = 1 + state.prestiges * 0.1;
+
+  const infinite = skillLevel('infinitePrestige') > 0;
+  const rebirthLevel = skillLevel('rebirthMemory');
+  const keepPercent = Math.min(0.25, rebirthLevel * 0.05);
+
+  if (!infinite) {
+    // Save generator counts for rebirth memory
+    const savedCounts = {};
+    if (keepPercent > 0) {
+      for (const gen of state.generators) {
+        savedCounts[gen.id] = Math.floor(gen.count * keepPercent);
+      }
+    }
+
+    // Reset
+    state.balls = 0;
+    state.totalBalls = 0;
+    for (const gen of state.generators) {
+      gen.count = savedCounts[gen.id] || 0;
+    }
+    for (const up of state.upgrades) {
+      up.bought = false;
+    }
+
+    // Starting balls skill
+    const startBalls = skillLevel('startingBalls') * 500;
+    if (startBalls > 0) {
+      state.balls += startBalls;
+      state.totalBalls += startBalls;
+    }
+  }
+
+  // Prestige Cascade: free random T1 skills
+  const cascadeLevel = skillLevel('prestigeCascade');
+  if (cascadeLevel > 0) {
+    const t1Skills = Object.entries(SKILL_DEFS).filter(([, d]) => d.tier === 1);
+    for (let i = 0; i < cascadeLevel; i++) {
+      const upgradeable = t1Skills.filter(([k, d]) => skillLevel(k) < d.maxLevel);
+      if (upgradeable.length > 0) {
+        const [randomId] = upgradeable[Math.floor(Math.random() * upgradeable.length)];
+        state.skills[randomId].level++;
+        showToast(`Prestige Cascade: free ${SKILL_DEFS[randomId].name} level!`, 'reward', '🎲');
+      }
+    }
+  }
+
+  state.lastPrestigeTime = Date.now();
+  state.combo = 1;
+  state.comboTimer = 0;
+
+  // Cancel active challenge
+  if (state.activeChallenge) {
+    state.activeChallenge = null;
+  }
+
+  showToast(`Prestige #${state.prestiges}! +${pp} PP`, 'reward', '⟳');
+  balls = [];
+  updateTabLocks();
+  saveGame();
+  renderActiveTab();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: ACHIEVEMENTS
+// ══════════════════════════════════════════════════════
+
+function renderAchievements() {
+  const el = document.getElementById('achievement-list');
+  const categories = [...new Set(ACHIEVEMENTS.map(a => a.cat))];
+  const unlocked = Object.keys(state.achievementsUnlocked).length;
+
+  document.getElementById('ach-count').textContent = unlocked;
+  document.getElementById('ach-total').textContent = ACHIEVEMENTS.length;
+  document.getElementById('ach-bonus').textContent = unlocked;
+
+  let html = '';
+  for (const cat of categories) {
+    html += `<div class="ach-category-title">${cat}</div>`;
+    html += '<div class="achievement-grid">';
+    for (const ach of ACHIEVEMENTS.filter(a => a.cat === cat)) {
+      const isUnlocked = state.achievementsUnlocked[ach.id];
+      html += `<div class="ach-card ${isUnlocked ? 'unlocked' : ''}">
+        <span class="ach-icon">${isUnlocked ? ach.icon : '🔒'}</span>
+        <div class="ach-name">${isUnlocked ? ach.name : '???'}</div>
+        <div>${isUnlocked ? ach.desc : '???'}</div>
+      </div>`;
+    }
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function checkAchievements() {
+  for (const ach of ACHIEVEMENTS) {
+    if (state.achievementsUnlocked[ach.id]) continue;
+    try {
+      if (ach.check(state)) {
+        state.achievementsUnlocked[ach.id] = Date.now();
+        showToast(`🏅 Achievement: ${ach.name} — ${ach.desc}`, 'achievement', ach.icon);
+      }
+    } catch(e) {}
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: FUSION LAB
+// ══════════════════════════════════════════════════════
+
+function renderFusionLab() {
+  const el = document.getElementById('fusion-lab');
+  let html = '<div class="fusion-grid">';
+  for (const tier of FUSION_TIERS) {
+    const count = state.fusionBalls[tier.id] || 0;
+    const cost = getFusionCost(tier.id);
+    const canBuy = state.balls >= cost;
+    html += `<div class="fusion-slot ${canBuy ? '' : 'locked'}" onclick="fuseBall('${tier.id}')">
+      <div class="f-icon">${tier.icon}</div>
+      <div class="f-name">${tier.name}</div>
+      <div class="f-count">${count}</div>
+      <div class="f-cost">${formatNum(cost)}</div>
+    </div>`;
+  }
+  html += '</div>';
+
+  // Collected balls display
+  const totalFused = Object.values(state.fusionBalls).reduce((a, v) => a + v, 0);
+  if (totalFused > 0) {
+    html += '<div style="margin-top:8px; font-size:11px; color:#888">Collected fusion balls (persist through prestige):</div>';
+    html += '<div class="fusion-collected">';
+    for (const tier of FUSION_TIERS) {
+      const count = state.fusionBalls[tier.id] || 0;
+      for (let i = 0; i < Math.min(count, 20); i++) {
+        html += `<div class="fusion-ball-owned" style="border-color:${tier.color}; background:${tier.color}22">${tier.icon}</div>`;
+      }
+      if (count > 20) html += `<div style="font-size:10px;color:${tier.color};align-self:center">+${count - 20}</div>`;
+    }
+    html += '</div>';
+  }
+  html += `<div style="margin-top:8px; font-size:11px; color:#5a8">Total BPS bonus from fusion: +${(getFusionBonus() * 100).toFixed(0)}%</div>`;
+  el.innerHTML = html;
+}
+
+function fuseBall(tierId) {
+  const cost = getFusionCost(tierId);
+  if (state.balls < cost) return;
+  state.balls -= cost;
+  state.fusionBalls[tierId] = (state.fusionBalls[tierId] || 0) + 1;
+  showToast(`Fused a ${tierId} ball! +${(FUSION_TIERS.find(t => t.id === tierId).bpsBonus * 100)}% BPS`, 'reward', FUSION_TIERS.find(t => t.id === tierId).icon);
+  renderFusionLab();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: LUCKY SPIN
+// ══════════════════════════════════════════════════════
+
+// spinRotation & spinning declared earlier
+
+function renderSpinUI() {
+  const el = document.getElementById('lucky-spin');
+  const now = Date.now();
+  const cooldown = getSpinCooldown();
+  const timeSince = now - state.lastSpinTime;
+  const ready = timeSince >= cooldown;
+
+  let html = '<div class="spin-container">';
+
+  // Simple wheel visual
+  const segColors = ['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#1abc9c','#e67e22','#e91e63'];
+  html += `<div class="spin-wheel" id="spin-wheel" style="transform: rotate(${spinRotation}deg)">`;
+  for (let i = 0; i < SPIN_REWARDS.length; i++) {
+    const angle = (360 / SPIN_REWARDS.length) * i;
+    const rad = angle * Math.PI / 180;
+    const x = 100 + 55 * Math.cos(rad) - 12;
+    const y = 100 + 55 * Math.sin(rad) - 12;
+    html += `<div style="position:absolute; left:${x}px; top:${y}px; font-size:20px; width:24px; text-align:center">${SPIN_REWARDS[i].icon}</div>`;
+  }
+  html += '</div>';
+  html += '<div style="font-size:20px; margin-top:-8px">▼</div>';
+
+  if (ready && !spinning) {
+    html += `<button class="spin-btn" onclick="doSpin()">🎰 SPIN!</button>`;
+  } else if (spinning) {
+    html += `<div class="spin-timer">Spinning...</div>`;
+  } else {
+    const remaining = Math.ceil((cooldown - timeSince) / 1000);
+    html += `<button class="spin-btn locked">🎰 SPIN</button>`;
+    html += `<div class="spin-timer">Next spin in: ${formatTime(remaining)}</div>`;
+  }
+  html += '<div class="spin-result" id="spin-result"></div>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function doSpin() {
+  if (spinning) return;
+  const now = Date.now();
+  if (now - state.lastSpinTime < getSpinCooldown()) return;
+
+  spinning = true;
+  state.lastSpinTime = now;
+  state.totalSpins++;
+
+  // Weighted random
+  const totalWeight = SPIN_REWARDS.reduce((a, r) => a + r.weight, 0);
+  let rand = Math.random() * totalWeight;
+  let chosen = SPIN_REWARDS[0];
+  for (const r of SPIN_REWARDS) {
+    rand -= r.weight;
+    if (rand <= 0) { chosen = r; break; }
+  }
+
+  // Animate wheel
+  const targetAngle = spinRotation + 1440 + Math.random() * 360;
+  spinRotation = targetAngle;
+  const wheel = document.getElementById('spin-wheel');
+  if (wheel) wheel.style.transform = `rotate(${targetAngle}deg)`;
+
+  setTimeout(() => {
+    spinning = false;
+    applySpinReward(chosen);
+    renderSpinUI();
+  }, 3200);
+
+  renderSpinUI();
+}
+
+function applySpinReward(reward) {
+  const bps = getBPS();
+  switch (reward.action) {
+    case 'doubleProd':
+      state.doubleProdUntil = Date.now() + 30000;
+      showToast(`${reward.icon} ${reward.name}!`, 'reward');
+      break;
+    case 'instantBalls': {
+      const gain = Math.max(100, Math.floor(bps * 10));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'smallBalls': {
+      const gain = Math.max(50, Math.floor(bps * 5));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'freeGen': {
+      const available = state.generators.filter(g => isGenUnlocked(g.id) && g.baseCost <= state.totalBallsEver * 10);
+      if (available.length > 0) {
+        const gen = available[Math.floor(Math.random() * available.length)];
+        gen.count++;
+        showToast(`${reward.icon} Free ${gen.name}!`, 'reward');
+      }
+      break;
+    }
+    case 'ppFragment':
+      state.ppFragments++;
+      if (state.ppFragments >= 10) {
+        state.ppFragments -= 10;
+        state.prestigePoints++;
+        state.totalPPEarned++;
+        showToast(`${reward.icon} PP Fragment (10/10)! +1 Prestige Point!`, 'reward');
+      } else {
+        showToast(`${reward.icon} PP Fragment (${state.ppFragments}/10)`, 'reward');
+      }
+      break;
+    case 'maxCombo':
+      state.combo = 20 + skillLevel('maxCombo') * 20;
+      state.comboTimer = 5;
+      showToast(`${reward.icon} COMBO MAXED!`, 'reward');
+      break;
+    case 'jackpot': {
+      const gain = Math.max(1000, Math.floor(bps * 100));
+      state.balls += gain;
+      state.totalBalls += gain;
+      state.totalBallsEver += gain;
+      showToast(`${reward.icon} JACKPOT! +${formatNum(gain)} balls!`, 'reward');
+      break;
+    }
+    case 'clickBoost':
+      state.clickBoostUntil = Date.now() + 30000;
+      showToast(`${reward.icon} ${reward.name}!`, 'reward');
+      break;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: BALL RUSH
+// ══════════════════════════════════════════════════════
+
+// rushActive & rushEndTime declared earlier
+
+function renderBallRushInfo() {
+  const el = document.getElementById('ball-rush-info');
+  const now = Date.now();
+  const interval = getRushInterval();
+  const timeSince = now - state.lastRushTime;
+
+  if (rushActive) {
+    const remaining = Math.ceil((rushEndTime - now) / 1000);
+    el.innerHTML = `<div style="text-align:center;font-size:14px;font-weight:700;color:#ff6b00">⚡ RUSH ACTIVE! ${remaining}s remaining — Click balls for 10× value!</div>`;
+  } else {
+    const remaining = Math.ceil((interval - timeSince) / 1000);
+    if (remaining <= 0) {
+      el.innerHTML = `<div style="text-align:center;font-size:12px;color:#888">⚡ Ball Rush is ready! It will trigger soon...</div>`;
+    } else {
+      el.innerHTML = `<div style="text-align:center;font-size:12px;color:#666">Next Ball Rush in: ${formatTime(remaining)}<br><span style="font-size:10px">Balls rain down and are worth 10× when clicked!</span></div>`;
+    }
+  }
+}
+
+function startBallRush() {
+  rushActive = true;
+  const rushDuration = 15000 + skillLevel('rushEnhancer') * 5000;
+  rushEndTime = Date.now() + rushDuration;
+  state.lastRushTime = Date.now();
+  document.getElementById('ball-rush-banner').style.display = 'block';
+  showToast('⚡ BALL RUSH! Click fast for 10× rewards!', 'event', '⚡');
+}
+
+function endBallRush() {
+  rushActive = false;
+  document.getElementById('ball-rush-banner').style.display = 'none';
+  state.rushesCompleted++;
+  showToast('Ball Rush ended!', 'event', '⚡');
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: RESEARCH
+// ══════════════════════════════════════════════════════
+
+function renderResearch() {
+  const el = document.getElementById('research-list');
+  const queueEl = document.getElementById('research-queue');
+  const now = Date.now();
+
+  // Show active research queue
+  let qHtml = '';
+  if (state.activeResearch.length > 0) {
+    qHtml += '<div class="section-title">🔬 Active Research</div>';
+    for (const active of state.activeResearch) {
+      const def = RESEARCH_DEFS.find(r => r.id === active.id);
+      const elapsed = (now - active.startTime) / 1000;
+      const pct = Math.min(100, (elapsed / active.duration) * 100);
+      const remaining = Math.max(0, active.duration - elapsed);
+      qHtml += `<div class="research-card active">
+        <div class="r-top"><span class="r-name">${def.name}</span><span class="r-time">${formatTime(remaining)}</span></div>
+        <div class="r-bar"><div class="r-bar-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    }
+  }
+  queueEl.innerHTML = qHtml;
+
+  // All research
+  let html = '<div class="section-title">📋 Available Research</div>';
+  for (const rd of RESEARCH_DEFS) {
+    const completed = state.completedResearch.includes(rd.reward);
+    const researching = isResearching(rd.id);
+    const slotsFull = state.activeResearch.length >= maxResearchSlots();
+    const locked = completed || researching || slotsFull;
+
+    html += `<div class="research-card ${completed ? 'completed' : researching ? 'active' : locked ? 'locked' : ''}" onclick="startResearch('${rd.id}')">
+      <div class="r-top">
+        <span class="r-name">${completed ? '✓ ' : ''}${rd.name}</span>
+        <span class="r-time">${formatTime(rd.time)}</span>
+      </div>
+      <div class="r-desc">${rd.desc}</div>
+      ${completed ? '<div class="r-status">✓ Completed</div>' : ''}
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function startResearch(id) {
+  if (state.completedResearch.includes(RESEARCH_DEFS.find(r => r.id === id)?.reward)) return;
+  if (isResearching(id)) return;
+  if (state.activeResearch.length >= maxResearchSlots()) return;
+
+  const def = RESEARCH_DEFS.find(r => r.id === id);
+  if (!def) return;
+
+  state.activeResearch.push({
+    id: def.id,
+    startTime: Date.now(),
+    duration: def.time * (1 - skillLevel('researchSpeed') * 0.15),
+  });
+
+  showToast(`Started research: ${def.name}`, 'event', '🔬');
+  renderResearch();
+}
+
+function processResearchCompletion() {
+  const now = Date.now();
+  const completed = [];
+  state.activeResearch = state.activeResearch.filter(r => {
+    const elapsed = (now - r.startTime) / 1000;
+    const def = RESEARCH_DEFS.find(d => d.id === r.id);
+    if (elapsed >= r.duration) {
+      if (def && !state.completedResearch.includes(def.reward)) {
+        state.completedResearch.push(def.reward);
+        completed.push(def);
+      }
+      return false;
+    }
+    return true;
+  });
+
+  for (const def of completed) {
+    showToast(`Research complete: ${def.name} — ${def.desc}`, 'reward', '🔬');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: CHALLENGES
+// ══════════════════════════════════════════════════════
+
+// pendingChallengeId declared earlier
+
+function renderChallenges() {
+  const el = document.getElementById('challenge-list');
+  let html = '';
+
+  if (state.activeChallenge) {
+    const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
+    const elapsed = (Date.now() - state.activeChallenge.startTime) / 1000;
+    html += `<div class="research-card active" style="border-color:#ff6b6b">
+      <div class="r-top"><span class="r-name" style="color:#f88">Active: ${cDef.name}</span></div>
+      <div class="r-desc">${cDef.desc}</div>
+      <div class="r-desc">Progress: ${formatNum(state.totalBalls)} / ${formatNum(cDef.goal)} balls</div>
+      ${cDef.timeLimit ? `<div class="r-desc">Time: ${formatTime(elapsed)} / ${formatTime(cDef.timeLimit)}</div>` : ''}
+      <div class="r-desc" style="color:#a66">Restriction: ${cDef.restriction}</div>
+      <button class="btn-cancel" style="margin-top:8px;font-size:11px" onclick="abandonChallenge()">Abandon</button>
+    </div>`;
+  }
+
+  for (const cDef of CHALLENGE_DEFS) {
+    const completed = state.challengeCompleted[cDef.rewardId];
+    const isActive = state.activeChallenge?.id === cDef.id;
+    if (isActive) continue;
+
+    html += `<div class="challenge-card ${completed ? 'completed' : ''}" onclick="openChallengeModal('${cDef.id}')">
+      <div class="c-top">
+        <span class="c-name">${cDef.name}</span>
+        <span class="c-status" style="color:${completed ? '#5a8' : '#666'}">${completed ? '✓ DONE' : 'Available'}</span>
+      </div>
+      <div class="c-desc">${cDef.desc}</div>
+      <div class="c-restriction">⚠ ${cDef.restriction}</div>
+      <div class="c-reward">🎁 Reward: ${cDef.reward}</div>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function openChallengeModal(id) {
+  if (state.activeChallenge) return;
+  const cDef = CHALLENGE_DEFS.find(c => c.id === id);
+  if (!cDef) return;
+  pendingChallengeId = id;
+  document.getElementById('challenge-modal-title').textContent = `⚔️ Start ${cDef.name}?`;
+  document.getElementById('challenge-modal-body').innerHTML = `
+    <strong>${cDef.desc}</strong><br><br>
+    Restriction: ${cDef.restriction}<br>
+    Goal: ${formatNum(cDef.goal)} balls<br><br>
+    This will prestige and start a special run.
+    ${cDef.timeLimit ? `<br>Time limit: ${formatTime(cDef.timeLimit)}` : ''}
+  `;
+  document.getElementById('challenge-modal-overlay').classList.add('visible');
+}
+
+function closeChallengeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('challenge-modal-overlay').classList.remove('visible');
+  pendingChallengeId = null;
+}
+
+function confirmStartChallenge() {
+  closeChallengeModal();
+  if (!pendingChallengeId) return;
+  startChallenge(pendingChallengeId);
+}
+
+function startChallenge(id) {
+  const cDef = CHALLENGE_DEFS.find(c => c.id === id);
+  if (!cDef) return;
+
+  // Do a prestige-like reset
+  state.balls = 0;
+  state.totalBalls = 0;
+  for (const gen of state.generators) gen.count = 0;
+  for (const up of state.upgrades) up.bought = false;
+  state.combo = 1;
+  state.comboTimer = 0;
+  balls = [];
+
+  state.activeChallenge = {
+    id: cDef.id,
+    startTime: Date.now(),
+    startBalls: 0,
+    startClicks: state.totalClicks,
+    noClick: cDef.noClick || false,
+    noSpecialBalls: cDef.noSpecialBalls || false,
+    maxGenTypes: cDef.maxGenTypes || null,
+    costMulti: cDef.costMulti || 1,
+    frenzyAlways: cDef.frenzyAlways || false,
+    timeLimit: cDef.timeLimit || null,
+    goal: cDef.goal,
+    rewardId: cDef.rewardId,
+  };
+
+  showToast(`Challenge started: ${cDef.name}!`, 'event', '⚔️');
+  renderActiveTab();
+}
+
+function abandonChallenge() {
+  state.activeChallenge = null;
+  showToast('Challenge abandoned.', 'default', '❌');
+  renderChallenges();
+}
+
+function checkChallengeCompletion() {
+  if (!state.activeChallenge) return;
+  const ch = state.activeChallenge;
+  const cDef = CHALLENGE_DEFS.find(c => c.id === ch.id);
+  if (!cDef) return;
+
+  // Check time limit
+  if (ch.timeLimit) {
+    const elapsed = (Date.now() - ch.startTime) / 1000;
+    if (elapsed > ch.timeLimit) {
+      showToast(`Challenge failed: ${cDef.name} — time's up!`, 'default', '❌');
+      state.activeChallenge = null;
+      return;
+    }
+  }
+
+  // Check goal
+  if (state.totalBalls >= ch.goal) {
+    state.challengeCompleted[ch.rewardId] = true;
+    showToast(`🏆 Challenge complete: ${cDef.name}! ${cDef.reward}`, 'achievement', '⚔️');
+    state.activeChallenge = null;
+    renderActiveTab();
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER: STATS
+// ══════════════════════════════════════════════════════
+
+function renderStats() {
+  const el = document.getElementById('stats-body');
+  const now = Date.now();
+  const playTime = now - state.gameStartTime;
+  const bps = getBPS();
+
+  let html = `
+    <div class="section-title">📊 Statistics</div>
+    <div class="stat-line"><span>Balls</span><span class="sv">${formatNum(state.balls)}</span></div>
+    <div class="stat-line"><span>Total Balls (this run)</span><span class="sv">${formatNum(state.totalBalls)}</span></div>
+    <div class="stat-line"><span>Total Balls (all time)</span><span class="sv">${formatNum(state.totalBallsEver)}</span></div>
+    <div class="stat-line"><span>Balls Per Second</span><span class="sv">${formatNum(bps)}</span></div>
+    <div class="stat-line"><span>Highest BPS</span><span class="sv">${formatNum(state.highestBPS)}</span></div>
+    <div class="stat-line"><span>Total Clicks</span><span class="sv">${state.totalClicks.toLocaleString()}</span></div>
+    <div class="stat-line"><span>Highest Combo</span><span class="sv">x${state.highestCombo}</span></div>
+    <div class="stat-line"><span>Golden Balls Clicked</span><span class="sv">${state.goldenClicks}</span></div>
+
+    <div class="section-title" style="margin-top:12px">⟳ Prestige</div>
+    <div class="stat-line"><span>Prestiges</span><span class="sv">${state.prestiges}</span></div>
+    <div class="stat-line"><span>Prestige Points</span><span class="sv">${state.prestigePoints}</span></div>
+    <div class="stat-line"><span>Total PP Earned</span><span class="sv">${state.totalPPEarned}</span></div>
+    <div class="stat-line"><span>Prestige Multiplier</span><span class="sv">${state.prestigeMulti.toFixed(1)}×</span></div>
+    <div class="stat-line"><span>Total Skill Levels</span><span class="sv">${totalSkillLevels()}</span></div>
+
+    <div class="section-title" style="margin-top:12px">🎮 Progress</div>
+    <div class="stat-line"><span>Play Time</span><span class="sv">${formatTime(playTime / 1000)}</span></div>
+    <div class="stat-line"><span>Achievements</span><span class="sv">${Object.keys(state.achievementsUnlocked).length} / ${ACHIEVEMENTS.length}</span></div>
+    <div class="stat-line"><span>Fusion Balls</span><span class="sv">${Object.values(state.fusionBalls).reduce((a,v) => a + v, 0)}</span></div>
+    <div class="stat-line"><span>Fusion BPS Bonus</span><span class="sv">+${(getFusionBonus() * 100).toFixed(0)}%</span></div>
+    <div class="stat-line"><span>Research Complete</span><span class="sv">${state.completedResearch.length} / ${RESEARCH_DEFS.length}</span></div>
+    <div class="stat-line"><span>Challenges Complete</span><span class="sv">${Object.values(state.challengeCompleted).filter(v=>v).length} / ${CHALLENGE_DEFS.length}</span></div>
+    <div class="stat-line"><span>Lucky Spins</span><span class="sv">${state.totalSpins}</span></div>
+    <div class="stat-line"><span>PP Fragments</span><span class="sv">${state.ppFragments}/10</span></div>
+    <div class="stat-line"><span>Ball Alchemy BPS</span><span class="sv">+${formatNum(state.alchemyBPS)}</span></div>
+    <div class="stat-line"><span>Ball Rushes</span><span class="sv">${state.rushesCompleted}</span></div>
+    <div class="stat-line"><span>Generator Types</span><span class="sv">${genTypesOwned()}</span></div>
+    <div class="stat-line"><span>Total Generators</span><span class="sv">${state.generators.reduce((a,g) => a + g.count, 0)}</span></div>
+
+    <div class="section-title" style="margin-top:12px">🔧 Active Boosts</div>
+  `;
+
+  if (now < state.doubleProdUntil) html += `<div class="stat-line"><span>⚡ 2× Production</span><span class="sv">${formatTime((state.doubleProdUntil - now)/1000)}</span></div>`;
+  if (now < state.clickBoostUntil) html += `<div class="stat-line"><span>👆 5× Click Power</span><span class="sv">${formatTime((state.clickBoostUntil - now)/1000)}</span></div>`;
+  if (now < state.goldenFrenzyUntil) html += `<div class="stat-line"><span>🌈 Golden Frenzy</span><span class="sv">${formatTime((state.goldenFrenzyUntil - now)/1000)}</span></div>`;
+  if (frenzyActive) html += `<div class="stat-line"><span>🎉 Ball Frenzy</span><span class="sv">Active!</span></div>`;
+
+  // Time Warp button
+  if (skillLevel('timeWarp') > 0) {
+    const twLevel = skillLevel('timeWarp');
+    const cooldown = (24 - (twLevel - 1) * 4) * 3600 * 1000;
+    const timeSince = now - state.lastTimeWarp;
+    const ready = timeSince >= cooldown;
+    html += `<div class="section-title" style="margin-top:12px">⏩ Time Warp</div>`;
+    if (ready) {
+      html += `<div class="upgrade-btn" onclick="doTimeWarp()"><div class="top-row"><span class="name">⏩ Activate Time Warp</span></div><div class="desc">Skip 4 hours of production</div></div>`;
+    } else {
+      html += `<div class="stat-line"><span>Cooldown</span><span class="sv">${formatTime((cooldown - timeSince)/1000)}</span></div>`;
+    }
+  }
+
+  // Reality Bending button
+  if (hasResearch('realityBend')) {
+    html += `<div class="section-title" style="margin-top:12px">🌀 Reality Bending</div>`;
+    html += `<div class="upgrade-btn" onclick="doRealityBend()"><div class="top-row"><span class="name">🌀 Sacrifice Generators</span></div><div class="desc">Sacrifice 50% of generators for 60s of 10× production</div></div>`;
+  }
+
+  html += `<div class="section-title" style="margin-top:16px">💾 Data</div>
+    <div class="upgrade-btn" onclick="if(confirm('Reset everything?')){localStorage.clear();location.reload()}">
+      <div class="name" style="color:#ff4444">🗑️ Hard Reset</div>
+      <div class="desc">Delete ALL save data and start fresh</div>
+    </div>`;
+
+  el.innerHTML = html;
+}
+
+function doTimeWarp() {
+  const bps = getBPS();
+  const gain = Math.floor(bps * 4 * 3600);
+  state.balls += gain;
+  state.totalBalls += gain;
+  state.totalBallsEver += gain;
+  state.lastTimeWarp = Date.now();
+  showToast(`⏩ Time Warp! +${formatNum(gain)} balls (4 hours)`, 'reward', '⏩');
+}
+
+function doRealityBend() {
+  // Sacrifice 50% of generators for 60s of 10x
+  for (const gen of state.generators) {
+    gen.count = Math.floor(gen.count / 2);
+  }
+  state.doubleProdUntil = Date.now() + 60000; // reuse double prod, stack is fine
+  showToast('🌀 Reality Bent! Generators sacrificed, 10× production for 60s!', 'reward', '🌀');
+}
+
+// ══════════════════════════════════════════════════════
+//  OVERFLOW CHECK
+// ══════════════════════════════════════════════════════
+
+function checkOverflow() {
+  if (state.overflowActive) return;
+  const totalGens = state.generators.reduce((a, g) => a + g.count, 0);
+  const threshold = 500;
+  if (totalGens >= threshold && !state.overflowUnlocked) {
+    state.overflowUnlocked = true;
+    state.overflowActive = true;
+    const banner = document.getElementById('overflow-banner');
+    banner.style.display = 'block';
+    document.getElementById('c').classList.add('overflow-active');
+    setTimeout(() => { banner.style.display = 'none'; }, 4000);
+    showToast('⚠️ OVERFLOW DETECTED! Reality is destabilizing! New content unlocked!', 'event', '⚠️');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  CANVAS & PHYSICS
+// ══════════════════════════════════════════════════════
+
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 let W, H;
-let balls = [];
-const BALL_COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#cc65fe','#ff9f43','#ee5a9f','#0abde3'];
-let hueShift = 0;
+
+// balls, floatingTexts, timers etc. declared in EARLY DECLARATIONS
 
 function resize() {
-  W = canvas.clientWidth;
-  H = canvas.clientHeight;
-  canvas.width = W * devicePixelRatio;
-  canvas.height = H * devicePixelRatio;
-  ctx.scale(devicePixelRatio, devicePixelRatio);
+  W = canvas.width = canvas.clientWidth;
+  H = canvas.height = canvas.clientHeight;
 }
 window.addEventListener('resize', resize);
-resize();
 
 function spawnBall(x, y, opts = {}) {
-  const baseR = hasUpgrade('bigBalls') ? 16 : 10;
-  const isGolden = hasUpgrade('golden') && Math.random() < getGoldenChance();
-  const isAnti = hasUpgrade('antimatter') && !isGolden && Math.random() < 0.05;
-  const isOverflow = state.overflowActive && !isGolden && !isAnti && Math.random() < getOverflowChance();
-  let r = baseR + Math.random() * 6;
-  if (state.overflowActive) r *= 1.3;
+  const baseR = (state.upgrades.find(u => u.id === 'bigBalls')?.bought) ? 14 : 8;
+  const r = opts.r || baseR + Math.random() * 4;
+  const isGolden = opts.golden || false;
+  const isOverflow = opts.overflow || false;
+  const isAntiGrav = opts.antiGrav || false;
+  const isRush = opts.rush || false;
+
+  // Color
+  let color;
+  if (isGolden) color = '#ffd700';
+  else if (isOverflow) color = '#ff0000';
+  else if (isAntiGrav) color = '#00ffcc';
+  else if (state.upgrades.find(u => u.id === 'rainbow')?.bought) {
+    color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+  } else {
+    const colors = ['#4d96ff', '#ff6b6b', '#ffd93d', '#6bcb77', '#cc65fe', '#ff9f43'];
+    color = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  const gravity = (state.upgrades.find(u => u.id === 'gravity')?.bought) ? 0.04 : 0.12;
+  const bounce = hasResearch('elasticBalls') ? -0.85 : -0.6;
+
   balls.push({
-    x: x ?? Math.random() * W,
-    y: y ?? -20,
-    vx: (Math.random() - 0.5) * 3 + (opts.vx || 0),
-    vy: opts.vy ?? (Math.random() * 2 - 1),
+    x: x || Math.random() * W,
+    y: y || -10,
+    vx: (Math.random() - 0.5) * 3,
+    vy: opts.vy || Math.random() * 2,
     r,
-    color: isGolden ? '#ffd700' : isAnti ? '#1a0030' : isOverflow ? '#00ccff' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
+    color,
+    gravity: isAntiGrav ? -0.04 : gravity,
+    bounce,
     golden: isGolden,
-    anti: isAnti,
     overflow: isOverflow,
+    antiGrav: isAntiGrav,
+    rush: isRush,
     trail: [],
-    life: 1,
-    birth: performance.now(),
+    life: 0,
   });
-  if (balls.length > 500) balls.splice(0, balls.length - 500);
+
+  // Cap balls for performance
+  const maxBalls = 200;
+  if (balls.length > maxBalls) balls.splice(0, balls.length - maxBalls);
 }
 
-function updateBalls(dt) {
-  const grav = hasUpgrade('lowGravity') ? 120 : 300;
-  for (let i = balls.length - 1; i >= 0; i--) {
-    const b = balls[i];
-    // Trail
-    if (hasUpgrade('ballTrails')) {
-      b.trail.push({ x: b.x, y: b.y });
-      if (b.trail.length > 8) b.trail.shift();
-    }
-    b.vy += grav * dt;
-    b.x += b.vx * dt * 60;
-    b.y += b.vy * dt;
-
-    // Bounce off walls
-    if (b.x - b.r < 0) { b.x = b.r; b.vx *= -0.7; }
-    if (b.x + b.r > W) { b.x = W - b.r; b.vx *= -0.7; }
-
-    // Bounce off floor
-    if (b.y + b.r > H) {
-      b.y = H - b.r;
-      b.vy *= -0.6;
-      b.vx *= 0.95;
-      if (Math.abs(b.vy) < 1) b.vy = 0;
-    }
-
-    // Fade old balls
-    const age = (performance.now() - b.birth) / 1000;
-    if (age > 8) {
-      b.life -= dt * 0.5;
-      if (b.life <= 0) { balls.splice(i, 1); continue; }
-    }
-  }
-}
-
-function drawBalls() {
-  hueShift += 0.5;
-  for (const b of balls) {
-    // Trails
-    if (hasUpgrade('ballTrails') && b.trail.length > 1) {
-      for (let t = 0; t < b.trail.length; t++) {
-        const alpha = (t / b.trail.length) * 0.3 * b.life;
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        ctx.arc(b.trail[t].x, b.trail[t].y, b.r * (t / b.trail.length) * 0.7, 0, Math.PI * 2);
-        ctx.fillStyle = b.color;
-        ctx.fill();
-      }
-    }
-
-    ctx.globalAlpha = b.life;
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-
-    if (hasUpgrade('rainbow') && !b.golden && !b.anti && !b.overflow) {
-      ctx.fillStyle = `hsl(${(hueShift + b.x + b.y) % 360}, 80%, 60%)`;
-    } else {
-      ctx.fillStyle = b.color;
-    }
-    ctx.fill();
-
-    // Shine
-    ctx.beginPath();
-    ctx.arc(b.x - b.r * 0.25, b.y - b.r * 0.25, b.r * 0.3, 0, Math.PI * 2);
-    ctx.fillStyle = b.golden ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.25)';
-    ctx.fill();
-
-    // Golden glow
-    if (b.golden) {
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r + 4, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255,215,0,${0.4 + 0.2 * Math.sin(performance.now()/200)})`;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-
-    // Antimatter glow
-    if (b.anti) {
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r + 6, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(100,0,200,${0.3 + 0.2 * Math.sin(performance.now()/150)})`;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r * 0.4, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(80,0,160,0.6)';
-      ctx.fill();
-    }
-
-    // Overflow ball — electric lightning arcs
-    if (b.overflow) {
-      const t = performance.now() / 100;
-      ctx.strokeStyle = `rgba(0,200,255,${0.5 + 0.3 * Math.sin(t)})`;
-      ctx.lineWidth = 1.5;
-      // Draw 3 crackling arcs
-      for (let arc = 0; arc < 3; arc++) {
-        const angle = t * 2 + arc * (Math.PI * 2 / 3);
-        const outerR = b.r + 6 + Math.sin(t * 3 + arc) * 3;
-        ctx.beginPath();
-        const sx = b.x + Math.cos(angle) * b.r * 0.5;
-        const sy = b.y + Math.sin(angle) * b.r * 0.5;
-        const ex = b.x + Math.cos(angle) * outerR;
-        const ey = b.y + Math.sin(angle) * outerR;
-        const midX = (sx + ex) / 2 + (Math.random() - 0.5) * 6;
-        const midY = (sy + ey) / 2 + (Math.random() - 0.5) * 6;
-        ctx.moveTo(sx, sy);
-        ctx.lineTo(midX, midY);
-        ctx.lineTo(ex, ey);
-        ctx.stroke();
-      }
-      // Outer glow
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r + 5, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(0,200,255,${0.2 + 0.15 * Math.sin(t * 2)})`;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-
-    ctx.globalAlpha = 1;
-  }
+function spawnFloatingText(x, y, text, color = '#ffd93d') {
+  floatingTexts.push({ x, y, text, color, life: 1.0 });
 }
 
 // ── Click handling ──
@@ -987,570 +2847,561 @@ canvas.addEventListener('click', (e) => {
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
 
+  // Check challenge: no click
+  if (state.activeChallenge?.noClick) return;
+
   state.totalClicks++;
-  let hitBall = false;
+
+  // Check if clicked on a ball
+  let clickedBall = null;
   for (let i = balls.length - 1; i >= 0; i--) {
     const b = balls[i];
-    const dx = mx - b.x, dy = my - b.y;
-    if (dx*dx + dy*dy < (b.r + 5) * (b.r + 5)) {
-      hitBall = true;
-      let value;
-      if (b.golden) value = getClickValue() * 100;
-      else if (b.overflow) value = getClickValue() * 50;
-      else value = getClickValue();
-      addBalls(value);
-      const fColor = b.golden ? '#ffd700' : b.overflow ? '#00ccff' : '#fff';
-      showFloater(mx, my, '+' + formatNum(value), fColor);
-
-      if (hasUpgrade('explosion')) {
-        for (let j = 0; j < 5; j++) {
-          spawnBall(b.x, b.y, { vx: (Math.random()-0.5)*8, vy: -Math.random()*8 });
-        }
-      }
-
+    const dx = mx - b.x;
+    const dy = my - b.y;
+    if (dx * dx + dy * dy < (b.r + 10) * (b.r + 10)) {
+      clickedBall = b;
       balls.splice(i, 1);
-
-      // Combo
-      state.combo = Math.min(state.combo + 1, getMaxCombo());
-      state.comboTimer = 2;
       break;
     }
   }
 
-  if (!hitBall) {
-    const cv = getClickValue();
-    addBalls(cv);
-    showFloater(mx, my, '+' + formatNum(cv), '#ffd93d');
-    spawnBall(mx, my);
-  }
+  let value = getClickValue();
+  let extra = '';
 
-  // Cascade Click: spawn extra balls per skill level
-  const cascadeLv = skillLevel('cascadeClick');
-  if (cascadeLv > 0) {
-    for (let c = 0; c < cascadeLv; c++) {
-      const cx = 30 + Math.random() * (W - 60);
-      const cy = 30 + Math.random() * (H - 60);
-      spawnBall(cx, cy);
-      addBalls(getClickValue());
-      showFloater(cx, cy, '+' + formatNum(getClickValue()), '#cc65fe');
+  if (clickedBall) {
+    // Combo
+    state.combo = Math.min(20 + skillLevel('maxCombo') * 20, state.combo + 1);
+    state.comboTimer = 3 + skillLevel('comboSustain');
+    if (state.combo > state.highestCombo) state.highestCombo = state.combo;
+
+    // Golden ball
+    if (clickedBall.golden) {
+      const goldenMulti = state.challengeCompleted?.darkModeReward ? 200 : 100;
+      value = Math.max(100, Math.floor(getBPS() * 10)) * goldenMulti;
+      extra = ' GOLDEN!';
+      state.goldenClicks++;
+
+      // Golden Frenzy skill
+      if (skillLevel('goldenFrenzy') > 0) {
+        const dur = skillLevel('goldenFrenzy') * 5000;
+        state.goldenFrenzyUntil = Math.max(state.goldenFrenzyUntil, Date.now()) + dur;
+      }
+    }
+
+    // Overflow ball
+    if (clickedBall.overflow) {
+      value = Math.max(1000, Math.floor(getBPS() * 30));
+      extra = ' OVERFLOW!';
+    }
+
+    // Rush ball
+    if (clickedBall.rush || rushActive) {
+      value *= 10;
+      extra = ' RUSH!';
+    }
+
+    // Ball Magnetism bonus already in getClickValue
+
+    // Explosion upgrade
+    if (state.upgrades.find(u => u.id === 'explosion')?.bought) {
+      for (let j = 0; j < 3; j++) {
+        spawnBall(clickedBall.x, clickedBall.y, { vy: -3 + Math.random() * -3 });
+      }
+    }
+
+    // Cascade Click skill
+    const cascadeLevel = skillLevel('cascadeClick');
+    if (cascadeLevel > 0) {
+      for (let j = 0; j < cascadeLevel; j++) {
+        spawnBall(clickedBall.x + (Math.random()-0.5)*30, clickedBall.y, { vy: -2 + Math.random() * -2 });
+      }
     }
   }
+
+  state.balls += value;
+  state.totalBalls += value;
+  state.totalBallsEver += value;
+
+  spawnFloatingText(mx, my, '+' + formatNum(value) + extra, clickedBall?.golden ? '#ffd700' : clickedBall?.overflow ? '#ff4444' : '#ffd93d');
 });
 
-function addBalls(n) {
-  state.balls += n;
-  state.totalBalls += n;
-  state.totalBallsEver += n;
-}
+// ── Visibility ──
+document.addEventListener('visibilitychange', () => {
+  tabFocused = !document.hidden;
+});
 
-// ── Overflow Event ──
-let overflowBannerTimer = 0;
-function checkOverflow() {
-  if (state.overflowActive) return; // already active
-  const threshold = getOverflowThreshold();
-  if (state.totalBallsEver >= threshold) {
-    state.overflowUnlocked = true;
-    state.overflowActive = true;
-    // Show banner for 3.6 seconds
-    const banner = document.getElementById('overflow-banner');
-    banner.style.display = 'block';
-    overflowBannerTimer = 3.6;
-    // Add overflow border to canvas
-    canvas.classList.add('overflow-active');
-  }
-}
+// ══════════════════════════════════════════════════════
+//  GAME LOOP
+// ══════════════════════════════════════════════════════
 
-// ── Floaters ──
-let floaters = [];
-function showFloater(x, y, text, color) {
-  floaters.push({ x, y, text, color, life: 1, vy: -2 });
-}
-function updateFloaters(dt) {
-  for (let i = floaters.length - 1; i >= 0; i--) {
-    const f = floaters[i];
-    f.y += f.vy;
-    f.life -= dt * 1.2;
-    if (f.life <= 0) floaters.splice(i, 1);
-  }
-}
-function drawFloaters() {
-  for (const f of floaters) {
-    ctx.globalAlpha = f.life;
-    ctx.fillStyle = f.color;
-    ctx.font = 'bold 18px system-ui';
-    ctx.textAlign = 'center';
-    ctx.fillText(f.text, f.x, f.y);
-  }
-  ctx.globalAlpha = 1;
-}
-
-// ── Formatting ──
-function formatNum(n) {
-  if (n < 1000) return Math.floor(n).toString();
-  if (n < 1e6) return (n/1000).toFixed(1) + 'K';
-  if (n < 1e9) return (n/1e6).toFixed(1) + 'M';
-  if (n < 1e12) return (n/1e9).toFixed(1) + 'B';
-  return (n/1e12).toFixed(1) + 'T';
-}
-
-function formatTime(ms) {
-  const s = Math.floor(ms / 1000);
-  const m = Math.floor(s / 60);
-  const h = Math.floor(m / 60);
-  if (h > 0) return `${h}h ${m%60}m`;
-  if (m > 0) return `${m}m ${s%60}s`;
-  return `${s}s`;
-}
-
-// ── UI ──
-function renderUI() {
-  document.getElementById('ball-count').textContent = formatNum(state.balls);
-
-  const curBPS = getBPS();
-  if (curBPS > state.highestBPS) state.highestBPS = curBPS;
-
-  const bpsEl = document.getElementById('bps');
-  const bpsLabel = document.getElementById('bps-label');
-  if (state.overflowActive) {
-    bpsEl.className = 'value overflow-flash';
-    bpsLabel.textContent = '⚠️ OVERFLOW · Per Second';
-  } else {
-    bpsEl.className = 'value';
-    bpsLabel.textContent = 'Per Second';
-  }
-  bpsEl.textContent = formatNum(curBPS) + '/s';
-  document.getElementById('combo').textContent = 'x' + state.combo;
-
-  // Generators
-  const genDiv = document.getElementById('generators');
-  genDiv.innerHTML = '';
-  for (const g of state.generators) {
-    // Hide overflow generator before overflow event
-    if (g.id === 'overflow' && !state.overflowActive) continue;
-    const cost = genCost(g);
-    const locked = state.balls < cost;
-    const btn = document.createElement('div');
-    btn.className = 'upgrade-btn' + (locked ? ' locked' : '');
-    const vis = GEN_VISUALS[g.id];
-    const emoji = vis ? vis.emoji : '⚙️';
-    btn.innerHTML = `
-      <div class="top-row">
-        <span class="name">${emoji} ${g.name}</span>
-        <span class="cost">${formatNum(cost)} 🔵</span>
-      </div>
-      <div class="desc">${g.desc}</div>
-      <div class="level">Owned: ${g.count} · +${formatNum(g.baseRate * state.prestigeMulti * (hasUpgrade('magnet') ? 1.5 : 1))}/s each</div>
-    `;
-    if (!locked) btn.onclick = () => buyGenerator(g);
-    genDiv.appendChild(btn);
-  }
-
-  // Milestones section
-  renderMilestones();
-
-  // Upgrades
-  const upgDiv = document.getElementById('upgrades');
-  upgDiv.innerHTML = '';
-  for (const u of state.upgrades) {
-    if (u.bought) continue;
-    // Hide overflow-gated upgrades before overflow
-    if (u.requiresOverflow && !state.overflowActive) continue;
-    const locked = state.balls < u.cost;
-    const btn = document.createElement('div');
-    btn.className = 'upgrade-btn' + (locked ? ' locked' : '');
-    btn.innerHTML = `
-      <div class="top-row">
-        <span class="name">${u.name}</span>
-        <span class="cost">${formatNum(u.cost)} 🔵</span>
-      </div>
-      <div class="desc">${u.desc}</div>
-    `;
-    if (!locked) btn.onclick = () => buyUpgrade(u);
-    upgDiv.appendChild(btn);
-  }
-
-  // Prestige
-  const pBtn = document.getElementById('prestige-btn');
-  const canPrestige = state.totalBalls >= 10000;
-  pBtn.className = canPrestige ? 'can-prestige' : 'locked';
-  const ppEarned = getPrestigePointsEarned();
-  document.getElementById('prestige-desc').textContent = canPrestige
-    ? `Reset and earn ${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''} (${state.prestiges} prestiges so far)`
-    : `Need ${formatNum(10000 - state.totalBalls)} more total balls`;
-
-  // Prestige tier badge
-  const tierBadge = document.getElementById('prestige-tier-badge');
-  const tier = getPrestigeTier();
-  if (tier) {
-    tierBadge.className = 'prestige-tier-badge';
-    tierBadge.style.color = tier.color;
-    tierBadge.style.background = tier.bg;
-    tierBadge.style.border = `1px solid ${tier.color}`;
-    tierBadge.textContent = `${tier.name} (P${state.prestiges})`;
-  } else {
-    tierBadge.textContent = '';
-    tierBadge.style.background = 'none';
-    tierBadge.style.border = 'none';
-  }
-
-  // Skill tree
-  const stSection = document.getElementById('skill-tree-section');
-  if (state.prestiges > 0 || state.prestigePoints > 0) {
-    stSection.style.display = '';
-    document.getElementById('pp-count').textContent = state.prestigePoints;
-    const stDiv = document.getElementById('skill-tree');
-    stDiv.innerHTML = '';
-    for (const [id, s] of Object.entries(state.skills)) {
-      // Gate overflowMastery behind overflow
-      if (id === 'overflowMastery' && !state.overflowActive) continue;
-      // Gate ballFrenzy behind 3 prestiges
-      if (id === 'ballFrenzy' && state.prestiges < 3) continue;
-      const cost = skillCost(id);
-      const maxed = s.level >= s.maxLevel;
-      const locked = !maxed && state.prestigePoints < cost;
-      const btn = document.createElement('div');
-      btn.className = 'skill-btn' + (maxed ? ' maxed' : locked ? ' locked' : '');
-      btn.innerHTML = `
-        <div class="top-row">
-          <span class="name">${SKILL_NAMES[id] || id}</span>
-          <span class="cost">${maxed ? 'MAX' : cost + ' PP'}</span>
-        </div>
-        <div class="desc">${s.desc}</div>
-        <div class="level">Level ${s.level} / ${s.maxLevel}</div>
-      `;
-      if (!maxed && !locked) btn.onclick = () => buySkill(id);
-      stDiv.appendChild(btn);
-    }
-  } else {
-    stSection.style.display = 'none';
-  }
-
-  // Stats
-  renderStats();
-}
-
-function renderMilestones() {
-  const section = document.getElementById('milestones-section');
-  const msDiv = document.getElementById('milestones');
-
-  // Gather which generator ids the player has any of, or that have milestones potentially visible
-  const activeGenIds = [];
-  for (const g of state.generators) {
-    if (g.id === 'overflow' && !state.overflowActive) continue;
-    if (g.count > 0 || GEN_MILESTONES.some(ms => ms.genId === g.id)) {
-      activeGenIds.push(g.id);
-    }
-  }
-  // Only show if player has at least 1 generator
-  const totalOwned = state.generators.reduce((s, g) => s + g.count, 0);
-  if (totalOwned === 0) {
-    section.style.display = 'none';
-    return;
-  }
-  section.style.display = '';
-  msDiv.innerHTML = '';
-
-  for (const genId of activeGenIds) {
-    const g = state.generators.find(g => g.id === genId);
-    if (!g) continue;
-    if (g.id === 'overflow' && !state.overflowActive) continue;
-    const milestones = GEN_MILESTONES.filter(ms => ms.genId === genId);
-    if (milestones.length === 0) continue;
-
-    // Find next milestone
-    const nextMs = milestones.find(ms => g.count < ms.threshold);
-    const nextThreshold = nextMs ? nextMs.threshold : milestones[milestones.length - 1].threshold;
-    const prevThreshold = nextMs ? (milestones.indexOf(nextMs) > 0 ? milestones[milestones.indexOf(nextMs) - 1].threshold : 0) : nextThreshold;
-    const progress = nextMs ? Math.min(1, (g.count - prevThreshold) / (nextThreshold - prevThreshold)) : 1;
-
-    const vis = GEN_VISUALS[genId];
-    const emoji = vis ? vis.emoji : '⚙️';
-    const barColor = vis ? vis.color : '#4d96ff';
-
-    const row = document.createElement('div');
-    row.className = 'milestone-row';
-
-    const nextLabel = nextMs ? `Next: ${nextMs.name} (${nextMs.multiplier}×)` : 'All unlocked! ✓';
-    row.innerHTML = `
-      <div class="ms-header">
-        <span>${emoji} ${g.name}: ${g.count}/${nextMs ? nextMs.threshold : '✓'}</span>
-        <span style="font-size:10px;color:#666">${nextLabel}</span>
-      </div>
-      <div class="ms-bar-bg"><div class="ms-bar-fill" style="width:${progress*100}%;background:${barColor}"></div></div>
-      <div class="ms-badges">${milestones.map(ms => {
-        const unlocked = g.count >= ms.threshold;
-        return `<span class="ms-badge ${unlocked ? 'unlocked' : 'locked'}" title="${ms.name}: ${ms.multiplier}× production">${ms.threshold}: ${ms.name}</span>`;
-      }).join('')}</div>
-    `;
-    msDiv.appendChild(row);
-  }
-}
-
-function renderStats() {
-  const body = document.getElementById('stats-body');
-  if (!body) return;
-  body.innerHTML = `
-    <div class="stat-line"><span>Total Balls Ever</span><span class="sv">${formatNum(state.totalBallsEver)}</span></div>
-    <div class="stat-line"><span>Times Clicked</span><span class="sv">${state.totalClicks.toLocaleString()}</span></div>
-    <div class="stat-line"><span>Time Played</span><span class="sv">${formatTime(Date.now() - state.gameStartTime)}</span></div>
-    <div class="stat-line"><span>Highest BPS</span><span class="sv">${formatNum(state.highestBPS)}/s</span></div>
-    <div class="stat-line"><span>Prestiges</span><span class="sv">${state.prestiges}</span></div>
-    <div class="stat-line"><span>Overflow</span><span class="sv">${state.overflowActive ? '⚠️ Active' : 'Dormant'}</span></div>
-  `;
-}
-
-function buyGenerator(g) {
-  const cost = genCost(g);
-  if (state.balls >= cost) {
-    state.balls -= cost;
-    g.count++;
-  }
-}
-
-function buyUpgrade(u) {
-  if (state.balls >= u.cost && !u.bought) {
-    state.balls -= u.cost;
-    u.bought = true;
-  }
-}
-
-function openPrestigeModal() {
-  if (state.totalBalls < 10000) return;
-  const ppEarned = getPrestigePointsEarned();
-  const body = document.getElementById('prestige-modal-body');
-  body.innerHTML = `This will <strong>reset all your balls and generators</strong>.<br>
-    Your skills and upgrades are kept.<br><br>
-    You'll earn <strong>${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''}</strong>.`;
-  document.getElementById('prestige-modal-overlay').classList.add('visible');
-}
-
-function closePrestigeModal(e) {
-  if (e && e.target !== document.getElementById('prestige-modal-overlay')) return;
-  document.getElementById('prestige-modal-overlay').classList.remove('visible');
-}
-
-function confirmPrestige() {
-  document.getElementById('prestige-modal-overlay').classList.remove('visible');
-  doPrestige();
-}
-
-function doPrestige() {
-  if (state.totalBalls < 10000) return;
-  const ppEarned = getPrestigePointsEarned();
-  const pCount = state.prestiges + 1;
-  const oldPP = state.prestigePoints;
-  const oldSkills = JSON.parse(JSON.stringify(state.skills));
-  const oldMulti = state.prestigeMulti;
-  const oldOverflow = state.overflowUnlocked;
-  const oldOverflowActive = state.overflowActive;
-  const oldTotalEver = state.totalBallsEver;
-  const oldClicks = state.totalClicks;
-  const oldStartTime = state.gameStartTime;
-  const oldHighBPS = state.highestBPS;
-  const oldUpgrades = state.upgrades.map(u => ({ id: u.id, bought: u.bought }));
-
-  state = getDefaultState();
-  state.prestigePoints = oldPP + ppEarned;
-  state.skills = oldSkills;
-  state.prestiges = pCount;
-  state.prestigeMulti = oldMulti;
-  state.overflowUnlocked = oldOverflow;
-  state.overflowActive = oldOverflowActive;
-  state.totalBallsEver = oldTotalEver;
-  state.totalClicks = oldClicks;
-  state.gameStartTime = oldStartTime;
-  state.highestBPS = oldHighBPS;
-  // Restore bought upgrades
-  for (const old of oldUpgrades) {
-    const u = state.upgrades.find(u => u.id === old.id);
-    if (u) u.bought = old.bought;
-  }
-  // Starting balls from skill
-  state.balls = skillLevel('startingBalls') * 500;
-  state.totalBalls = state.balls;
-  balls = [];
-  floaters = [];
-  genSpawnAccs = {};
-  autoClickTimer = 0;
-
-  // Overflow visual stays if active
-  if (state.overflowActive) {
-    canvas.classList.add('overflow-active');
-  }
-
-  // Prestige milestone rewards
-  if (pCount === 1) {
-    showFloater(W / 2, H / 2, '🌟 Welcome to Prestige!', '#e891dc');
-  }
-}
-
-function buySkill(id) {
-  const s = state.skills[id];
-  const cost = skillCost(id);
-  if (!s || s.level >= s.maxLevel || state.prestigePoints < cost) return;
-  state.prestigePoints -= cost;
-  s.level++;
-}
-
-const SKILL_NAMES = {
-  bpsMulti:        '⚡ BPS Multiplier',
-  clickPower:      '👆 Click Power',
-  cheapGens:       '💰 Cheap Generators',
-  startingBalls:   '🎁 Starting Balls',
-  autoClicker:     '🤖 Auto Clicker',
-  maxCombo:        '🔥 Max Combo',
-  goldenChance:    '✨ Golden Chance',
-  ballFrenzy:      '🎉 Ball Frenzy',
-  prestigePower:   '👑 Prestige Power',
-  cascadeClick:    '💫 Cascade Click',
-  milestoneBoost:  '🏆 Milestone Boost',
-  overflowMastery: '🌊 Overflow Mastery',
-};
-
-const GEN_VISUALS = {
-  dropper:     { emoji: '💧', color: '#4d96ff' },
-  launcher:    { emoji: '🚀', color: '#ff6b6b' },
-  factory:     { emoji: '🏭', color: '#ffd93d' },
-  vortex:      { emoji: '🌀', color: '#cc65fe' },
-  singularity: { emoji: '⚫', color: '#ff9f43' },
-  quantum:     { emoji: '⚛️',  color: '#6bcb77' },
-  dimension:   { emoji: '🌌', color: '#0abde3' },
-  bigbang:     { emoji: '💥', color: '#ee5a9f' },
-  overflow:    { emoji: '⚠️',  color: '#ff4444' },
-};
-
-// ── Game loop ──
-let last = performance.now();
-let spawnTimer = 0;
-let genSpawnAccs = {};
-let autoClickTimer = 0;
-let uiTimer = 0;
+let lastTime = performance.now();
 let saveTimer = 0;
+let uiUpdateTimer = 0;
+let achievementCheckTimer = 0;
+let rushCheckTimer = 0;
 
-function gameLoop(now) {
-  const dt = Math.min((now - last) / 1000, 0.1);
-  last = now;
+function gameLoop(timestamp) {
+  const dt = Math.min((timestamp - lastTime) / 1000, 0.1); // cap dt
+  lastTime = timestamp;
 
-  // BPS production
+  const now = Date.now();
   const bps = getBPS();
-  addBalls(bps * dt);
 
-  // Check overflow
-  checkOverflow();
+  // Track highest BPS
+  if (bps > state.highestBPS) state.highestBPS = bps;
 
-  // Overflow banner timer
-  if (overflowBannerTimer > 0) {
-    overflowBannerTimer -= dt;
-    if (overflowBannerTimer <= 0) {
-      document.getElementById('overflow-banner').style.display = 'none';
+  // ── Production ──
+  let production = bps * dt;
+
+  // Idle efficiency (tab unfocused)
+  if (!tabFocused) {
+    const idleLevel = skillLevel('idleEfficiency');
+    if (idleLevel > 0) {
+      production *= (0.5 + idleLevel * 0.1);
+    } else {
+      production *= 0.1; // tiny amount when unfocused without skill
     }
   }
 
-  // Combo decay
+  // Lucky Drops
+  const luckyLevel = skillLevel('luckyDrops');
+  if (luckyLevel > 0) {
+    tickAccumulator += dt;
+    while (tickAccumulator >= 1) {
+      tickAccumulator -= 1;
+      if (Math.random() < luckyLevel * 0.05) {
+        production += bps; // double for this tick
+      }
+    }
+  }
+
+  state.balls += production;
+  state.totalBalls += production;
+  state.totalBallsEver += production;
+
+  // ── Ball Alchemy ──
+  const alchemyLevel = skillLevel('ballAlchemy');
+  if (alchemyLevel > 0) {
+    alchemyTimer += dt;
+    while (alchemyTimer >= 1) {
+      alchemyTimer -= 1;
+      if (Math.random() < 0.01 * alchemyLevel) {
+        const convert = state.balls * 0.01 * alchemyLevel;
+        if (convert > 0) {
+          state.alchemyBPS += convert * 0.001; // small permanent BPS boost
+        }
+      }
+    }
+  }
+
+  // ── Dimension Hopper ──
+  const hopLevel = skillLevel('dimensionHopper');
+  if (hopLevel > 0) {
+    if (now - state.lastDimensionHop >= 300000) { // 5 minutes
+      const burst = bps * 30 * hopLevel;
+      state.balls += burst;
+      state.totalBalls += burst;
+      state.totalBallsEver += burst;
+      state.lastDimensionHop = now;
+      showToast(`🚀 Dimension Hop! +${formatNum(burst)} balls`, 'reward', '🚀');
+    }
+  }
+
+  // ── Combo timer ──
   if (state.comboTimer > 0) {
     state.comboTimer -= dt;
-    if (state.comboTimer <= 0) { state.combo = 1; state.comboTimer = 0; }
+    if (state.comboTimer <= 0) {
+      state.combo = 1;
+      state.comboTimer = 0;
+    }
   }
 
-  // Auto clicker skill
-  if (skillLevel('autoClicker') > 0) {
-    const interval = Math.max(0.5, 3 - skillLevel('autoClicker') * 0.4);
+  // ── Ball Frenzy ──
+  const frenzyLevel = skillLevel('ballFrenzy');
+  if (frenzyLevel > 0) {
+    frenzyTimer += dt;
+    const frenzyInterval = 60;
+    let frenzyDuration = 10;
+    if (state.challengeCompleted?.frenzyReward) frenzyDuration *= 1.5;
+
+    if (!frenzyActive && frenzyTimer >= frenzyInterval) {
+      frenzyActive = true;
+      frenzyTimer = 0;
+      showToast(`🎉 Ball Frenzy! ${frenzyLevel * 5}× production for ${frenzyDuration}s!`, 'event', '🎉');
+    }
+    if (frenzyActive && frenzyTimer >= frenzyDuration) {
+      frenzyActive = false;
+      frenzyTimer = 0;
+    }
+  }
+
+  // ── Auto Clicker ──
+  const autoLevel = skillLevel('autoClicker');
+  if (autoLevel > 0) {
+    let interval = 3 - (autoLevel - 1) * 0.4;
+    if (state.challengeCompleted?.noClickReward) interval /= 3;
+    if (hasResearch('infiniteLoop')) interval /= 2;
+    interval = Math.max(0.3, interval);
+
     autoClickTimer += dt;
     if (autoClickTimer >= interval) {
-      autoClickTimer -= interval;
-      const cv = getClickValue();
-      addBalls(cv);
-      spawnBall(Math.random() * W, Math.random() * H * 0.5);
-      showFloater(Math.random() * W, Math.random() * H * 0.5, '+' + formatNum(cv), '#4d96ff');
+      autoClickTimer = 0;
+      const val = getClickValue();
+      state.balls += val;
+      state.totalBalls += val;
+      state.totalBallsEver += val;
+
+      // Auto-click spawns ball
+      const x = Math.random() * W;
+      spawnBall(x, H * 0.3 + Math.random() * H * 0.4);
     }
   }
 
-  // Spawn visual balls from generators
-  spawnTimer += dt;
-  for (const g of state.generators) {
-    if (g.count === 0) continue;
-    if (g.id === 'overflow' && !state.overflowActive) continue;
-    if (!genSpawnAccs[g.id]) genSpawnAccs[g.id] = 0;
-    genSpawnAccs[g.id] += dt;
-    const interval = Math.max(0.1, 2 / Math.sqrt(g.count));
-    if (genSpawnAccs[g.id] >= interval) {
-      genSpawnAccs[g.id] -= interval;
-      spawnBall();
+  // ── Ball Rush ──
+  rushCheckTimer += dt;
+  if (rushCheckTimer >= 5) {
+    rushCheckTimer = 0;
+    if (!rushActive && now - state.lastRushTime >= getRushInterval()) {
+      startBallRush();
     }
   }
 
-  updateBalls(dt);
-  updateFloaters(dt);
-
-  // Draw
-  ctx.clearRect(0, 0, W, H);
-
-  // Background
-  if (state.overflowActive) {
-    drawOverflowBackground(now);
-  } else {
-    drawNormalBackground();
+  if (rushActive) {
+    if (now >= rushEndTime) {
+      endBallRush();
+    } else {
+      // Spawn extra rush balls
+      if (Math.random() < 0.3) {
+        spawnBall(Math.random() * W, -10, { rush: true, vy: 2 + Math.random() * 3, r: 10 + Math.random() * 6 });
+      }
+    }
+    // Update rush timer
+    const timerEl = document.getElementById('rush-timer');
+    if (timerEl) timerEl.textContent = Math.ceil((rushEndTime - now) / 1000);
   }
 
-  drawBalls();
-  drawFloaters();
+  // ── Challenge check ──
+  if (state.activeChallenge) {
+    checkChallengeCompletion();
+  }
 
-  // UI throttle
-  uiTimer += dt;
-  if (uiTimer > 0.25) { uiTimer = 0; renderUI(); }
+  // ── Spawn visual balls from generators ──
+  const totalBPS = bps;
+  // Spawn rate based on BPS but capped
+  const spawnRate = Math.min(3, Math.max(0.1, totalBPS / 1000));
+  if (Math.random() < spawnRate * dt) {
+    // Challenge: no special balls
+    const noSpecial = state.activeChallenge?.noSpecialBalls;
 
-  // Save
+    let isGolden = false;
+    let isOverflow = false;
+    let isAntiGrav = false;
+
+    if (!noSpecial) {
+      // Golden chance
+      let goldenChance = (state.upgrades.find(u => u.id === 'golden')?.bought ? 0.01 : 0) + skillLevel('goldenChance') * 0.01;
+      if (skillLevel('goldenAge') > 0) goldenChance *= 5;
+      isGolden = Math.random() < goldenChance;
+
+      // Overflow balls
+      if (state.overflowActive) {
+        const overflowChance = 0.005 * (1 + skillLevel('overflowMastery'));
+        isOverflow = Math.random() < overflowChance;
+      }
+
+      // Anti-gravity balls (research)
+      if (hasResearch('antiGravBalls')) {
+        isAntiGrav = !isGolden && !isOverflow && Math.random() < 0.03;
+      }
+    }
+
+    spawnBall(null, null, {
+      golden: isGolden,
+      overflow: isOverflow,
+      antiGrav: isAntiGrav,
+    });
+  }
+
+  // ── Research progress ──
+  processResearchCompletion();
+
+  // ── UI Updates (throttled) ──
+  uiUpdateTimer += dt;
+  if (uiUpdateTimer >= 0.25) {
+    uiUpdateTimer = 0;
+    updateUI();
+  }
+
+  // ── Achievement check (every 2s) ──
+  achievementCheckTimer += dt;
+  if (achievementCheckTimer >= 2) {
+    achievementCheckTimer = 0;
+    checkAchievements();
+  }
+
+  // ── Save (every 15s) ──
   saveTimer += dt;
-  if (saveTimer > 5) { saveTimer = 0; saveGame(); }
+  if (saveTimer >= 15) {
+    saveTimer = 0;
+    saveGame();
+  }
+
+  // ── Physics & Render ──
+  updatePhysics(dt);
+  render();
 
   requestAnimationFrame(gameLoop);
 }
 
-function drawNormalBackground() {
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, '#0a0a2e');
-  grad.addColorStop(1, '#1a1a4e');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
+function updateUI() {
+  document.getElementById('ball-count').textContent = formatNum(state.balls);
+  const bps = getBPS();
+  document.getElementById('bps').textContent = formatNum(bps);
+  document.getElementById('combo').textContent = 'x' + state.combo;
+
+  // Overflow flash
+  const bpsEl = document.getElementById('bps');
+  if (state.overflowActive) {
+    bpsEl.classList.add('overflow-flash');
+  } else {
+    bpsEl.classList.remove('overflow-flash');
+  }
+
+  // BPS label with boost indicator
+  const label = document.getElementById('bps-label');
+  const boosts = [];
+  if (Date.now() < state.doubleProdUntil) boosts.push('2×');
+  if (Date.now() < state.goldenFrenzyUntil) boosts.push('GF');
+  if (frenzyActive) boosts.push('🎉');
+  label.textContent = 'Per Second' + (boosts.length ? ' ' + boosts.join(' ') : '');
+
+  // Update tab locks
+  updateTabLocks();
+
+  // Update active tab content (lightweight updates)
+  if (activeTab === 'generators') { renderGenerators(); renderMilestones(); }
+  if (activeTab === 'stats') renderStats();
+  if (activeTab === 'research') renderResearch();
+  if (activeTab === 'challenges' && state.activeChallenge) renderChallenges();
+  if (activeTab === 'minigames') { renderSpinUI(); renderBallRushInfo(); }
 }
 
-function drawOverflowBackground(now) {
-  const t = now / 1000;
-  const pulse = 0.5 + 0.5 * Math.sin(t * 2);
-  const r = Math.floor(40 + pulse * 30);
-  const g = Math.floor(5 + pulse * 15);
-  const b = Math.floor(5 + pulse * 10);
+// ══════════════════════════════════════════════════════
+//  PHYSICS & RENDERING
+// ══════════════════════════════════════════════════════
+
+function updatePhysics(dt) {
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const b = balls[i];
+    b.vy += b.gravity;
+    b.x += b.vx;
+    b.y += b.vy;
+    b.life += dt;
+
+    // Trail
+    if (state.upgrades.find(u => u.id === 'ballTrails')?.bought) {
+      b.trail.push({ x: b.x, y: b.y });
+      if (b.trail.length > 8) b.trail.shift();
+    }
+
+    // Bounce off walls
+    if (b.x < b.r) { b.x = b.r; b.vx = Math.abs(b.vx) * 0.8; }
+    if (b.x > W - b.r) { b.x = W - b.r; b.vx = -Math.abs(b.vx) * 0.8; }
+
+    // Bounce off floor
+    if (b.y > H - b.r) {
+      b.y = H - b.r;
+      b.vy *= b.bounce;
+      b.vx *= 0.95;
+      if (Math.abs(b.vy) < 0.5) b.vy = 0;
+    }
+
+    // Anti-gravity: remove at top
+    if (b.antiGrav && b.y < -20) {
+      balls.splice(i, 1);
+      continue;
+    }
+
+    // Remove old balls
+    if (b.life > 20 || b.y > H + 50) {
+      balls.splice(i, 1);
+    }
+  }
+
+  // Floating texts
+  for (let i = floatingTexts.length - 1; i >= 0; i--) {
+    const ft = floatingTexts[i];
+    ft.y -= 40 * dt;
+    ft.life -= dt * 0.8;
+    if (ft.life <= 0) floatingTexts.splice(i, 1);
+  }
+}
+
+function render() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Background gradient
   const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, `rgb(${r},${g},${b})`);
-  grad.addColorStop(1, `rgb(${Math.floor(r*0.7)},${Math.floor(g*0.5)},${Math.floor(b*0.6)})`);
+  if (state.overflowActive) {
+    grad.addColorStop(0, '#1a0505');
+    grad.addColorStop(1, '#0a0a15');
+  } else {
+    grad.addColorStop(0, '#0a0a1a');
+    grad.addColorStop(1, '#05050f');
+  }
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  // Swirling particle streams
-  ctx.globalAlpha = 0.15;
-  for (let i = 0; i < 8; i++) {
-    const angle = t * 0.3 + i * Math.PI / 4;
-    const cx = W / 2 + Math.cos(angle) * W * 0.3;
-    const cy = H / 2 + Math.sin(angle) * H * 0.3;
-    const grad2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
-    grad2.addColorStop(0, `rgba(255,${Math.floor(80 + pulse * 80)},0,0.4)`);
-    grad2.addColorStop(1, 'rgba(255,0,0,0)');
-    ctx.fillStyle = grad2;
+  // Background particles
+  if (bgParticles.length < 30) {
+    bgParticles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.5,
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      alpha: Math.random() * 0.3 + 0.1,
+    });
+  }
+  for (const p of bgParticles) {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) {
+      p.x = Math.random() * W;
+      p.y = Math.random() * H;
+    }
     ctx.beginPath();
-    ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(100,100,200,${p.alpha})`;
     ctx.fill();
   }
+
+  // Balls
+  for (const b of balls) {
+    // Trail
+    if (b.trail.length > 1) {
+      ctx.globalAlpha = 0.3;
+      for (let j = 0; j < b.trail.length - 1; j++) {
+        const t = b.trail[j];
+        const alpha = (j / b.trail.length) * 0.3;
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, b.r * 0.6 * (j / b.trail.length), 0, Math.PI * 2);
+        ctx.fillStyle = b.color;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Ball body
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+
+    if (b.golden) {
+      // Golden glow
+      const glow = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r * 2);
+      glow.addColorStop(0, '#ffd700');
+      glow.addColorStop(0.5, '#ffaa00');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffd700';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    } else if (b.overflow) {
+      // Red pulsing glow
+      ctx.fillStyle = '#ff2200';
+      ctx.fill();
+      ctx.shadowColor = '#ff0000';
+      ctx.shadowBlur = 15;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    } else if (b.antiGrav) {
+      ctx.fillStyle = '#00ffcc';
+      ctx.fill();
+      ctx.shadowColor = '#00ffcc';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    } else {
+      // Normal ball with highlight
+      const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 0, b.x, b.y, b.r);
+      g.addColorStop(0, '#fff');
+      g.addColorStop(0.2, b.color);
+      g.addColorStop(1, b.color + '88');
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  }
+
+  // Antimatter balls visual (dark balls near others)
+  if (state.upgrades.find(u => u.id === 'antimatter')?.bought) {
+    for (const b of balls) {
+      if (Math.random() < 0.01) {
+        ctx.beginPath();
+        ctx.arc(b.x + (Math.random()-0.5)*20, b.y + (Math.random()-0.5)*20, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(100,0,150,0.5)';
+        ctx.fill();
+      }
+    }
+  }
+
+  // Floating texts
+  for (const ft of floatingTexts) {
+    ctx.globalAlpha = ft.life;
+    ctx.font = `bold ${12 + ft.life * 4}px 'Segoe UI', sans-serif`;
+    ctx.fillStyle = ft.color;
+    ctx.textAlign = 'center';
+    ctx.fillText(ft.text, ft.x, ft.y);
+  }
   ctx.globalAlpha = 1;
+
+  // Rush visual effects
+  if (rushActive) {
+    ctx.fillStyle = 'rgba(255,100,0,0.05)';
+    ctx.fillRect(0, 0, W, H);
+    // Lightning effect
+    if (Math.random() < 0.1) {
+      ctx.strokeStyle = 'rgba(255,200,0,0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const sx = Math.random() * W;
+      ctx.moveTo(sx, 0);
+      let y = 0;
+      while (y < H) {
+        y += 20 + Math.random() * 30;
+        ctx.lineTo(sx + (Math.random()-0.5)*40, y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  // Frenzy visual
+  if (frenzyActive) {
+    ctx.fillStyle = 'rgba(255,215,0,0.03)';
+    ctx.fillRect(0, 0, W, H);
+  }
 }
 
-// ── Init ──
-loadGame();
-// If overflow was already active on load, add class
-if (state.overflowActive) {
-  canvas.classList.add('overflow-active');
+// ══════════════════════════════════════════════════════
+//  INITIALIZATION
+// ══════════════════════════════════════════════════════
+
+function init() {
+  resize();
+  loadGame();
+  updateTabLocks();
+  renderActiveTab();
+
+  // Start game loop
+  requestAnimationFrame(gameLoop);
 }
-renderUI();
-requestAnimationFrame(gameLoop);
+
+init();
 </script>
 </body>
 </html>
