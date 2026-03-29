@@ -28,6 +28,9 @@ export class Game {
     this.world = null;
     this.winner = null;
 
+    /** Simulation speed multiplier — 0.5, 1, or 2 */
+    this.gameSpeed = 1.0;
+
     // Systems
     this.productionSystem = new ProductionSystem();
     this.streamSystem = new StreamSystem();
@@ -68,6 +71,29 @@ export class Game {
     this.aiSystem.init(this.world);
 
     this.state = GameState.PLAYING;
+    this.gameSpeed = 1.0;
+  }
+
+  /** Pause the game (stops simulation ticks). */
+  pause() {
+    if (this.state === GameState.PLAYING) {
+      this.state = GameState.PAUSED;
+    }
+  }
+
+  /** Resume from pause. */
+  unpause() {
+    if (this.state === GameState.PAUSED) {
+      this.state = GameState.PLAYING;
+    }
+  }
+
+  /**
+   * Set simulation speed.
+   * @param {number} speed  e.g. 0.5, 1, 2
+   */
+  setSpeed(speed) {
+    this.gameSpeed = speed;
   }
 
   /**
@@ -115,6 +141,22 @@ export class Game {
       this.winner = alivePlayers[0] ?? null;
       return;
     }
+  }
+
+  /**
+   * Redirect an in-flight player stream to a new target node.
+   * The stream head continues from its current position toward the new target.
+   * StreamSystem already uses targetId each tick, so updating it is sufficient.
+   *
+   * @param {Stream} stream
+   * @param {Node}   newTarget
+   */
+  redirectStream(stream, newTarget) {
+    if (!stream || !newTarget) return;
+    if (!stream.alive || stream.arrived) return;
+    if (stream.owner !== 0) return; // only the human player can redirect
+    if (stream.targetId === newTarget.id) return; // already heading there
+    stream.targetId = newTarget.id;
   }
 
   /**

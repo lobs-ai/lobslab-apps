@@ -70,6 +70,23 @@ export function angle(a, b) {
 }
 
 /**
+ * Distance from point (px, py) to the line segment (ax, ay)→(bx, by).
+ * Returns 0 if the point projects onto the segment, otherwise the
+ * distance to the nearest endpoint.
+ */
+export function pointToSegmentDist(px, py, ax, ay, bx, by) {
+  const dx = bx - ax;
+  const dy = by - ay;
+  const lenSq = dx * dx + dy * dy;
+  if (lenSq === 0) return Math.sqrt((px - ax) ** 2 + (py - ay) ** 2);
+  let t = ((px - ax) * dx + (py - ay) * dy) / lenSq;
+  t = Math.max(0, Math.min(1, t));
+  const projX = ax + t * dx;
+  const projY = ay + t * dy;
+  return Math.sqrt((px - projX) ** 2 + (py - projY) ** 2);
+}
+
+/**
  * Poisson disk sampling — returns array of {x, y} positions.
  * Fills a rectangle [0, width] x [0, height] with points
  * that are at least `minDist` apart.

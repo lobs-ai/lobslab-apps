@@ -33,6 +33,17 @@ export class InputManager {
     this.isDragging    = false;
     this.dragStartNode = null;   // the node the current drag originated from
 
+    // Stream redirect state
+    this.selectedStream  = null;   // stream currently being redirected
+    this.isRedirecting   = false;
+
+    // Box-selection state
+    this._boxStartX      = 0;
+    this._boxStartY      = 0;
+    this._isBoxSelecting = false;
+    /** Exposed to Renderer: {x1, y1, x2, y2} during drag, null otherwise */
+    this.boxSelectRect   = null;
+
     // Modifier keys
     this.shiftKey = false;
     this.ctrlKey  = false;
@@ -42,6 +53,12 @@ export class InputManager {
      * Signature: (selectedNodes: Node[], targetNode: Node, ratio: number) => void
      */
     this.onSendEnergy = null;
+
+    /**
+     * Callback fired when the player redirects an in-flight stream.
+     * Signature: (stream: Stream, newTargetNode: Node) => void
+     */
+    this.onRedirectStream = null;
 
     this._bindEvents();
   }
@@ -92,6 +109,7 @@ export class InputManager {
     window.addEventListener('keydown', e => {
       this.shiftKey = e.shiftKey;
       this.ctrlKey  = e.ctrlKey || e.metaKey;
+      if (e.key === 'Escape') this._cancelRedirect();
     });
     window.addEventListener('keyup', e => {
       this.shiftKey = e.shiftKey;
@@ -115,15 +133,60 @@ export class InputManager {
     const node = world.getNodeAt(this._mouseX, this._mouseY);
 
     if (node && node.owner === 0) {
-      // Start a selection + potential drag on a player-owned node
-      this.selectedNodes = [node];
-      this.isDragging    = true;
-      this.dragStartNode = node;
+      // Clicking an owned node
+      this._cancelRedirect();
+      this._isBoxSelecting = false;
+      this.boxSelectRect   = null;
+
+      if (this.shiftKey) {
+        // Shift+click: toggle node in/out of selection
+        const idx = this.selectedNodes.indexOf(node);
+        if (idx === -1) {
+          this.selectedNodes = [...this.selectedNodes, node];
+        } else {
+          this.selectedNodes = this.selectedNodes.filter(n => n !== node);
+        }
+        // Allow dragging from this node if it ended up selected
+        if (this.selectedNodes.includes(node)) {
+          this.isDragging    = true;
+          this.dragStartNode = node;
+        } else {
+          this.isDragging    = false;
+          this.dragStartNode = null;
+        }
+      } else {
+        // Normal click: replace selection with this node
+        this.selectedNodes = [node];
+        this.isDragging    = true;
+        this.dragStartNode = node;
+      }
     } else {
-      // Clicked empty space — deselect
-      this.selectedNodes = [];
-      this.isDragging    = false;
-      this.dragStartNode = null;
+      // No owned node — check if the click lands on a player stream
+      const stream = world.getStreamAt(this._mouseX, this._mouseY, 0);
+      if (stream) {
+        // Begin stream redirect gesture
+        this.selectedStream  = stream;
+        this.isRedirecting   = true;
+        this._isBoxSelecting = false;
+        this.boxSelectRect   = null;
+        // Don't select nodes or start a drag
+        this.selectedNodes  = [];
+        this.isDragging     = false;
+        this.dragStartNode  = null;
+      } else {
+        // Clicked empty space — begin box selection
+        this._cancelRedirect();
+        if (!this.shiftKey) {
+          this.selectedNodes = [];
+        }
+        this.isDragging      = false;
+        this.dragStartNode   = null;
+        this._isBoxSelecting = true;
+        this._boxStartX      = this._mouseX;
+        this._boxStartY      = this._mouseY;
+        this.boxSelectRect   = { x1: this._mouseX, y1: this._mouseY,
+                                  x2: this._mouseX, y2: this._mouseY };
+      }
     }
   }
 
@@ -135,6 +198,16 @@ export class InputManager {
     if (world) {
       this.hoveredNode = world.getNodeAt(this._mouseX, this._mouseY) ?? null;
     }
+
+    // Update box selection rectangle as the mouse moves
+    if (this._isBoxSelecting) {
+      this.boxSelectRect = {
+        x1: this._boxStartX,
+        y1: this._boxStartY,
+        x2: this._mouseX,
+        y2: this._mouseY,
+      };
+    }
   }
 
   _onMouseUp(e) {
@@ -145,6 +218,57 @@ export class InputManager {
 
     const world = this.getWorld();
 
+    // --- Handle stream redirect completion ---
+    if (this.isRedirecting && this.selectedStream && world) {
+      const target = world.getNodeAt(this._mouseX, this._mouseY);
+      if (target && target.id !== this.selectedStream.targetId) {
+        if (this.onRedirectStream) {
+          this.onRedirectStream(this.selectedStream, target);
+        }
+      }
+      this._cancelRedirect();
+      return;
+    }
+
+    // --- Handle box selection completion ---
+    if (this._isBoxSelecting) {
+      this._isBoxSelecting = false;
+
+      if (world && this.boxSelectRect) {
+        const r   = this.boxSelectRect;
+        const minX = Math.min(r.x1, r.x2);
+        const maxX = Math.max(r.x1, r.x2);
+        const minY = Math.min(r.y1, r.y2);
+        const maxY = Math.max(r.y1, r.y2);
+
+        // Only treat as a real box-select if the user dragged a meaningful area
+        const BOX_MIN_SIZE = 4;
+        if (maxX - minX > BOX_MIN_SIZE || maxY - minY > BOX_MIN_SIZE) {
+          const inBox = world.nodes.filter(n =>
+            n.owner === 0 &&
+            n.x >= minX && n.x <= maxX &&
+            n.y >= minY && n.y <= maxY
+          );
+
+          if (this.shiftKey) {
+            // Shift+drag: add to existing selection (no duplicates)
+            const merged = [...this.selectedNodes];
+            for (const n of inBox) {
+              if (!merged.includes(n)) merged.push(n);
+            }
+            this.selectedNodes = merged;
+          } else {
+            this.selectedNodes = inBox;
+          }
+        }
+        // else: tiny drag treated as click — selection already cleared on mousedown
+      }
+
+      this.boxSelectRect = null;
+      return;
+    }
+
+    // --- Handle drag-to-send completion ---
     if (this.isDragging && this.dragStartNode && world) {
       const target = world.getNodeAt(this._mouseX, this._mouseY);
 
@@ -165,16 +289,28 @@ export class InputManager {
 
   _onMouseLeave(e) {
     // Cancel drag when cursor leaves the canvas
-    this.isDragging    = false;
-    this.dragStartNode = null;
-    this.hoveredNode   = null;
+    this.isDragging      = false;
+    this.dragStartNode   = null;
+    this.hoveredNode     = null;
+    // Also cancel any in-progress box selection
+    this._isBoxSelecting = false;
+    this.boxSelectRect   = null;
   }
 
   _onContextMenu(e) {
     e.preventDefault();
-    // Right-click cancels any in-progress drag
-    this.isDragging    = false;
-    this.dragStartNode = null;
+    // Right-click cancels any in-progress drag, redirect, or box select
+    this._cancelRedirect();
+    this.isDragging      = false;
+    this.dragStartNode   = null;
+    this._isBoxSelecting = false;
+    this.boxSelectRect   = null;
+  }
+
+  /** Cancel any in-progress stream redirect gesture. */
+  _cancelRedirect() {
+    this.selectedStream = null;
+    this.isRedirecting  = false;
   }
 
   // -------------------------------------------------------------------------

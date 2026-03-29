@@ -92,8 +92,11 @@ export class Renderer {
     // 2. Background (static starfield + twinkle)
     this.background.draw(ctx, simTime);
 
-    // 3. Streams
-    this.streamRenderer.draw(ctx, world, simTime, dt);
+    // 3. Streams — pass highlighted stream id for redirect visual feedback
+    const highlightedStreamId = (inputManager && inputManager.isRedirecting && inputManager.selectedStream)
+      ? inputManager.selectedStream.id
+      : null;
+    this.streamRenderer.draw(ctx, world, simTime, dt, highlightedStreamId);
 
     // 4. Nodes
     //    NodeRenderer.draw(ctx, world, hoveredNode, selectedNode, time)
@@ -153,15 +156,136 @@ export class Renderer {
   _drawUIOverlay(ctx, world, inputManager, time) {
     const mouse = inputManager.getMousePos();
 
-    // --- Drag preview line ---
-    if (inputManager.isDragging && inputManager.dragStartNode) {
+    // --- Stream redirect preview ---
+    if (inputManager.isRedirecting && inputManager.selectedStream) {
+      this._drawRedirectLine(ctx, world, inputManager.selectedStream, mouse, time);
+    }
+
+    // --- Drag preview line (only when not redirecting) ---
+    if (inputManager.isDragging && inputManager.dragStartNode && !inputManager.isRedirecting) {
       this._drawDragLine(ctx, inputManager.dragStartNode, mouse, inputManager, time);
     }
 
+    // --- Box selection rectangle ---
+    if (inputManager.boxSelectRect) {
+      const r = inputManager.boxSelectRect;
+      const x = Math.min(r.x1, r.x2);
+      const y = Math.min(r.y1, r.y2);
+      const w = Math.abs(r.x2 - r.x1);
+      const h = Math.abs(r.y2 - r.y1);
+
+      ctx.save();
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth   = 1;
+      ctx.globalAlpha = 0.7;
+      ctx.setLineDash([4, 3]);
+      ctx.strokeRect(x, y, w, h);
+      ctx.fillStyle   = 'rgba(0, 229, 255, 0.05)';
+      ctx.globalAlpha = 1;
+      ctx.fillRect(x, y, w, h);
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+
     // --- Tooltip ---
-    if (inputManager.hoveredNode && !inputManager.isDragging) {
+    if (inputManager.hoveredNode && !inputManager.isDragging && !inputManager.isRedirecting) {
       this._drawTooltip(ctx, inputManager.hoveredNode, mouse);
     }
+  }
+
+  // -------------------------------------------------------------------------
+  // Redirect line
+  // -------------------------------------------------------------------------
+
+  /**
+   * Draw the stream-redirect overlay:
+   *  - A white/cyan pulsing highlight ring around the selected stream's head
+   *  - A dashed cyan line from the stream head to the mouse cursor
+   *  - A "REDIRECT" label near the cursor
+   */
+  _drawRedirectLine(ctx, world, stream, mouse, time) {
+    const hx = stream.headX;
+    const hy = stream.headY;
+    const tx = mouse.x;
+    const ty = mouse.y;
+
+    const REDIRECT_COLOR = '#00ffff';
+
+    // Don't draw if cursor is right on the head
+    const dx = tx - hx;
+    const dy = ty - hy;
+    if (dx * dx + dy * dy < 25) return;
+
+    ctx.save();
+
+    // --- Pulsing highlight ring around stream head ---
+    const pulse = 0.55 + 0.45 * Math.sin(time * 6);
+    ctx.beginPath();
+    ctx.arc(hx, hy, 10, 0, Math.PI * 2);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth   = 2;
+    ctx.globalAlpha = pulse * 0.9;
+    ctx.shadowBlur  = 14;
+    ctx.shadowColor = REDIRECT_COLOR;
+    ctx.stroke();
+
+    // Outer glow along redirect line
+    ctx.beginPath();
+    ctx.moveTo(hx, hy);
+    ctx.lineTo(tx, ty);
+    ctx.strokeStyle = REDIRECT_COLOR;
+    ctx.lineWidth   = 5;
+    ctx.globalAlpha = 0.12;
+    ctx.shadowBlur  = 0;
+    ctx.setLineDash([]);
+    ctx.stroke();
+
+    // Dashed inner redirect line
+    ctx.beginPath();
+    ctx.moveTo(hx, hy);
+    ctx.lineTo(tx, ty);
+    ctx.strokeStyle = REDIRECT_COLOR;
+    ctx.lineWidth   = 1.5;
+    ctx.globalAlpha = 0.85;
+    ctx.shadowBlur  = 10;
+    ctx.shadowColor = REDIRECT_COLOR;
+    ctx.setLineDash([8, 5]);
+    ctx.lineDashOffset = -(time * 50) % 13;
+    ctx.stroke();
+
+    // Arrow head at cursor
+    const len  = Math.sqrt(dx * dx + dy * dy);
+    const nx   = dx / len;
+    const ny   = dy / len;
+    const ax   = tx - nx * 12;
+    const ay   = ty - ny * 12;
+    const perpX = -ny * 5;
+    const perpY =  nx * 5;
+
+    ctx.setLineDash([]);
+    ctx.lineDashOffset = 0;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(ax + perpX, ay + perpY);
+    ctx.lineTo(ax - perpX, ay - perpY);
+    ctx.closePath();
+    ctx.fillStyle   = REDIRECT_COLOR;
+    ctx.globalAlpha = 0.9;
+    ctx.shadowBlur  = 8;
+    ctx.shadowColor = REDIRECT_COLOR;
+    ctx.fill();
+
+    // "REDIRECT" label near cursor
+    ctx.font         = 'bold 11px "Segoe UI", system-ui, sans-serif';
+    ctx.textAlign    = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.shadowBlur   = 6;
+    ctx.shadowColor  = REDIRECT_COLOR;
+    ctx.fillStyle    = '#ffffff';
+    ctx.globalAlpha  = 0.9;
+    ctx.fillText('REDIRECT', tx + 14, ty - 14);
+
+    ctx.restore();
   }
 
   // -------------------------------------------------------------------------

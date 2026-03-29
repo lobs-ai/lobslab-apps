@@ -35,6 +35,39 @@
   font-family: monospace;
 }
 
+/* ===== SPEED / PAUSE BUTTONS ===== */
+#hud-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.speed-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #888;
+  font-size: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: monospace;
+}
+.speed-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ccc;
+}
+.speed-btn.active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+}
+#pause-btn.paused {
+  background: rgba(255, 68, 102, 0.15);
+  border-color: rgba(255, 68, 102, 0.3);
+  color: #ff4466;
+}
+
 /* ===== UPGRADE PANEL ===== */
 #upgrade-panel {
   position: fixed;

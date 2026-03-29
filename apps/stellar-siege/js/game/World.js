@@ -1,3 +1,5 @@
+import { pointToSegmentDist } from '../utils/math.js';
+
 /**
  * World — container for all game entities.
  */
@@ -30,6 +32,40 @@ export class World {
       }
     }
     return null;
+  }
+
+  /**
+   * Find the closest player-owned in-flight stream within maxDist px of
+   * the given point. Hit-tests against the line segment source→head.
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {number} ownerId  - only match streams owned by this player
+   * @param {number} [maxDist=15]
+   * @returns {Stream|null}
+   */
+  getStreamAt(x, y, ownerId, maxDist = 15) {
+    let closest = null;
+    let closestDist = maxDist;
+
+    for (const stream of this.streams) {
+      if (!stream.alive || stream.arrived) continue;
+      if (stream.owner !== ownerId) continue;
+
+      const source = this.getNodeById(stream.sourceId);
+      if (!source) continue;
+
+      const d = pointToSegmentDist(
+        x, y,
+        source.position.x, source.position.y,
+        stream.headX, stream.headY
+      );
+      if (d < closestDist) {
+        closestDist = d;
+        closest = stream;
+      }
+    }
+    return closest;
   }
 
   addStream(stream) {

@@ -15,14 +15,22 @@ export class StreamRenderer {
     this._particleTimers = new Map(); // streamId -> lastParticleTime
   }
 
-  draw(ctx, world, time, dt) {
+  /**
+   * @param {CanvasRenderingContext2D} ctx
+   * @param {World} world
+   * @param {number} time
+   * @param {number} dt
+   * @param {number|null} [highlightedStreamId] - stream id to draw with extra highlight
+   */
+  draw(ctx, world, time, dt, highlightedStreamId = null) {
     for (const stream of world.streams) {
       if (!stream.alive) continue;
-      this._drawStream(ctx, stream, world, time, dt);
+      const highlighted = highlightedStreamId !== null && stream.id === highlightedStreamId;
+      this._drawStream(ctx, stream, world, time, dt, highlighted);
     }
   }
 
-  _drawStream(ctx, stream, world, time, dt) {
+  _drawStream(ctx, stream, world, time, dt, highlighted = false) {
     const source = world.getNodeById(stream.sourceId);
     const target = world.getNodeById(stream.targetId);
     if (!source || !target) return;
@@ -41,6 +49,20 @@ export class StreamRenderer {
 
     ctx.save();
 
+    // --- Highlight outline (drawn behind trail when stream is selected) ---
+    if (highlighted) {
+      const pulse = 0.6 + 0.4 * Math.sin(time * 6);
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(hx, hy);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth   = 9;
+      ctx.globalAlpha = 0.18 * pulse;
+      ctx.shadowBlur  = 20;
+      ctx.shadowColor = '#00ffff';
+      ctx.stroke();
+    }
+
     // --- Trail line ---
     // Outer glow (wide, very transparent)
     ctx.beginPath();
@@ -48,7 +70,7 @@ export class StreamRenderer {
     ctx.lineTo(hx, hy);
     ctx.strokeStyle = color;
     ctx.lineWidth = 6;
-    ctx.globalAlpha = 0.12;
+    ctx.globalAlpha = highlighted ? 0.22 : 0.12;
     ctx.shadowBlur = 0;
     ctx.stroke();
 
@@ -57,7 +79,7 @@ export class StreamRenderer {
     ctx.moveTo(sx, sy);
     ctx.lineTo(hx, hy);
     ctx.lineWidth = 3;
-    ctx.globalAlpha = 0.30;
+    ctx.globalAlpha = highlighted ? 0.55 : 0.30;
     ctx.shadowBlur = 8;
     ctx.shadowColor = color;
     ctx.strokeStyle = color;
@@ -67,10 +89,10 @@ export class StreamRenderer {
     ctx.beginPath();
     ctx.moveTo(sx, sy);
     ctx.lineTo(hx, hy);
-    ctx.lineWidth = 1.5;
-    ctx.globalAlpha = 0.85;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = color;
+    ctx.lineWidth = highlighted ? 2.5 : 1.5;
+    ctx.globalAlpha = 1.0;
+    ctx.shadowBlur = highlighted ? 20 : 12;
+    ctx.shadowColor = highlighted ? '#00ffff' : color;
     ctx.strokeStyle = '#ffffff';
     ctx.stroke();
 
@@ -82,17 +104,17 @@ export class StreamRenderer {
     // --- Bright head dot ---
     ctx.save();
     ctx.globalAlpha = 0.9;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = color;
+    ctx.shadowBlur = highlighted ? 30 : 20;
+    ctx.shadowColor = highlighted ? '#00ffff' : color;
     ctx.fillStyle = '#ffffff';
     ctx.beginPath();
-    ctx.arc(hx, hy, 4, 0, Math.PI * 2);
+    ctx.arc(hx, hy, highlighted ? 5 : 4, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = color;
-    ctx.globalAlpha = 0.6;
+    ctx.fillStyle = highlighted ? '#00ffff' : color;
+    ctx.globalAlpha = highlighted ? 0.85 : 0.6;
     ctx.beginPath();
-    ctx.arc(hx, hy, 7, 0, Math.PI * 2);
+    ctx.arc(hx, hy, highlighted ? 9 : 7, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 

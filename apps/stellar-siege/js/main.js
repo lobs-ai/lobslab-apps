@@ -33,6 +33,11 @@ inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   }
 };
 
+inputManager.onRedirectStream = (stream, newTargetNode) => {
+  if (!game.world) return;
+  game.redirectStream(stream, newTargetNode);
+};
+
 // ============================================================================
 // Saved config (so "Play Again" uses the same settings)
 // ============================================================================
@@ -82,6 +87,15 @@ function startGame(config) {
   inputManager.isDragging    = false;
   inputManager.dragStartNode = null;
   inputManager.hoveredNode   = null;
+
+  // Reset speed buttons to 1× and unpause
+  document.querySelectorAll('.speed-btn[data-speed]').forEach(b => b.classList.remove('active'));
+  const defaultSpeedBtn = document.querySelector('.speed-btn[data-speed="1"]');
+  if (defaultSpeedBtn) defaultSpeedBtn.classList.add('active');
+  if (pauseBtn) {
+    pauseBtn.textContent = '⏸';
+    pauseBtn.classList.remove('paused');
+  }
 
   game.startGame(config);
 
@@ -175,6 +189,40 @@ function updateHUD(dt) {
 }
 
 // ============================================================================
+// Speed controls + pause
+// ============================================================================
+
+document.querySelectorAll('.speed-btn[data-speed]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const speed = parseFloat(btn.dataset.speed);
+    game.setSpeed(speed);
+    document.querySelectorAll('.speed-btn[data-speed]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+const pauseBtn = document.getElementById('pause-btn');
+pauseBtn.addEventListener('click', () => {
+  if (game.state === GameState.PLAYING) {
+    game.pause();
+    pauseBtn.textContent = '▶';
+    pauseBtn.classList.add('paused');
+  } else if (game.state === GameState.PAUSED) {
+    game.unpause();
+    pauseBtn.textContent = '⏸';
+    pauseBtn.classList.remove('paused');
+  }
+});
+
+// Spacebar to toggle pause
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && (game.state === GameState.PLAYING || game.state === GameState.PAUSED)) {
+    e.preventDefault();
+    pauseBtn.click();
+  }
+});
+
+// ============================================================================
 // Game loop
 // ============================================================================
 
@@ -188,7 +236,7 @@ function loop(timestamp) {
   if (game.state === GameState.PLAYING) {
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
-      game.update(TICK_RATE);
+      game.update(TICK_RATE * game.gameSpeed);
       accumulator -= TICK_RATE;
     }
   }
