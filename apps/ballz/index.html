@@ -144,6 +144,65 @@
   #prestige-btn .name { font-size: 15px; font-weight: 700; color: #e891dc; }
   #prestige-btn .desc { font-size: 11px; color: #aa6da5; margin-top: 4px; }
 
+  #skill-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skill-btn {
+    background: #1a1030;
+    border: 1px solid #3a2060;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .skill-btn:hover:not(.locked) {
+    background: #251545;
+    border-color: #6a3a9a;
+    transform: translateY(-1px);
+  }
+
+  .skill-btn.locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .skill-btn.maxed {
+    opacity: 0.5;
+    border-color: #4a3070;
+    cursor: default;
+  }
+
+  .skill-btn .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-btn .name { font-size: 13px; font-weight: 600; color: #d0b0f0; }
+  .skill-btn .cost { font-size: 12px; font-weight: 700; color: #e891dc; }
+  .skill-btn .desc { font-size: 10px; color: #776; }
+  .skill-btn .level { font-size: 10px; color: #9b3090; font-weight: 600; }
+
+  .prestige-points-bar {
+    background: linear-gradient(135deg, #1a1030, #2a1545);
+    border: 1px solid #3a2060;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .prestige-points-bar .label { font-size: 11px; color: #9b3090; text-transform: uppercase; letter-spacing: 1px; }
+  .prestige-points-bar .value { font-size: 18px; font-weight: 700; color: #e891dc; }
+
   .combo-display {
     text-align: center;
     font-size: 11px;
@@ -187,11 +246,20 @@
     <div class="name">⟳ PRESTIGE</div>
     <div class="desc" id="prestige-desc">Reset for multipliers (need 1,000 balls)</div>
   </div>
+
+  <div id="skill-tree-section" style="display:none">
+    <div class="prestige-points-bar">
+      <div><div class="label">Prestige Points</div></div>
+      <div class="value" id="pp-count">0</div>
+    </div>
+    <div class="section-title">Skill Tree</div>
+    <div id="skill-tree"></div>
+  </div>
 </div>
 
 <script>
 // ── Save / Load ──
-const SAVE_KEY = 'ballz_save_v2';
+const SAVE_KEY = 'ballz_save_v3';
 
 // ── Game State ──
 let state = getDefaultState();
@@ -202,6 +270,17 @@ function getDefaultState() {
     totalBalls: 0,
     prestiges: 0,
     prestigeMulti: 1,
+    prestigePoints: 0,
+    skills: {
+      bpsMulti:      { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.8, desc: '+25% ball production per level' },
+      clickPower:    { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.6, desc: '+50% click value per level' },
+      cheapGens:     { level: 0, maxLevel: 8,  baseCost: 2,  costScale: 2.0, desc: 'Generators cost 10% less per level' },
+      startingBalls: { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.5, desc: 'Start with 500 balls per level after prestige' },
+      autoClicker:   { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.0, desc: 'Auto-click once every 3s (-0.4s per level)' },
+      maxCombo:      { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.0, desc: '+20 max combo per level' },
+      goldenChance:  { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.5, desc: '+1% golden ball chance per level' },
+      ballFrenzy:    { level: 0, maxLevel: 3,  baseCost: 5,  costScale: 3.0, desc: 'Every 60s, 10s of 5x production per level' },
+    },
     combo: 1,
     comboTimer: 0,
     generators: [
@@ -210,6 +289,9 @@ function getDefaultState() {
       { id: 'factory',    name: 'Ball Factory',     desc: 'Mass-produces balls',            baseCost: 1000,  baseRate: 20,   count: 0 },
       { id: 'vortex',     name: 'Ball Vortex',      desc: 'Summons balls from the void',    baseCost: 12000, baseRate: 100,  count: 0 },
       { id: 'singularity',name: 'Singularity',      desc: 'Warps reality to create balls',  baseCost: 150000,baseRate: 600,  count: 0 },
+      { id: 'quantum',    name: 'Quantum Splitter', desc: 'Splits each ball into many',     baseCost: 2e6,   baseRate: 4000, count: 0 },
+      { id: 'dimension',  name: 'Dimension Rift',   desc: 'Pulls balls from other timelines',baseCost: 30e6, baseRate: 25000,count: 0 },
+      { id: 'bigbang',    name: 'Big Bang Engine',  desc: 'Creates entire universes of balls',baseCost: 500e6,baseRate: 200000,count: 0 },
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
@@ -219,6 +301,11 @@ function getDefaultState() {
       { id: 'explosion',  name: 'Ball Explosion',   desc: 'Balls burst into more on click', cost: 5000,  bought: false, effect: 'explosion' },
       { id: 'magnet',     name: 'Ball Magnet',      desc: '+50% production rate',           cost: 25000, bought: false, effect: 'magnet' },
       { id: 'golden',     name: 'Golden Balls',     desc: 'Rare golden balls worth 100x',   cost: 100000,bought: false, effect: 'golden' },
+      { id: 'critClick',  name: 'Critical Clicks',  desc: '10% chance for 10x click value', cost: 50000, bought: false, effect: 'critClick' },
+      { id: 'ballTrails', name: 'Ball Trails',      desc: 'Balls leave glowing trails',     cost: 250000,bought: false, effect: 'ballTrails' },
+      { id: 'hyperDrop',  name: 'Hyper Droppers',   desc: 'Droppers & launchers 3x faster', cost: 500000,bought: false, effect: 'hyperDrop' },
+      { id: 'antimatter', name: 'Antimatter Balls',  desc: 'Dark balls that boost nearby',  cost: 2e6,   bought: false, effect: 'antimatter' },
+      { id: 'overclock',  name: 'Overclock',        desc: 'All generators +100% speed',     cost: 10e6,  bought: false, effect: 'overclock' },
     ],
   };
 }
@@ -229,10 +316,11 @@ function saveGame() {
 
 function loadGame() {
   try {
-    const s = localStorage.getItem(SAVE_KEY);
+    // Try v3 first, fall back to v2
+    let s = localStorage.getItem(SAVE_KEY);
+    if (!s) s = localStorage.getItem('ballz_save_v2');
     if (s) {
       const loaded = JSON.parse(s);
-      // Merge onto defaults to handle new fields
       const def = getDefaultState();
       state = { ...def, ...loaded };
       // Merge generators/upgrades by id
@@ -244,17 +332,51 @@ function loadGame() {
         const lu = loaded.upgrades?.find(u => u.id === du.id);
         return lu ? { ...du, bought: lu.bought } : du;
       });
+      // Merge skills (preserve levels from save, add new skills from defaults)
+      state.skills = { ...def.skills };
+      if (loaded.skills) {
+        for (const [k, v] of Object.entries(loaded.skills)) {
+          if (state.skills[k]) state.skills[k].level = v.level || 0;
+        }
+      }
+      // Migrate v2: convert old prestigeMulti into skill points
+      if (!loaded.prestigePoints && loaded.prestigeMulti > 1) {
+        state.prestigePoints = Math.floor((loaded.prestigeMulti - 1) * 2);
+      }
     }
   } catch(e) { state = getDefaultState(); }
 }
 
 // ── Derived values ──
-function genCost(g) { return Math.floor(g.baseCost * Math.pow(1.15, g.count)); }
+function skillLevel(id) { return state.skills[id]?.level || 0; }
+function skillCost(id) {
+  const s = state.skills[id];
+  if (!s || s.level >= s.maxLevel) return Infinity;
+  return Math.floor(s.baseCost * Math.pow(s.costScale, s.level));
+}
+function genCost(g) {
+  let cost = Math.floor(g.baseCost * Math.pow(1.15, g.count));
+  const discount = 1 - skillLevel('cheapGens') * 0.1;
+  return Math.floor(cost * Math.max(discount, 0.2));
+}
 function getBPS() {
   let bps = 0;
-  for (const g of state.generators) bps += g.baseRate * g.count;
+  for (const g of state.generators) {
+    let rate = g.baseRate * g.count;
+    if (hasUpgrade('hyperDrop') && (g.id === 'dropper' || g.id === 'launcher')) rate *= 3;
+    bps += rate;
+  }
   if (hasUpgrade('magnet')) bps *= 1.5;
+  if (hasUpgrade('overclock')) bps *= 2;
   bps *= state.prestigeMulti;
+  bps *= 1 + skillLevel('bpsMulti') * 0.25;
+  // Ball frenzy
+  if (skillLevel('ballFrenzy') > 0) {
+    const cycle = 60;
+    const frenzyDur = 10 * skillLevel('ballFrenzy');
+    const t = (performance.now() / 1000) % cycle;
+    if (t < frenzyDur) bps *= 5;
+  }
   return bps;
 }
 function getClickValue() {
@@ -262,9 +384,21 @@ function getClickValue() {
   if (hasUpgrade('clickPow')) v = 5;
   v *= state.combo;
   v *= state.prestigeMulti;
-  return Math.floor(v);
+  v *= 1 + skillLevel('clickPower') * 0.5;
+  // Critical click
+  if (hasUpgrade('critClick') && Math.random() < 0.1) v *= 10;
+  return Math.floor(Math.max(v, 1));
+}
+function getMaxCombo() { return 50 + skillLevel('maxCombo') * 20; }
+function getGoldenChance() {
+  let chance = 0.02;
+  chance += skillLevel('goldenChance') * 0.01;
+  return chance;
 }
 function hasUpgrade(id) { return state.upgrades.find(u => u.id === id)?.bought; }
+function getPrestigePointsEarned() {
+  return Math.max(0, Math.floor(Math.pow(state.totalBalls / 1000, 0.6)));
+}
 
 // ── Canvas / Physics ──
 const canvas = document.getElementById('c');
@@ -286,15 +420,18 @@ resize();
 
 function spawnBall(x, y, opts = {}) {
   const baseR = hasUpgrade('bigBalls') ? 16 : 10;
-  const isGolden = hasUpgrade('golden') && Math.random() < 0.02;
+  const isGolden = hasUpgrade('golden') && Math.random() < getGoldenChance();
+  const isAnti = hasUpgrade('antimatter') && !isGolden && Math.random() < 0.05;
   balls.push({
     x: x ?? Math.random() * W,
     y: y ?? -20,
     vx: (Math.random() - 0.5) * 3 + (opts.vx || 0),
     vy: opts.vy ?? (Math.random() * 2 - 1),
     r: baseR + Math.random() * 6,
-    color: isGolden ? '#ffd700' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
+    color: isGolden ? '#ffd700' : isAnti ? '#1a0030' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
     golden: isGolden,
+    anti: isAnti,
+    trail: [],
     life: 1,
     birth: performance.now(),
   });
@@ -305,6 +442,11 @@ function updateBalls(dt) {
   const grav = hasUpgrade('lowGravity') ? 120 : 300;
   for (let i = balls.length - 1; i >= 0; i--) {
     const b = balls[i];
+    // Trail
+    if (hasUpgrade('ballTrails')) {
+      b.trail.push({ x: b.x, y: b.y });
+      if (b.trail.length > 8) b.trail.shift();
+    }
     b.vy += grav * dt;
     b.x += b.vx * dt * 60;
     b.y += b.vy * dt;
@@ -333,11 +475,23 @@ function updateBalls(dt) {
 function drawBalls() {
   hueShift += 0.5;
   for (const b of balls) {
+    // Trails
+    if (hasUpgrade('ballTrails') && b.trail.length > 1) {
+      for (let t = 0; t < b.trail.length; t++) {
+        const alpha = (t / b.trail.length) * 0.3 * b.life;
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.arc(b.trail[t].x, b.trail[t].y, b.r * (t / b.trail.length) * 0.7, 0, Math.PI * 2);
+        ctx.fillStyle = b.color;
+        ctx.fill();
+      }
+    }
+
     ctx.globalAlpha = b.life;
     ctx.beginPath();
     ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
 
-    if (hasUpgrade('rainbow') && !b.golden) {
+    if (hasUpgrade('rainbow') && !b.golden && !b.anti) {
       ctx.fillStyle = `hsl(${(hueShift + b.x + b.y) % 360}, 80%, 60%)`;
     } else {
       ctx.fillStyle = b.color;
@@ -357,6 +511,20 @@ function drawBalls() {
       ctx.strokeStyle = `rgba(255,215,0,${0.4 + 0.2 * Math.sin(performance.now()/200)})`;
       ctx.lineWidth = 2;
       ctx.stroke();
+    }
+
+    // Antimatter glow
+    if (b.anti) {
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r + 6, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(100,0,200,${0.3 + 0.2 * Math.sin(performance.now()/150)})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Inner void
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(80,0,160,0.6)';
+      ctx.fill();
     }
 
     ctx.globalAlpha = 1;
@@ -388,7 +556,7 @@ canvas.addEventListener('click', (e) => {
       balls.splice(i, 1);
 
       // Combo
-      state.combo = Math.min(state.combo + 1, 50);
+      state.combo = Math.min(state.combo + 1, getMaxCombo());
       state.comboTimer = 2;
       break;
     }
@@ -490,10 +658,38 @@ function renderUI() {
   const pBtn = document.getElementById('prestige-btn');
   const canPrestige = state.totalBalls >= 1000;
   pBtn.className = canPrestige ? '' : 'locked';
-  const newMulti = 1 + Math.floor(Math.sqrt(state.totalBalls / 1000)) * 0.5;
+  const ppEarned = getPrestigePointsEarned();
   document.getElementById('prestige-desc').textContent = canPrestige
-    ? `Reset for ${newMulti.toFixed(1)}x multiplier (current: ${state.prestigeMulti.toFixed(1)}x)`
+    ? `Reset and earn ${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''} (${state.prestiges} prestiges so far)`
     : `Need ${formatNum(1000 - state.totalBalls)} more total balls`;
+
+  // Skill tree
+  const stSection = document.getElementById('skill-tree-section');
+  if (state.prestiges > 0 || state.prestigePoints > 0) {
+    stSection.style.display = '';
+    document.getElementById('pp-count').textContent = state.prestigePoints;
+    const stDiv = document.getElementById('skill-tree');
+    stDiv.innerHTML = '';
+    for (const [id, s] of Object.entries(state.skills)) {
+      const cost = skillCost(id);
+      const maxed = s.level >= s.maxLevel;
+      const locked = !maxed && state.prestigePoints < cost;
+      const btn = document.createElement('div');
+      btn.className = 'skill-btn' + (maxed ? ' maxed' : locked ? ' locked' : '');
+      btn.innerHTML = `
+        <div class="top-row">
+          <span class="name">${SKILL_NAMES[id] || id}</span>
+          <span class="cost">${maxed ? 'MAX' : cost + ' PP'}</span>
+        </div>
+        <div class="desc">${s.desc}</div>
+        <div class="level">Level ${s.level} / ${s.maxLevel}</div>
+      `;
+      if (!maxed && !locked) btn.onclick = () => buySkill(id);
+      stDiv.appendChild(btn);
+    }
+  } else {
+    stSection.style.display = 'none';
+  }
 }
 
 function buyGenerator(g) {
@@ -513,14 +709,45 @@ function buyUpgrade(u) {
 
 function doPrestige() {
   if (state.totalBalls < 1000) return;
-  const newMulti = 1 + Math.floor(Math.sqrt(state.totalBalls / 1000)) * 0.5;
+  const ppEarned = getPrestigePointsEarned();
   const pCount = state.prestiges + 1;
+  const oldPP = state.prestigePoints;
+  const oldSkills = JSON.parse(JSON.stringify(state.skills));
+  const oldMulti = state.prestigeMulti;
   state = getDefaultState();
-  state.prestigeMulti = newMulti;
+  state.prestigePoints = oldPP + ppEarned;
+  state.skills = oldSkills;
   state.prestiges = pCount;
+  state.prestigeMulti = oldMulti; // keep for backward compat display
+  // Starting balls from skill
+  state.balls = skillLevel('startingBalls') * 500;
+  state.totalBalls = state.balls;
   balls = [];
   floaters = [];
   genSpawnAccs = {};
+  autoClickTimer = 0;
+}
+
+// ── Skill Tree ──
+const SKILL_NAMES = {
+  bpsMulti: '📈 Production Boost',
+  clickPower: '👆 Click Force',
+  cheapGens: '💰 Bargain Hunters',
+  startingBalls: '🎁 Head Start',
+  autoClicker: '🤖 Auto-Clicker',
+  maxCombo: '🔥 Combo Master',
+  goldenChance: '✨ Golden Touch',
+  ballFrenzy: '⚡ Ball Frenzy',
+};
+
+function buySkill(id) {
+  const s = state.skills[id];
+  if (!s || s.level >= s.maxLevel) return;
+  const cost = skillCost(id);
+  if (state.prestigePoints >= cost) {
+    state.prestigePoints -= cost;
+    s.level++;
+  }
 }
 
 // ── Per-generator visual spawn system ──
@@ -723,6 +950,146 @@ const GEN_VISUALS = {
       ctx.globalAlpha = 1;
     }
   },
+  quantum: {
+    emoji: '⚛️',
+    color: '#00e5ff',
+    spawn(count) {
+      // Splits from center — two balls fly in opposite directions
+      const cx = W * 0.5 + (Math.random() - 0.5) * W * 0.4;
+      const cy = H * 0.3 + Math.random() * H * 0.3;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 4 + Math.random() * 2;
+      spawnBall(cx, cy, { vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 3 });
+      spawnBall(cx, cy, { vx: -Math.cos(angle) * speed, vy: -Math.sin(angle) * speed - 3 });
+    },
+    draw(count) {
+      if (count <= 0) return;
+      for (let i = 0; i < Math.min(count, 4); i++) {
+        const cx = W * (0.15 + i * 0.22);
+        const cy = H * 0.2;
+        const t = performance.now() / 350 + i * 1.5;
+        // Atom nucleus
+        ctx.globalAlpha = 0.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#00e5ff';
+        ctx.fill();
+        // Orbiting electrons
+        for (let e = 0; e < 3; e++) {
+          const ea = t + e * (Math.PI * 2 / 3);
+          const ex = cx + Math.cos(ea) * 18;
+          const ey = cy + Math.sin(ea) * 10;
+          ctx.beginPath();
+          ctx.arc(ex, ey, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#80ffff';
+          ctx.fill();
+        }
+        // Orbit rings
+        ctx.strokeStyle = 'rgba(0,229,255,0.15)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 18, 10, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
+  },
+  dimension: {
+    emoji: '🌌',
+    color: '#b388ff',
+    spawn(count) {
+      // Tears through from edges with bright flash
+      const edge = Math.floor(Math.random() * 4);
+      let x, y, vx, vy;
+      if (edge === 0) { x = 0; y = Math.random() * H; vx = 5; vy = (Math.random() - 0.5) * 4; }
+      else if (edge === 1) { x = W; y = Math.random() * H; vx = -5; vy = (Math.random() - 0.5) * 4; }
+      else if (edge === 2) { x = Math.random() * W; y = 0; vx = (Math.random() - 0.5) * 4; vy = 5; }
+      else { x = Math.random() * W; y = H; vx = (Math.random() - 0.5) * 4; vy = -5; }
+      spawnBall(x, y, { vx, vy });
+      showFloater(x, y, '⚡', '#b388ff');
+    },
+    draw(count) {
+      if (count <= 0) return;
+      const t = performance.now() / 500;
+      // Rift cracks along edges
+      for (let i = 0; i < Math.min(count * 2, 8); i++) {
+        const side = i % 4;
+        const pos = (t * 0.3 + i * 0.37) % 1;
+        let x, y;
+        if (side === 0) { x = 0; y = pos * H; }
+        else if (side === 1) { x = W; y = pos * H; }
+        else if (side === 2) { x = pos * W; y = 0; }
+        else { x = pos * W; y = H; }
+        ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 3 + i);
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#b388ff';
+        ctx.fill();
+        // Crack line
+        ctx.strokeStyle = 'rgba(179,136,255,0.2)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + (side < 2 ? (side === 0 ? 15 : -15) : 0), y + (side >= 2 ? (side === 2 ? 15 : -15) : 0));
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+  },
+  bigbang: {
+    emoji: '💥',
+    color: '#ff4444',
+    spawn(count) {
+      // Massive explosion from center
+      const cx = W * 0.5;
+      const cy = H * 0.5;
+      for (let j = 0; j < 3; j++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 3 + Math.random() * 6;
+        spawnBall(cx + (Math.random()-0.5)*40, cy + (Math.random()-0.5)*40, {
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 2
+        });
+      }
+    },
+    draw(count) {
+      if (count <= 0) return;
+      const cx = W * 0.5;
+      const cy = H * 0.55;
+      const t = performance.now() / 200;
+      const baseR = 20 + Math.min(count, 10) * 3;
+      // Expanding shockwave rings
+      for (let ring = 0; ring < Math.min(count, 5); ring++) {
+        const phase = (t * 0.5 + ring * 1.2) % 3;
+        const r = baseR + phase * 25;
+        const alpha = Math.max(0, 0.25 - phase * 0.08);
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsl(${(t * 10 + ring * 40) % 360}, 90%, 60%)`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+      // Core
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR);
+      grad.addColorStop(0, 'rgba(255,255,200,0.4)');
+      grad.addColorStop(0.4, 'rgba(255,100,50,0.2)');
+      grad.addColorStop(1, 'rgba(255,0,0,0)');
+      ctx.globalAlpha = 0.6 + 0.2 * Math.sin(t);
+      ctx.beginPath();
+      ctx.arc(cx, cy, baseR, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      // Label
+      ctx.fillStyle = '#ff6644';
+      ctx.globalAlpha = 0.5;
+      ctx.font = 'bold 10px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText(`×${count}`, cx, cy + baseR + 20);
+      ctx.globalAlpha = 1;
+    }
+  },
 };
 
 function spawnFromGenerators(dt) {
@@ -784,19 +1151,36 @@ function drawBackground() {
 let lastTime = performance.now();
 let uiTimer = 0;
 let saveTimer = 0;
+let autoClickTimer = 0;
 
 function loop(now) {
   const dt = Math.min((now - lastTime) / 1000, 0.1);
   lastTime = now;
 
   // Production
-  state.balls += getBPS() * dt;
-  state.totalBalls += getBPS() * dt;
+  const bps = getBPS();
+  state.balls += bps * dt;
+  state.totalBalls += bps * dt;
 
   // Combo decay
   if (state.comboTimer > 0) {
     state.comboTimer -= dt;
     if (state.comboTimer <= 0) state.combo = 1;
+  }
+
+  // Auto-clicker skill
+  if (skillLevel('autoClicker') > 0) {
+    const interval = 3 - skillLevel('autoClicker') * 0.4;
+    autoClickTimer += dt;
+    if (autoClickTimer >= interval) {
+      autoClickTimer -= interval;
+      const v = getClickValue();
+      addBalls(v);
+      const ax = 30 + Math.random() * (W - 60);
+      const ay = 30 + Math.random() * (H - 60);
+      spawnBall(ax, ay);
+      showFloater(ax, ay, '+' + formatNum(v), '#9b3090');
+    }
   }
 
   // Spawn visual balls
@@ -811,6 +1195,21 @@ function loop(now) {
   drawGeneratorStructures();
   drawBalls();
   drawFloaters();
+
+  // Frenzy indicator
+  if (skillLevel('ballFrenzy') > 0) {
+    const cycle = 60;
+    const frenzyDur = 10 * skillLevel('ballFrenzy');
+    const t = (performance.now() / 1000) % cycle;
+    if (t < frenzyDur) {
+      ctx.globalAlpha = 0.15 + 0.05 * Math.sin(performance.now() / 100);
+      ctx.fillStyle = '#ff4444';
+      ctx.font = 'bold 24px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚡ FRENZY x5 ⚡', W / 2, 30);
+      ctx.globalAlpha = 1;
+    }
+  }
 
   // UI update (throttled)
   uiTimer += dt;
