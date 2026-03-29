@@ -1,8 +1,7 @@
 import { Game, GameState } from './game/Game.js';
 import { Renderer }        from './render/Renderer.js';
 import { InputManager }    from './input/InputManager.js';
-import { createStream }    from './game/Stream.js';
-import { TICK_RATE, MIN_SEND_ENERGY } from './utils/constants.js';
+import { TICK_RATE } from './utils/constants.js';
 
 // ============================================================================
 // Bootstrap
@@ -23,19 +22,14 @@ window.game = game;
 
 inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   if (!game.world) return;
-
   for (const source of selectedNodes) {
-    const amount = Math.floor(source.energy * ratio);
-    if (amount < MIN_SEND_ENERGY) continue;
-
-    source.energy -= amount;
-    game.world.addStream(createStream(source, targetNode, amount, source.owner));
+    game.sendEnergy(source, targetNode, ratio);
   }
 };
 
-inputManager.onRedirectStream = (stream, newTargetNode) => {
+inputManager.onRedirectSwarm = (swarm, newTargetNode) => {
   if (!game.world) return;
-  game.redirectStream(stream, newTargetNode);
+  game.redirectSwarm(swarm, newTargetNode);
 };
 
 // ============================================================================
@@ -48,8 +42,8 @@ let lastConfig = null;
 // Menu wiring
 // ============================================================================
 
-const menuScreen    = document.getElementById('menu-screen');
-const hud           = document.getElementById('hud');
+const menuScreen     = document.getElementById('menu-screen');
+const hud            = document.getElementById('hud');
 const gameOverScreen = document.getElementById('game-over-screen');
 
 document.getElementById('menu-start').addEventListener('click', () => {
@@ -87,6 +81,8 @@ function startGame(config) {
   inputManager.isDragging    = false;
   inputManager.dragStartNode = null;
   inputManager.hoveredNode   = null;
+  inputManager.selectedSwarm = null;
+  inputManager.isRedirecting = false;
 
   // Reset speed buttons to 1× and unpause
   document.querySelectorAll('.speed-btn[data-speed]').forEach(b => b.classList.remove('active'));
@@ -124,12 +120,10 @@ function showGameOver() {
   if (_gameOverShown) return;
   _gameOverShown = true;
 
-  const title     = document.getElementById('game-over-title');
-  const statsEl   = document.getElementById('game-over-stats');
+  const title   = document.getElementById('game-over-title');
+  const statsEl = document.getElementById('game-over-stats');
 
-  // Determine outcome
-  const humanPlayer = game.world ? game.world.players.find(p => p.isHuman) : null;
-  const isVictory   = game.winner && game.winner.isHuman;
+  const isVictory = game.winner && game.winner.isHuman;
 
   title.textContent = isVictory ? '✦ VICTORY ✦' : '✗ DEFEAT ✗';
   title.style.color = isVictory ? '#00e5ff' : '#ff4466';
@@ -138,9 +132,7 @@ function showGameOver() {
   const elapsed = game.world ? Math.floor(game.world.time) : 0;
   const mins    = Math.floor(elapsed / 60);
   const secs    = elapsed % 60;
-  const nodes   = game.world
-    ? game.world.getNodesByOwner(0).length
-    : 0;
+  const nodes   = game.world ? game.world.getNodesByOwner(0).length : 0;
   const totalNodes = game.world ? game.world.nodes.length : 0;
 
   statsEl.innerHTML =

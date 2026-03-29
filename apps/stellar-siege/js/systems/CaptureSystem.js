@@ -1,63 +1,64 @@
 /**
  * CaptureSystem — resolves node ownership changes when energy drops below 0.
  *
- * StreamSystem subtracts energy from enemy nodes during delivery.
- * When a node's energy goes negative, this system captures it for the
- * stream's owner and sets the node energy to the overflow amount.
+ * SwarmSystem subtracts energy from enemy nodes as motes arrive.
+ * When a node's energy goes negative this system captures it for the
+ * attacker and sets the starting energy to the overflow amount.
  */
 export class CaptureSystem {
   update(world, dt) {
     for (const node of world.nodes) {
       if (node.energy >= 0) continue;
 
-      // Find which stream is attacking this node (most recent hostile stream)
-      // We use the last attacker recorded during stream delivery.
-      // If we can't find one, just clamp to 0 (shouldn't happen in normal play).
-      const attackingStream = this._findAttacker(world, node);
+      // Find which swarm is attacking this node
+      const attackingSwarm = this._findAttacker(world, node);
 
-      if (attackingStream) {
+      if (attackingSwarm) {
         const overflow = Math.abs(node.energy);
-        const newOwner = attackingStream.owner;
+        const newOwner = attackingSwarm.owner;
 
         // Capture!
-        node.owner = newOwner;
-        node.energy = Math.min(overflow, node.maxEnergy * 0.1); // small starting energy
-        node.upgrade = null;         // upgrades are lost on capture
+        node.owner    = newOwner;
+        node.energy   = Math.min(overflow, node.maxEnergy * 0.1); // small starting energy
+        node.upgrade  = null;        // upgrades lost on capture
         node.captureFlash = 1.0;    // trigger capture flash animation
       } else {
-        // No attacker found — just reset to 0 (edge case)
+        // No attacker found — clamp to 0 (edge case)
         node.energy = 0;
       }
     }
   }
 
   /**
-   * Find an active hostile stream targeting this node.
-   * Returns the most energetic active attacker stream.
+   * Find the active hostile swarm that has the most motes still heading for
+   * this node. Falls back to any swarm targeting the node.
+   *
+   * @param {import('../game/World.js').World} world
+   * @param {import('../game/Node.js').Node}   node
+   * @returns {import('../game/Swarm.js').Swarm|null}
    */
   _findAttacker(world, node) {
     let best = null;
-    let bestEnergy = -1;
+    let bestAlive = -1;
 
-    for (const stream of world.streams) {
-      if (!stream.alive) continue;
-      if (stream.targetId !== node.id) continue;
-      if (stream.owner === node.owner) continue; // friendly, not attacker
+    for (const swarm of world.swarms) {
+      if (!swarm.alive) continue;
+      if (swarm.targetId !== node.id) continue;
+      if (swarm.owner === node.owner) continue; // friendly — not an attacker
 
-      const energy = stream.totalEnergy - stream.deliveredEnergy;
-      if (energy > bestEnergy) {
-        bestEnergy = energy;
-        best = stream;
+      const aliveCount = swarm.motes.filter(m => m.alive).length;
+      if (aliveCount > bestAlive) {
+        bestAlive = aliveCount;
+        best = swarm;
       }
     }
 
-    // Also check arrived streams (that just finished delivering)
-    // by looking for any stream that was targeting this node
+    // Fallback: any swarm targeting this node (even if all motes just delivered)
     if (!best) {
-      for (const stream of world.streams) {
-        if (stream.targetId !== node.id) continue;
-        if (stream.owner === node.owner) continue;
-        best = stream;
+      for (const swarm of world.swarms) {
+        if (swarm.targetId !== node.id) continue;
+        if (swarm.owner === node.owner) continue;
+        best = swarm;
         break;
       }
     }

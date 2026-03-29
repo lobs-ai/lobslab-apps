@@ -1,17 +1,15 @@
-import { pointToSegmentDist } from '../utils/math.js';
-
 /**
  * World — container for all game entities.
  */
 export class World {
   constructor() {
-    this.nodes = [];
-    this.streams = [];
+    this.nodes   = [];
+    this.swarms  = [];
     this.players = [];
-    this.events = [];       // active environmental events
-    this.time = 0;          // elapsed game time in seconds
-    this.width = 0;
-    this.height = 0;
+    this.events  = [];       // active environmental/visual events
+    this.time    = 0;        // elapsed game time in seconds
+    this.width   = 0;
+    this.height  = 0;
   }
 
   getNodeById(id) {
@@ -23,7 +21,7 @@ export class World {
   }
 
   getNodeAt(x, y) {
-    // Find the closest node within its radius
+    // Find the closest node within its hit radius
     for (const node of this.nodes) {
       const dx = x - node.position.x;
       const dy = y - node.position.y;
@@ -35,50 +33,52 @@ export class World {
   }
 
   /**
-   * Find the closest player-owned in-flight stream within maxDist px of
-   * the given point. Hit-tests against the line segment source→head.
+   * Find the closest player-owned swarm whose center of mass is within
+   * maxDist pixels of the given point. Used for the redirect gesture.
    *
    * @param {number} x
    * @param {number} y
-   * @param {number} ownerId  - only match streams owned by this player
-   * @param {number} [maxDist=15]
-   * @returns {Stream|null}
+   * @param {number} ownerId   - only match swarms owned by this player
+   * @param {number} [maxDist=30]
+   * @returns {Swarm|null}
    */
-  getStreamAt(x, y, ownerId, maxDist = 15) {
+  getSwarmAt(x, y, ownerId, maxDist = 30) {
     let closest = null;
     let closestDist = maxDist;
 
-    for (const stream of this.streams) {
-      if (!stream.alive || stream.arrived) continue;
-      if (stream.owner !== ownerId) continue;
+    for (const swarm of this.swarms) {
+      if (!swarm.alive) continue;
+      if (swarm.owner !== ownerId) continue;
 
-      const source = this.getNodeById(stream.sourceId);
-      if (!source) continue;
+      // Compute center of mass of alive motes
+      let cx = 0, cy = 0, count = 0;
+      for (const m of swarm.motes) {
+        if (!m.alive) continue;
+        cx += m.x; cy += m.y; count++;
+      }
+      if (count === 0) continue;
+      cx /= count; cy /= count;
 
-      const d = pointToSegmentDist(
-        x, y,
-        source.position.x, source.position.y,
-        stream.headX, stream.headY
-      );
+      const d = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
       if (d < closestDist) {
         closestDist = d;
-        closest = stream;
+        closest = swarm;
       }
     }
     return closest;
   }
 
-  addStream(stream) {
-    this.streams.push(stream);
+  addSwarm(swarm) {
+    this.swarms.push(swarm);
   }
 
-  removeStream(id) {
-    const idx = this.streams.findIndex(s => s.id === id);
-    if (idx !== -1) this.streams.splice(idx, 1);
+  removeSwarm(id) {
+    const idx = this.swarms.findIndex(s => s.id === id);
+    if (idx !== -1) this.swarms.splice(idx, 1);
   }
 
   /**
-   * Get total energy for a player.
+   * Get total energy for a player (owned nodes only).
    */
   getPlayerEnergy(playerId) {
     let total = 0;
@@ -100,12 +100,12 @@ export class World {
   }
 
   /**
-   * Check if a player is eliminated (owns no nodes and has no streams).
+   * Check if a player is eliminated — owns no nodes and has no swarms in flight.
    */
   isPlayerEliminated(playerId) {
     const hasNodes = this.nodes.some(n => n.owner === playerId);
     if (hasNodes) return false;
-    const hasStreams = this.streams.some(s => s.owner === playerId && s.alive);
-    return !hasStreams;
+    const hasSwarms = this.swarms.some(s => s.owner === playerId && s.alive);
+    return !hasSwarms;
   }
 }

@@ -13,6 +13,7 @@ import {
  *   - Track the player's selected node(s)
  *   - Drive drag-to-send interaction
  *   - Call onSendEnergy(selectedNodes, targetNode, ratio) on valid drag-release
+ *   - Call onRedirectSwarm(swarm, newTargetNode) when a swarm is redirected
  */
 export class InputManager {
   /**
@@ -33,9 +34,9 @@ export class InputManager {
     this.isDragging    = false;
     this.dragStartNode = null;   // the node the current drag originated from
 
-    // Stream redirect state
-    this.selectedStream  = null;   // stream currently being redirected
-    this.isRedirecting   = false;
+    // Swarm redirect state
+    this.selectedSwarm = null;   // swarm currently being redirected
+    this.isRedirecting = false;
 
     // Box-selection state
     this._boxStartX      = 0;
@@ -55,10 +56,10 @@ export class InputManager {
     this.onSendEnergy = null;
 
     /**
-     * Callback fired when the player redirects an in-flight stream.
-     * Signature: (stream: Stream, newTargetNode: Node) => void
+     * Callback fired when the player redirects an in-flight swarm.
+     * Signature: (swarm: Swarm, newTargetNode: Node) => void
      */
-    this.onRedirectStream = null;
+    this.onRedirectSwarm = null;
 
     this._bindEvents();
   }
@@ -161,11 +162,11 @@ export class InputManager {
         this.dragStartNode = node;
       }
     } else {
-      // No owned node — check if the click lands on a player stream
-      const stream = world.getStreamAt(this._mouseX, this._mouseY, 0);
-      if (stream) {
-        // Begin stream redirect gesture
-        this.selectedStream  = stream;
+      // No owned node — check if the click lands on a player swarm
+      const swarm = world.getSwarmAt(this._mouseX, this._mouseY, 0);
+      if (swarm) {
+        // Begin swarm redirect gesture
+        this.selectedSwarm   = swarm;
         this.isRedirecting   = true;
         this._isBoxSelecting = false;
         this.boxSelectRect   = null;
@@ -218,12 +219,12 @@ export class InputManager {
 
     const world = this.getWorld();
 
-    // --- Handle stream redirect completion ---
-    if (this.isRedirecting && this.selectedStream && world) {
+    // --- Handle swarm redirect completion ---
+    if (this.isRedirecting && this.selectedSwarm && world) {
       const target = world.getNodeAt(this._mouseX, this._mouseY);
-      if (target && target.id !== this.selectedStream.targetId) {
-        if (this.onRedirectStream) {
-          this.onRedirectStream(this.selectedStream, target);
+      if (target && target.id !== this.selectedSwarm.targetId) {
+        if (this.onRedirectSwarm) {
+          this.onRedirectSwarm(this.selectedSwarm, target);
         }
       }
       this._cancelRedirect();
@@ -246,8 +247,8 @@ export class InputManager {
         if (maxX - minX > BOX_MIN_SIZE || maxY - minY > BOX_MIN_SIZE) {
           const inBox = world.nodes.filter(n =>
             n.owner === 0 &&
-            n.x >= minX && n.x <= maxX &&
-            n.y >= minY && n.y <= maxY
+            n.position.x >= minX && n.position.x <= maxX &&
+            n.position.y >= minY && n.position.y <= maxY
           );
 
           if (this.shiftKey) {
@@ -307,10 +308,10 @@ export class InputManager {
     this.boxSelectRect   = null;
   }
 
-  /** Cancel any in-progress stream redirect gesture. */
+  /** Cancel any in-progress swarm redirect gesture. */
   _cancelRedirect() {
-    this.selectedStream = null;
-    this.isRedirecting  = false;
+    this.selectedSwarm = null;
+    this.isRedirecting = false;
   }
 
   // -------------------------------------------------------------------------

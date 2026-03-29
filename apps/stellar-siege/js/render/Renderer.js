@@ -1,15 +1,15 @@
 import { BackgroundRenderer } from './BackgroundRenderer.js';
 import { NodeRenderer } from './NodeRenderer.js';
-import { StreamRenderer } from './StreamRenderer.js';
+import { SwarmRenderer } from './SwarmRenderer.js';
 import { ParticlePool } from './ParticlePool.js';
-import { getOwnerColor, hexAlpha } from '../utils/colors.js';
+import { getOwnerColor } from '../utils/colors.js';
 import { PARTICLE_POOL_SIZE } from '../utils/constants.js';
 
 /**
  * Renderer — main render orchestrator.
  *
  * Owns the canvas context and all sub-renderers. Each frame:
- *   clear → background → streams → nodes → particles → UI overlay
+ *   clear → background → swarms → nodes → particles → UI overlay
  */
 export class Renderer {
   constructor(canvas) {
@@ -23,7 +23,7 @@ export class Renderer {
     this.particles    = new ParticlePool(PARTICLE_POOL_SIZE);
     this.background   = new BackgroundRenderer();
     this.nodeRenderer = new NodeRenderer(this.particles);
-    this.streamRenderer = new StreamRenderer(this.particles);
+    this.swarmRenderer = new SwarmRenderer(this.particles);
 
     // Internal time accumulator for background animation
     this._time = 0;
@@ -92,11 +92,11 @@ export class Renderer {
     // 2. Background (static starfield + twinkle)
     this.background.draw(ctx, simTime);
 
-    // 3. Streams — pass highlighted stream id for redirect visual feedback
-    const highlightedStreamId = (inputManager && inputManager.isRedirecting && inputManager.selectedStream)
-      ? inputManager.selectedStream.id
+    // 3. Swarms — pass highlighted swarm id for redirect visual feedback
+    const highlightedSwarmId = (inputManager && inputManager.isRedirecting && inputManager.selectedSwarm)
+      ? inputManager.selectedSwarm.id
       : null;
-    this.streamRenderer.draw(ctx, world, simTime, dt, highlightedStreamId);
+    this.swarmRenderer.draw(ctx, world, simTime, dt, highlightedSwarmId);
 
     // 4. Nodes
     //    NodeRenderer.draw(ctx, world, hoveredNode, selectedNode, time)
@@ -150,15 +150,15 @@ export class Renderer {
   }
 
   // -------------------------------------------------------------------------
-  // UI overlay: drag line + tooltip
+  // UI overlay: drag line + redirect line + tooltip
   // -------------------------------------------------------------------------
 
   _drawUIOverlay(ctx, world, inputManager, time) {
     const mouse = inputManager.getMousePos();
 
-    // --- Stream redirect preview ---
-    if (inputManager.isRedirecting && inputManager.selectedStream) {
-      this._drawRedirectLine(ctx, world, inputManager.selectedStream, mouse, time);
+    // --- Swarm redirect preview ---
+    if (inputManager.isRedirecting && inputManager.selectedSwarm) {
+      this._drawRedirectLine(ctx, world, inputManager.selectedSwarm, mouse, time);
     }
 
     // --- Drag preview line (only when not redirecting) ---
@@ -194,34 +194,41 @@ export class Renderer {
   }
 
   // -------------------------------------------------------------------------
-  // Redirect line
+  // Redirect line (swarm re-route preview)
   // -------------------------------------------------------------------------
 
   /**
-   * Draw the stream-redirect overlay:
-   *  - A white/cyan pulsing highlight ring around the selected stream's head
-   *  - A dashed cyan line from the stream head to the mouse cursor
+   * Draw the swarm-redirect overlay:
+   *  - A pulsing highlight ring around the swarm's center of mass
+   *  - A dashed cyan line from the center of mass to the mouse cursor
    *  - A "REDIRECT" label near the cursor
    */
-  _drawRedirectLine(ctx, world, stream, mouse, time) {
-    const hx = stream.headX;
-    const hy = stream.headY;
+  _drawRedirectLine(ctx, world, swarm, mouse, time) {
+    // Find the swarm center of mass for the line start point
+    let cx = 0, cy = 0, count = 0;
+    for (const m of swarm.motes) {
+      if (!m.alive) continue;
+      cx += m.x; cy += m.y; count++;
+    }
+    if (count === 0) return;
+    cx /= count; cy /= count;
+
     const tx = mouse.x;
     const ty = mouse.y;
 
     const REDIRECT_COLOR = '#00ffff';
 
-    // Don't draw if cursor is right on the head
-    const dx = tx - hx;
-    const dy = ty - hy;
+    // Don't draw if cursor is right on the center
+    const dx = tx - cx;
+    const dy = ty - cy;
     if (dx * dx + dy * dy < 25) return;
 
     ctx.save();
 
-    // --- Pulsing highlight ring around stream head ---
+    // --- Pulsing highlight ring around swarm center ---
     const pulse = 0.55 + 0.45 * Math.sin(time * 6);
     ctx.beginPath();
-    ctx.arc(hx, hy, 10, 0, Math.PI * 2);
+    ctx.arc(cx, cy, 12, 0, Math.PI * 2);
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth   = 2;
     ctx.globalAlpha = pulse * 0.9;
@@ -231,7 +238,7 @@ export class Renderer {
 
     // Outer glow along redirect line
     ctx.beginPath();
-    ctx.moveTo(hx, hy);
+    ctx.moveTo(cx, cy);
     ctx.lineTo(tx, ty);
     ctx.strokeStyle = REDIRECT_COLOR;
     ctx.lineWidth   = 5;
@@ -242,7 +249,7 @@ export class Renderer {
 
     // Dashed inner redirect line
     ctx.beginPath();
-    ctx.moveTo(hx, hy);
+    ctx.moveTo(cx, cy);
     ctx.lineTo(tx, ty);
     ctx.strokeStyle = REDIRECT_COLOR;
     ctx.lineWidth   = 1.5;

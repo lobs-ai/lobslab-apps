@@ -1,13 +1,12 @@
 import { World } from './World.js';
 import { createPlayer } from './Player.js';
 import { resetNodeIds } from './Node.js';
-import { resetStreamIds } from './Stream.js';
 import { generateMap } from '../map/MapGenerator.js';
 import { ProductionSystem } from '../systems/ProductionSystem.js';
-import { StreamSystem } from '../systems/StreamSystem.js';
+import { SwarmSystem } from '../systems/SwarmSystem.js';
 import { CaptureSystem } from '../systems/CaptureSystem.js';
 import { AISystem } from '../systems/AISystem.js';
-import { createStream } from './Stream.js';
+import { createSwarm, resetSwarmIds } from './Swarm.js';
 
 /**
  * Game states.
@@ -33,7 +32,7 @@ export class Game {
 
     // Systems
     this.productionSystem = new ProductionSystem();
-    this.streamSystem = new StreamSystem();
+    this.swarmSystem = new SwarmSystem();
     this.captureSystem = new CaptureSystem();
     this.aiSystem = new AISystem();
   }
@@ -43,7 +42,7 @@ export class Game {
    */
   startGame(config) {
     resetNodeIds();
-    resetStreamIds();
+    resetSwarmIds();
 
     this.world = new World();
     this.winner = null;
@@ -106,7 +105,7 @@ export class Game {
 
     // Run systems
     this.productionSystem.update(this.world, dt);
-    this.streamSystem.update(this.world, dt);
+    this.swarmSystem.update(this.world, dt);
     this.captureSystem.update(this.world, dt);
     this.aiSystem.update(this.world, dt);
 
@@ -144,23 +143,23 @@ export class Game {
   }
 
   /**
-   * Redirect an in-flight player stream to a new target node.
-   * The stream head continues from its current position toward the new target.
-   * StreamSystem already uses targetId each tick, so updating it is sufficient.
+   * Redirect an in-flight player swarm to a new target node.
+   * SwarmSystem steers all motes toward targetId each tick, so
+   * simply updating the id is sufficient.
    *
-   * @param {Stream} stream
-   * @param {Node}   newTarget
+   * @param {import('./Swarm.js').Swarm} swarm
+   * @param {import('./Node.js').Node}   newTarget
    */
-  redirectStream(stream, newTarget) {
-    if (!stream || !newTarget) return;
-    if (!stream.alive || stream.arrived) return;
-    if (stream.owner !== 0) return; // only the human player can redirect
-    if (stream.targetId === newTarget.id) return; // already heading there
-    stream.targetId = newTarget.id;
+  redirectSwarm(swarm, newTarget) {
+    if (!swarm || !newTarget) return;
+    if (!swarm.alive) return;
+    if (swarm.owner !== 0) return; // only the human player can redirect
+    if (swarm.targetId === newTarget.id) return; // already heading there
+    swarm.targetId = newTarget.id;
   }
 
   /**
-   * Send energy from source node to target node.
+   * Send energy from source node to target node as a mote swarm.
    */
   sendEnergy(sourceNode, targetNode, ratio = 0.5) {
     if (!sourceNode || !targetNode) return;
@@ -172,7 +171,7 @@ export class Game {
 
     sourceNode.energy -= amount;
 
-    const stream = createStream(sourceNode, targetNode, amount, sourceNode.owner);
-    this.world.addStream(stream);
+    const swarm = createSwarm(sourceNode, targetNode, amount, sourceNode.owner);
+    this.world.addSwarm(swarm);
   }
 }

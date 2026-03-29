@@ -1,5 +1,5 @@
 import { AI_REACTION, MIN_SEND_ENERGY } from '../utils/constants.js';
-import { createStream } from '../game/Stream.js';
+import { createSwarm } from '../game/Swarm.js';
 import { dist } from '../utils/math.js';
 
 /**
@@ -58,13 +58,13 @@ class AIController {
   }
 
   /**
-   * Find nodes being attacked by enemies and send help from safe neighbors.
+   * Find nodes being attacked by enemy swarms and send help from safe neighbors.
    */
   _reinforceThreats(world, myNodes) {
     for (const node of myNodes) {
-      // Check if enemy streams are targeting this node
-      const underAttack = world.streams.some(
-        s => s.targetId === node.id && s.owner !== this.playerId
+      // Check if enemy swarms are targeting this node
+      const underAttack = world.swarms.some(
+        s => s.alive && s.targetId === node.id && s.owner !== this.playerId
       );
 
       if (!underAttack) continue;
@@ -76,12 +76,12 @@ class AIController {
       const amount = Math.floor(reinforcer.energy * 0.5);
       if (amount < MIN_SEND_ENERGY) continue;
 
-      this._sendStream(world, reinforcer, node, 0.5);
+      this._sendSwarm(world, reinforcer, node, 0.5);
     }
   }
 
   /**
-   * Find the best attack/expansion target and send a stream.
+   * Find the best attack/expansion target and send a swarm.
    */
   _attackOrExpand(world, myNodes) {
     // Best source — node with the most available energy
@@ -113,7 +113,7 @@ class AIController {
     const sendAmount = source.energy * this._getSendRatio();
     if (sendAmount < MIN_SEND_ENERGY * 2) return;
 
-    this._sendStream(world, source, bestTarget, this._getSendRatio());
+    this._sendSwarm(world, source, bestTarget, this._getSendRatio());
   }
 
   /**
@@ -149,8 +149,8 @@ class AIController {
         if (n.id === targetNode.id) return false;
         if (n.energy < n.maxEnergy * minEnergyFraction) return false;
         // Skip nodes already under attack
-        const underAttack = world.streams.some(
-          s => s.targetId === n.id && s.owner !== this.playerId
+        const underAttack = world.swarms.some(
+          s => s.alive && s.targetId === n.id && s.owner !== this.playerId
         );
         return !underAttack;
       })
@@ -169,12 +169,12 @@ class AIController {
     }
   }
 
-  _sendStream(world, source, target, ratio) {
+  _sendSwarm(world, source, target, ratio) {
     const amount = Math.floor(source.energy * ratio);
     if (amount < MIN_SEND_ENERGY) return;
 
     source.energy -= amount;
-    const stream = createStream(source, target, amount, this.playerId);
-    world.addStream(stream);
+    const swarm = createSwarm(source, target, amount, this.playerId);
+    world.addSwarm(swarm);
   }
 }
