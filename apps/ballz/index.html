@@ -1414,6 +1414,7 @@ function formatNum(n) {
   if (n === Infinity) return '∞';
   if (n !== n) return '0'; // NaN
   if (n < 0) return '-' + formatNum(-n);
+  if (n < 1) return n === 0 ? '0' : n.toFixed(1);
   if (n < 1000) return Math.floor(n).toLocaleString();
   const suffixes = [
     '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No',
