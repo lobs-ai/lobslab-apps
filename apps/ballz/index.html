@@ -35,7 +35,7 @@
     z-index: 10;
   }
 
-  #generators, #upgrades {
+  #generators, #upgrades, #milestones {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -122,6 +122,106 @@
     font-size: 10px;
     color: #4d96ff;
     font-weight: 600;
+  }
+
+  /* ── Milestone styles ── */
+  .milestone-row {
+    background: #1a1a30;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .milestone-row .ms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #aaa;
+  }
+  .milestone-row .ms-bar-bg {
+    background: #111128;
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .milestone-row .ms-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .milestone-row .ms-badges {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  .ms-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .ms-badge.locked {
+    background: #1a1a2a;
+    color: #444;
+    border: 1px solid #2a2a3a;
+  }
+  .ms-badge.unlocked {
+    background: linear-gradient(135deg, #4a3800, #6a5000);
+    color: #ffd700;
+    border: 1px solid #aa8800;
+    text-shadow: 0 0 4px rgba(255,215,0,0.4);
+  }
+
+  /* ── Stats collapsible ── */
+  .stats-section {
+    background: #1a1a30;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .stats-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.15s;
+  }
+  .stats-toggle:hover { color: #aaa; }
+  .stats-body {
+    display: none;
+    padding: 4px 12px 10px;
+  }
+  .stats-body.open { display: block; }
+  .stats-body .stat-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #777;
+    padding: 3px 0;
+    border-bottom: 1px solid #1a1a28;
+  }
+  .stats-body .stat-line .sv { color: #bbb; font-weight: 600; }
+
+  /* ── Prestige badge ── */
+  .prestige-tier-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-left: 6px;
   }
 
   /* ── Prestige Confirm Modal ── */
@@ -224,6 +324,14 @@
   #prestige-btn .name { font-size: 15px; font-weight: 700; color: #e891dc; }
   #prestige-btn .desc { font-size: 11px; color: #aa6da5; margin-top: 4px; }
 
+  @keyframes prestigePulse {
+    0%,100% { box-shadow: 0 0 8px rgba(155,48,144,0.3); }
+    50% { box-shadow: 0 0 22px rgba(155,48,144,0.7), 0 0 40px rgba(155,48,144,0.2); }
+  }
+  #prestige-btn.can-prestige {
+    animation: prestigePulse 2s ease-in-out infinite;
+  }
+
   #skill-tree {
     display: flex;
     flex-direction: column;
@@ -290,6 +398,43 @@
   }
   .combo-display span { color: #ff6b6b; font-weight: 700; font-size: 14px; }
 
+  /* ── Overflow banner ── */
+  #overflow-banner {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: linear-gradient(90deg, #ff0000, #ff6600, #ff0000);
+    color: #fff;
+    text-align: center;
+    font-weight: 900;
+    font-size: 18px;
+    padding: 14px;
+    z-index: 900;
+    letter-spacing: 3px;
+    animation: bannerFlash 0.3s ease-in-out 6;
+    text-shadow: 0 0 10px #fff;
+  }
+  @keyframes bannerFlash {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ── Overflow canvas border ── */
+  @keyframes overflowBorder {
+    0%,100% { box-shadow: inset 0 0 30px rgba(255,0,0,0.15); }
+    50% { box-shadow: inset 0 0 50px rgba(255,60,0,0.3); }
+  }
+  canvas.overflow-active {
+    animation: overflowBorder 2s ease-in-out infinite;
+  }
+
+  /* ── Overflow status flash ── */
+  @keyframes overflowFlash {
+    0%,100% { color: #ffd93d; }
+    50% { color: #ff4444; }
+  }
+  .overflow-flash { animation: overflowFlash 1s ease-in-out infinite; }
+
   @media (max-width: 700px) {
     body { flex-direction: column; }
     canvas { height: 45vh; flex: none; }
@@ -307,8 +452,8 @@
     <div class="value" id="ball-count">0</div>
   </div>
 
-  <div class="stat-bar">
-    <div><div class="label">Per Second</div></div>
+  <div class="stat-bar" id="bps-bar">
+    <div><div class="label" id="bps-label">Per Second</div></div>
     <div class="value" id="bps">0</div>
   </div>
 
@@ -319,11 +464,16 @@
   <div class="section-title">Generators</div>
   <div id="generators"></div>
 
+  <div id="milestones-section" style="display:none">
+    <div class="section-title">🏆 Milestones</div>
+    <div id="milestones"></div>
+  </div>
+
   <div class="section-title">Upgrades</div>
   <div id="upgrades"></div>
 
   <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
-    <div class="name">⟳ PRESTIGE</div>
+    <div class="name">⟳ PRESTIGE <span id="prestige-tier-badge"></span></div>
     <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
   </div>
 
@@ -335,7 +485,15 @@
     <div class="section-title">Skill Tree</div>
     <div id="skill-tree"></div>
   </div>
+
+  <div class="stats-section">
+    <button class="stats-toggle" onclick="this.nextElementSibling.classList.toggle('open')">▸ Stats</button>
+    <div class="stats-body" id="stats-body"></div>
+  </div>
 </div>
+
+<!-- Overflow Banner -->
+<div id="overflow-banner">⚠️ BALL OVERFLOW DETECTED — Reality is destabilizing!</div>
 
 <!-- Prestige Confirmation Modal -->
 <div id="prestige-modal-overlay" onclick="closePrestigeModal(event)">
@@ -354,7 +512,56 @@
 
 <script>
 // ── Save / Load ──
-const SAVE_KEY = 'ballz_save_v3';
+const SAVE_KEY = 'ballz_save_v4';
+
+// ── Milestone Definitions (derived, not stored in state) ──
+const GEN_MILESTONES = [
+  // Dropper
+  { id: 'dropper_10',  genId: 'dropper',    name: 'Steady Drip',        threshold: 10,  multiplier: 2 },
+  { id: 'dropper_25',  genId: 'dropper',    name: 'Reinforced Pipes',   threshold: 25,  multiplier: 2 },
+  { id: 'dropper_50',  genId: 'dropper',    name: 'Pressurized Lines',  threshold: 50,  multiplier: 3 },
+  { id: 'dropper_100', genId: 'dropper',    name: 'Infinite Reservoir',  threshold: 100, multiplier: 5 },
+  // Launcher
+  { id: 'launcher_10',  genId: 'launcher',  name: 'High Caliber',        threshold: 10,  multiplier: 2 },
+  { id: 'launcher_25',  genId: 'launcher',  name: 'Rapid Fire',          threshold: 25,  multiplier: 2 },
+  { id: 'launcher_50',  genId: 'launcher',  name: 'Orbital Cannons',     threshold: 50,  multiplier: 3 },
+  { id: 'launcher_100', genId: 'launcher',  name: 'Launcher Singularity',threshold: 100, multiplier: 5 },
+  // Factory
+  { id: 'factory_10',  genId: 'factory',    name: 'Assembly Line',       threshold: 10,  multiplier: 2 },
+  { id: 'factory_25',  genId: 'factory',    name: 'Automation',          threshold: 25,  multiplier: 2 },
+  { id: 'factory_50',  genId: 'factory',    name: 'Mega Factory',        threshold: 50,  multiplier: 3 },
+  { id: 'factory_100', genId: 'factory',    name: 'Dyson Factory',       threshold: 100, multiplier: 5 },
+  // Vortex
+  { id: 'vortex_10',  genId: 'vortex',      name: 'Spiral Force',        threshold: 10,  multiplier: 2 },
+  { id: 'vortex_25',  genId: 'vortex',      name: 'Event Horizon',       threshold: 25,  multiplier: 2 },
+  { id: 'vortex_50',  genId: 'vortex',      name: 'Void Mastery',        threshold: 50,  multiplier: 3 },
+  { id: 'vortex_100', genId: 'vortex',      name: 'Infinite Vortex',     threshold: 100, multiplier: 5 },
+  // Singularity
+  { id: 'singularity_10',  genId: 'singularity', name: 'Mass Collapse',    threshold: 10,  multiplier: 2 },
+  { id: 'singularity_25',  genId: 'singularity', name: 'Spaghettification', threshold: 25,  multiplier: 2 },
+  { id: 'singularity_50',  genId: 'singularity', name: 'Hawking Burst',    threshold: 50,  multiplier: 3 },
+  { id: 'singularity_100', genId: 'singularity', name: 'Eternal Collapse', threshold: 100, multiplier: 5 },
+  // Quantum
+  { id: 'quantum_10',  genId: 'quantum',    name: 'Superposition',       threshold: 10,  multiplier: 2 },
+  { id: 'quantum_25',  genId: 'quantum',    name: 'Entanglement',        threshold: 25,  multiplier: 2 },
+  { id: 'quantum_50',  genId: 'quantum',    name: 'Decoherence Wave',    threshold: 50,  multiplier: 3 },
+  { id: 'quantum_100', genId: 'quantum',    name: 'Quantum Supremacy',   threshold: 100, multiplier: 5 },
+  // Dimension
+  { id: 'dimension_10',  genId: 'dimension', name: 'Rift Stabilizer',    threshold: 10,  multiplier: 2 },
+  { id: 'dimension_25',  genId: 'dimension', name: 'Multiverse Tap',     threshold: 25,  multiplier: 2 },
+  { id: 'dimension_50',  genId: 'dimension', name: 'Reality Fracture',   threshold: 50,  multiplier: 3 },
+  { id: 'dimension_100', genId: 'dimension', name: 'Dimension Overlord', threshold: 100, multiplier: 5 },
+  // Big Bang
+  { id: 'bigbang_10',  genId: 'bigbang',    name: 'Cosmic Inflation',    threshold: 10,  multiplier: 2 },
+  { id: 'bigbang_25',  genId: 'bigbang',    name: 'Dark Energy Surge',   threshold: 25,  multiplier: 2 },
+  { id: 'bigbang_50',  genId: 'bigbang',    name: 'Universe Engine',     threshold: 50,  multiplier: 3 },
+  { id: 'bigbang_100', genId: 'bigbang',    name: 'Omniverse Creator',   threshold: 100, multiplier: 5 },
+  // Overflow Core
+  { id: 'overflow_10',  genId: 'overflow',  name: 'Overflow Conduit',    threshold: 10,  multiplier: 2 },
+  { id: 'overflow_25',  genId: 'overflow',  name: 'Reality Leak',        threshold: 25,  multiplier: 2 },
+  { id: 'overflow_50',  genId: 'overflow',  name: 'Cascade Breach',      threshold: 50,  multiplier: 3 },
+  { id: 'overflow_100', genId: 'overflow',  name: 'Overflow Singularity',threshold: 100, multiplier: 5 },
+];
 
 // ── Game State ──
 let state = getDefaultState();
@@ -363,18 +570,28 @@ function getDefaultState() {
   return {
     balls: 0,
     totalBalls: 0,
+    totalBallsEver: 0,
+    totalClicks: 0,
+    gameStartTime: Date.now(),
     prestiges: 0,
     prestigeMulti: 1,
     prestigePoints: 0,
+    highestBPS: 0,
+    overflowUnlocked: false,
+    overflowActive: false,
     skills: {
-      bpsMulti:      { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.8, desc: '+25% ball production per level' },
-      clickPower:    { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.6, desc: '+50% click value per level' },
-      cheapGens:     { level: 0, maxLevel: 8,  baseCost: 2,  costScale: 2.0, desc: 'Generators cost 10% less per level' },
-      startingBalls: { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.5, desc: 'Start with 500 balls per level after prestige' },
-      autoClicker:   { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.0, desc: 'Auto-click once every 3s (-0.4s per level)' },
-      maxCombo:      { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.0, desc: '+20 max combo per level' },
-      goldenChance:  { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.5, desc: '+1% golden ball chance per level' },
-      ballFrenzy:    { level: 0, maxLevel: 3,  baseCost: 5,  costScale: 3.0, desc: 'Every 60s, 10s of 5x production per level' },
+      bpsMulti:        { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.8, desc: '+25% ball production per level' },
+      clickPower:      { level: 0, maxLevel: 10, baseCost: 1,  costScale: 1.6, desc: '+50% click value per level' },
+      cheapGens:       { level: 0, maxLevel: 8,  baseCost: 2,  costScale: 2.0, desc: 'Generators cost 10% less per level' },
+      startingBalls:   { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.5, desc: 'Start with 500 balls per level after prestige' },
+      autoClicker:     { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.0, desc: 'Auto-click once every 3s (-0.4s per level)' },
+      maxCombo:        { level: 0, maxLevel: 5,  baseCost: 2,  costScale: 2.0, desc: '+20 max combo per level' },
+      goldenChance:    { level: 0, maxLevel: 5,  baseCost: 3,  costScale: 2.5, desc: '+1% golden ball chance per level' },
+      ballFrenzy:      { level: 0, maxLevel: 3,  baseCost: 5,  costScale: 3.0, desc: 'Every 60s, 10s of 5x production per level' },
+      prestigePower:   { level: 0, maxLevel: 8,  baseCost: 3,  costScale: 2.2, desc: 'Each prestige permanently +15% to base BPS' },
+      cascadeClick:    { level: 0, maxLevel: 5,  baseCost: 4,  costScale: 2.5, desc: 'Clicks spawn 1 extra auto-ball per level' },
+      milestoneBoost:  { level: 0, maxLevel: 5,  baseCost: 5,  costScale: 3.0, desc: 'Milestone multipliers ×1.5 per level' },
+      overflowMastery: { level: 0, maxLevel: 3,  baseCost: 8,  costScale: 3.5, desc: 'Overflow balls appear 2× more often per level (req: overflow)' },
     },
     combo: 1,
     comboTimer: 0,
@@ -387,6 +604,7 @@ function getDefaultState() {
       { id: 'quantum',    name: 'Quantum Splitter', desc: 'Splits each ball into many',     baseCost: 2e6,   baseRate: 4000, count: 0 },
       { id: 'dimension',  name: 'Dimension Rift',   desc: 'Pulls balls from other timelines',baseCost: 30e6, baseRate: 25000,count: 0 },
       { id: 'bigbang',    name: 'Big Bang Engine',  desc: 'Creates entire universes of balls',baseCost: 500e6,baseRate: 200000,count: 0 },
+      { id: 'overflow',   name: 'Overflow Core',    desc: 'Harnesses reality destabilization',baseCost: 1e9, baseRate: 2000000,count: 0 },
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
@@ -401,6 +619,14 @@ function getDefaultState() {
       { id: 'hyperDrop',  name: 'Hyper Droppers',   desc: 'Droppers & launchers 3x faster', cost: 500000,bought: false, effect: 'hyperDrop' },
       { id: 'antimatter', name: 'Antimatter Balls',  desc: 'Dark balls that boost nearby',  cost: 2e6,   bought: false, effect: 'antimatter' },
       { id: 'overclock',  name: 'Overclock',        desc: 'All generators +100% speed',     cost: 10e6,  bought: false, effect: 'overclock' },
+      // Synergy upgrades
+      { id: 'launcherCal',  name: 'Launcher Calibration', desc: 'Each Factory owned: Launchers +2%', cost: 5000,  bought: false, effect: 'launcherCal' },
+      { id: 'factoryFuel',  name: 'Factory Fuel',         desc: 'Each Vortex owned: Factories +3%',  cost: 50000, bought: false, effect: 'factoryFuel' },
+      { id: 'vortexConv',   name: 'Vortex Convergence',   desc: 'Each Singularity: all gens +1% (cap 2×)', cost: 500000, bought: false, effect: 'vortexConv' },
+      { id: 'quantumEnt',   name: 'Quantum Entanglement', desc: 'Quantum count ×5% boost to Dim Rifts', cost: 5e6,  bought: false, effect: 'quantumEnt' },
+      { id: 'cosmicRes',    name: 'Cosmic Resonance',     desc: 'Big Bang count ×2% boost to ALL',      cost: 50e6, bought: false, effect: 'cosmicRes' },
+      // Overflow upgrades (hidden until overflow)
+      { id: 'realityAnchor', name: 'Reality Anchor', desc: 'Harnesses the overflow. All production ×3 permanently', cost: 10e6, bought: false, effect: 'realityAnchor', requiresOverflow: true },
     ],
   };
 }
@@ -411,14 +637,22 @@ function saveGame() {
 
 function loadGame() {
   try {
-    // Try v3 first, fall back to v2
+    // Try v4, v3, v2
     let s = localStorage.getItem(SAVE_KEY);
+    if (!s) s = localStorage.getItem('ballz_save_v3');
     if (!s) s = localStorage.getItem('ballz_save_v2');
     if (s) {
       const loaded = JSON.parse(s);
       const def = getDefaultState();
       state = { ...def, ...loaded };
-      // Merge generators/upgrades by id
+      // Ensure new fields have defaults
+      if (state.totalBallsEver == null) state.totalBallsEver = loaded.totalBalls || 0;
+      if (state.totalClicks == null) state.totalClicks = 0;
+      if (state.gameStartTime == null) state.gameStartTime = Date.now();
+      if (state.highestBPS == null) state.highestBPS = 0;
+      if (state.overflowUnlocked == null) state.overflowUnlocked = false;
+      if (state.overflowActive == null) state.overflowActive = false;
+      // Merge generators by id
       state.generators = def.generators.map(dg => {
         const lg = loaded.generators?.find(g => g.id === dg.id);
         return lg ? { ...dg, count: lg.count } : dg;
@@ -454,19 +688,91 @@ function genCost(g) {
   const discount = 1 - skillLevel('cheapGens') * 0.1;
   return Math.floor(cost * Math.max(discount, 0.2));
 }
+
+function getGenCount(genId) {
+  const g = state.generators.find(g => g.id === genId);
+  return g ? g.count : 0;
+}
+
+// Get milestone multiplier for a specific generator
+function getMilestoneMulti(genId) {
+  let multi = 1;
+  const msBoostLevel = skillLevel('milestoneBoost');
+  for (const ms of GEN_MILESTONES) {
+    if (ms.genId !== genId) continue;
+    if (getGenCount(genId) >= ms.threshold) {
+      let m = ms.multiplier;
+      if (msBoostLevel > 0) m = 1 + (m - 1) * (1 + msBoostLevel * 0.5);
+      multi *= m;
+    }
+  }
+  return multi;
+}
+
 function getBPS() {
   let bps = 0;
+  const factoryCount = getGenCount('factory');
+  const vortexCount = getGenCount('vortex');
+  const singularityCount = getGenCount('singularity');
+  const quantumCount = getGenCount('quantum');
+  const bigbangCount = getGenCount('bigbang');
+
   for (const g of state.generators) {
+    // Hide overflow generator if overflow not active
+    if (g.id === 'overflow' && !state.overflowActive) continue;
+
     let rate = g.baseRate * g.count;
+    if (rate === 0) continue;
+
+    // Milestone multiplier
+    rate *= getMilestoneMulti(g.id);
+
+    // Existing upgrades
     if (hasUpgrade('hyperDrop') && (g.id === 'dropper' || g.id === 'launcher')) rate *= 3;
+
+    // Synergy: Launcher Calibration — each Factory: Launchers +2%
+    if (hasUpgrade('launcherCal') && g.id === 'launcher') {
+      rate *= 1 + factoryCount * 0.02;
+    }
+    // Synergy: Factory Fuel — each Vortex: Factories +3%
+    if (hasUpgrade('factoryFuel') && g.id === 'factory') {
+      rate *= 1 + vortexCount * 0.03;
+    }
+    // Synergy: Vortex Convergence — each Singularity: all +1% (cap 2×)
+    if (hasUpgrade('vortexConv')) {
+      rate *= Math.min(2, 1 + singularityCount * 0.01);
+    }
+    // Synergy: Quantum Entanglement — quantumCount ×5% to dimension rifts
+    if (hasUpgrade('quantumEnt') && g.id === 'dimension') {
+      rate *= 1 + quantumCount * 0.05;
+    }
+    // Synergy: Cosmic Resonance — bigbangCount ×2% to ALL
+    if (hasUpgrade('cosmicRes')) {
+      rate *= 1 + bigbangCount * 0.02;
+    }
+
     bps += rate;
   }
+
   if (hasUpgrade('magnet')) bps *= 1.5;
   if (hasUpgrade('overclock')) bps *= 2;
+
+  // Reality Anchor — overflow multiplier
+  if (hasUpgrade('realityAnchor')) {
+    const anchorMulti = state.prestiges >= 10 ? 5 : 3;
+    bps *= anchorMulti;
+  }
+
   bps *= state.prestigeMulti;
   bps *= 1 + skillLevel('bpsMulti') * 0.25;
-  // Ball frenzy
-  if (skillLevel('ballFrenzy') > 0) {
+
+  // Prestige Power skill: each prestige +15% per level
+  if (skillLevel('prestigePower') > 0 && state.prestiges > 0) {
+    bps *= 1 + state.prestiges * skillLevel('prestigePower') * 0.15;
+  }
+
+  // Ball frenzy (gated behind 3 prestiges)
+  if (skillLevel('ballFrenzy') > 0 && state.prestiges >= 3) {
     const cycle = 60;
     const frenzyDur = 10 * skillLevel('ballFrenzy');
     const t = (performance.now() / 1000) % cycle;
@@ -490,9 +796,26 @@ function getGoldenChance() {
   chance += skillLevel('goldenChance') * 0.01;
   return chance;
 }
+function getOverflowChance() {
+  let chance = 0.05;
+  const masteryLevel = skillLevel('overflowMastery');
+  if (masteryLevel > 0) chance *= Math.pow(2, masteryLevel);
+  return Math.min(chance, 0.4); // cap at 40%
+}
 function hasUpgrade(id) { return state.upgrades.find(u => u.id === id)?.bought; }
 function getPrestigePointsEarned() {
   return Math.max(0, Math.floor(Math.pow(state.totalBalls / 5000, 0.45)));
+}
+function getOverflowThreshold() {
+  return state.prestiges >= 5 ? 500000 : 1000000;
+}
+function getPrestigeTier() {
+  const p = state.prestiges;
+  if (p >= 25) return { name: 'Transcendent', color: '#ffd700', bg: '#3a2800' };
+  if (p >= 10) return { name: 'Master',       color: '#e891dc', bg: '#2a1030' };
+  if (p >= 5)  return { name: 'Adept',        color: '#b388ff', bg: '#1a1040' };
+  if (p >= 1)  return { name: 'Novice',       color: '#6bcb77', bg: '#0a2a0a' };
+  return null;
 }
 
 // ── Canvas / Physics ──
@@ -517,15 +840,19 @@ function spawnBall(x, y, opts = {}) {
   const baseR = hasUpgrade('bigBalls') ? 16 : 10;
   const isGolden = hasUpgrade('golden') && Math.random() < getGoldenChance();
   const isAnti = hasUpgrade('antimatter') && !isGolden && Math.random() < 0.05;
+  const isOverflow = state.overflowActive && !isGolden && !isAnti && Math.random() < getOverflowChance();
+  let r = baseR + Math.random() * 6;
+  if (state.overflowActive) r *= 1.3;
   balls.push({
     x: x ?? Math.random() * W,
     y: y ?? -20,
     vx: (Math.random() - 0.5) * 3 + (opts.vx || 0),
     vy: opts.vy ?? (Math.random() * 2 - 1),
-    r: baseR + Math.random() * 6,
-    color: isGolden ? '#ffd700' : isAnti ? '#1a0030' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
+    r,
+    color: isGolden ? '#ffd700' : isAnti ? '#1a0030' : isOverflow ? '#00ccff' : BALL_COLORS[Math.floor(Math.random() * BALL_COLORS.length)],
     golden: isGolden,
     anti: isAnti,
+    overflow: isOverflow,
     trail: [],
     life: 1,
     birth: performance.now(),
@@ -586,7 +913,7 @@ function drawBalls() {
     ctx.beginPath();
     ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
 
-    if (hasUpgrade('rainbow') && !b.golden && !b.anti) {
+    if (hasUpgrade('rainbow') && !b.golden && !b.anti && !b.overflow) {
       ctx.fillStyle = `hsl(${(hueShift + b.x + b.y) % 360}, 80%, 60%)`;
     } else {
       ctx.fillStyle = b.color;
@@ -615,11 +942,39 @@ function drawBalls() {
       ctx.strokeStyle = `rgba(100,0,200,${0.3 + 0.2 * Math.sin(performance.now()/150)})`;
       ctx.lineWidth = 2;
       ctx.stroke();
-      // Inner void
       ctx.beginPath();
       ctx.arc(b.x, b.y, b.r * 0.4, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(80,0,160,0.6)';
       ctx.fill();
+    }
+
+    // Overflow ball — electric lightning arcs
+    if (b.overflow) {
+      const t = performance.now() / 100;
+      ctx.strokeStyle = `rgba(0,200,255,${0.5 + 0.3 * Math.sin(t)})`;
+      ctx.lineWidth = 1.5;
+      // Draw 3 crackling arcs
+      for (let arc = 0; arc < 3; arc++) {
+        const angle = t * 2 + arc * (Math.PI * 2 / 3);
+        const outerR = b.r + 6 + Math.sin(t * 3 + arc) * 3;
+        ctx.beginPath();
+        const sx = b.x + Math.cos(angle) * b.r * 0.5;
+        const sy = b.y + Math.sin(angle) * b.r * 0.5;
+        const ex = b.x + Math.cos(angle) * outerR;
+        const ey = b.y + Math.sin(angle) * outerR;
+        const midX = (sx + ex) / 2 + (Math.random() - 0.5) * 6;
+        const midY = (sy + ey) / 2 + (Math.random() - 0.5) * 6;
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(midX, midY);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+      }
+      // Outer glow
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r + 5, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(0,200,255,${0.2 + 0.15 * Math.sin(t * 2)})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
     }
 
     ctx.globalAlpha = 1;
@@ -632,15 +987,20 @@ canvas.addEventListener('click', (e) => {
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
 
+  state.totalClicks++;
   let hitBall = false;
   for (let i = balls.length - 1; i >= 0; i--) {
     const b = balls[i];
     const dx = mx - b.x, dy = my - b.y;
     if (dx*dx + dy*dy < (b.r + 5) * (b.r + 5)) {
       hitBall = true;
-      const value = b.golden ? getClickValue() * 100 : getClickValue();
+      let value;
+      if (b.golden) value = getClickValue() * 100;
+      else if (b.overflow) value = getClickValue() * 50;
+      else value = getClickValue();
       addBalls(value);
-      showFloater(mx, my, '+' + formatNum(value), b.golden ? '#ffd700' : '#fff');
+      const fColor = b.golden ? '#ffd700' : b.overflow ? '#00ccff' : '#fff';
+      showFloater(mx, my, '+' + formatNum(value), fColor);
 
       if (hasUpgrade('explosion')) {
         for (let j = 0; j < 5; j++) {
@@ -658,15 +1018,46 @@ canvas.addEventListener('click', (e) => {
   }
 
   if (!hitBall) {
-    addBalls(getClickValue());
-    showFloater(mx, my, '+' + formatNum(getClickValue()), '#ffd93d');
+    const cv = getClickValue();
+    addBalls(cv);
+    showFloater(mx, my, '+' + formatNum(cv), '#ffd93d');
     spawnBall(mx, my);
+  }
+
+  // Cascade Click: spawn extra balls per skill level
+  const cascadeLv = skillLevel('cascadeClick');
+  if (cascadeLv > 0) {
+    for (let c = 0; c < cascadeLv; c++) {
+      const cx = 30 + Math.random() * (W - 60);
+      const cy = 30 + Math.random() * (H - 60);
+      spawnBall(cx, cy);
+      addBalls(getClickValue());
+      showFloater(cx, cy, '+' + formatNum(getClickValue()), '#cc65fe');
+    }
   }
 });
 
 function addBalls(n) {
   state.balls += n;
   state.totalBalls += n;
+  state.totalBallsEver += n;
+}
+
+// ── Overflow Event ──
+let overflowBannerTimer = 0;
+function checkOverflow() {
+  if (state.overflowActive) return; // already active
+  const threshold = getOverflowThreshold();
+  if (state.totalBallsEver >= threshold) {
+    state.overflowUnlocked = true;
+    state.overflowActive = true;
+    // Show banner for 3.6 seconds
+    const banner = document.getElementById('overflow-banner');
+    banner.style.display = 'block';
+    overflowBannerTimer = 3.6;
+    // Add overflow border to canvas
+    canvas.classList.add('overflow-active');
+  }
 }
 
 // ── Floaters ──
@@ -702,16 +1093,40 @@ function formatNum(n) {
   return (n/1e12).toFixed(1) + 'T';
 }
 
+function formatTime(ms) {
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60);
+  const h = Math.floor(m / 60);
+  if (h > 0) return `${h}h ${m%60}m`;
+  if (m > 0) return `${m}m ${s%60}s`;
+  return `${s}s`;
+}
+
 // ── UI ──
 function renderUI() {
   document.getElementById('ball-count').textContent = formatNum(state.balls);
-  document.getElementById('bps').textContent = formatNum(getBPS()) + '/s';
+
+  const curBPS = getBPS();
+  if (curBPS > state.highestBPS) state.highestBPS = curBPS;
+
+  const bpsEl = document.getElementById('bps');
+  const bpsLabel = document.getElementById('bps-label');
+  if (state.overflowActive) {
+    bpsEl.className = 'value overflow-flash';
+    bpsLabel.textContent = '⚠️ OVERFLOW · Per Second';
+  } else {
+    bpsEl.className = 'value';
+    bpsLabel.textContent = 'Per Second';
+  }
+  bpsEl.textContent = formatNum(curBPS) + '/s';
   document.getElementById('combo').textContent = 'x' + state.combo;
 
   // Generators
   const genDiv = document.getElementById('generators');
   genDiv.innerHTML = '';
   for (const g of state.generators) {
+    // Hide overflow generator before overflow event
+    if (g.id === 'overflow' && !state.overflowActive) continue;
     const cost = genCost(g);
     const locked = state.balls < cost;
     const btn = document.createElement('div');
@@ -730,11 +1145,16 @@ function renderUI() {
     genDiv.appendChild(btn);
   }
 
+  // Milestones section
+  renderMilestones();
+
   // Upgrades
   const upgDiv = document.getElementById('upgrades');
   upgDiv.innerHTML = '';
   for (const u of state.upgrades) {
     if (u.bought) continue;
+    // Hide overflow-gated upgrades before overflow
+    if (u.requiresOverflow && !state.overflowActive) continue;
     const locked = state.balls < u.cost;
     const btn = document.createElement('div');
     btn.className = 'upgrade-btn' + (locked ? ' locked' : '');
@@ -752,11 +1172,26 @@ function renderUI() {
   // Prestige
   const pBtn = document.getElementById('prestige-btn');
   const canPrestige = state.totalBalls >= 10000;
-  pBtn.className = canPrestige ? '' : 'locked';
+  pBtn.className = canPrestige ? 'can-prestige' : 'locked';
   const ppEarned = getPrestigePointsEarned();
   document.getElementById('prestige-desc').textContent = canPrestige
     ? `Reset and earn ${ppEarned} prestige point${ppEarned !== 1 ? 's' : ''} (${state.prestiges} prestiges so far)`
     : `Need ${formatNum(10000 - state.totalBalls)} more total balls`;
+
+  // Prestige tier badge
+  const tierBadge = document.getElementById('prestige-tier-badge');
+  const tier = getPrestigeTier();
+  if (tier) {
+    tierBadge.className = 'prestige-tier-badge';
+    tierBadge.style.color = tier.color;
+    tierBadge.style.background = tier.bg;
+    tierBadge.style.border = `1px solid ${tier.color}`;
+    tierBadge.textContent = `${tier.name} (P${state.prestiges})`;
+  } else {
+    tierBadge.textContent = '';
+    tierBadge.style.background = 'none';
+    tierBadge.style.border = 'none';
+  }
 
   // Skill tree
   const stSection = document.getElementById('skill-tree-section');
@@ -766,6 +1201,10 @@ function renderUI() {
     const stDiv = document.getElementById('skill-tree');
     stDiv.innerHTML = '';
     for (const [id, s] of Object.entries(state.skills)) {
+      // Gate overflowMastery behind overflow
+      if (id === 'overflowMastery' && !state.overflowActive) continue;
+      // Gate ballFrenzy behind 3 prestiges
+      if (id === 'ballFrenzy' && state.prestiges < 3) continue;
       const cost = skillCost(id);
       const maxed = s.level >= s.maxLevel;
       const locked = !maxed && state.prestigePoints < cost;
@@ -785,6 +1224,79 @@ function renderUI() {
   } else {
     stSection.style.display = 'none';
   }
+
+  // Stats
+  renderStats();
+}
+
+function renderMilestones() {
+  const section = document.getElementById('milestones-section');
+  const msDiv = document.getElementById('milestones');
+
+  // Gather which generator ids the player has any of, or that have milestones potentially visible
+  const activeGenIds = [];
+  for (const g of state.generators) {
+    if (g.id === 'overflow' && !state.overflowActive) continue;
+    if (g.count > 0 || GEN_MILESTONES.some(ms => ms.genId === g.id)) {
+      activeGenIds.push(g.id);
+    }
+  }
+  // Only show if player has at least 1 generator
+  const totalOwned = state.generators.reduce((s, g) => s + g.count, 0);
+  if (totalOwned === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+  msDiv.innerHTML = '';
+
+  for (const genId of activeGenIds) {
+    const g = state.generators.find(g => g.id === genId);
+    if (!g) continue;
+    if (g.id === 'overflow' && !state.overflowActive) continue;
+    const milestones = GEN_MILESTONES.filter(ms => ms.genId === genId);
+    if (milestones.length === 0) continue;
+
+    // Find next milestone
+    const nextMs = milestones.find(ms => g.count < ms.threshold);
+    const nextThreshold = nextMs ? nextMs.threshold : milestones[milestones.length - 1].threshold;
+    const prevThreshold = nextMs ? (milestones.indexOf(nextMs) > 0 ? milestones[milestones.indexOf(nextMs) - 1].threshold : 0) : nextThreshold;
+    const progress = nextMs ? Math.min(1, (g.count - prevThreshold) / (nextThreshold - prevThreshold)) : 1;
+
+    const vis = GEN_VISUALS[genId];
+    const emoji = vis ? vis.emoji : '⚙️';
+    const barColor = vis ? vis.color : '#4d96ff';
+
+    const row = document.createElement('div');
+    row.className = 'milestone-row';
+
+    const nextLabel = nextMs ? `Next: ${nextMs.name} (${nextMs.multiplier}×)` : 'All unlocked! ✓';
+    row.innerHTML = `
+      <div class="ms-header">
+        <span>${emoji} ${g.name}: ${g.count}/${nextMs ? nextMs.threshold : '✓'}</span>
+        <span style="font-size:10px;color:#666">${nextLabel}</span>
+      </div>
+      <div class="ms-bar-bg"><div class="ms-bar-fill" style="width:${progress*100}%;background:${barColor}"></div></div>
+      <div class="ms-badges">${milestones.map(ms => {
+        const unlocked = g.count >= ms.threshold;
+        return `<span class="ms-badge ${unlocked ? 'unlocked' : 'locked'}" title="${ms.name}: ${ms.multiplier}× production">${ms.threshold}: ${ms.name}</span>`;
+      }).join('')}</div>
+    `;
+    msDiv.appendChild(row);
+  }
+}
+
+function renderStats() {
+  const body = document.getElementById('stats-body');
+  if (!body) return;
+  body.innerHTML = `
+    <div class="stat-line"><span>Total Balls Ever</span><span class="sv">${formatNum(state.totalBallsEver)}</span></div>
+    <div class="stat-line"><span>Times Clicked</span><span class="sv">${state.totalClicks.toLocaleString()}</span></div>
+    <div class="stat-line"><span>Time Played</span><span class="sv">${formatTime(Date.now() - state.gameStartTime)}</span></div>
+    <div class="stat-line"><span>Highest BPS</span><span class="sv">${formatNum(state.highestBPS)}/s</span></div>
+    <div class="stat-line"><span>Prestiges</span><span class="sv">${state.prestiges}</span></div>
+    <div class="stat-line"><span>Overflow</span><span class="sv">${state.overflowActive ? '⚠️ Active' : 'Dormant'}</span></div>
+  `;
 }
 
 function buyGenerator(g) {
@@ -813,7 +1325,6 @@ function openPrestigeModal() {
 }
 
 function closePrestigeModal(e) {
-  // If called from overlay click, only close if clicking the backdrop itself
   if (e && e.target !== document.getElementById('prestige-modal-overlay')) return;
   document.getElementById('prestige-modal-overlay').classList.remove('visible');
 }
@@ -830,11 +1341,30 @@ function doPrestige() {
   const oldPP = state.prestigePoints;
   const oldSkills = JSON.parse(JSON.stringify(state.skills));
   const oldMulti = state.prestigeMulti;
+  const oldOverflow = state.overflowUnlocked;
+  const oldOverflowActive = state.overflowActive;
+  const oldTotalEver = state.totalBallsEver;
+  const oldClicks = state.totalClicks;
+  const oldStartTime = state.gameStartTime;
+  const oldHighBPS = state.highestBPS;
+  const oldUpgrades = state.upgrades.map(u => ({ id: u.id, bought: u.bought }));
+
   state = getDefaultState();
   state.prestigePoints = oldPP + ppEarned;
   state.skills = oldSkills;
   state.prestiges = pCount;
-  state.prestigeMulti = oldMulti; // keep for backward compat display
+  state.prestigeMulti = oldMulti;
+  state.overflowUnlocked = oldOverflow;
+  state.overflowActive = oldOverflowActive;
+  state.totalBallsEver = oldTotalEver;
+  state.totalClicks = oldClicks;
+  state.gameStartTime = oldStartTime;
+  state.highestBPS = oldHighBPS;
+  // Restore bought upgrades
+  for (const old of oldUpgrades) {
+    const u = state.upgrades.find(u => u.id === old.id);
+    if (u) u.bought = old.bought;
+  }
   // Starting balls from skill
   state.balls = skillLevel('startingBalls') * 500;
   state.totalBalls = state.balls;
@@ -842,510 +1372,185 @@ function doPrestige() {
   floaters = [];
   genSpawnAccs = {};
   autoClickTimer = 0;
-}
 
-// ── Skill Tree ──
-const SKILL_NAMES = {
-  bpsMulti: '📈 Production Boost',
-  clickPower: '👆 Click Force',
-  cheapGens: '💰 Bargain Hunters',
-  startingBalls: '🎁 Head Start',
-  autoClicker: '🤖 Auto-Clicker',
-  maxCombo: '🔥 Combo Master',
-  goldenChance: '✨ Golden Touch',
-  ballFrenzy: '⚡ Ball Frenzy',
-};
+  // Overflow visual stays if active
+  if (state.overflowActive) {
+    canvas.classList.add('overflow-active');
+  }
+
+  // Prestige milestone rewards
+  if (pCount === 1) {
+    showFloater(W / 2, H / 2, '🌟 Welcome to Prestige!', '#e891dc');
+  }
+}
 
 function buySkill(id) {
   const s = state.skills[id];
-  if (!s || s.level >= s.maxLevel) return;
   const cost = skillCost(id);
-  if (state.prestigePoints >= cost) {
-    state.prestigePoints -= cost;
-    s.level++;
-  }
+  if (!s || s.level >= s.maxLevel || state.prestigePoints < cost) return;
+  state.prestigePoints -= cost;
+  s.level++;
 }
 
-// ── Per-generator visual spawn system ──
-// Each generator type has its own spawn accumulator and visual behavior
-let genSpawnAccs = {};
-
-// Generator visual configs — each has a unique spawn style
-const GEN_VISUALS = {
-  dropper: {
-    emoji: '🔽',
-    color: '#4d96ff',
-    spawn(count) {
-      // Drops from evenly-spaced pipes along the top
-      const spacing = W / (count + 1);
-      const pipe = Math.floor(Math.random() * count) + 1;
-      spawnBall(spacing * pipe, 10, { vy: 0, vx: (Math.random() - 0.5) * 0.5 });
-    },
-    draw(count) {
-      const spacing = W / (count + 1);
-      for (let i = 1; i <= count; i++) {
-        const x = spacing * i;
-        // Pipe
-        ctx.fillStyle = '#2a3a6a';
-        ctx.fillRect(x - 12, 0, 24, 18);
-        ctx.fillStyle = '#4d96ff';
-        ctx.fillRect(x - 8, 12, 16, 8);
-        // Drip
-        const drip = (performance.now() / 500 + i) % 1;
-        ctx.globalAlpha = 1 - drip;
-        ctx.beginPath();
-        ctx.arc(x, 22 + drip * 10, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#4d96ff';
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-  },
-  launcher: {
-    emoji: '🚀',
-    color: '#ff6b6b',
-    spawn(count) {
-      // Shoots from alternating left/right walls
-      const side = Math.random() < 0.5;
-      const x = side ? 20 : W - 20;
-      const y = 60 + Math.random() * (H - 120);
-      spawnBall(x, y, { vx: side ? (3 + Math.random() * 4) : -(3 + Math.random() * 4), vy: -(2 + Math.random() * 3) });
-    },
-    draw(count) {
-      const perSide = Math.ceil(count / 2);
-      for (let i = 0; i < count; i++) {
-        const side = i % 2 === 0; // left or right
-        const idx = Math.floor(i / 2);
-        const y = 80 + idx * (H - 160) / Math.max(perSide - 1, 1);
-        const x = side ? 0 : W - 28;
-        // Launcher body
-        ctx.fillStyle = '#4a1a1a';
-        ctx.fillRect(x, y - 10, 28, 20);
-        ctx.fillStyle = '#ff6b6b';
-        const nozzleX = side ? x + 22 : x;
-        ctx.fillRect(nozzleX, y - 6, 8, 12);
-        // Flash
-        const flash = (performance.now() / 200 + i * 1.7) % 1;
-        if (flash < 0.15) {
-          ctx.globalAlpha = 0.8;
-          ctx.beginPath();
-          const fx = side ? x + 30 : x - 4;
-          ctx.arc(fx, y, 5, 0, Math.PI * 2);
-          ctx.fillStyle = '#ffaa44';
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-      }
-    }
-  },
-  factory: {
-    emoji: '🏭',
-    color: '#6bcb77',
-    spawn(count) {
-      // Pops up from the bottom in clusters
-      const spacing = W / (count + 1);
-      const fac = Math.floor(Math.random() * count) + 1;
-      const x = spacing * fac + (Math.random() - 0.5) * 30;
-      spawnBall(x, H - 30, { vy: -(6 + Math.random() * 4), vx: (Math.random() - 0.5) * 3 });
-    },
-    draw(count) {
-      const spacing = W / (count + 1);
-      for (let i = 1; i <= count; i++) {
-        const x = spacing * i;
-        // Factory base
-        ctx.fillStyle = '#1a3a1a';
-        ctx.fillRect(x - 18, H - 28, 36, 28);
-        // Chimney
-        ctx.fillStyle = '#2a4a2a';
-        ctx.fillRect(x - 6, H - 40, 12, 14);
-        // Smoke
-        const t = performance.now() / 600 + i;
-        ctx.globalAlpha = 0.3;
-        ctx.beginPath();
-        ctx.arc(x + Math.sin(t) * 4, H - 46 - (t % 1) * 15, 4 + (t % 1) * 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#6bcb77';
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        // Door
-        ctx.fillStyle = '#6bcb77';
-        ctx.fillRect(x - 5, H - 16, 10, 16);
-      }
-    }
-  },
-  vortex: {
-    emoji: '🌀',
-    color: '#cc65fe',
-    spawn(count) {
-      // Spirals in from a vortex point near center
-      const cx = W * 0.3 + Math.random() * W * 0.4;
-      const cy = H * 0.3 + Math.random() * H * 0.4;
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 3 + Math.random() * 3;
-      spawnBall(cx, cy, { vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 2 });
-    },
-    draw(count) {
-      // Draw vortex portals
-      for (let i = 0; i < Math.min(count, 5); i++) {
-        const cx = W * (0.2 + i * 0.15);
-        const cy = H * 0.4 + Math.sin(performance.now() / 1000 + i) * 30;
-        const t = performance.now() / 400 + i * 2;
-        for (let ring = 3; ring >= 0; ring--) {
-          ctx.globalAlpha = 0.15 - ring * 0.03;
-          ctx.beginPath();
-          const r = 12 + ring * 8 + Math.sin(t + ring) * 3;
-          ctx.arc(cx, cy, r, 0, Math.PI * 2);
-          ctx.strokeStyle = '#cc65fe';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-        // Center glow
-        ctx.globalAlpha = 0.4 + 0.2 * Math.sin(t * 2);
-        ctx.beginPath();
-        ctx.arc(cx, cy, 5, 0, Math.PI * 2);
-        ctx.fillStyle = '#cc65fe';
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-      if (count > 5) {
-        ctx.fillStyle = '#cc65fe';
-        ctx.globalAlpha = 0.5;
-        ctx.font = '10px system-ui';
-        ctx.textAlign = 'center';
-        ctx.fillText(`+${count - 5} more`, W * 0.5, H * 0.4 + 50);
-        ctx.globalAlpha = 1;
-      }
-    }
-  },
-  singularity: {
-    emoji: '⚫',
-    color: '#ffd93d',
-    spawn(count) {
-      // Materializes with a flash anywhere on screen
-      const x = 50 + Math.random() * (W - 100);
-      const y = 50 + Math.random() * (H - 100);
-      spawnBall(x, y, { vx: (Math.random() - 0.5) * 6, vy: (Math.random() - 0.5) * 6 });
-      // Warp flash
-      showFloater(x, y, '✦', '#ffd93d');
-    },
-    draw(count) {
-      if (count <= 0) return;
-      // One big singularity in the center that grows with count
-      const cx = W * 0.5;
-      const cy = H * 0.35;
-      const baseR = 15 + Math.min(count, 20) * 2;
-      const t = performance.now() / 300;
-      // Event horizon
-      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR + 20);
-      grad.addColorStop(0, 'rgba(0,0,0,0.9)');
-      grad.addColorStop(0.5, 'rgba(30,0,50,0.5)');
-      grad.addColorStop(0.8, 'rgba(255,215,0,0.15)');
-      grad.addColorStop(1, 'rgba(255,215,0,0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, baseR + 20, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-      // Orbiting particles
-      for (let i = 0; i < Math.min(count * 2, 16); i++) {
-        const angle = t + (i / Math.min(count * 2, 16)) * Math.PI * 2;
-        const dist = baseR + 5 + Math.sin(t * 2 + i) * 5;
-        const px = cx + Math.cos(angle) * dist;
-        const py = cy + Math.sin(angle) * dist * 0.5; // elliptical
-        ctx.globalAlpha = 0.6;
-        ctx.beginPath();
-        ctx.arc(px, py, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffd93d';
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-      // Count label
-      ctx.fillStyle = '#ffd93d';
-      ctx.globalAlpha = 0.6;
-      ctx.font = 'bold 10px system-ui';
-      ctx.textAlign = 'center';
-      ctx.fillText(`×${count}`, cx, cy + baseR + 35);
-      ctx.globalAlpha = 1;
-    }
-  },
-  quantum: {
-    emoji: '⚛️',
-    color: '#00e5ff',
-    spawn(count) {
-      // Splits from center — two balls fly in opposite directions
-      const cx = W * 0.5 + (Math.random() - 0.5) * W * 0.4;
-      const cy = H * 0.3 + Math.random() * H * 0.3;
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 4 + Math.random() * 2;
-      spawnBall(cx, cy, { vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 3 });
-      spawnBall(cx, cy, { vx: -Math.cos(angle) * speed, vy: -Math.sin(angle) * speed - 3 });
-    },
-    draw(count) {
-      if (count <= 0) return;
-      for (let i = 0; i < Math.min(count, 4); i++) {
-        const cx = W * (0.15 + i * 0.22);
-        const cy = H * 0.2;
-        const t = performance.now() / 350 + i * 1.5;
-        // Atom nucleus
-        ctx.globalAlpha = 0.5;
-        ctx.beginPath();
-        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-        ctx.fillStyle = '#00e5ff';
-        ctx.fill();
-        // Orbiting electrons
-        for (let e = 0; e < 3; e++) {
-          const ea = t + e * (Math.PI * 2 / 3);
-          const ex = cx + Math.cos(ea) * 18;
-          const ey = cy + Math.sin(ea) * 10;
-          ctx.beginPath();
-          ctx.arc(ex, ey, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = '#80ffff';
-          ctx.fill();
-        }
-        // Orbit rings
-        ctx.strokeStyle = 'rgba(0,229,255,0.15)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 18, 10, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-      }
-    }
-  },
-  dimension: {
-    emoji: '🌌',
-    color: '#b388ff',
-    spawn(count) {
-      // Tears through from edges with bright flash
-      const edge = Math.floor(Math.random() * 4);
-      let x, y, vx, vy;
-      if (edge === 0) { x = 0; y = Math.random() * H; vx = 5; vy = (Math.random() - 0.5) * 4; }
-      else if (edge === 1) { x = W; y = Math.random() * H; vx = -5; vy = (Math.random() - 0.5) * 4; }
-      else if (edge === 2) { x = Math.random() * W; y = 0; vx = (Math.random() - 0.5) * 4; vy = 5; }
-      else { x = Math.random() * W; y = H; vx = (Math.random() - 0.5) * 4; vy = -5; }
-      spawnBall(x, y, { vx, vy });
-      showFloater(x, y, '⚡', '#b388ff');
-    },
-    draw(count) {
-      if (count <= 0) return;
-      const t = performance.now() / 500;
-      // Rift cracks along edges
-      for (let i = 0; i < Math.min(count * 2, 8); i++) {
-        const side = i % 4;
-        const pos = (t * 0.3 + i * 0.37) % 1;
-        let x, y;
-        if (side === 0) { x = 0; y = pos * H; }
-        else if (side === 1) { x = W; y = pos * H; }
-        else if (side === 2) { x = pos * W; y = 0; }
-        else { x = pos * W; y = H; }
-        ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 3 + i);
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#b388ff';
-        ctx.fill();
-        // Crack line
-        ctx.strokeStyle = 'rgba(179,136,255,0.2)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + (side < 2 ? (side === 0 ? 15 : -15) : 0), y + (side >= 2 ? (side === 2 ? 15 : -15) : 0));
-        ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-    }
-  },
-  bigbang: {
-    emoji: '💥',
-    color: '#ff4444',
-    spawn(count) {
-      // Massive explosion from center
-      const cx = W * 0.5;
-      const cy = H * 0.5;
-      for (let j = 0; j < 3; j++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 3 + Math.random() * 6;
-        spawnBall(cx + (Math.random()-0.5)*40, cy + (Math.random()-0.5)*40, {
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 2
-        });
-      }
-    },
-    draw(count) {
-      if (count <= 0) return;
-      const cx = W * 0.5;
-      const cy = H * 0.55;
-      const t = performance.now() / 200;
-      const baseR = 20 + Math.min(count, 10) * 3;
-      // Expanding shockwave rings
-      for (let ring = 0; ring < Math.min(count, 5); ring++) {
-        const phase = (t * 0.5 + ring * 1.2) % 3;
-        const r = baseR + phase * 25;
-        const alpha = Math.max(0, 0.25 - phase * 0.08);
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsl(${(t * 10 + ring * 40) % 360}, 90%, 60%)`;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-      // Core
-      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR);
-      grad.addColorStop(0, 'rgba(255,255,200,0.4)');
-      grad.addColorStop(0.4, 'rgba(255,100,50,0.2)');
-      grad.addColorStop(1, 'rgba(255,0,0,0)');
-      ctx.globalAlpha = 0.6 + 0.2 * Math.sin(t);
-      ctx.beginPath();
-      ctx.arc(cx, cy, baseR, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      // Label
-      ctx.fillStyle = '#ff6644';
-      ctx.globalAlpha = 0.5;
-      ctx.font = 'bold 10px system-ui';
-      ctx.textAlign = 'center';
-      ctx.fillText(`×${count}`, cx, cy + baseR + 20);
-      ctx.globalAlpha = 1;
-    }
-  },
+const SKILL_NAMES = {
+  bpsMulti:        '⚡ BPS Multiplier',
+  clickPower:      '👆 Click Power',
+  cheapGens:       '💰 Cheap Generators',
+  startingBalls:   '🎁 Starting Balls',
+  autoClicker:     '🤖 Auto Clicker',
+  maxCombo:        '🔥 Max Combo',
+  goldenChance:    '✨ Golden Chance',
+  ballFrenzy:      '🎉 Ball Frenzy',
+  prestigePower:   '👑 Prestige Power',
+  cascadeClick:    '💫 Cascade Click',
+  milestoneBoost:  '🏆 Milestone Boost',
+  overflowMastery: '🌊 Overflow Mastery',
 };
 
-function spawnFromGenerators(dt) {
-  for (const g of state.generators) {
-    if (g.count <= 0) continue;
-    if (!genSpawnAccs[g.id]) genSpawnAccs[g.id] = 0;
+const GEN_VISUALS = {
+  dropper:     { emoji: '💧', color: '#4d96ff' },
+  launcher:    { emoji: '🚀', color: '#ff6b6b' },
+  factory:     { emoji: '🏭', color: '#ffd93d' },
+  vortex:      { emoji: '🌀', color: '#cc65fe' },
+  singularity: { emoji: '⚫', color: '#ff9f43' },
+  quantum:     { emoji: '⚛️',  color: '#6bcb77' },
+  dimension:   { emoji: '🌌', color: '#0abde3' },
+  bigbang:     { emoji: '💥', color: '#ee5a9f' },
+  overflow:    { emoji: '⚠️',  color: '#ff4444' },
+};
 
-    // Each generator has its own visual spawn rate — proportional to its production but capped
-    let rate = g.baseRate * g.count * state.prestigeMulti;
-    if (hasUpgrade('magnet')) rate *= 1.5;
-    const visualRate = Math.min(rate, 8); // cap visual spawns per generator type
-    if (visualRate <= 0) continue;
-
-    const interval = 1 / visualRate;
-    genSpawnAccs[g.id] += dt;
-    while (genSpawnAccs[g.id] >= interval) {
-      genSpawnAccs[g.id] -= interval;
-      const vis = GEN_VISUALS[g.id];
-      if (vis) vis.spawn(g.count);
-    }
-  }
-}
-
-function drawGeneratorStructures() {
-  for (const g of state.generators) {
-    if (g.count <= 0) continue;
-    const vis = GEN_VISUALS[g.id];
-    if (vis && vis.draw) vis.draw(g.count);
-  }
-}
-
-// ── Background particles ──
-let particles = [];
-for (let i = 0; i < 40; i++) {
-  particles.push({
-    x: Math.random() * 2000,
-    y: Math.random() * 2000,
-    r: Math.random() * 2 + 0.5,
-    speed: Math.random() * 0.3 + 0.1,
-    alpha: Math.random() * 0.3 + 0.05,
-  });
-}
-
-function drawBackground() {
-  ctx.fillStyle = '#0a0a1a';
-  ctx.fillRect(0, 0, W, H);
-  
-  for (const p of particles) {
-    p.y += p.speed;
-    if (p.y > H) { p.y = 0; p.x = Math.random() * W; }
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(100,100,200,${p.alpha})`;
-    ctx.fill();
-  }
-}
-
-// ── Main loop ──
-let lastTime = performance.now();
+// ── Game loop ──
+let last = performance.now();
+let spawnTimer = 0;
+let genSpawnAccs = {};
+let autoClickTimer = 0;
 let uiTimer = 0;
 let saveTimer = 0;
-let autoClickTimer = 0;
 
-function loop(now) {
-  const dt = Math.min((now - lastTime) / 1000, 0.1);
-  lastTime = now;
+function gameLoop(now) {
+  const dt = Math.min((now - last) / 1000, 0.1);
+  last = now;
 
-  // Production
+  // BPS production
   const bps = getBPS();
-  state.balls += bps * dt;
-  state.totalBalls += bps * dt;
+  addBalls(bps * dt);
+
+  // Check overflow
+  checkOverflow();
+
+  // Overflow banner timer
+  if (overflowBannerTimer > 0) {
+    overflowBannerTimer -= dt;
+    if (overflowBannerTimer <= 0) {
+      document.getElementById('overflow-banner').style.display = 'none';
+    }
+  }
 
   // Combo decay
   if (state.comboTimer > 0) {
     state.comboTimer -= dt;
-    if (state.comboTimer <= 0) state.combo = 1;
+    if (state.comboTimer <= 0) { state.combo = 1; state.comboTimer = 0; }
   }
 
-  // Auto-clicker skill
+  // Auto clicker skill
   if (skillLevel('autoClicker') > 0) {
-    const interval = 3 - skillLevel('autoClicker') * 0.4;
+    const interval = Math.max(0.5, 3 - skillLevel('autoClicker') * 0.4);
     autoClickTimer += dt;
     if (autoClickTimer >= interval) {
       autoClickTimer -= interval;
-      const v = getClickValue();
-      addBalls(v);
-      const ax = 30 + Math.random() * (W - 60);
-      const ay = 30 + Math.random() * (H - 60);
-      spawnBall(ax, ay);
-      showFloater(ax, ay, '+' + formatNum(v), '#9b3090');
+      const cv = getClickValue();
+      addBalls(cv);
+      spawnBall(Math.random() * W, Math.random() * H * 0.5);
+      showFloater(Math.random() * W, Math.random() * H * 0.5, '+' + formatNum(cv), '#4d96ff');
     }
   }
 
-  // Spawn visual balls
-  spawnFromGenerators(dt);
+  // Spawn visual balls from generators
+  spawnTimer += dt;
+  for (const g of state.generators) {
+    if (g.count === 0) continue;
+    if (g.id === 'overflow' && !state.overflowActive) continue;
+    if (!genSpawnAccs[g.id]) genSpawnAccs[g.id] = 0;
+    genSpawnAccs[g.id] += dt;
+    const interval = Math.max(0.1, 2 / Math.sqrt(g.count));
+    if (genSpawnAccs[g.id] >= interval) {
+      genSpawnAccs[g.id] -= interval;
+      spawnBall();
+    }
+  }
 
-  // Physics
   updateBalls(dt);
   updateFloaters(dt);
 
   // Draw
-  drawBackground();
-  drawGeneratorStructures();
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  if (state.overflowActive) {
+    drawOverflowBackground(now);
+  } else {
+    drawNormalBackground();
+  }
+
   drawBalls();
   drawFloaters();
 
-  // Frenzy indicator
-  if (skillLevel('ballFrenzy') > 0) {
-    const cycle = 60;
-    const frenzyDur = 10 * skillLevel('ballFrenzy');
-    const t = (performance.now() / 1000) % cycle;
-    if (t < frenzyDur) {
-      ctx.globalAlpha = 0.15 + 0.05 * Math.sin(performance.now() / 100);
-      ctx.fillStyle = '#ff4444';
-      ctx.font = 'bold 24px system-ui';
-      ctx.textAlign = 'center';
-      ctx.fillText('⚡ FRENZY x5 ⚡', W / 2, 30);
-      ctx.globalAlpha = 1;
-    }
-  }
-
-  // UI update (throttled)
+  // UI throttle
   uiTimer += dt;
   if (uiTimer > 0.25) { uiTimer = 0; renderUI(); }
 
-  // Auto-save
+  // Save
   saveTimer += dt;
-  if (saveTimer > 10) { saveTimer = 0; saveGame(); }
+  if (saveTimer > 5) { saveTimer = 0; saveGame(); }
 
-  requestAnimationFrame(loop);
+  requestAnimationFrame(gameLoop);
 }
 
-// ── Boot ──
+function drawNormalBackground() {
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#0a0a2e');
+  grad.addColorStop(1, '#1a1a4e');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawOverflowBackground(now) {
+  const t = now / 1000;
+  const pulse = 0.5 + 0.5 * Math.sin(t * 2);
+  const r = Math.floor(40 + pulse * 30);
+  const g = Math.floor(5 + pulse * 15);
+  const b = Math.floor(5 + pulse * 10);
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, `rgb(${r},${g},${b})`);
+  grad.addColorStop(1, `rgb(${Math.floor(r*0.7)},${Math.floor(g*0.5)},${Math.floor(b*0.6)})`);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Swirling particle streams
+  ctx.globalAlpha = 0.15;
+  for (let i = 0; i < 8; i++) {
+    const angle = t * 0.3 + i * Math.PI / 4;
+    const cx = W / 2 + Math.cos(angle) * W * 0.3;
+    const cy = H / 2 + Math.sin(angle) * H * 0.3;
+    const grad2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
+    grad2.addColorStop(0, `rgba(255,${Math.floor(80 + pulse * 80)},0,0.4)`);
+    grad2.addColorStop(1, 'rgba(255,0,0,0)');
+    ctx.fillStyle = grad2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ── Init ──
 loadGame();
+// If overflow was already active on load, add class
+if (state.overflowActive) {
+  canvas.classList.add('overflow-active');
+}
 renderUI();
-requestAnimationFrame(loop);
-window.addEventListener('beforeunload', saveGame);
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('prestige-modal-overlay').classList.remove('visible');
-});
+requestAnimationFrame(gameLoop);
 </script>
 </body>
 </html>
