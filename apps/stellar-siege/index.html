@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stellar Siege</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="hud-left">
+      <span id="hud-color" class="hud-color-dot"></span>
+      <span id="hud-energy">⚡ 0</span>
+      <span id="hud-nodes">● 0 nodes</span>
+    </div>
+    <div id="hud-center">
+      <span id="hud-timer">0:00</span>
+    </div>
+    <div id="hud-right">
+      <span id="hud-fps"></span>
+    </div>
+  </div>
+
+  <div id="upgrade-panel" class="hidden">
+    <div class="upgrade-title">Upgrade Node</div>
+    <button class="upgrade-btn" data-upgrade="overcharge">
+      <span class="upgrade-icon">⚡</span>
+      <span class="upgrade-name">Overcharge</span>
+      <span class="upgrade-desc">+50% production, -20% defense</span>
+    </button>
+    <button class="upgrade-btn" data-upgrade="shield">
+      <span class="upgrade-icon">🛡</span>
+      <span class="upgrade-name">Shield Matrix</span>
+      <span class="upgrade-desc">+50% defense, -20% production</span>
+    </button>
+    <button class="upgrade-btn" data-upgrade="cannon">
+      <span class="upgrade-icon">🚀</span>
+      <span class="upgrade-name">Pulse Cannon</span>
+      <span class="upgrade-desc">Auto-attack nearby enemy streams</span>
+    </button>
+    <div class="upgrade-cost">Cost: <span id="upgrade-cost-value">0</span> energy</div>
+  </div>
+
+  <div id="menu-screen">
+    <h1 class="menu-title">STELLAR SIEGE</h1>
+    <div class="menu-subtitle">Conquer the stars</div>
+    <div class="menu-options">
+      <div class="menu-option">
+        <label>Opponents</label>
+        <select id="menu-opponents">
+          <option value="1">1 AI</option>
+          <option value="2">2 AI</option>
+          <option value="3">3 AI</option>
+        </select>
+      </div>
+      <div class="menu-option">
+        <label>Difficulty</label>
+        <select id="menu-difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="menu-option">
+        <label>Map Size</label>
+        <select id="menu-mapsize">
+          <option value="small">Small (20 nodes)</option>
+          <option value="medium" selected>Medium (35 nodes)</option>
+          <option value="large">Large (50 nodes)</option>
+        </select>
+      </div>
+    </div>
+    <button id="menu-start" class="menu-btn">START GAME</button>
+  </div>
+
+  <div id="game-over-screen" class="hidden">
+    <h1 id="game-over-title"></h1>
+    <div id="game-over-stats"></div>
+    <button id="game-over-restart" class="menu-btn">PLAY AGAIN</button>
+    <button id="game-over-menu" class="menu-btn secondary">MAIN MENU</button>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

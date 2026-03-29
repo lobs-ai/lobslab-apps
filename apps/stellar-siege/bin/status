@@ -1,0 +1,7 @@
+#!/bin/zsh
+set -euo pipefail
+
+APP="$(basename "$(cd "$(dirname "$0")/.." && pwd)")"
+COMPOSE="$(cd "$(dirname "$0")/../../.." && pwd)/docker-compose.yml"
+
+docker compose -f "$COMPOSE" ps "$APP"
