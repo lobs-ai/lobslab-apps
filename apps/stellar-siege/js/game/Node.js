@@ -13,7 +13,7 @@ export function createNode(config) {
     id: nextNodeId++,
     type: config.type,
     owner: config.owner ?? null,
-    energy: config.energy ?? (config.owner !== null ? defaults.maxEnergy * 0.5 : defaults.maxEnergy * 0.3),
+    energy: config.energy ?? (config.owner !== null ? defaults.maxEnergy * 0.4 : defaults.maxEnergy * 0.5),
     maxEnergy: defaults.maxEnergy,
     productionRate: defaults.productionRate,
     defense: defaults.defense,

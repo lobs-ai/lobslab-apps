@@ -1,14 +1,14 @@
 // ===== Node Type Defaults =====
 export const NODE_DEFAULTS = {
-  star:      { productionRate: 8,  maxEnergy: 200, defense: 1.0, radius: 30 },
-  planet:    { productionRate: 4,  maxEnergy: 120, defense: 1.0, radius: 22 },
-  asteroid:  { productionRate: 12, maxEnergy: 60,  defense: 0.6, radius: 16 },
-  blackhole: { productionRate: 10, maxEnergy: 250, defense: 1.4, radius: 35 },
-  nebula:    { productionRate: 2,  maxEnergy: 100, defense: 1.0, radius: 24 },
+  star:      { productionRate: 3,  maxEnergy: 300, defense: 1.0, radius: 30 },
+  planet:    { productionRate: 1.5,  maxEnergy: 200, defense: 1.0, radius: 22 },
+  asteroid:  { productionRate: 4, maxEnergy: 100,  defense: 0.6, radius: 16 },
+  blackhole: { productionRate: 4, maxEnergy: 400, defense: 1.4, radius: 35 },
+  nebula:    { productionRate: 0.8,  maxEnergy: 160, defense: 1.0, radius: 24 },
 };
 
 // ===== Stream =====
-export const STREAM_SPEED = 150;           // pixels per second
+export const STREAM_SPEED = 80;           // pixels per second
 export const STREAM_PARTICLE_SPACING = 8;  // pixels between particles in stream
 
 // ===== Send Ratios =====
@@ -27,16 +27,16 @@ export const CANNON_RANGE = 150;
 export const CANNON_DPS = 5;
 
 // ===== Events =====
-export const SOLAR_STORM_INTERVAL = 120;   // seconds
+export const SOLAR_STORM_INTERVAL = 180;   // seconds
 export const SOLAR_STORM_DURATION = 10;    // seconds
 export const SOLAR_STORM_VARIANCE = 30;    // ± seconds
 export const SOLAR_STORM_MULTIPLIER = 2;
 
 // ===== AI =====
 export const AI_REACTION = {
-  easy: 3.0,
-  medium: 1.5,
-  hard: 0.5,
+  easy: 5.0,
+  medium: 3.0,
+  hard: 1.5,
 };
 
 // ===== Map =====
@@ -46,7 +46,7 @@ export const MAP_SIZES = {
   large:  { nodeCount: 50, width: 2000, height: 1200 },
 };
 
-export const MAP_NODE_MIN_DISTANCE = 80;   // minimum pixels between nodes
+export const MAP_NODE_MIN_DISTANCE = 100;   // minimum pixels between nodes
 
 // ===== Game =====
 export const TICK_RATE = 1 / 60;

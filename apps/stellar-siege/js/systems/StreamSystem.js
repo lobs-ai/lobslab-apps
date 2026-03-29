@@ -13,7 +13,7 @@ import { getEffectiveDefense } from '../game/Node.js';
  */
 
 // Energy delivery rate — units per second once stream arrives
-const DELIVERY_RATE = 80;
+const DELIVERY_RATE = 30;
 
 export class StreamSystem {
   update(world, dt) {
