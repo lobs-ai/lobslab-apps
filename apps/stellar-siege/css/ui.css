@@ -475,3 +475,100 @@
   margin-top: 8px;
   letter-spacing: 1px;
 }
+
+/* ===== MENU NAME INPUT ===== */
+.menu-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #e0e0e0;
+  padding: 8px 12px;
+  font-size: 14px;
+  min-width: 160px;
+  font-family: inherit;
+}
+
+.menu-input::placeholder {
+  color: #444;
+}
+
+.menu-input:focus {
+  outline: none;
+  border-color: #00e5ff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.12);
+}
+
+/* ===== JOIN SCREEN NAME INPUT ===== */
+.join-input.name-input {
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ===== HUD PLAYER LIST (multiplayer) ===== */
+#hud-players {
+  position: fixed;
+  top: 50px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.hud-player-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 10, 18, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #ccc;
+  transition: opacity 0.3s;
+  min-width: 120px;
+}
+
+.hud-player-row.eliminated {
+  opacity: 0.4;
+  text-decoration: line-through;
+  color: #666;
+}
+
+.hud-player-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hud-player-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud-player-you {
+  font-size: 10px;
+  color: #00e5ff;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.hud-player-nodes {
+  font-size: 11px;
+  color: #888;
+  font-family: monospace;
+}
+
+/* ===== SPEED CONTROLS WRAPPER ===== */
+#speed-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

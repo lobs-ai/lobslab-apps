@@ -59,8 +59,13 @@ export class NetClient {
     this.send({ type: 'create_lobby', config });
   }
 
-  joinLobby(code) {
-    this.send({ type: 'join_lobby', code: code.toUpperCase() });
+  /**
+   * Join an existing lobby by invite code.
+   * @param {string} code    - 6-character invite code
+   * @param {string} [name]  - display name for this player
+   */
+  joinLobby(code, name) {
+    this.send({ type: 'join_lobby', code: code.toUpperCase(), name: name || 'Player' });
   }
 
   startGame() {

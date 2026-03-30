@@ -30,6 +30,13 @@ export class Game {
     /** Simulation speed multiplier — 0.5, 1, or 2 */
     this.gameSpeed = 1.0;
 
+    /**
+     * Set to true when this Game instance is running a multiplayer session.
+     * Affects checkGameOver() logic: in multiplayer all players are isHuman,
+     * so we use last-player-standing instead of "did the human die?" logic.
+     */
+    this.isMultiplayer = false;
+
     // Systems
     this.productionSystem = new ProductionSystem();
     this.swarmSystem = new SwarmSystem();
@@ -46,6 +53,7 @@ export class Game {
 
     this.world = new World();
     this.winner = null;
+    this.isMultiplayer = false;
 
     // Create players
     const humanPlayer = createPlayer(0, true);
@@ -83,6 +91,7 @@ export class Game {
 
     this.world = new World();
     this.winner = null;
+    this.isMultiplayer = true;
 
     // Create players from slot definitions
     // Use compact IDs (0, 1, 2, ...) — skip closed slots
@@ -162,6 +171,12 @@ export class Game {
 
   /**
    * Check if the game is over.
+   *
+   * Solo mode:   game ends when the human player dies, OR only 1 player remains.
+   * Multiplayer: game ends when only 1 player remains (last player standing).
+   *              All players are marked isHuman in MP, so we cannot use the
+   *              "human died" shortcut — that would end the game the moment any
+   *              player loses a node.
    */
   checkGameOver() {
     // Mark eliminated players
@@ -172,6 +187,17 @@ export class Game {
     }
 
     const alivePlayers = this.world.players.filter(p => p.alive);
+
+    if (this.isMultiplayer) {
+      // Multiplayer: last player standing wins
+      if (alivePlayers.length <= 1) {
+        this.state = GameState.GAME_OVER;
+        this.winner = alivePlayers[0] ?? null;
+      }
+      return;
+    }
+
+    // Solo mode —————————————————————————————————————————————
 
     // Human lost
     const human = this.world.players.find(p => p.isHuman);

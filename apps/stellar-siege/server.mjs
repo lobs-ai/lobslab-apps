@@ -74,7 +74,7 @@ class Lobby {
     this.code = generateCode();
     this.host = hostWs;
     this.config = config;
-    /** @type {Map<WebSocket, { playerId: number }>} */
+    /** @type {Map<WebSocket, { playerId: number, name: string }>} */
     this.clients = new Map();
     this.game = null;
     this.started = false;
@@ -89,16 +89,18 @@ class Lobby {
     // Host takes slot 0
     this.config.slots[0].taken = true;
 
-    // Assign host as player 0
-    this.clients.set(hostWs, { playerId: 0 });
+    // Assign host as player 0 — name comes from config.name
+    this.clients.set(hostWs, { playerId: 0, name: config.name || 'Player 1' });
     clientLobby.set(hostWs, this);
   }
 
   /**
    * Add a human client to the next open slot.
+   * @param {WebSocket} ws
+   * @param {string}    [name]  - display name for this player
    * @returns {number|null} playerId or null if no room
    */
-  addClient(ws) {
+  addClient(ws, name) {
     // Find an open (human) slot that isn't taken
     const slotIdx = this.config.slots.findIndex(s => s.type === 'open' && !s.taken);
     if (slotIdx === -1) return null;
@@ -107,7 +109,7 @@ class Lobby {
     this.config.slots[slotIdx].wsId = ws; // track which ws is in this slot
 
     const playerId = slotIdx;
-    this.clients.set(ws, { playerId });
+    this.clients.set(ws, { playerId, name: name || 'Player' });
     clientLobby.set(ws, this);
     return playerId;
   }
@@ -160,6 +162,7 @@ class Lobby {
       players: [...this.clients.values()].map(c => ({
         playerId: c.playerId,
         isHost: hostInfo?.playerId === c.playerId,
+        name: c.name || 'Player',
       })),
     };
   }
@@ -340,13 +343,23 @@ class Lobby {
         pulsePhase: n.pulsePhase,
         captureFlash: 0,
       })),
-      players: w.players.map(p => ({
-        id: p.id,
-        color: p.color,
-        isHuman: p.isHuman,
-        alive: p.alive,
-        difficulty: p.difficulty,
-      })),
+      players: w.players.map(p => {
+        // Build a reverse map from compact playerId -> name via slotToPlayer
+        // slotToPlayer maps slotIdx -> compactId; clients maps ws -> {playerId:slotIdx, name}
+        let name = `Player ${p.id + 1}`;
+        for (const [, info] of this.clients) {
+          const compactId = this.slotToPlayer?.[info.playerId] ?? info.playerId;
+          if (compactId === p.id) { name = info.name || name; break; }
+        }
+        return {
+          id: p.id,
+          color: p.color,
+          isHuman: p.isHuman,
+          alive: p.alive,
+          difficulty: p.difficulty,
+          name,
+        };
+      }),
       swarms: [],
       events: [],
     };
@@ -464,7 +477,7 @@ wss.on('connection', (ws) => {
           break;
         }
 
-        const playerId = lobby.addClient(ws);
+        const playerId = lobby.addClient(ws, msg.name || 'Player');
         if (playerId === null) {
           safeSend(ws, JSON.stringify({ type: 'error', message: 'Lobby is full' }));
           break;

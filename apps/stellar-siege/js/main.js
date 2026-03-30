@@ -34,6 +34,7 @@ let isHost        = false;
 // ============================================================================
 
 inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
+  console.log('[input] onSendEnergy', { isMultiplayer, selectedNodes: selectedNodes.map(n => n.id), targetId: targetNode?.id, ratio });
   if (isMultiplayer && netClient) {
     for (const source of selectedNodes) {
       // Apply locally first for instant feedback
@@ -182,7 +183,8 @@ document.getElementById('mp-create-go').addEventListener('click', async () => {
       }
     };
 
-    netClient.createLobby({ mapSize, slots });
+    const createName = document.getElementById('mp-create-name').value.trim() || 'Player 1';
+    netClient.createLobby({ mapSize, slots, name: createName });
   } catch (e) {
     showMpError('Failed to connect to server');
   }
@@ -219,7 +221,8 @@ document.getElementById('mp-join-go').addEventListener('click', async () => {
       }
     };
 
-    netClient.joinLobby(code);
+    const joinName = document.getElementById('mp-join-name').value.trim() || 'Player';
+    netClient.joinLobby(code, joinName);
   } catch (e) {
     showMpError('Failed to connect to server');
   }
@@ -295,19 +298,22 @@ function updateLobbyDisplay(lobby) {
 
     if (slot.type === 'human' && slot.taken) {
       const player = players.find(p => p.playerId === i);
+      const displayName = player?.name || 'Player';
       if (player?.isHost) {
         div.classList.add('host');
         status.className = 'slot-type';
-        status.textContent = 'HOST';
+        status.textContent = `HOST — ${displayName}`;
       } else {
         div.classList.add('human-joined');
         status.className = 'slot-status connected';
-        status.textContent = 'JOINED';
+        status.textContent = `JOINED — ${displayName}`;
       }
     } else if (slot.type === 'open' && slot.taken) {
+      const player = players.find(p => p.playerId === i);
+      const displayName = player?.name || 'Player';
       div.classList.add('human-joined');
       status.className = 'slot-status connected';
-      status.textContent = 'JOINED';
+      status.textContent = `JOINED — ${displayName}`;
     } else if (slot.type === 'open' && !slot.taken) {
       status.className = 'slot-status';
       status.textContent = 'Waiting...';
@@ -358,6 +364,7 @@ function startMultiplayerGame(initialState, playerId) {
     isHuman: p.isHuman,
     alive: p.alive,
     difficulty: p.difficulty || 'medium',
+    name: p.name || `Player ${p.id + 1}`,
   }));
 
   mpWorld.swarms = [];
@@ -368,11 +375,13 @@ function startMultiplayerGame(initialState, playerId) {
   mpGame.world = mpWorld;
   mpGame.state = GameState.PLAYING;
   mpGame.gameSpeed = 1.0;
+  mpGame.isMultiplayer = true; // use last-player-standing game-over logic
   // Init AI so AI players run locally on each client
   mpGame.aiSystem.init(mpWorld);
 
   // Wire up action broadcast handler — apply remote player actions to local sim
   netClient.onActionBroadcast = (action) => {
+    console.log('[net] onActionBroadcast', action);
     if (!mpGame || !mpWorld) return;
     if (action.playerId === myPlayerId) return; // already applied locally
 
@@ -635,6 +644,28 @@ function updateHUD(dt) {
   if (elNodes)  elNodes.textContent  = `● ${nodeCount} node${nodeCount !== 1 ? 's' : ''}`;
   if (elTimer)  elTimer.textContent  = `${mins}:${secs.toString().padStart(2, '0')}`;
   if (elFps)    elFps.textContent    = `${_hudFps} fps`;
+
+  // Multiplayer player list
+  const elPlayers = document.getElementById('hud-players');
+  if (elPlayers) {
+    if (isMultiplayer && world.players.length > 0) {
+      elPlayers.classList.remove('hidden');
+      elPlayers.innerHTML = world.players.map(p => {
+        const nodes  = world.getNodesByOwner(p.id).length;
+        const isMe   = p.id === myPlayerId;
+        const status = p.alive ? '' : ' eliminated';
+        const youTag = isMe ? ' <span class="hud-player-you">YOU</span>' : '';
+        return `<div class="hud-player-row${status}">` +
+          `<span class="hud-player-dot" style="background:${p.color}"></span>` +
+          `<span class="hud-player-name">${p.name || `P${p.id + 1}`}</span>` +
+          `${youTag}` +
+          `<span class="hud-player-nodes">${nodes}▲</span>` +
+          `</div>`;
+      }).join('');
+    } else {
+      elPlayers.classList.add('hidden');
+    }
+  }
 }
 
 // ============================================================================
@@ -701,6 +732,13 @@ function loop(timestamp) {
     while (accumulator >= TICK_RATE) {
       mpGame.update(TICK_RATE);
       accumulator -= TICK_RATE;
+    }
+    // Debug: log game loop running (once per second)
+    if (!loop._mpLogTimer) loop._mpLogTimer = 0;
+    loop._mpLogTimer += dt;
+    if (loop._mpLogTimer >= 5) {
+      loop._mpLogTimer = 0;
+      console.log('[loop] mp tick, state=', mpGame.state, 'players=', mpWorld?.players?.length, 'myPlayerId=', myPlayerId);
     }
   }
 

@@ -17,15 +17,19 @@
       <span id="hud-nodes">● 0 nodes</span>
     </div>
     <div id="hud-center">
-      <button class="speed-btn" data-speed="0.5">½×</button>
-      <button class="speed-btn active" data-speed="1">1×</button>
-      <button class="speed-btn" data-speed="2">2×</button>
+      <div id="speed-controls">
+        <button class="speed-btn" data-speed="0.5">½×</button>
+        <button class="speed-btn active" data-speed="1">1×</button>
+        <button class="speed-btn" data-speed="2">2×</button>
+        <button class="speed-btn" id="pause-btn">⏸</button>
+      </div>
       <span id="hud-timer">0:00</span>
-      <button class="speed-btn" id="pause-btn">⏸</button>
     </div>
     <div id="hud-right">
       <span id="hud-fps"></span>
     </div>
+  </div>
+  <div id="hud-players" class="hidden">
   </div>
 
   <div id="upgrade-panel" class="hidden">
@@ -94,6 +98,10 @@
   <div id="mp-create-screen" class="hidden">
     <h1 class="menu-title">CREATE GAME</h1>
     <div class="menu-options">
+      <div class="menu-option">
+        <label>Your Name</label>
+        <input type="text" id="mp-create-name" class="menu-input" maxlength="16" placeholder="Enter name" autocomplete="off" spellcheck="false">
+      </div>
       <div class="menu-option">
         <label>Map Size</label>
         <select id="mp-mapsize">
@@ -164,6 +172,7 @@
   <div id="mp-join-screen" class="hidden">
     <h1 class="menu-title">JOIN GAME</h1>
     <div class="join-input-group">
+      <input type="text" id="mp-join-name" class="join-input name-input" maxlength="16" placeholder="YOUR NAME" autocomplete="off" spellcheck="false">
       <input type="text" id="mp-join-code" class="join-input" maxlength="6" placeholder="INVITE CODE" autocomplete="off" spellcheck="false">
     </div>
     <button id="mp-join-go" class="menu-btn">JOIN</button>
