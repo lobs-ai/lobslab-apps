@@ -9,6 +9,7 @@ All web apps running on [lobslab.com](https://lobslab.com) subdomains.
 | [crapuler](apps/crapuler/) | [crapuler.lobslab.com](https://crapuler.lobslab.com) | UMich course watchlist dashboard |
 | [ballz](apps/ballz/) | [ballz.lobslab.com](https://ballz.lobslab.com) | Bouncing balls physics toy |
 | [stellar-siege](apps/stellar-siege/) | [stellar-siege.lobslab.com](https://stellar-siege.lobslab.com) | Cosmic RTS — conquer star systems |
+| [ballz-royale](apps/ballz-royale/) | [ballz-royale.lobslab.com](https://ballz-royale.lobslab.com) | Turn-based billiards battle royale |
 
 ## Quick Start
 

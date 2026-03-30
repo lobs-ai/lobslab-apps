@@ -32,6 +32,17 @@ services:
       traefik.http.routers.stellar-siege.entrypoints: web
       traefik.http.services.stellar-siege.loadbalancer.server.port: "3000"
 
+  ballz-royale:
+    build: ./apps/ballz-royale
+    restart: unless-stopped
+    networks:
+      - lobslab
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.ballz-royale.rule: "Host(`ballz-royale.lobslab.com`)"
+      traefik.http.routers.ballz-royale.entrypoints: web
+      traefik.http.services.ballz-royale.loadbalancer.server.port: "3000"
+
 networks:
   lobslab:
     external: true
