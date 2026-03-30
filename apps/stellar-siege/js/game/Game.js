@@ -85,13 +85,20 @@ export class Game {
     this.winner = null;
 
     // Create players from slot definitions
-    // slot index = player id
+    // Use compact IDs (0, 1, 2, ...) — skip closed slots
+    // Build a slotIndex -> playerId mapping for the server
+    this._slotToPlayer = {};
+    let nextId = 0;
     for (let i = 0; i < config.slots.length; i++) {
       const slot = config.slots[i];
       if (slot.type === 'human' || slot.type === 'open') {
-        this.world.players.push(createPlayer(i, true));
+        this._slotToPlayer[i] = nextId;
+        this.world.players.push(createPlayer(nextId, true));
+        nextId++;
       } else if (slot.type === 'ai') {
-        this.world.players.push(createPlayer(i, false, slot.difficulty || 'medium'));
+        this._slotToPlayer[i] = nextId;
+        this.world.players.push(createPlayer(nextId, false, slot.difficulty || 'medium'));
+        nextId++;
       }
       // 'closed' slots are skipped
     }

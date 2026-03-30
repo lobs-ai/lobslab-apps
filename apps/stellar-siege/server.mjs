@@ -219,13 +219,17 @@ class Lobby {
       slots: gameSlots,
     });
 
+    // Build slot -> compactId mapping from game
+    this.slotToPlayer = this.game._slotToPlayer || {};
+
     // Send initial state to all clients
     const fullState = this.serializeFullState();
     for (const [ws, info] of this.clients) {
+      const compactId = this.slotToPlayer[info.playerId] ?? info.playerId;
       safeSend(ws, JSON.stringify({
         type: 'game_start',
         initialState: fullState,
-        playerId: info.playerId,
+        playerId: compactId,
       }));
     }
 
@@ -271,7 +275,9 @@ class Lobby {
     const info = this.clients.get(ws);
     if (!info) return;
 
-    const playerId = info.playerId;
+    // Map slot index to compact player ID
+    const slotId = info.playerId;
+    const playerId = this.slotToPlayer?.[slotId] ?? slotId;
     const world = this.game.world;
 
     switch (action.type) {
