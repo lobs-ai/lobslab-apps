@@ -1,0 +1,209 @@
+/* ── Ballz Royale Styles ── */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a1a;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas { display: block; cursor: crosshair; }
+
+/* ── Setup Screen ── */
+#setup {
+  position: absolute;
+  z-index: 100;
+  background: rgba(10,10,26,0.97);
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#setup h1 {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  margin-bottom: 10px;
+}
+
+#setup h2 {
+  color: #888;
+  font-size: 1rem;
+  font-weight: normal;
+  margin-top: -15px;
+}
+
+.setup-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.setup-row label {
+  font-size: 1.1rem;
+  color: #aaa;
+}
+
+.setup-row select,
+.setup-row input {
+  background: #1a1a2e;
+  border: 1px solid #333;
+  color: #eee;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#startBtn {
+  margin-top: 15px;
+  padding: 14px 50px;
+  background: linear-gradient(135deg, #6bcb77, #4d96ff);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+#startBtn:hover { transform: scale(1.05); }
+
+/* ── HUD ── */
+#hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(10,10,26,0.8), transparent);
+}
+
+#hud > div { pointer-events: auto; }
+
+.hud-left, .hud-right {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.hud-center { text-align: center; }
+
+.player-indicator {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border: 2px solid;
+}
+
+.round-info { color: #aaa; font-size: 0.85rem; }
+.storm-info { color: #ff6b6b; font-size: 0.85rem; }
+
+/* ── Items Bar ── */
+#itemsBar {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.item-slot {
+  width: 50px; height: 50px;
+  background: rgba(30,30,50,0.9);
+  border: 2px solid #444;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.item-slot:hover { border-color: #ffd93d; transform: scale(1.1); }
+.item-slot.active { border-color: #6bcb77; box-shadow: 0 0 15px rgba(107,203,119,0.5); }
+.item-slot.empty { opacity: 0.3; cursor: default; }
+
+/* ── Announcements ── */
+#announcement {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffd93d;
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-shadow: 0 0 20px rgba(255,217,61,0.5);
+}
+
+/* ── Winner Overlay ── */
+#winOverlay {
+  position: absolute;
+  z-index: 100;
+  width: 100%; height: 100%;
+  background: rgba(10,10,26,0.9);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#winOverlay h1 { font-size: 3rem; }
+
+#winOverlay button {
+  padding: 14px 50px;
+  background: linear-gradient(135deg, #6bcb77, #4d96ff);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ── Power Bar ── */
+#powerBar {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 12px;
+  background: #1a1a2e;
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 10;
+  display: none;
+  border: 1px solid #333;
+}
+
+#powerFill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6bcb77, #ffd93d, #ff6b6b);
+  border-radius: 6px;
+  transition: width 0.05s;
+}
