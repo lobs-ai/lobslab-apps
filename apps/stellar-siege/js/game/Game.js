@@ -73,6 +73,46 @@ export class Game {
     this.gameSpeed = 1.0;
   }
 
+  /**
+   * Start a multiplayer game with slot-based config.
+   * @param {{ mapSize: string, slots: Array<{type:string, difficulty?:string}> }} config
+   */
+  startMultiplayerGame(config) {
+    resetNodeIds();
+    resetSwarmIds();
+
+    this.world = new World();
+    this.winner = null;
+
+    // Create players from slot definitions
+    // slot index = player id
+    for (let i = 0; i < config.slots.length; i++) {
+      const slot = config.slots[i];
+      if (slot.type === 'human' || slot.type === 'open') {
+        this.world.players.push(createPlayer(i, true));
+      } else if (slot.type === 'ai') {
+        this.world.players.push(createPlayer(i, false, slot.difficulty || 'medium'));
+      }
+      // 'closed' slots are skipped
+    }
+
+    // Generate map
+    const mapData = generateMap({
+      playerCount: this.world.players.length,
+      mapSize: config.mapSize || 'medium',
+    });
+
+    this.world.nodes = mapData.nodes;
+    this.world.width = mapData.width;
+    this.world.height = mapData.height;
+
+    // Init AI
+    this.aiSystem.init(this.world);
+
+    this.state = GameState.PLAYING;
+    this.gameSpeed = 1.0;
+  }
+
   /** Pause the game (stops simulation ticks). */
   pause() {
     if (this.state === GameState.PLAYING) {
@@ -147,10 +187,11 @@ export class Game {
    * @param {Swarm}      swarm
    * @param {Node|null}  targetNode  - if clicking a node
    * @param {{x,y}|null} targetPos   - if clicking empty space
+   * @param {number}     playerId   - which player is redirecting (default 0)
    */
-  redirectSwarm(swarm, targetNode, targetPos) {
+  redirectSwarm(swarm, targetNode, targetPos, playerId = 0) {
     if (!swarm || !swarm.alive) return;
-    if (swarm.owner !== 0) return; // only human can redirect
+    if (swarm.owner !== playerId) return;
 
     if (targetNode) {
       swarm.target = nodeTarget(targetNode.id);

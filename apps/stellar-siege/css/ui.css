@@ -262,3 +262,216 @@
   color: #999;
   margin-bottom: 24px;
 }
+
+/* ===== MULTIPLAYER SCREENS ===== */
+#mp-menu,
+#mp-create-screen,
+#mp-lobby,
+#mp-join-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #0f0f20 0%, #0a0a12 70%);
+  z-index: 100;
+  gap: 12px;
+}
+
+/* ===== LOBBY SLOTS ===== */
+.lobby-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 360px;
+  margin: 16px 0;
+}
+
+.lobby-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 16px;
+  transition: all 0.15s;
+}
+
+.lobby-slot.host {
+  border-color: rgba(0, 229, 255, 0.3);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.lobby-slot.human-joined {
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.06);
+}
+
+.slot-label {
+  font-size: 14px;
+  color: #ccc;
+  font-weight: 600;
+}
+
+.slot-type {
+  font-size: 13px;
+  color: #00e5ff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.slot-select {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #e0e0e0;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.slot-select:focus {
+  outline: none;
+  border-color: #00e5ff;
+}
+
+.slot-status {
+  font-size: 13px;
+  color: #888;
+}
+
+.slot-status.connected {
+  color: #00ff88;
+}
+
+/* ===== INVITE CODE BOX ===== */
+.invite-code-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 229, 255, 0.04);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px 40px;
+  margin: 16px 0;
+}
+
+.invite-label {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.invite-code {
+  font-family: 'Courier New', monospace;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 12px;
+  color: #00e5ff;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4), 0 0 40px rgba(0, 229, 255, 0.15);
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #aaa;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.copy-btn.copied {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+/* ===== JOIN INPUT ===== */
+.join-input-group {
+  margin: 24px 0;
+}
+
+.join-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #00e5ff;
+  font-family: 'Courier New', monospace;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  text-align: center;
+  padding: 14px 24px;
+  width: 320px;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+
+.join-input::placeholder {
+  color: #444;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.join-input:focus {
+  outline: none;
+  border-color: #00e5ff;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+/* ===== LOBBY ACTIONS ===== */
+#mp-lobby-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Hide start button for non-host */
+#mp-lobby.guest #mp-start {
+  display: none;
+}
+
+/* ===== MP ERROR TOAST ===== */
+.mp-error-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 68, 102, 0.9);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 200;
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ===== MP CONNECTION STATUS ===== */
+.mp-status {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}

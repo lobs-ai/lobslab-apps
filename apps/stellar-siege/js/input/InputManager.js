@@ -24,6 +24,9 @@ export class InputManager {
     this.canvas   = canvas;
     this.getWorld = getWorld;
 
+    /** Which player ID the local user controls (0 for solo, assigned by server for MP). */
+    this.localPlayerId = 0;
+
     // Mouse position in logical (CSS) pixels relative to canvas
     this._mouseX = 0;
     this._mouseY = 0;
@@ -133,7 +136,7 @@ export class InputManager {
 
     const node = world.getNodeAt(this._mouseX, this._mouseY);
 
-    if (node && node.owner === 0) {
+    if (node && node.owner === this.localPlayerId) {
       // Clicking an owned node
       this._cancelRedirect();
       this._isBoxSelecting = false;
@@ -163,7 +166,7 @@ export class InputManager {
       }
     } else {
       // No owned node — check if the click lands on a player swarm
-      const swarm = world.getSwarmAt(this._mouseX, this._mouseY, 0);
+      const swarm = world.getSwarmAt(this._mouseX, this._mouseY, this.localPlayerId);
       if (swarm) {
         // Begin swarm redirect gesture
         this.selectedSwarm   = swarm;
@@ -250,7 +253,7 @@ export class InputManager {
         const BOX_MIN_SIZE = 4;
         if (maxX - minX > BOX_MIN_SIZE || maxY - minY > BOX_MIN_SIZE) {
           const inBox = world.nodes.filter(n =>
-            n.owner === 0 &&
+            n.owner === this.localPlayerId &&
             n.position.x >= minX && n.position.x <= maxX &&
             n.position.y >= minY && n.position.y <= maxY
           );
