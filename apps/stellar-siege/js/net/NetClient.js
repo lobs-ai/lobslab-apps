@@ -12,14 +12,15 @@ export class NetClient {
     this.connected = false;
 
     // Callbacks — set by consumer
-    this.onLobbyCreated = null;   // (code, lobby) => {}
-    this.onLobbyJoined  = null;   // (lobby, playerId) => {}
-    this.onLobbyUpdate  = null;   // (lobby) => {}
-    this.onGameStart    = null;   // (initialState, playerId) => {}
-    this.onStateUpdate  = null;   // (state) => {}
-    this.onGameOver     = null;   // (winnerId) => {}
-    this.onError        = null;   // (message) => {}
-    this.onDisconnect   = null;   // () => {}
+    this.onLobbyCreated    = null;   // (code, lobby) => {}
+    this.onLobbyJoined     = null;   // (lobby, playerId) => {}
+    this.onLobbyUpdate     = null;   // (lobby) => {}
+    this.onGameStart       = null;   // (initialState, playerId) => {}
+    this.onStateUpdate     = null;   // (state) => {}
+    this.onActionBroadcast = null;   // (action) => {}
+    this.onGameOver        = null;   // (winnerId) => {}
+    this.onError           = null;   // (message) => {}
+    this.onDisconnect      = null;   // () => {}
   }
 
   /**
@@ -106,7 +107,10 @@ export class NetClient {
         this.playerId = msg.playerId;
         if (this.onGameStart) this.onGameStart(msg.initialState, msg.playerId);
         break;
-      case 'state_update':
+      case 'action_broadcast':
+        if (this.onActionBroadcast) this.onActionBroadcast(msg.action);
+        break;
+      case 'sync':
         if (this.onStateUpdate) this.onStateUpdate(msg.state);
         break;
       case 'game_over':

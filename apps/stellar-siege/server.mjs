@@ -192,6 +192,7 @@ class Lobby {
     if (this.countPlayers() < 2) return;
 
     this.started = true;
+    this.actionSeq = 0;
 
     // Build game slots — map lobby slots to game slots
     // Filter out closed and untaken open slots
@@ -233,9 +234,8 @@ class Lobby {
       }));
     }
 
-    // Start simulation loop — 60fps
-    const TICK_MS = 1000 / 60;
-    const STATE_SEND_INTERVAL = 6; // send state every 6th tick = 10/sec
+    // Slow server tick — runs every 2 seconds for authority tracking + sync
+    const SLOW_TICK_MS = 2000;
 
     this.tickInterval = setInterval(() => {
       if (!this.game) return;
@@ -254,20 +254,18 @@ class Lobby {
 
       if (this.game.state !== GameState.PLAYING) return;
 
-      this.game.update(1 / 60);
+      // Advance server authoritative state (for game-over detection & AI decisions)
+      this.game.update(SLOW_TICK_MS / 1000);
 
-      this.stateTickCounter++;
-      if (this.stateTickCounter >= STATE_SEND_INTERVAL) {
-        this.stateTickCounter = 0;
-        const state = this.serializeState();
-        const msg = JSON.stringify({ type: 'state_update', state });
-        for (const ws of this.clients.keys()) safeSend(ws, msg);
-      }
-    }, TICK_MS);
+      // Send lightweight sync — only node ownership/energy, no mote positions
+      const state = this.serializeState();
+      const msg = JSON.stringify({ type: 'sync', state });
+      for (const ws of this.clients.keys()) safeSend(ws, msg);
+    }, SLOW_TICK_MS);
   }
 
   /**
-   * Handle a player action.
+   * Handle a player action — broadcast to all clients, then apply to server state.
    */
   handleAction(ws, action) {
     if (!this.game || this.game.state !== GameState.PLAYING) return;
@@ -280,24 +278,40 @@ class Lobby {
     const playerId = this.slotToPlayer?.[slotId] ?? slotId;
     const world = this.game.world;
 
+    // Validate the action before broadcasting
+    let valid = false;
     switch (action.type) {
       case 'send_energy': {
         const source = world.getNodeById(action.sourceId);
         const target = world.getNodeById(action.targetId);
-        if (!source || !target) break;
-        if (source.owner !== playerId) break; // can't send from nodes you don't own
-        this.game.sendEnergy(source, target, action.ratio ?? 0.5);
+        if (source && target && source.owner === playerId) valid = true;
         break;
       }
       case 'redirect_swarm': {
-        const swarm = world.swarms.find(s => s.id === action.swarmId && s.alive);
-        if (!swarm || swarm.owner !== playerId) break;
-        if (action.targetNodeId != null) {
-          const target = world.getNodeById(action.targetNodeId);
-          if (target) this.game.redirectSwarm(swarm, target, null, playerId);
-        } else if (action.targetPos) {
-          this.game.redirectSwarm(swarm, null, action.targetPos, playerId);
-        }
+        // Swarms are client-local — just trust the playerId ownership claim
+        // (server doesn't track mote positions anyway)
+        valid = true;
+        break;
+      }
+    }
+
+    if (!valid) return;
+
+    // Broadcast to ALL clients (including sender) with playerId attached
+    const broadcastAction = { type: 'action_broadcast', action: { ...action, playerId }, seq: this.actionSeq++ };
+    const broadcastMsg = JSON.stringify(broadcastAction);
+    for (const ws of this.clients.keys()) safeSend(ws, broadcastMsg);
+
+    // Also apply to the server's authoritative game state
+    switch (action.type) {
+      case 'send_energy': {
+        const source = world.getNodeById(action.sourceId);
+        const target = world.getNodeById(action.targetId);
+        if (source && target) this.game.sendEnergy(source, target, action.ratio ?? 0.5);
+        break;
+      }
+      case 'redirect_swarm': {
+        // Server doesn't track client swarms — skip
         break;
       }
     }
@@ -339,7 +353,8 @@ class Lobby {
   }
 
   /**
-   * Serialize dynamic state (per-tick — lightweight).
+   * Serialize lightweight sync state — node ownership/energy only, no mote positions.
+   * Clients run their own simulation; this is just for drift correction.
    */
   serializeState() {
     const w = this.game.world;
@@ -348,19 +363,9 @@ class Lobby {
       nodes: w.nodes.map(n => ({
         id: n.id,
         owner: n.owner,
-        energy: Math.round(n.energy * 10) / 10,
-      })),
-      swarms: w.swarms.filter(s => s.alive).map(s => ({
-        id: s.id,
-        owner: s.owner,
-        target: s.target,
-        motes: s.motes.filter(m => m.alive).map(m => ({
-          x: Math.round(m.x * 10) / 10,
-          y: Math.round(m.y * 10) / 10,
-        })),
+        energy: Math.round(n.energy),
       })),
       players: w.players.map(p => ({ id: p.id, alive: p.alive })),
-      events: w.events || [],
     };
   }
 

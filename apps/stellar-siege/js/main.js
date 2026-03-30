@@ -25,6 +25,7 @@ window.game = game;
 let isMultiplayer = false;
 let netClient     = null;
 let mpWorld       = null;   // World populated from server state in multiplayer
+let mpGame        = null;   // Game instance running the local simulation in multiplayer
 let myPlayerId    = 0;
 let isHost        = false;
 
@@ -35,6 +36,9 @@ let isHost        = false;
 inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   if (isMultiplayer && netClient) {
     for (const source of selectedNodes) {
+      // Apply locally first for instant feedback
+      if (mpGame) mpGame.sendEnergy(source, targetNode, ratio);
+      // Send to server for broadcast to other clients
       netClient.sendAction({
         type: 'send_energy',
         sourceId: source.id,
@@ -52,6 +56,9 @@ inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
 
 inputManager.onRedirectSwarm = (swarm, newTargetNode, newTargetPos) => {
   if (isMultiplayer && netClient) {
+    // Apply locally first for instant feedback
+    if (mpGame) mpGame.redirectSwarm(swarm, newTargetNode, newTargetPos, myPlayerId);
+    // Send to server for broadcast to other clients
     netClient.sendAction({
       type: 'redirect_swarm',
       swarmId: swarm.id,
@@ -356,6 +363,43 @@ function startMultiplayerGame(initialState, playerId) {
   mpWorld.swarms = [];
   mpWorld.events = [];
 
+  // Create a local Game instance to run the full simulation client-side
+  mpGame = new Game();
+  mpGame.world = mpWorld;
+  mpGame.state = GameState.PLAYING;
+  mpGame.gameSpeed = 1.0;
+  // Init AI so AI players run locally on each client
+  mpGame.aiSystem.init(mpWorld);
+
+  // Wire up action broadcast handler — apply remote player actions to local sim
+  netClient.onActionBroadcast = (action) => {
+    if (!mpGame || !mpWorld) return;
+    if (action.playerId === myPlayerId) return; // already applied locally
+
+    switch (action.type) {
+      case 'send_energy': {
+        const source = mpWorld.getNodeById(action.sourceId);
+        const target = mpWorld.getNodeById(action.targetId);
+        if (source && target) {
+          mpGame.sendEnergy(source, target, action.ratio ?? 0.5);
+        }
+        break;
+      }
+      case 'redirect_swarm': {
+        const swarm = mpWorld.swarms.find(s => s.id === action.swarmId && s.alive);
+        if (swarm) {
+          mpGame.redirectSwarm(
+            swarm,
+            action.targetNodeId != null ? mpWorld.getNodeById(action.targetNodeId) : null,
+            action.targetPos ?? null,
+            action.playerId
+          );
+        }
+        break;
+      }
+    }
+  };
+
   // Set input manager to use multiplayer playerId
   inputManager.localPlayerId = myPlayerId;
 
@@ -389,39 +433,27 @@ function startMultiplayerGame(initialState, playerId) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Update node dynamic data
+  // Soft-sync node ownership and energy from server authority
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (node) {
-      node.owner  = nState.owner;
-      node.energy = nState.energy;
+      // Server is authoritative on ownership
+      node.owner = nState.owner;
+      // Lerp energy toward server value to avoid jarring snaps
+      const diff = nState.energy - node.energy;
+      if (Math.abs(diff) > 5) {
+        node.energy += diff * 0.3;
+      }
     }
   }
 
-  // Rebuild swarms from server state
-  mpWorld.swarms = (state.swarms || []).map(s => ({
-    id: s.id,
-    owner: s.owner,
-    target: s.target,
-    alive: true,
-    motes: (s.motes || []).map(m => ({
-      x: m.x,
-      y: m.y,
-      vx: 0,
-      vy: 0,
-      alive: true,
-      age: 0,
-    })),
-  }));
-
-  // Update player state
+  // Sync player alive status
   for (const pState of state.players) {
     const player = mpWorld.players.find(p => p.id === pState.id);
     if (player) player.alive = pState.alive;
   }
 
-  mpWorld.events = state.events || [];
-  mpWorld.time   = state.time;
+  // DON'T touch swarms — local simulation handles all mote physics
 }
 
 function showMultiplayerGameOver(winnerId) {
@@ -452,6 +484,7 @@ function cleanupMultiplayer() {
   }
   isMultiplayer = false;
   mpWorld = null;
+  mpGame = null;
   myPlayerId = 0;
   isHost = false;
   inputManager.localPlayerId = 0;
@@ -661,8 +694,15 @@ function loop(timestamp) {
         accumulator -= TICK_RATE;
       }
     }
+  } else if (mpGame && mpGame.state === GameState.PLAYING) {
+    // Multiplayer — run full local simulation (mote physics, AI, production)
+    // Server only syncs node ownership/energy every ~2s for drift correction
+    accumulator += dt;
+    while (accumulator >= TICK_RATE) {
+      mpGame.update(TICK_RATE);
+      accumulator -= TICK_RATE;
+    }
   }
-  // In multiplayer, world is updated via WebSocket — no local simulation
 
   const world = isMultiplayer ? mpWorld : game.world;
 
@@ -673,7 +713,7 @@ function loop(timestamp) {
 
   // Render
   if (world) {
-    const interpolation = isMultiplayer ? 0 : (accumulator / TICK_RATE);
+    const interpolation = accumulator / TICK_RATE;
     renderer.draw(world, inputManager, interpolation, dt);
   }
 
