@@ -37,6 +37,12 @@ export class Game {
      */
     this.isMultiplayer = false;
 
+    /**
+     * Set to true on multiplayer clients so the local AI is suppressed.
+     * The server runs the authoritative AI and broadcasts AI actions.
+     */
+    this.skipAI = false;
+
     // Systems
     this.productionSystem = new ProductionSystem();
     this.swarmSystem = new SwarmSystem();
@@ -163,7 +169,7 @@ export class Game {
     this.productionSystem.update(this.world, dt);
     this.swarmSystem.update(this.world, dt);
     this.captureSystem.update(this.world, dt);
-    this.aiSystem.update(this.world, dt);
+    if (!this.skipAI) this.aiSystem.update(this.world, dt);
 
     // Check win/lose
     this.checkGameOver();
@@ -231,6 +237,25 @@ export class Game {
     } else if (targetPos) {
       swarm.target = posTarget(targetPos.x, targetPos.y);
     }
+  }
+
+  /**
+   * Send energy from source node to target node as a mote swarm.
+   * Uses an exact mote count — used when the server broadcasts an AI action
+   * that already knows how many motes were created.
+   * @param {object} sourceNode
+   * @param {object} targetNode
+   * @param {number} amount     - exact number of motes
+   * @param {number} owner      - player id that owns the swarm
+   */
+  sendEnergyExact(sourceNode, targetNode, amount, owner) {
+    if (!sourceNode || !targetNode) return;
+    if (sourceNode.id === targetNode.id) return;
+    if (amount < 1) return;
+
+    sourceNode.energy = Math.max(0, sourceNode.energy - amount);
+    const swarm = createSwarm(sourceNode, targetNode, amount, owner ?? sourceNode.owner);
+    this.world.addSwarm(swarm);
   }
 
   /**

@@ -257,8 +257,34 @@ class Lobby {
 
       if (this.game.state !== GameState.PLAYING) return;
 
+      // Snapshot swarm count before AI runs so we can detect new AI swarms
+      const swarmCountBefore = this.game.world.swarms.length;
+
       // Advance server authoritative state (for game-over detection & AI decisions)
       this.game.update(SLOW_TICK_MS / 1000);
+
+      // Broadcast any swarms that AI created during this tick
+      const newSwarms = this.game.world.swarms.slice(swarmCountBefore);
+      for (const swarm of newSwarms) {
+        const player = this.game.world.players.find(p => p.id === swarm.owner);
+        if (player && !player.isHuman) {
+          const targetNodeId = swarm.target.type === 'node' ? swarm.target.nodeId : null;
+          if (targetNodeId == null) continue; // skip position-target swarms (unsupported on client)
+          const broadcastAction = {
+            type: 'action_broadcast',
+            action: {
+              type: 'send_energy',
+              sourceId: swarm.sourceId,
+              targetId: targetNodeId,
+              playerId: swarm.owner,
+              amount: swarm.motes.filter(m => m.alive).length,
+            },
+            seq: this.actionSeq++,
+          };
+          const aiMsg = JSON.stringify(broadcastAction);
+          for (const ws of this.clients.keys()) safeSend(ws, aiMsg);
+        }
+      }
 
       // Send lightweight sync — only node ownership/energy, no mote positions
       const state = this.serializeState();

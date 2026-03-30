@@ -4,6 +4,8 @@ import { InputManager }    from './input/InputManager.js';
 import { World }           from './game/World.js';
 import { TICK_RATE }       from './utils/constants.js';
 import { NetClient }       from './net/NetClient.js';
+import { resetNodeIds }    from './game/Node.js';
+import { resetSwarmIds }   from './game/Swarm.js';
 
 // ============================================================================
 // Bootstrap
@@ -333,6 +335,10 @@ function updateLobbyDisplay(lobby) {
 // ============================================================================
 
 function startMultiplayerGame(initialState, playerId) {
+  // Reset ID counters so swarm/node IDs match the server's fresh game
+  resetNodeIds();
+  resetSwarmIds();
+
   isMultiplayer = true;
   myPlayerId = playerId;
 
@@ -376,7 +382,8 @@ function startMultiplayerGame(initialState, playerId) {
   mpGame.state = GameState.PLAYING;
   mpGame.gameSpeed = 1.0;
   mpGame.isMultiplayer = true; // use last-player-standing game-over logic
-  // Init AI so AI players run locally on each client
+  mpGame.skipAI = true;        // server runs AI; clients must NOT run it locally
+  // Init AI system structures (needed for any redirects) but AI won't tick
   mpGame.aiSystem.init(mpWorld);
 
   // Wire up action broadcast handler — apply remote player actions to local sim
@@ -390,7 +397,12 @@ function startMultiplayerGame(initialState, playerId) {
         const source = mpWorld.getNodeById(action.sourceId);
         const target = mpWorld.getNodeById(action.targetId);
         if (source && target) {
-          mpGame.sendEnergy(source, target, action.ratio ?? 0.5);
+          if (action.amount != null) {
+            // AI action broadcast from server — exact mote count, bypass ratio
+            mpGame.sendEnergyExact(source, target, action.amount, action.playerId);
+          } else {
+            mpGame.sendEnergy(source, target, action.ratio ?? 0.5);
+          }
         }
         break;
       }
