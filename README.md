@@ -10,6 +10,7 @@ All web apps running on [lobslab.com](https://lobslab.com) subdomains.
 | [ballz](apps/ballz/) | [ballz.lobslab.com](https://ballz.lobslab.com) | Bouncing balls physics toy |
 | [stellar-siege](apps/stellar-siege/) | [stellar-siege.lobslab.com](https://stellar-siege.lobslab.com) | Cosmic RTS — conquer star systems |
 | [ballz-royale](apps/ballz-royale/) | [ballz-royale.lobslab.com](https://ballz-royale.lobslab.com) | Turn-based billiards battle royale |
+| [games](apps/games/) | [games.lobslab.com](https://games.lobslab.com) | Daily puzzle games dashboard & tracker |
 
 ## Quick Start
 

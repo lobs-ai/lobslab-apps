@@ -43,6 +43,17 @@ services:
       traefik.http.routers.ballz-royale.entrypoints: web
       traefik.http.services.ballz-royale.loadbalancer.server.port: "3000"
 
+  games:
+    build: ./apps/games
+    restart: unless-stopped
+    networks:
+      - lobslab
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.games.rule: "Host(`games.lobslab.com`)"
+      traefik.http.routers.games.entrypoints: web
+      traefik.http.services.games.loadbalancer.server.port: "3000"
+
 networks:
   lobslab:
     external: true
