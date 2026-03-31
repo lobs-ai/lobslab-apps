@@ -68,39 +68,59 @@ export class Renderer {
   _drawStorm(arena, storm) {
     if (storm.currentRadius >= arena.radius) return;
     const { ctx } = this;
-    const time = Date.now() / 1000;
+    const time = performance.now();
 
-    // Danger zone fill
+    const warning = storm.warningActive;
+    // When warning is active, pulse opacity using sin wave
+    const warnPulse = warning ? (0.5 + Math.sin(time / 200) * 0.5) : 0;
+
+    // Danger zone fill — stronger red tint when warning active
     ctx.save();
     ctx.beginPath();
     ctx.arc(arena.cx, arena.cy, arena.radius, 0, Math.PI * 2);
     ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2, true);
-    ctx.fillStyle = 'rgba(255, 50, 50, 0.15)';
+    const fillAlpha = warning ? (0.18 + warnPulse * 0.17) : 0.15;
+    ctx.fillStyle = `rgba(255, 50, 50, ${fillAlpha})`;
     ctx.fill();
 
     // Animated storm ring
-    const pulse = 0.5 + Math.sin(time * 3) * 0.3;
+    const pulse = 0.5 + Math.sin(time / 333) * 0.3;
+    const ringAlpha = warning ? (0.6 + warnPulse * 0.4) : (0.5 + pulse * 0.3);
+    const ringWidth = warning ? (5 + warnPulse * 4) : (3 + pulse * 2);
     ctx.beginPath();
     ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(255, 80, 50, ${0.5 + pulse * 0.3})`;
-    ctx.lineWidth = 3 + pulse * 2;
+    ctx.strokeStyle = `rgba(255, ${warning ? 30 : 80}, 50, ${ringAlpha})`;
+    ctx.lineWidth = ringWidth;
     ctx.stroke();
 
     // Energy particles on the storm ring
     for (let i = 0; i < 30; i++) {
-      const a = (i / 30) * Math.PI * 2 + time * 0.5;
-      const r = storm.currentRadius + Math.sin(time * 5 + i) * 4;
+      const a = (i / 30) * Math.PI * 2 + time / 2000;
+      const r = storm.currentRadius + Math.sin(time / 200 + i) * 4;
       ctx.beginPath();
       ctx.arc(
         arena.cx + Math.cos(a) * r,
         arena.cy + Math.sin(a) * r,
-        1.5 + Math.sin(time * 3 + i) * 0.5,
+        1.5 + Math.sin(time / 333 + i) * 0.5,
         0, Math.PI * 2
       );
       ctx.fillStyle = `rgba(255, ${100 + Math.sin(i) * 60 | 0}, 50, ${0.3 + pulse * 0.3})`;
       ctx.fill();
     }
     ctx.restore();
+
+    // When warning active, draw pulsing "danger ring" at targetRadius to show where storm is closing TO
+    if (warning && storm.targetRadius < storm.currentRadius) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(arena.cx, arena.cy, storm.targetRadius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255, 255, 0, ${0.3 + warnPulse * 0.5})`;
+      ctx.lineWidth = 2 + warnPulse * 3;
+      ctx.setLineDash([10, 8]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
 
     // Safe zone hint ring
     ctx.beginPath();

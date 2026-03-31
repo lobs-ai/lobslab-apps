@@ -248,14 +248,15 @@ export class Game {
    * @param {number} amount     - exact number of motes
    * @param {number} owner      - player id that owns the swarm
    */
-  sendEnergyExact(sourceNode, targetNode, amount, owner) {
-    if (!sourceNode || !targetNode) return;
-    if (sourceNode.id === targetNode.id) return;
-    if (amount < 1) return;
+  sendEnergyExact(sourceNode, targetNode, amount, owner, swarmId) {
+    if (!sourceNode || !targetNode) return null;
+    if (sourceNode.id === targetNode.id) return null;
+    if (amount < 1) return null;
 
     sourceNode.energy = Math.max(0, sourceNode.energy - amount);
-    const swarm = createSwarm(sourceNode, targetNode, amount, owner ?? sourceNode.owner);
+    const swarm = createSwarm(sourceNode, targetNode, amount, owner ?? sourceNode.owner, swarmId);
     this.world.addSwarm(swarm);
+    return swarm;
   }
 
   /**

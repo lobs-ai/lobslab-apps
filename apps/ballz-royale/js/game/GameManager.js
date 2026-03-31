@@ -94,6 +94,10 @@ export class GameManager {
   start(playerConfigs) {
     resetBallIds();
     this.arena = new Arena(this.canvas.width, this.canvas.height);
+    // Vary pocket positions slightly each game for map variety
+    this.arena.buildPockets(
+      Array.from({ length: 6 }, () => (Math.random() - 0.5) * 0.3)
+    );
     this.storm = new Storm(this.arena.radius);
     this.itemSpawner.clear();
     this.particles.clear();
@@ -150,6 +154,7 @@ export class GameManager {
 
   _selectBall(ball) {
     if (this.phase !== 'select') return;
+    if (!ball.alive) return;
     if (ball.owner !== this.currentPlayer) return;
     this.selectedBall = ball;
     this.phase = 'aim';
@@ -194,6 +199,25 @@ export class GameManager {
     this.selectedBall = null;
     this.activeItemIndex = null;
 
+    // ── Storm damage: eliminate any ball outside the storm radius ──
+    if (this.storm) {
+      const sr = this.storm.currentRadius;
+      const cx = this.arena.cx;
+      const cy = this.arena.cy;
+      for (const ball of this.balls) {
+        if (!ball.alive) continue;
+        const dx = ball.x - cx;
+        const dy = ball.y - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > sr) {
+          ball.alive = false;
+          const owner = this.players[ball.owner];
+          this.particles.spawn(ball.x, ball.y, '#ff4444', 20);
+          this.effects.announce(`⚡ ${owner.name}'s ball destroyed by storm!`, 2000);
+        }
+      }
+    }
+
     // Check for winner
     const activePlayers = this.players.filter(p => !p.isEliminated(this.balls));
     if (activePlayers.length <= 1) {
@@ -222,6 +246,7 @@ export class GameManager {
       if (this.round % STORM_SHRINK_INTERVAL === 1 && this.round > 1) {
         if (this.storm.shrink()) {
           this.effects.announce(`⚡ STORM CLOSING — ${this.storm.percent}%`, 2000);
+          this.effects.shake(10);
           this.itemSpawner.pruneOutsideStorm(this.arena.cx, this.arena.cy, this.storm.currentRadius);
         }
       }
@@ -353,12 +378,18 @@ export class GameManager {
           break;
 
         case 'pocketed': {
-          const player = this.players[evt.ball.owner];
-          player.stats.ballsLost++;
-          this.particles.spawn(evt.pocket.x, evt.pocket.y, player.color.main, 15);
+          const ownerPlayer = this.players[evt.ball.owner];
+          ownerPlayer.stats.ballsLost++;
+
+          // Credit the shooter if they pocketed an opponent's ball
+          if (evt.ball.owner !== this.currentPlayer) {
+            this.players[this.currentPlayer].stats.ballsPocketed++;
+          }
+
+          this.particles.spawn(evt.pocket.x, evt.pocket.y, ownerPlayer.color.main, 15);
           this.effects.shake(8);
           this.effects.enterSlowMo(0.3, 400);
-          this.effects.announce(`${player.name} lost a ball!`);
+          this.effects.announce(`${ownerPlayer.name} lost a ball!`);
           break;
         }
 

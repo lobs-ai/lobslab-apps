@@ -288,6 +288,7 @@ class Lobby {
               targetId: targetNodeId,
               playerId: swarm.owner,
               amount: swarm.motes.filter(m => m.alive).length,
+              swarmId: swarm.id,
             },
             seq: this.actionSeq++,
           };
@@ -352,9 +353,10 @@ class Lobby {
           // Compute exact mote count from server's current energy
           const amount = Math.floor(source.energy * (action.ratio ?? 0.5));
           if (amount < 5) return; // not enough energy — don't broadcast
-          this.game.sendEnergyExact(source, target, amount, playerId);
-          // Include exact amount in broadcast so clients match
+          const swarm = this.game.sendEnergyExact(source, target, amount, playerId);
+          // Include exact amount and swarm ID so clients create identical swarms
           broadcastAction.action.amount = amount;
+          if (swarm) broadcastAction.action.swarmId = swarm.id;
         } else {
           return; // invalid — don't broadcast
         }

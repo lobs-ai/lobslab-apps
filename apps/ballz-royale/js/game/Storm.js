@@ -20,7 +20,7 @@ export class Storm {
     this.percent = Math.max(STORM_MIN_PERCENT, this.percent - STORM_SHRINK_AMOUNT);
     this.targetRadius = this.arenaRadius * (this.percent / 100);
     this.warningActive = true;
-    this.warningTimer = 2000;
+    this.warningTimer = 3000;
     return true;
   }
 

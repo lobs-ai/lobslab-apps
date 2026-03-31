@@ -37,8 +37,11 @@ export function posTarget(x, y)    { return { type: 'position', x, y }; }
  * A Swarm is a group of motes traveling together.
  * `target` is a target descriptor (node or position).
  */
-export function createSwarm(sourceNode, targetNode, amount, owner) {
-  const id = nextSwarmId++;
+export function createSwarm(sourceNode, targetNode, amount, owner, forcedId) {
+  const id = forcedId ?? nextSwarmId++;
+  // If a forced ID was provided, advance the counter past it to avoid collisions
+  if (forcedId != null && forcedId >= nextSwarmId) nextSwarmId = forcedId + 1;
+
   const motes = [];
   for (let i = 0; i < amount; i++) {
     motes.push(createMote(sourceNode.position.x, sourceNode.position.y, i, id));

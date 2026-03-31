@@ -73,7 +73,17 @@ export class InputHandler {
         this.aimStartX = x;
         this.aimStartY = y;
       } else {
+        // Cancel aim, then try to immediately select a different ball (single-click switch)
         this._cancel();
+        if (this.selectableBalls) {
+          for (const b of this.selectableBalls) {
+            const t = (b.radius + 10) ** 2;
+            if (distSq(x, y, b.x, b.y) < t) {
+              this.onBallSelected?.(b);
+              return;
+            }
+          }
+        }
       }
     }
   }

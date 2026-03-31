@@ -10,6 +10,7 @@ export class Connection {
     this.reconnectTimer = null;
     this.url = null;
     this.onStatusChange = null; // (connected: boolean) => void
+    this.onOpen = null;           // () => void — fired on every successful connection
   }
 
   /** Connect to the WebSocket server. */
@@ -29,6 +30,7 @@ export class Connection {
     this.ws.onopen = () => {
       this.connected = true;
       this.onStatusChange?.(true);
+      this.onOpen?.();
       // Flush queued messages
       for (const msg of this.queue) {
         this.ws.send(JSON.stringify(msg));

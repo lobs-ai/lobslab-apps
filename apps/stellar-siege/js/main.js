@@ -401,8 +401,8 @@ function startMultiplayerGame(initialState, playerId, seed) {
         const target = mpWorld.getNodeById(action.targetId);
         if (source && target) {
           if (action.amount != null) {
-            // AI action broadcast from server — exact mote count, bypass ratio
-            mpGame.sendEnergyExact(source, target, action.amount, action.playerId);
+            // Server-authoritative — exact mote count and swarm ID for determinism
+            mpGame.sendEnergyExact(source, target, action.amount, action.playerId, action.swarmId);
           } else {
             mpGame.sendEnergy(source, target, action.ratio ?? 0.5);
           }
@@ -468,18 +468,22 @@ function startMultiplayerGame(initialState, playerId, seed) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // The client runs its own full simulation. The server sync is only used
-  // to correct ownership disagreements (the one thing that MUST match).
-  // Energy values are NOT synced — they naturally differ slightly because
-  // motes arrive at slightly different ticks. That's fine; it's cosmetic.
+  // Server is authoritative. Sync both ownership and energy every tick.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (!node) continue;
-    // Only correct ownership if server disagrees
+
+    // Ownership: snap immediately
     if (node.owner !== nState.owner) {
       node.owner = nState.owner;
-      node.energy = nState.energy; // snap energy on ownership change
+      node.energy = nState.energy;
       node.captureFlash = 1.0;
+    } else {
+      // Energy: blend toward server value to avoid jarring jumps
+      const diff = nState.energy - node.energy;
+      if (Math.abs(diff) > 1) {
+        node.energy += diff * 0.5; // half-life blend — converges in ~2 syncs
+      }
     }
   }
 

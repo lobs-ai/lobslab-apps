@@ -44,8 +44,9 @@ export class HUD {
       const opacity = alive === 0 ? 0.3 : 1;
       const filled = '●'.repeat(alive);
       const empty = '○'.repeat(Math.max(0, ballsPerPlayer - alive));
+      const pocketed = pl.stats.ballsPocketed || 0;
       return `<span style="color:${pl.color.main};opacity:${opacity};font-size:0.9rem;">
-        ${pl.name}: ${filled}${empty}
+        ${pl.name}: ${filled}${empty}${pocketed > 0 ? ` <span style="font-size:0.75rem;opacity:0.85">(${pocketed} kills)</span>` : ''}
       </span>`;
     }).join('');
 

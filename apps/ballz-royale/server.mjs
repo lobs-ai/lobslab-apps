@@ -4,6 +4,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
 
@@ -175,6 +176,19 @@ function handleMessage(ws, msg) {
       });
       break;
     }
+
+    case 'rejoin': {
+      const code = (msg.code || '').toUpperCase().trim();
+      const room = rooms.get(code);
+      if (!room) {
+        sendTo(ws, { type: 'error', message: 'Room not found' });
+        return;
+      }
+      if (!room.handleRejoin(ws, msg.sessionToken)) {
+        sendTo(ws, { type: 'error', message: 'Session expired or invalid' });
+      }
+      break;
+    }
   }
 }
 
@@ -206,25 +220,72 @@ class Room {
     ws._roomCode = this.code;
     ws._playerIndex = index;
 
+    const sessionToken = crypto.randomUUID();
+
     this.players.push({
       ws,
       name: name.slice(0, 16),
       index,
       connected: true,
       isAI: false,
+      sessionToken,
     });
 
     this.touch();
 
-    // Tell the new player their index
+    // Tell the new player their index + session token
     sendTo(ws, {
       type: 'joined',
       playerIndex: index,
       yourIndex: index,
+      sessionToken,
+      roomCode: this.code,
     });
 
     // Broadcast updated room info to all
     this.broadcastRoomInfo();
+  }
+
+  handleRejoin(ws, sessionToken) {
+    const player = this.players.find(p => p.sessionToken === sessionToken);
+    if (!player) return false;
+
+    // Clear any pending AI conversion timer
+    if (player._disconnectTimer) {
+      clearTimeout(player._disconnectTimer);
+      player._disconnectTimer = null;
+    }
+
+    // Reassign WS connection
+    player.ws = ws;
+    player.connected = true;
+    player.isAI = false;
+    ws._roomCode = this.code;
+    ws._playerIndex = player.index;
+
+    this.touch();
+
+    // Confirm rejoin
+    sendTo(ws, {
+      type: 'joined',
+      playerIndex: player.index,
+      yourIndex: player.index,
+      sessionToken: player.sessionToken,
+      roomCode: this.code,
+    });
+
+    // Send full current game state if game is running
+    if (this.game) {
+      sendTo(ws, this.game.getFullState(player.index));
+    }
+
+    this.broadcast({
+      type: 'playerRejoined',
+      playerIndex: player.index,
+      name: player.name,
+    });
+
+    return true;
   }
 
   broadcastRoomInfo() {
@@ -287,21 +348,34 @@ class Room {
         this.destroy();
       }
     } else {
-      // Mark player as AI so the game continues
-      player.isAI = true;
       this.broadcast({
         type: 'playerLeft',
         playerIndex,
         name: player.name,
       });
-      // If it was this player's turn, do AI turn
-      if (this.game && this.game.currentPlayer === playerIndex) {
+
+      // Grace period: give player 30 seconds to rejoin before converting to AI
+      player._disconnectTimer = setTimeout(() => {
+        player._disconnectTimer = null;
+        if (player.connected) return; // already rejoined
+
+        player.isAI = true;
+        // If it was this player's turn, do AI turn
+        if (this.game && this.game.currentPlayer === playerIndex) {
+          this.clearTurnTimer();
+          setTimeout(() => this.game.doAITurn(), 500);
+        }
+        // If all human players gone, destroy
+        if (this.players.every(p => !p.connected || p.isAI)) {
+          setTimeout(() => this.destroy(), 5000);
+        }
+      }, 30000);
+
+      // If it's their turn RIGHT NOW, start a turn timer so game doesn't stall
+      if (this.game && this.game.currentPlayer === playerIndex &&
+          (this.phase === 'select' || this.phase === 'aim')) {
         this.clearTurnTimer();
-        setTimeout(() => this.game.doAITurn(), 500);
-      }
-      // If all human players gone, destroy
-      if (this.players.every(p => !p.connected || p.isAI)) {
-        setTimeout(() => this.destroy(), 5000);
+        this.startTurnTimer();
       }
     }
   }
@@ -389,10 +463,11 @@ class ServerGame {
     const cx = W / 2;
     const cy = H / 2;
 
-    // Build pockets
+    // Build pockets with slight random offsets for map variety
     const pockets = [];
     for (let i = 0; i < POCKET_COUNT; i++) {
-      const angle = (i / POCKET_COUNT) * Math.PI * 2 - Math.PI / 2;
+      const offset = (Math.random() - 0.5) * 0.3;
+      const angle = (i / POCKET_COUNT) * Math.PI * 2 - Math.PI / 2 + offset;
       pockets.push({
         x: cx + Math.cos(angle) * arenaRadius,
         y: cy + Math.sin(angle) * arenaRadius,
@@ -720,14 +795,15 @@ class ServerGame {
   }
 
   getStormForce(x, y) {
-    const { cx, cy } = this.arena;
+    const { cx, cy, radius } = this.arena;
     const stormRadius = this.storm.currentRadius;
     const dx = x - cx;
     const dy = y - cy;
     const d = Math.sqrt(dx * dx + dy * dy);
     if (d <= stormRadius || d === 0) return { fx: 0, fy: 0 };
-    const STORM_FORCE = 0.06;
-    const strength = STORM_FORCE * ((d - stormRadius) / this.arena.radius);
+    // Scale from 0.3 (just outside) to 1.0 (at arena edge) — strong enough to actually move balls
+    const overflow = (d - stormRadius) / Math.max(1, radius - stormRadius);
+    const strength = 0.3 + overflow * 0.7;
     return { fx: -(dx / d) * strength, fy: -(dy / d) * strength };
   }
 
@@ -776,6 +852,10 @@ class ServerGame {
         ball.vx = 0;
         ball.vy = 0;
         this.playerStats[ball.owner].ballsLost++;
+        // Credit the current shooter if they pocketed someone else's ball
+        if (ball.owner !== this.currentPlayer) {
+          this.playerStats[this.currentPlayer].ballsPocketed++;
+        }
         return {
           type: 'pocketed',
           ballId: ball.id,
@@ -956,6 +1036,22 @@ class ServerGame {
     }
     this.selectedBallId = null;
 
+    // ── Storm damage: eliminate any ball outside the storm radius ──
+    const stormEliminations = [];
+    {
+      const sr = this.storm.currentRadius;
+      const { cx, cy } = this.arena;
+      for (const ball of this.balls) {
+        if (!ball.alive) continue;
+        const dx = ball.x - cx;
+        const dy = ball.y - cy;
+        if (Math.sqrt(dx * dx + dy * dy) > sr) {
+          ball.alive = false;
+          stormEliminations.push({ owner: ball.owner, ballId: ball.id });
+        }
+      }
+    }
+
     // Check winner
     const activePlayers = this.room.players.filter(p =>
       this.balls.some(b => b.alive && b.owner === p.index)
@@ -1023,6 +1119,7 @@ class ServerGame {
       nextPlayer: next,
       round: this.round,
       storm: { percent: this.storm.percent, radius: this.storm.currentRadius },
+      stormEliminations,
       items: this.pickups.map(p => ({
         x: p.x, y: p.y, typeId: p.type.id, emoji: p.type.emoji, name: p.type.name,
       })),
@@ -1049,6 +1146,31 @@ class ServerGame {
       round: this.round,
       phase,
     });
+  }
+
+  getFullState(playerIndex) {
+    return {
+      type: 'fullState',
+      players: this.room.players.map(p => ({
+        name: p.name,
+        index: p.index,
+        isAI: p.isAI,
+        color: PLAYER_COLORS[p.index],
+      })),
+      balls: this.serializeBalls(),
+      arena: this.arena,
+      storm: { percent: this.storm.percent, radius: this.storm.currentRadius },
+      ballsPerPlayer: this.ballsPerPlayer,
+      currentPlayer: this.currentPlayer,
+      round: this.round,
+      phase: this.room.phase,
+      items: this.pickups.map(p => ({
+        x: p.x, y: p.y, typeId: p.type.id, emoji: p.type.emoji, name: p.type.name,
+      })),
+      playerItems: this.playerItems.map(items =>
+        items.map(it => ({ id: it.id, emoji: it.emoji, name: it.name, desc: it.desc }))
+      ),
+    };
   }
 
   serializeBalls() {

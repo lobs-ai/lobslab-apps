@@ -1,7 +1,7 @@
 // ── Arena ──
 // Manages the circular play area, pockets, and storm zone.
 
-import { POCKET_COUNT, POCKET_RADIUS, ARENA_SCALE, STORM_FORCE } from '../constants.js';
+import { POCKET_COUNT, POCKET_RADIUS, ARENA_SCALE } from '../constants.js';
 
 export class Arena {
   constructor(canvasWidth, canvasHeight) {
@@ -15,10 +15,13 @@ export class Arena {
     this.buildPockets();
   }
 
-  buildPockets() {
+  buildPockets(angleOffsets) {
     this.pockets = [];
     for (let i = 0; i < POCKET_COUNT; i++) {
-      const angle = (i / POCKET_COUNT) * Math.PI * 2 - Math.PI / 2;
+      const baseAngle = (i / POCKET_COUNT) * Math.PI * 2 - Math.PI / 2;
+      // Optional small per-pocket offset for map variety (max ±0.15 rad)
+      const offset = angleOffsets ? angleOffsets[i] : 0;
+      const angle = baseAngle + offset;
       this.pockets.push({
         x: this.cx + Math.cos(angle) * this.radius,
         y: this.cy + Math.sin(angle) * this.radius,
@@ -49,7 +52,9 @@ export class Arena {
     const d = Math.sqrt(dx * dx + dy * dy);
     if (d <= stormRadius || d === 0) return { fx: 0, fy: 0 };
 
-    const strength = STORM_FORCE * ((d - stormRadius) / this.radius);
+    // Scale from 0.3 (just outside) to 1.0 (at arena edge) — strong enough to actually move balls
+    const overflow = (d - stormRadius) / Math.max(1, this.radius - stormRadius);
+    const strength = 0.3 + overflow * 0.7;
     return {
       fx: -(dx / d) * strength,
       fy: -(dy / d) * strength,

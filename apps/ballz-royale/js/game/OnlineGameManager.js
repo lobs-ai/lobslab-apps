@@ -23,6 +23,7 @@ export class OnlineGameManager {
     this.roomCode = null;
     this.myIndex = -1;
     this.isHost = false;
+    this.sessionToken = null;
 
     // Lobby state
     this.lobbyPlayers = [];
@@ -82,6 +83,16 @@ export class OnlineGameManager {
     const url = `${proto}//${location.host}`;
     this.conn.connect(url);
 
+    // Attempt rejoin from saved session
+    this.conn.onOpen = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('ballz_session'));
+        if (saved && saved.roomCode && saved.sessionToken) {
+          this.conn.send({ type: 'rejoin', code: saved.roomCode, sessionToken: saved.sessionToken });
+        }
+      } catch (e) { /* no saved session */ }
+    };
+
     this.conn.onStatusChange = (connected) => {
       const el = document.getElementById('connectionStatus');
       if (el) {
@@ -107,6 +118,15 @@ export class OnlineGameManager {
     this.conn.on('joined', (msg) => {
       this.myIndex = msg.yourIndex;
       this.isHost = (msg.yourIndex === 0);
+      this.sessionToken = msg.sessionToken;
+      this.roomCode = msg.roomCode;
+      // Save session for rejoin
+      try {
+        localStorage.setItem('ballz_session', JSON.stringify({
+          roomCode: msg.roomCode,
+          sessionToken: msg.sessionToken,
+        }));
+      } catch (e) { /* localStorage unavailable */ }
     });
 
     this.conn.on('room', (msg) => {
@@ -141,6 +161,12 @@ export class OnlineGameManager {
     });
     this.conn.on('chat', (msg) => {
       console.log(`[Chat] P${msg.playerIndex}: ${msg.text}`);
+    });
+
+    this.conn.on('fullState', (msg) => this._onFullState(msg));
+
+    this.conn.on('playerRejoined', (msg) => {
+      this.effects.announce(`${msg.name} reconnected`);
     });
   }
 
@@ -369,6 +395,45 @@ export class OnlineGameManager {
 
     this.replay.stop();
 
+    this._updateHUD();
+    this._updateItemBar();
+    this._syncInputPhase();
+  }
+
+  _onFullState(msg) {
+    // Received after rejoin — full game state sync
+    this.players = msg.players.map(p => ({
+      ...p,
+      color: p.color,
+    }));
+    this.ballsPerPlayer = msg.ballsPerPlayer;
+    this.arena = msg.arena;
+    this.stormPercent = msg.storm.percent;
+    this.stormRadius = msg.storm.radius;
+    this.stormTargetRadius = msg.storm.radius;
+    this.round = msg.round;
+    this.currentPlayer = msg.currentPlayer;
+    this.phase = msg.phase;
+    this.inLobby = false;
+    this._gameOverSent = false;
+
+    this.balls = msg.balls.map(b => this._makeBall(b));
+
+    this.items = (msg.items || []).map(it => ({
+      x: it.x, y: it.y,
+      type: { id: it.typeId, emoji: it.emoji, name: it.name },
+    }));
+    if (msg.playerItems && msg.playerItems[this.myIndex]) {
+      this.playerItems = msg.playerItems[this.myIndex];
+    }
+
+    this.selectedBallId = null;
+    this.selectedItemIndex = -1;
+
+    this._updateScale();
+    this._hideLobby();
+    this._showGame();
+    this._startLoop();
     this._updateHUD();
     this._updateItemBar();
     this._syncInputPhase();
@@ -907,5 +972,6 @@ export class OnlineGameManager {
     if (this._rafId) cancelAnimationFrame(this._rafId);
     this.conn.disconnect();
     this.replay.stop();
+    try { localStorage.removeItem('ballz_session'); } catch (e) {}
   }
 }
