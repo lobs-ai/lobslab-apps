@@ -260,8 +260,20 @@ class Lobby {
       // Snapshot swarm count before AI runs so we can detect new AI swarms
       const swarmCountBefore = this.game.world.swarms.length;
 
-      // Advance server authoritative state (for game-over detection & AI decisions)
-      this.game.update(SLOW_TICK_MS / 1000);
+      // Sub-step the server simulation at the same rate as clients (1/60s)
+      // so that physics, production, and captures stay in sync with client state.
+      // A single 2s step produces wildly different results due to non-linear
+      // physics and the large dt, causing ownership desync.
+      const SERVER_SUB_TICK = 1 / 60;
+      let remaining = SLOW_TICK_MS / 1000;
+      while (remaining >= SERVER_SUB_TICK) {
+        this.game.update(SERVER_SUB_TICK);
+        remaining -= SERVER_SUB_TICK;
+      }
+      // Consume any leftover (< 1/60s) to avoid accumulated drift
+      if (remaining > 0) {
+        this.game.update(remaining);
+      }
 
       // Broadcast any swarms that AI created during this tick
       const newSwarms = this.game.world.swarms.slice(swarmCountBefore);

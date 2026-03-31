@@ -465,16 +465,28 @@ function startMultiplayerGame(initialState, playerId) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Soft-sync node ownership and energy from server authority
+  // Soft-sync node ownership and energy from server authority.
+  // The server sub-steps at 1/60s so its simulation is much closer to
+  // the client's, but Math.random() jitter in SwarmSystem still causes
+  // minor mote-position drift. We only apply hard corrections when the
+  // server and client genuinely disagree — never blindly overwrite.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (node) {
-      // Server is authoritative on ownership
-      node.owner = nState.owner;
-      // Lerp energy toward server value to avoid jarring snaps
+      // Only override ownership when the server disagrees with the client.
+      // This prevents "flip-back" artifacts from a divergent coarse tick
+      // while still allowing the server to correct a genuinely wrong capture.
+      if (node.owner !== nState.owner) {
+        node.owner = nState.owner;
+        node.captureFlash = 1.0; // visual feedback so the correction is visible
+      }
+
+      // Gently lerp energy — only nudge if the gap is large (> 20 units).
+      // A small jitter threshold prevents constant micro-corrections that
+      // would make nodes flicker.
       const diff = nState.energy - node.energy;
-      if (Math.abs(diff) > 5) {
-        node.energy += diff * 0.3;
+      if (Math.abs(diff) > 20) {
+        node.energy += diff * 0.15;
       }
     }
   }
