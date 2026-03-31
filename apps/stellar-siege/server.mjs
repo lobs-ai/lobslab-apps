@@ -249,7 +249,7 @@ class Lobby {
     // it's the authoritative state that all clients sync to.
     const SIM_TICK = 1 / 60;
     const SIM_TICK_MS = Math.round(SIM_TICK * 1000); // ~16ms
-    const SYNC_INTERVAL = 120; // send sync every 120 ticks (~2 seconds)
+    const SYNC_INTERVAL = 30; // send sync every 30 ticks (~0.5 seconds)
     this.stateTickCounter = 0;
 
     this.tickInterval = setInterval(() => {

@@ -749,11 +749,18 @@ function loop(timestamp) {
       }
     }
   } else if (mpGame && mpGame.state === GameState.PLAYING) {
-    // Multiplayer — run full local simulation (mote physics, AI, production)
-    // Server only syncs node ownership/energy every ~2s for drift correction
+    // Multiplayer — run only visual/predictive systems locally.
+    // CaptureSystem is SKIPPED: ownership changes come exclusively from
+    // the server sync. Running it locally caused jitter (client captures
+    // a node, sync says "not yet", node flips back and forth).
+    // AI is also server-only.
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
-      mpGame.update(TICK_RATE);
+      mpGame.world.time += TICK_RATE;
+      mpGame.productionSystem.update(mpGame.world, TICK_RATE);
+      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
+      // No captureSystem — ownership only from server sync
+      // No aiSystem — server runs AI
       accumulator -= TICK_RATE;
     }
     // Debug: log game loop running (once per second)
