@@ -1,4 +1,5 @@
 import { getEffectiveDefense } from '../game/Node.js';
+import { random } from '../utils/rng.js';
 
 /**
  * SwarmSystem — moves mote clouds, handles idle/hold behavior at positions,
@@ -78,9 +79,9 @@ export class SwarmSystem {
           mote.vx += (cx - mote.x) * COHESION_FORCE * dt / Math.max(aliveCount, 1);
           mote.vy += (cy - mote.y) * COHESION_FORCE * dt / Math.max(aliveCount, 1);
 
-          // Organic jitter
-          mote.vx += (Math.random() - 0.5) * MOTE_JITTER * dt * 60;
-          mote.vy += (Math.random() - 0.5) * MOTE_JITTER * dt * 60;
+          // Organic jitter (seeded for determinism)
+          mote.vx += (random() - 0.5) * MOTE_JITTER * dt * 60;
+          mote.vy += (random() - 0.5) * MOTE_JITTER * dt * 60;
 
           // Clamp speed
           const speed = Math.sqrt(mote.vx * mote.vx + mote.vy * mote.vy);
@@ -155,9 +156,9 @@ export class SwarmSystem {
       mote.vy += pushY * 20 * dt;
     }
 
-    // Organic jitter (less than traveling)
-    mote.vx += (Math.random() - 0.5) * 6 * dt * 60;
-    mote.vy += (Math.random() - 0.5) * 6 * dt * 60;
+    // Organic jitter (less than traveling, seeded for determinism)
+    mote.vx += (random() - 0.5) * 6 * dt * 60;
+    mote.vy += (random() - 0.5) * 6 * dt * 60;
 
     // Dampen velocity so they don't fly away
     mote.vx *= (1 - 2.0 * dt);

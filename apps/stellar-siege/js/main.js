@@ -6,6 +6,7 @@ import { TICK_RATE }       from './utils/constants.js';
 import { NetClient }       from './net/NetClient.js';
 import { resetNodeIds }    from './game/Node.js';
 import { resetSwarmIds }   from './game/Swarm.js';
+import { seedRng }         from './utils/rng.js';
 
 // ============================================================================
 // Bootstrap
@@ -39,9 +40,8 @@ inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   console.log('[input] onSendEnergy', { isMultiplayer, selectedNodes: selectedNodes.map(n => n.id), targetId: targetNode?.id, ratio });
   if (isMultiplayer && netClient) {
     for (const source of selectedNodes) {
-      // Apply locally first for instant feedback
-      if (mpGame) mpGame.sendEnergy(source, targetNode, ratio);
-      // Send to server for broadcast to other clients
+      // Don't apply locally — wait for the server broadcast so all clients
+      // (including us) create swarms from the same authoritative state.
       netClient.sendAction({
         type: 'send_energy',
         sourceId: source.id,
@@ -59,9 +59,7 @@ inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
 
 inputManager.onRedirectSwarm = (swarm, newTargetNode, newTargetPos) => {
   if (isMultiplayer && netClient) {
-    // Apply locally first for instant feedback
-    if (mpGame) mpGame.redirectSwarm(swarm, newTargetNode, newTargetPos, myPlayerId);
-    // Send to server for broadcast to other clients
+    // Don't apply locally — wait for server broadcast
     netClient.sendAction({
       type: 'redirect_swarm',
       swarmId: swarm.id,
@@ -175,7 +173,7 @@ document.getElementById('mp-create-go').addEventListener('click', async () => {
     };
 
     netClient.onLobbyUpdate = (lobby) => updateLobbyDisplay(lobby);
-    netClient.onGameStart   = (initialState, playerId) => startMultiplayerGame(initialState, playerId);
+    netClient.onGameStart   = (initialState, playerId, seed) => startMultiplayerGame(initialState, playerId, seed);
     netClient.onStateUpdate = (state) => applyStateUpdate(state);
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
     netClient.onError       = (msg) => showMpError(msg);
@@ -213,7 +211,7 @@ document.getElementById('mp-join-go').addEventListener('click', async () => {
     };
 
     netClient.onLobbyUpdate = (lobby) => updateLobbyDisplay(lobby);
-    netClient.onGameStart   = (initialState, playerId) => startMultiplayerGame(initialState, playerId);
+    netClient.onGameStart   = (initialState, playerId, seed) => startMultiplayerGame(initialState, playerId, seed);
     netClient.onStateUpdate = (state) => applyStateUpdate(state);
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
     netClient.onError       = (msg) => showMpError(msg);
@@ -334,10 +332,14 @@ function updateLobbyDisplay(lobby) {
 // Multiplayer game start / state handling
 // ============================================================================
 
-function startMultiplayerGame(initialState, playerId) {
+function startMultiplayerGame(initialState, playerId, seed) {
   // Reset ID counters so swarm/node IDs match the server's fresh game
   resetNodeIds();
   resetSwarmIds();
+
+  // Seed the deterministic RNG with the same seed the server used.
+  // This ensures mote positions and jitter are identical.
+  if (seed != null) seedRng(seed);
 
   isMultiplayer = true;
   myPlayerId = playerId;
@@ -390,7 +392,8 @@ function startMultiplayerGame(initialState, playerId) {
   netClient.onActionBroadcast = (action) => {
     console.log('[net] onActionBroadcast', action);
     if (!mpGame || !mpWorld) return;
-    if (action.playerId === myPlayerId) return; // already applied locally
+    // Apply ALL actions from server broadcast — including our own.
+    // We don't apply locally on input anymore; the server is the sole authority.
 
     switch (action.type) {
       case 'send_energy': {
@@ -465,9 +468,9 @@ function startMultiplayerGame(initialState, playerId) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Server is the authoritative copy — it runs the same simulation at the
-  // same tick rate (1/60s). Accept its state as truth.
-  // Only mote positions differ (Math.random jitter) — we don't sync those.
+  // Server is the authoritative copy — it runs the same deterministic
+  // simulation at 1/60s with the same seeded RNG. Accept its state as truth.
+  // Any tiny drift is corrected here every ~2 seconds.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (node) {

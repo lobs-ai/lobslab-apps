@@ -1,3 +1,5 @@
+import { random } from '../utils/rng.js';
+
 let nextSwarmId = 1;
 
 /**
@@ -6,8 +8,8 @@ let nextSwarmId = 1;
 export function createMote(x, y) {
   const spread = 12;
   return {
-    x: x + (Math.random() - 0.5) * spread,
-    y: y + (Math.random() - 0.5) * spread,
+    x: x + (random() - 0.5) * spread,
+    y: y + (random() - 0.5) * spread,
     vx: 0,
     vy: 0,
     alive: true,

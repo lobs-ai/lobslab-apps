@@ -6,6 +6,7 @@ import { WebSocketServer } from "ws";
 
 // Import game modules for server-side simulation
 import { Game, GameState } from "./js/game/Game.js";
+import { seedRng } from "./js/utils/rng.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -226,6 +227,11 @@ class Lobby {
     // Build slot -> compactId mapping from game
     this.slotToPlayer = this.game._slotToPlayer || {};
 
+    // Seed the deterministic RNG — same seed goes to all clients so
+    // mote positions, jitter, and swarm behavior are identical everywhere.
+    this.gameSeed = Date.now() & 0x7FFFFFFF;
+    seedRng(this.gameSeed);
+
     // Send initial state to all clients
     const fullState = this.serializeFullState();
     for (const [ws, info] of this.clients) {
@@ -234,6 +240,7 @@ class Lobby {
         type: 'game_start',
         initialState: fullState,
         playerId: compactId,
+        seed: this.gameSeed,
       }));
     }
 

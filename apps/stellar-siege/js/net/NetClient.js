@@ -15,7 +15,7 @@ export class NetClient {
     this.onLobbyCreated    = null;   // (code, lobby) => {}
     this.onLobbyJoined     = null;   // (lobby, playerId) => {}
     this.onLobbyUpdate     = null;   // (lobby) => {}
-    this.onGameStart       = null;   // (initialState, playerId) => {}
+    this.onGameStart       = null;   // (initialState, playerId, seed) => {}
     this.onStateUpdate     = null;   // (state) => {}
     this.onActionBroadcast = null;   // (action) => {}
     this.onGameOver        = null;   // (winnerId) => {}
@@ -110,7 +110,7 @@ export class NetClient {
         break;
       case 'game_start':
         this.playerId = msg.playerId;
-        if (this.onGameStart) this.onGameStart(msg.initialState, msg.playerId);
+        if (this.onGameStart) this.onGameStart(msg.initialState, msg.playerId, msg.seed);
         break;
       case 'action_broadcast':
         if (this.onActionBroadcast) this.onActionBroadcast(msg.action);
