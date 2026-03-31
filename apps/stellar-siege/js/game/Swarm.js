@@ -1,20 +1,18 @@
-import { random } from '../utils/rng.js';
-
 let nextSwarmId = 1;
 
 /**
  * A Mote is one particle in a swarm — represents 1 unit of energy.
- * Uses seeded RNG for natural-looking spread (deterministic across peers).
+ * Positions are purely visual — Math.random() is fine here.
  */
 export function createMote(x, y) {
   const spread = 12;
   return {
-    x: x + (random() - 0.5) * spread,
-    y: y + (random() - 0.5) * spread,
+    x: x + (Math.random() - 0.5) * spread,
+    y: y + (Math.random() - 0.5) * spread,
     vx: 0,
     vy: 0,
     alive: true,
-    phase: random(), // per-mote phase for deterministic jitter
+    phase: Math.random(), // per-mote phase for visual jitter
   };
 }
 
@@ -32,7 +30,6 @@ export function posTarget(x, y)    { return { type: 'position', x, y }; }
  */
 export function createSwarm(sourceNode, targetNode, amount, owner, forcedId) {
   const id = forcedId ?? nextSwarmId++;
-  // If a forced ID was provided, advance the counter past it to avoid collisions
   if (forcedId != null && forcedId >= nextSwarmId) nextSwarmId = forcedId + 1;
 
   const motes = [];

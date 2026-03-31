@@ -249,8 +249,9 @@ class Lobby {
     // it's the authoritative state that all clients sync to.
     const SIM_TICK = 1 / 60;
     const SIM_TICK_MS = Math.round(SIM_TICK * 1000); // ~16ms
-    const SYNC_INTERVAL = 30; // send sync every 30 ticks (~0.5s) — client relies on server for state
+    const SYNC_INTERVAL = 60; // send sync every 60 ticks (~1s)
     this.stateTickCounter = 0;
+    this.serverTickCount = 0;
 
     this.tickInterval = setInterval(() => {
       if (!this.game) return;
@@ -272,6 +273,7 @@ class Lobby {
 
       // Single tick — same dt as every client frame
       this.game.update(SIM_TICK);
+      this.serverTickCount++;
 
       // Broadcast any swarms that AI created during this tick
       const newSwarms = this.game.world.swarms.slice(swarmCountBefore);
@@ -302,6 +304,7 @@ class Lobby {
       if (this.stateTickCounter >= SYNC_INTERVAL) {
         this.stateTickCounter = 0;
         const state = this.serializeState();
+        state.tick = this.serverTickCount;
         const msg = JSON.stringify({ type: 'sync', state });
         for (const ws of this.clients.keys()) safeSend(ws, msg);
       }

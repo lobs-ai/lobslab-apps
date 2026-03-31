@@ -468,22 +468,36 @@ function startMultiplayerGame(initialState, playerId, seed) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Server is the sole authority for energy, ownership, and capture.
+  // Only apply sync if the server is at or ahead of where the client is.
+  // This prevents the "going backwards" problem where a stale sync
+  // reverts a capture or energy change the client already computed.
+  const serverTick = state.tick ?? 0;
+  const clientTick = mpWorld._tickCount ?? 0;
+
+  // If server is behind, skip this sync entirely — client is ahead
+  if (serverTick < clientTick - 5) return; // allow small tolerance
+
+  // Server is roughly in sync or ahead — apply corrections
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (!node) continue;
 
-    // Ownership: always snap to server
+    // Ownership: trust server when it disagrees
     if (node.owner !== nState.owner) {
       node.owner = nState.owner;
       node.energy = nState.energy;
       node.captureFlash = 1.0;
     } else {
-      // Energy: snap to server value (client production is just a visual fill-in
-      // between syncs — server is authoritative)
-      node.energy = nState.energy;
+      // Energy: blend toward server to avoid jarring jumps
+      const diff = nState.energy - node.energy;
+      if (Math.abs(diff) > 2) {
+        node.energy += diff * 0.4;
+      }
     }
   }
+
+  // Sync client tick to server to stay aligned
+  mpWorld._tickCount = serverTick;
 
   for (const pState of state.players) {
     const player = mpWorld.players.find(p => p.id === pState.id);
@@ -752,15 +766,17 @@ function loop(timestamp) {
       }
     }
   } else if (mpGame && mpGame.state === GameState.PLAYING) {
-    // Multiplayer — client is a visual renderer only.
-    // Server is authoritative for energy, ownership, and capture.
-    // Client moves motes visually and runs production (corrected by sync).
+    // Multiplayer — full local simulation for responsiveness.
+    // Server sync corrects drift via tick-stamped updates.
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
       mpGame.world.time += TICK_RATE;
       mpGame.productionSystem.update(mpGame.world, TICK_RATE);
-      mpGame.swarmSystem.update(mpGame.world, TICK_RATE, true); // visualOnly — no energy changes
-      // No captureSystem — server decides ownership via sync
+      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
+      mpGame.captureSystem.update(mpGame.world, TICK_RATE);
+      mpGame.checkGameOver();
+      if (!mpWorld._tickCount) mpWorld._tickCount = 0;
+      mpWorld._tickCount++;
       accumulator -= TICK_RATE;
     }
     // Debug: log game loop running (once per second)
