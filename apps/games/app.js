@@ -66,7 +66,7 @@ const DEFAULT_GAMES = [
   {
     id: 'patches',
     name: 'Patches',
-    url: 'https://playpatches.today/',
+    url: 'https://www.linkedin.com/games/patches/',
     desc: 'They explained the rules of this game terribly at first.',
     tags: ['logic', 'spatial'],
   },

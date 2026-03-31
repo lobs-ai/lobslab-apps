@@ -468,22 +468,20 @@ function startMultiplayerGame(initialState, playerId, seed) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Server is authoritative. Sync both ownership and energy every tick.
+  // Server is the sole authority for energy, ownership, and capture.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (!node) continue;
 
-    // Ownership: snap immediately
+    // Ownership: always snap to server
     if (node.owner !== nState.owner) {
       node.owner = nState.owner;
       node.energy = nState.energy;
       node.captureFlash = 1.0;
     } else {
-      // Energy: blend toward server value to avoid jarring jumps
-      const diff = nState.energy - node.energy;
-      if (Math.abs(diff) > 1) {
-        node.energy += diff * 0.5; // half-life blend — converges in ~2 syncs
-      }
+      // Energy: snap to server value (client production is just a visual fill-in
+      // between syncs — server is authoritative)
+      node.energy = nState.energy;
     }
   }
 
@@ -754,17 +752,15 @@ function loop(timestamp) {
       }
     }
   } else if (mpGame && mpGame.state === GameState.PLAYING) {
-    // Multiplayer — run full local simulation (production, swarms, capture).
-    // Each client is self-sufficient; the server only sends discrete events
-    // (action broadcasts, ownership corrections, game over).
-    // AI is server-only — actions arrive via action_broadcast.
+    // Multiplayer — client is a visual renderer only.
+    // Server is authoritative for energy, ownership, and capture.
+    // Client moves motes visually and runs production (corrected by sync).
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
       mpGame.world.time += TICK_RATE;
       mpGame.productionSystem.update(mpGame.world, TICK_RATE);
-      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
-      mpGame.captureSystem.update(mpGame.world, TICK_RATE);
-      mpGame.checkGameOver();
+      mpGame.swarmSystem.update(mpGame.world, TICK_RATE, true); // visualOnly — no energy changes
+      // No captureSystem — server decides ownership via sync
       accumulator -= TICK_RATE;
     }
     // Debug: log game loop running (once per second)
