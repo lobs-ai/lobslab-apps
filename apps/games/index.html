@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games — Lobs Lab</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="logo">🎮</span>
+        <div>
+          <h1 class="site-title">Daily Games</h1>
+          <p class="site-sub" id="todayDate"></p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" id="settingsBtn" title="Settings" aria-label="Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progressText">0 / 0 completed today</span>
+        <span id="progressEmoji"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category filter bar -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="logic">🧩 Logic</button>
+    <button class="filter-btn" data-cat="geography">🌍 Geography</button>
+    <button class="filter-btn" data-cat="word">📝 Word</button>
+    <button class="filter-btn" data-cat="math">🔢 Math</button>
+    <button class="filter-btn" data-cat="gaming">🎮 Gaming</button>
+    <button class="filter-btn" data-cat="spatial">📐 Spatial</button>
+  </div>
+
+  <!-- Main grid -->
+  <main class="main">
+    <div class="grid" id="gameGrid"></div>
+    <p class="empty-msg hidden" id="emptyMsg">No games match this filter — or you've hidden them all. Check Settings to re-enable.</p>
+  </main>
+
+  <!-- Confetti canvas -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- Settings Panel -->
+  <div class="overlay hidden" id="overlay"></div>
+  <aside class="settings-panel hidden" id="settingsPanel" role="dialog" aria-modal="true" aria-label="Settings">
+    <div class="settings-header">
+      <h2>Settings</h2>
+      <button class="btn-icon" id="closeSettings" aria-label="Close settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="settings-body">
+      <section class="settings-section">
+        <h3>Active Games</h3>
+        <p class="settings-hint">Toggle which games appear on your dashboard.</p>
+        <ul class="game-toggle-list" id="gameToggleList"></ul>
+      </section>
+
+      <section class="settings-section">
+        <h3>Add Custom Game</h3>
+        <p class="settings-hint">Add any daily puzzle that isn't listed.</p>
+        <form id="addGameForm" class="add-game-form">
+          <input type="text" id="customName" placeholder="Game name" maxlength="40" required />
+          <input type="url" id="customUrl" placeholder="https://..." required />
+          <input type="text" id="customDesc" placeholder="Short description" maxlength="80" />
+          <input type="text" id="customTags" placeholder="Tags: logic, word, geography…" maxlength="60" />
+          <button type="submit" class="btn-primary">Add Game</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h3>Custom Games</h3>
+        <ul class="custom-game-list" id="customGameList">
+          <li class="custom-game-empty">No custom games yet.</li>
+        </ul>
+      </section>
+
+      <section class="settings-section">
+        <button class="btn-danger" id="resetTodayBtn">Reset Today's Progress</button>
+      </section>
+    </div>
+  </aside>
+
+  <script src="/app.js"></script>
+</body>
+</html>

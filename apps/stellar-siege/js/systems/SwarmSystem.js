@@ -22,7 +22,12 @@ const IDLE_MAX_SPEED   = 20;    // slow drift when holding position
 const IDLE_SEPARATION  = 8;     // motes spread out when idle
 
 export class SwarmSystem {
-  update(world, dt) {
+  /**
+   * @param {boolean} visualOnly — if true, motes move and die on arrival but
+   *   don't modify node energy/ownership. Used in multiplayer where the server
+   *   is the sole authority on game state.
+   */
+  update(world, dt, visualOnly = false) {
     for (const swarm of world.swarms) {
       if (!swarm.alive) continue;
 
@@ -54,13 +59,16 @@ export class SwarmSystem {
         const isNear = dist < arrivalDist;
 
         if (targetNode && isNear) {
-          // Node target: deliver energy and die
+          // Node target: mote arrives — kill it visually
           mote.alive = false;
-          if (swarm.owner === targetNode.owner) {
-            targetNode.energy = Math.min(targetNode.energy + 1, targetNode.maxEnergy);
-          } else {
-            const defense = getEffectiveDefense(targetNode);
-            targetNode.energy -= 1 / defense;
+          if (!visualOnly) {
+            // Only modify energy when running authoritatively (server / solo)
+            if (swarm.owner === targetNode.owner) {
+              targetNode.energy = Math.min(targetNode.energy + 1, targetNode.maxEnergy);
+            } else {
+              const defense = getEffectiveDefense(targetNode);
+              targetNode.energy -= 1 / defense;
+            }
           }
           continue;
         }
@@ -97,8 +105,8 @@ export class SwarmSystem {
       }
     }
 
-    // Mid-air combat
-    this._resolveCombat(world);
+    // Mid-air combat (skip in visualOnly — server handles it)
+    if (!visualOnly) this._resolveCombat(world);
 
     // Remove dead/empty swarms
     world.swarms = world.swarms.filter(s => {

@@ -757,10 +757,12 @@ function loop(timestamp) {
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
       mpGame.world.time += TICK_RATE;
-      mpGame.productionSystem.update(mpGame.world, TICK_RATE);
-      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
-      // No captureSystem — ownership only from server sync
+      // No productionSystem — energy comes from server sync
+      // No captureSystem — ownership comes from server sync
       // No aiSystem — server runs AI
+      // SwarmSystem in visualOnly mode — motes move and die on arrival
+      // but don't modify node energy. All game state is server-authoritative.
+      mpGame.swarmSystem.update(mpGame.world, TICK_RATE, true);
       accumulator -= TICK_RATE;
     }
     // Debug: log game loop running (once per second)
