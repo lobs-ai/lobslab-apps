@@ -7,42 +7,37 @@ export class ScreenEffects {
     this.shakeX = 0;
     this.shakeY = 0;
 
-    this.slowMo = 1;
-    this.slowMoTimer = 0;
+    this._slowFactor = 1;
+    this._slowTimer = 0;
 
     this.announcementText = '';
     this.announcementTimer = 0;
-    this.announcementEl = null;
+    this.announcementAlpha = 0;
   }
 
-  /** Bind the announcement DOM element. */
-  bindUI(announcementEl) {
-    this.announcementEl = announcementEl;
-  }
+  /** Current slow-motion factor (1 = normal speed). */
+  get slowFactor() { return this._slowFactor; }
 
   /** Trigger screen shake with a given magnitude. */
   shake(magnitude) {
     this.shakeMag = Math.max(this.shakeMag, magnitude);
   }
 
-  /** Enter slow motion for a duration (ms). */
-  enterSlowMo(factor = 0.3, durationMs = 400) {
-    this.slowMo = factor;
-    this.slowMoTimer = durationMs;
+  /** Enter slow motion for a duration (seconds). */
+  slowMo(factor = 0.3, durationMs = 400) {
+    this._slowFactor = factor;
+    this._slowTimer = durationMs / 1000;
   }
 
   /** Show a text announcement. */
-  announce(text, durationMs = 1500) {
+  announce(text, durationSec = 1.5) {
     this.announcementText = text;
-    this.announcementTimer = durationMs;
-    if (this.announcementEl) {
-      this.announcementEl.textContent = text;
-      this.announcementEl.style.opacity = '1';
-    }
+    this.announcementTimer = durationSec;
+    this.announcementAlpha = 1;
   }
 
-  /** Update effects per frame. Returns the current slow-mo multiplier. */
-  update(realDtMs) {
+  /** Update effects per frame. dt in seconds. */
+  update(dt) {
     // Shake decay
     if (this.shakeMag > 0) {
       this.shakeX = (Math.random() - 0.5) * this.shakeMag;
@@ -56,21 +51,42 @@ export class ScreenEffects {
     }
 
     // Slow mo timer
-    if (this.slowMoTimer > 0) {
-      this.slowMoTimer -= realDtMs;
-      if (this.slowMoTimer <= 0) {
-        this.slowMo = 1;
+    if (this._slowTimer > 0) {
+      this._slowTimer -= dt;
+      if (this._slowTimer <= 0) {
+        this._slowFactor = 1;
       }
     }
 
     // Announcement timer
     if (this.announcementTimer > 0) {
-      this.announcementTimer -= realDtMs;
-      if (this.announcementTimer <= 0 && this.announcementEl) {
-        this.announcementEl.style.opacity = '0';
+      this.announcementTimer -= dt;
+      if (this.announcementTimer <= 0) {
+        this.announcementAlpha = 0;
+      } else if (this.announcementTimer < 0.3) {
+        this.announcementAlpha = this.announcementTimer / 0.3;
       }
     }
+  }
 
-    return this.slowMo;
+  /** Draw announcement text on canvas. */
+  drawAnnouncement(ctx, W, H) {
+    if (this.announcementAlpha <= 0 || !this.announcementText) return;
+
+    ctx.save();
+    ctx.globalAlpha = this.announcementAlpha;
+    ctx.font = 'bold 36px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillText(this.announcementText, W / 2 + 2, H / 2 + 2);
+
+    // Text
+    ctx.fillStyle = '#ffd93d';
+    ctx.fillText(this.announcementText, W / 2, H / 2);
+
+    ctx.restore();
   }
 }

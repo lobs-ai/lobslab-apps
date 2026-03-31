@@ -1,0 +1,10 @@
+#!/bin/zsh
+set -euo pipefail
+
+APP="$(basename "$(cd "$(dirname "$0")/.." && pwd)")"
+COMPOSE="$(cd "$(dirname "$0")/../../.." && pwd)/docker-compose.yml"
+
+echo "Rebuilding $APP..."
+docker compose -f "$COMPOSE" build --no-cache "$APP"
+docker compose -f "$COMPOSE" up -d "$APP"
+echo "$APP rebuilt and running"

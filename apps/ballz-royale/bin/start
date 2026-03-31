@@ -1,0 +1,9 @@
+#!/bin/zsh
+set -euo pipefail
+
+APP="$(basename "$(cd "$(dirname "$0")/.." && pwd)")"
+COMPOSE="$(cd "$(dirname "$0")/../../.." && pwd)/docker-compose.yml"
+
+echo "Starting $APP..."
+docker compose -f "$COMPOSE" up -d "$APP"
+echo "$APP is running"

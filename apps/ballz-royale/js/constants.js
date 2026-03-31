@@ -1,5 +1,11 @@
 // ── Game Constants ──
 
+// Canonical arena size (server uses this; client scales to screen)
+export const CANONICAL_SIZE = 1000;
+
+// Turn timer (seconds)
+export const TURN_TIMER = 30;
+
 export const BALL_RADIUS = 14;
 export const POCKET_RADIUS = 22;
 export const FRICTION = 0.985;
@@ -34,10 +40,10 @@ export const AI_TURN_DELAY = 600;         // ms before AI shoots
 export const AI_ACCURACY_SPREAD = 0.3;    // radians of aim randomness
 
 export const PLAYER_COLORS = [
-  { main: '#ff6b6b', glow: '#ff4444', name: 'Red' },
-  { main: '#4d96ff', glow: '#2277ff', name: 'Blue' },
-  { main: '#6bcb77', glow: '#44bb55', name: 'Green' },
-  { main: '#ffd93d', glow: '#ffcc00', name: 'Gold' },
+  { main: '#ff6b6b', glow: '#ff4444', dark: '#aa2222', name: 'Red' },
+  { main: '#4d96ff', glow: '#2277ff', dark: '#1a4488', name: 'Blue' },
+  { main: '#6bcb77', glow: '#44bb55', dark: '#2a7733', name: 'Green' },
+  { main: '#ffd93d', glow: '#ffcc00', dark: '#aa8800', name: 'Gold' },
 ];
 
 export const ITEM_TYPES = [

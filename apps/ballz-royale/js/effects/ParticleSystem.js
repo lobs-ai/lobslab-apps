@@ -43,9 +43,14 @@ export class ParticleSystem {
     }
   }
 
+  /** Burst particles — convenience wrapper around spawn. */
+  burst(x, y, color, count = 10, speed = 4) {
+    this.spawn(x, y, color, count, { speedMin: speed * 0.5, speedMax: speed * 1.5 });
+  }
+
   /** Add a trail dot behind a moving ball. */
-  addTrail(x, y, color) {
-    this.trails.push({ x, y, color, life: 20 });
+  addTrail(x, y, color, size = 2) {
+    this.trails.push({ x, y, color, size, life: 20 });
   }
 
   /** Update all particles and trails. Remove dead ones. */
@@ -63,6 +68,31 @@ export class ParticleSystem {
       this.trails[i].life--;
       if (this.trails[i].life <= 0) this.trails.splice(i, 1);
     }
+  }
+
+  /** Draw all particles and trails onto a canvas context. */
+  draw(ctx) {
+    // Trails (draw first, behind particles)
+    for (const t of this.trails) {
+      const alpha = t.life / 20;
+      ctx.globalAlpha = alpha * 0.4;
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, t.size || 2, 0, Math.PI * 2);
+      ctx.fillStyle = t.color;
+      ctx.fill();
+    }
+
+    // Particles
+    for (const p of this.particles) {
+      const alpha = p.life / p.maxLife;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
   }
 
   clear() {

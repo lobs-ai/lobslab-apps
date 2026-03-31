@@ -8,9 +8,20 @@
 </head>
 <body>
 
-  <div id="setup">
+  <!-- ══ Mode Select Screen ══ -->
+  <div id="modeSelect">
     <h1>🎱 BALLZ ROYALE</h1>
     <h2>Turn-Based Billiards Battle Royale</h2>
+    <div class="mode-buttons">
+      <button id="localPlayBtn" class="mode-btn">🎮 Local Play</button>
+      <button id="onlinePlayBtn" class="mode-btn mode-btn-online">🌐 Online Play</button>
+    </div>
+  </div>
+
+  <!-- ══ Local Setup Screen ══ -->
+  <div id="setup" style="display:none;">
+    <h1>🎱 BALLZ ROYALE</h1>
+    <h2>Local Match Setup</h2>
     <div class="setup-row">
       <label>Players:</label>
       <select id="playerCount">
@@ -24,14 +35,54 @@
       <label><input type="checkbox" id="aiToggle" checked> Fill empty slots with AI</label>
     </div>
     <button id="startBtn">⚡ START MATCH</button>
+    <button id="setupBackBtn" class="back-btn">← Back</button>
   </div>
 
+  <!-- ══ Online Lobby ══ -->
+  <div id="lobbyOverlay" style="display:none;">
+    <h1>🎱 BALLZ ROYALE</h1>
+    <h2>Online Multiplayer</h2>
+
+    <!-- Join/Create section -->
+    <div id="lobbyJoinCreate">
+      <div class="lobby-name-row">
+        <label>Your Name:</label>
+        <input type="text" id="lobbyName" placeholder="Enter name" maxlength="16">
+      </div>
+      <div class="lobby-actions">
+        <button id="createRoomBtn" class="mode-btn">🏠 Create Room</button>
+        <div class="lobby-join-row">
+          <input type="text" id="joinCodeInput" placeholder="ABCD" maxlength="4" class="code-input">
+          <button id="joinRoomBtn" class="mode-btn mode-btn-join">🚪 Join Room</button>
+        </div>
+      </div>
+      <div id="lobbyError" class="lobby-error" style="display:none;"></div>
+    </div>
+
+    <!-- Room section (shown after joining) -->
+    <div id="lobbyRoom" style="display:none;">
+      <div class="room-code-display">
+        Room Code: <span id="roomCodeDisplay" class="room-code">----</span>
+      </div>
+      <div class="room-code-hint">Share this code with friends!</div>
+      <div id="lobbyPlayerList" class="lobby-player-list"></div>
+      <button id="lobbyStartBtn" class="mode-btn" style="display:none;">⚡ Start Game</button>
+      <div class="lobby-waiting" id="lobbyWaiting">Waiting for host to start...</div>
+    </div>
+
+    <button id="lobbyBackBtn" class="back-btn">← Back</button>
+    <div id="connectionStatus" class="conn-status conn-err">🔴 Connecting…</div>
+  </div>
+
+  <!-- ══ Game Canvas ══ -->
   <canvas id="c"></canvas>
 
+  <!-- ══ HUD ══ -->
   <div id="hud" style="display:none;">
     <div class="hud-left">
       <div class="player-indicator" id="turnIndicator">Player 1</div>
       <div class="round-info" id="roundInfo">Round 1</div>
+      <div class="turn-timer" id="turnTimer" style="display:none;">30s</div>
     </div>
     <div class="hud-center">
       <div class="storm-info" id="stormInfo">Storm: 100%</div>
@@ -40,12 +91,22 @@
   </div>
 
   <div id="itemsBar"></div>
+  <div id="itemBar" class="item-bar" style="display:none;"></div>
   <div id="powerBar"><div id="powerFill"></div></div>
   <div id="announcement"></div>
 
+  <!-- ══ Win Overlay (local) ══ -->
   <div id="winOverlay">
     <h1 id="winText">🏆 Player 1 Wins!</h1>
     <button id="playAgainBtn">🔄 Play Again</button>
+  </div>
+
+  <!-- ══ Game Over Overlay (online) ══ -->
+  <div id="gameOverOverlay" class="game-over-overlay" style="display:none;">
+    <h1 id="gameOverTitle">🏆 Game Over</h1>
+    <h2 id="gameOverWinner"></h2>
+    <div id="gameOverStats" class="game-over-stats"></div>
+    <button id="gameOverPlayAgain" class="mode-btn">🔄 Play Again</button>
   </div>
 
   <script type="module" src="js/main.js"></script>

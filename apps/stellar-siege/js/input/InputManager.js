@@ -132,9 +132,21 @@ export class InputManager {
     this._updateMousePos(e);
 
     const world = this.getWorld();
-    if (!world) return;
+    if (!world) {
+      console.warn('[input] _onMouseDown: world is null/undefined');
+      return;
+    }
 
     const node = world.getNodeAt(this._mouseX, this._mouseY);
+
+    console.log('[input] _onMouseDown', {
+      mx: Math.round(this._mouseX), my: Math.round(this._mouseY),
+      nodeId: node?.id ?? null,
+      nodeOwner: node?.owner ?? null,
+      localPlayerId: this.localPlayerId,
+      ownerMatch: node ? node.owner === this.localPlayerId : false,
+      worldNodes: world.nodes?.length ?? 0,
+    });
 
     if (node && node.owner === this.localPlayerId) {
       // Clicking an owned node

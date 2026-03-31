@@ -432,6 +432,17 @@ function startMultiplayerGame(initialState, playerId) {
   inputManager.selectedSwarm = null;
   inputManager.isRedirecting = false;
 
+  console.log('[MP_INIT] startMultiplayerGame complete', {
+    myPlayerId,
+    isMultiplayer,
+    localPlayerId: inputManager.localPlayerId,
+    worldNodes: mpWorld.nodes.length,
+    worldPlayers: mpWorld.players.length,
+    ownedNodes: mpWorld.nodes.filter(n => n.owner === myPlayerId).map(n => ({
+      id: n.id, owner: n.owner, pos: `${Math.round(n.position.x)},${Math.round(n.position.y)}`, radius: n.radius
+    })),
+  });
+
   // Hide all screens, show HUD
   hideAllScreens();
   hud.classList.remove('hidden');
