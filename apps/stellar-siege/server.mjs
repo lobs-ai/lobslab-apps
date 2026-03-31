@@ -237,8 +237,13 @@ class Lobby {
       }));
     }
 
-    // Slow server tick — runs every 2 seconds for authority tracking + sync
-    const SLOW_TICK_MS = 2000;
+    // Server simulation runs at the same tick rate as clients (1/60s).
+    // This makes the server an exact copy of the client simulation —
+    // it's the authoritative state that all clients sync to.
+    const SIM_TICK = 1 / 60;
+    const SIM_TICK_MS = Math.round(SIM_TICK * 1000); // ~16ms
+    const SYNC_INTERVAL = 120; // send sync every 120 ticks (~2 seconds)
+    this.stateTickCounter = 0;
 
     this.tickInterval = setInterval(() => {
       if (!this.game) return;
@@ -249,31 +254,17 @@ class Lobby {
         for (const ws of this.clients.keys()) safeSend(ws, msg);
         clearInterval(this.tickInterval);
         this.tickInterval = null;
-
-        // Clean up lobby after game ends
         setTimeout(() => this.destroy(), 5000);
         return;
       }
 
       if (this.game.state !== GameState.PLAYING) return;
 
-      // Snapshot swarm count before AI runs so we can detect new AI swarms
+      // Snapshot swarm count before update so we can detect new AI swarms
       const swarmCountBefore = this.game.world.swarms.length;
 
-      // Sub-step the server simulation at the same rate as clients (1/60s)
-      // so that physics, production, and captures stay in sync with client state.
-      // A single 2s step produces wildly different results due to non-linear
-      // physics and the large dt, causing ownership desync.
-      const SERVER_SUB_TICK = 1 / 60;
-      let remaining = SLOW_TICK_MS / 1000;
-      while (remaining >= SERVER_SUB_TICK) {
-        this.game.update(SERVER_SUB_TICK);
-        remaining -= SERVER_SUB_TICK;
-      }
-      // Consume any leftover (< 1/60s) to avoid accumulated drift
-      if (remaining > 0) {
-        this.game.update(remaining);
-      }
+      // Single tick — same dt as every client frame
+      this.game.update(SIM_TICK);
 
       // Broadcast any swarms that AI created during this tick
       const newSwarms = this.game.world.swarms.slice(swarmCountBefore);
@@ -281,7 +272,7 @@ class Lobby {
         const player = this.game.world.players.find(p => p.id === swarm.owner);
         if (player && !player.isHuman) {
           const targetNodeId = swarm.target.type === 'node' ? swarm.target.nodeId : null;
-          if (targetNodeId == null) continue; // skip position-target swarms (unsupported on client)
+          if (targetNodeId == null) continue;
           const broadcastAction = {
             type: 'action_broadcast',
             action: {
@@ -298,11 +289,15 @@ class Lobby {
         }
       }
 
-      // Send lightweight sync — only node ownership/energy, no mote positions
-      const state = this.serializeState();
-      const msg = JSON.stringify({ type: 'sync', state });
-      for (const ws of this.clients.keys()) safeSend(ws, msg);
-    }, SLOW_TICK_MS);
+      // Send authoritative sync every SYNC_INTERVAL ticks (~2s)
+      this.stateTickCounter++;
+      if (this.stateTickCounter >= SYNC_INTERVAL) {
+        this.stateTickCounter = 0;
+        const state = this.serializeState();
+        const msg = JSON.stringify({ type: 'sync', state });
+        for (const ws of this.clients.keys()) safeSend(ws, msg);
+      }
+    }, SIM_TICK_MS);
   }
 
   /**

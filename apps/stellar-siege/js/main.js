@@ -465,39 +465,24 @@ function startMultiplayerGame(initialState, playerId) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Soft-sync node ownership and energy from server authority.
-  // The server sub-steps at 1/60s so its simulation is much closer to
-  // the client's, but Math.random() jitter in SwarmSystem still causes
-  // minor mote-position drift. We only apply hard corrections when the
-  // server and client genuinely disagree — never blindly overwrite.
+  // Server is the authoritative copy — it runs the same simulation at the
+  // same tick rate (1/60s). Accept its state as truth.
+  // Only mote positions differ (Math.random jitter) — we don't sync those.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
     if (node) {
-      // Only override ownership when the server disagrees with the client.
-      // This prevents "flip-back" artifacts from a divergent coarse tick
-      // while still allowing the server to correct a genuinely wrong capture.
       if (node.owner !== nState.owner) {
-        node.owner = nState.owner;
-        node.captureFlash = 1.0; // visual feedback so the correction is visible
+        node.captureFlash = 1.0;
       }
-
-      // Gently lerp energy — only nudge if the gap is large (> 20 units).
-      // A small jitter threshold prevents constant micro-corrections that
-      // would make nodes flicker.
-      const diff = nState.energy - node.energy;
-      if (Math.abs(diff) > 20) {
-        node.energy += diff * 0.15;
-      }
+      node.owner = nState.owner;
+      node.energy = nState.energy;
     }
   }
 
-  // Sync player alive status
   for (const pState of state.players) {
     const player = mpWorld.players.find(p => p.id === pState.id);
     if (player) player.alive = pState.alive;
   }
-
-  // DON'T touch swarms — local simulation handles all mote physics
 }
 
 function showMultiplayerGameOver(winnerId) {
