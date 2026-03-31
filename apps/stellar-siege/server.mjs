@@ -249,7 +249,7 @@ class Lobby {
     // it's the authoritative state that all clients sync to.
     const SIM_TICK = 1 / 60;
     const SIM_TICK_MS = Math.round(SIM_TICK * 1000); // ~16ms
-    const SYNC_INTERVAL = 30; // send sync every 30 ticks (~0.5 seconds)
+    const SYNC_INTERVAL = 180; // send sync every 180 ticks (~3 seconds) — safety net only
     this.stateTickCounter = 0;
 
     this.tickInterval = setInterval(() => {
@@ -340,24 +340,35 @@ class Lobby {
 
     if (!valid) return;
 
-    // Broadcast to ALL clients (including sender) with playerId attached
+    // Apply to server state FIRST, computing exact amounts.
+    // Then broadcast with exact amounts so all clients produce identical results.
     const broadcastAction = { type: 'action_broadcast', action: { ...action, playerId }, seq: this.actionSeq++ };
-    const broadcastMsg = JSON.stringify(broadcastAction);
-    for (const ws of this.clients.keys()) safeSend(ws, broadcastMsg);
 
-    // Also apply to the server's authoritative game state
     switch (action.type) {
       case 'send_energy': {
         const source = world.getNodeById(action.sourceId);
         const target = world.getNodeById(action.targetId);
-        if (source && target) this.game.sendEnergy(source, target, action.ratio ?? 0.5);
+        if (source && target) {
+          // Compute exact mote count from server's current energy
+          const amount = Math.floor(source.energy * (action.ratio ?? 0.5));
+          if (amount < 5) return; // not enough energy — don't broadcast
+          this.game.sendEnergyExact(source, target, amount, playerId);
+          // Include exact amount in broadcast so clients match
+          broadcastAction.action.amount = amount;
+        } else {
+          return; // invalid — don't broadcast
+        }
         break;
       }
       case 'redirect_swarm': {
-        // Server doesn't track client swarms — skip
+        // Server doesn't track client swarms — just pass through
         break;
       }
     }
+
+    // Broadcast to ALL clients (including sender)
+    const broadcastMsg = JSON.stringify(broadcastAction);
+    for (const ws of this.clients.keys()) safeSend(ws, broadcastMsg);
   }
 
   /**

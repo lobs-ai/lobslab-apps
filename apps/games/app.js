@@ -73,7 +73,7 @@ const DEFAULT_GAMES = [
   {
     id: 'digitle',
     name: 'Digitle',
-    url: 'https://c.eev.ee/digitle/',
+    url: 'https://www.digitle.io/',
     desc: 'Get it right first-try or else.',
     tags: ['math', 'logic'],
   },
@@ -108,10 +108,15 @@ const KEYS = {
   hidden:  'games:hidden',   // Set<id> — disabled games
   custom:  'games:custom',   // Array of custom game objects
   // completion: games:done:YYYY-MM-DD  → Set<id>
+  // share text: games:share:YYYY-MM-DD → { [id]: string }
 };
 
 function todayKey() {
   return `games:done:${todayStr()}`;
+}
+
+function todayShareKey() {
+  return `games:share:${todayStr()}`;
 }
 
 function todayStr() {
@@ -124,6 +129,7 @@ function todayStr() {
 let hiddenGames  = new Set(JSON.parse(localStorage.getItem(KEYS.hidden)  || '[]'));
 let customGames  = JSON.parse(localStorage.getItem(KEYS.custom) || '[]');
 let doneGames    = new Set(JSON.parse(localStorage.getItem(todayKey())   || '[]'));
+let shareTexts   = JSON.parse(localStorage.getItem(todayShareKey()) || '{}'); // { [id]: string }
 let activeFilter = 'all';
 
 function allGames() {
@@ -142,28 +148,40 @@ function filteredGames() {
 
 // ---- Persistence helpers ------------------------------------------------
 
-function saveHidden()  { localStorage.setItem(KEYS.hidden,  JSON.stringify([...hiddenGames])); }
-function saveCustom()  { localStorage.setItem(KEYS.custom,  JSON.stringify(customGames)); }
-function saveDone()    { localStorage.setItem(todayKey(),    JSON.stringify([...doneGames])); }
+function saveHidden()     { localStorage.setItem(KEYS.hidden,       JSON.stringify([...hiddenGames])); }
+function saveCustom()     { localStorage.setItem(KEYS.custom,       JSON.stringify(customGames)); }
+function saveDone()       { localStorage.setItem(todayKey(),         JSON.stringify([...doneGames])); }
+function saveShareTexts() { localStorage.setItem(todayShareKey(),    JSON.stringify(shareTexts)); }
 
 // ---- DOM Refs -----------------------------------------------------------
 
-const gameGrid      = document.getElementById('gameGrid');
-const progressFill  = document.getElementById('progressFill');
-const progressText  = document.getElementById('progressText');
-const progressEmoji = document.getElementById('progressEmoji');
-const emptyMsg      = document.getElementById('emptyMsg');
-const filterBar     = document.getElementById('filterBar');
-const settingsBtn   = document.getElementById('settingsBtn');
-const settingsPanel = document.getElementById('settingsPanel');
-const overlay       = document.getElementById('overlay');
-const closeSettings = document.getElementById('closeSettings');
-const gameToggleList= document.getElementById('gameToggleList');
-const customGameList= document.getElementById('customGameList');
-const addGameForm   = document.getElementById('addGameForm');
-const resetTodayBtn = document.getElementById('resetTodayBtn');
-const todayDate     = document.getElementById('todayDate');
-const confettiCanvas= document.getElementById('confettiCanvas');
+const gameGrid       = document.getElementById('gameGrid');
+const progressFill   = document.getElementById('progressFill');
+const progressText   = document.getElementById('progressText');
+const progressEmoji  = document.getElementById('progressEmoji');
+const emptyMsg       = document.getElementById('emptyMsg');
+const filterBar      = document.getElementById('filterBar');
+const settingsBtn    = document.getElementById('settingsBtn');
+const settingsPanel  = document.getElementById('settingsPanel');
+const overlay        = document.getElementById('overlay');
+const closeSettings  = document.getElementById('closeSettings');
+const gameToggleList = document.getElementById('gameToggleList');
+const customGameList = document.getElementById('customGameList');
+const addGameForm    = document.getElementById('addGameForm');
+const resetTodayBtn  = document.getElementById('resetTodayBtn');
+const todayDate      = document.getElementById('todayDate');
+const confettiCanvas = document.getElementById('confettiCanvas');
+const shareAllBtn    = document.getElementById('shareAllBtn');
+const toast          = document.getElementById('toast');
+
+// Share modal DOM refs
+const shareModalOverlay = document.getElementById('shareModalOverlay');
+const shareModal        = document.getElementById('shareModal');
+const shareModalTitle   = document.getElementById('shareModalTitle');
+const shareModalClose   = document.getElementById('shareModalClose');
+const shareTextInput    = document.getElementById('shareTextInput');
+const shareModalConfirm = document.getElementById('shareModalConfirm');
+const shareModalSkip    = document.getElementById('shareModalSkip');
 
 // ---- Render -------------------------------------------------------------
 
@@ -171,6 +189,12 @@ function formatDate(str) {
   const [y, m, d] = str.split('-').map(Number);
   const date = new Date(y, m - 1, d);
   return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+}
+
+function formatDateLong(str) {
+  const [y, m, d] = str.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 todayDate.textContent = formatDate(todayStr());
@@ -209,7 +233,9 @@ function renderGrid() {
   emptyMsg.classList.add('hidden');
 
   games.forEach(game => {
-    const isDone = doneGames.has(game.id);
+    const isDone    = doneGames.has(game.id);
+    const shareText = shareTexts[game.id] || '';
+
     const card = document.createElement('div');
     card.className = `card${isDone ? ' done' : ''}`;
     card.dataset.id = game.id;
@@ -217,6 +243,23 @@ function renderGrid() {
     const tagsHtml = game.tags.map(t =>
       `<span class="tag">${TAG_ICONS[t] ?? '•'} ${t}</span>`
     ).join('');
+
+    // Share result block (only shown when done AND has share text)
+    const shareBlockHtml = (isDone && shareText)
+      ? `<pre class="share-result">${escHtml(shareText)}</pre>`
+      : '';
+
+    // Edit share text button (shown when done — add or edit)
+    const editShareHtml = isDone
+      ? `<button class="btn-edit-share" data-id="${escAttr(game.id)}" title="${shareText ? 'Edit share text' : 'Add share text'}" aria-label="${shareText ? 'Edit share text' : 'Add share text'}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+         </button>`
+      : '';
 
     card.innerHTML = `
       <div class="card-top">
@@ -230,6 +273,7 @@ function renderGrid() {
         </div>
       </div>
       <p class="card-desc">"${escHtml(game.desc)}"</p>
+      ${shareBlockHtml}
       <div class="card-tags">${tagsHtml}</div>
       <div class="card-actions">
         <a class="btn-play" href="${escAttr(game.url)}" target="_blank" rel="noopener noreferrer">
@@ -242,6 +286,7 @@ function renderGrid() {
           </svg>
           Play
         </a>
+        ${editShareHtml}
         <button class="btn-done" data-id="${escAttr(game.id)}" title="${isDone ? 'Mark undone' : 'Mark done'}" aria-label="${isDone ? 'Mark undone' : 'Mark as done'}">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2.5"
@@ -320,24 +365,130 @@ function closeSettingsPanel() {
   }, 200);
 }
 
+// ---- Share Modal --------------------------------------------------------
+
+// State for the currently pending "mark done + share text" action
+let pendingShareGameId = null;   // game id awaiting confirmation
+let shareModalMode = 'done';     // 'done' | 'edit'
+
+function openShareModal(gameId, mode = 'done') {
+  const game = allGames().find(g => g.id === gameId);
+  if (!game) return;
+
+  pendingShareGameId = gameId;
+  shareModalMode = mode;
+
+  shareModalTitle.textContent = mode === 'edit'
+    ? `Edit share text — ${game.name}`
+    : `Mark done — ${game.name}`;
+
+  shareTextInput.value = shareTexts[gameId] || '';
+
+  shareModalOverlay.classList.remove('hidden');
+  shareModal.classList.remove('hidden');
+  shareModal.classList.remove('closing');
+  shareModalOverlay.classList.remove('closing');
+
+  // Focus textarea after a tick so animation doesn't fight focus
+  requestAnimationFrame(() => shareTextInput.focus());
+}
+
+function closeShareModal() {
+  shareModal.classList.add('closing');
+  shareModalOverlay.classList.add('closing');
+  setTimeout(() => {
+    shareModal.classList.add('hidden');
+    shareModalOverlay.classList.add('hidden');
+    shareModal.classList.remove('closing');
+    shareModalOverlay.classList.remove('closing');
+    shareTextInput.value = '';
+    pendingShareGameId = null;
+  }, 180);
+}
+
+function confirmShareModal(markDone) {
+  if (!pendingShareGameId) return;
+
+  const id = pendingShareGameId;
+  const text = shareTextInput.value.trim();
+
+  // Save or clear share text
+  if (text) {
+    shareTexts[id] = text;
+  } else {
+    delete shareTexts[id];
+  }
+  saveShareTexts();
+
+  // Mark done if applicable
+  if (markDone && shareModalMode === 'done') {
+    doneGames.add(id);
+    if (navigator.vibrate) navigator.vibrate(30);
+    saveDone();
+  }
+
+  closeShareModal();
+  render();
+}
+
+// Modal event listeners
+shareModalClose.addEventListener('click', closeShareModal);
+shareModalOverlay.addEventListener('click', closeShareModal);
+
+shareModalConfirm.addEventListener('click', () => confirmShareModal(true));
+
+shareModalSkip.addEventListener('click', () => {
+  if (!pendingShareGameId) return;
+  // In 'edit' mode, Skip discards changes. In 'done' mode, Skip marks done without text.
+  if (shareModalMode === 'done') {
+    const id = pendingShareGameId;
+    doneGames.add(id);
+    if (navigator.vibrate) navigator.vibrate(30);
+    saveDone();
+  }
+  closeShareModal();
+  render();
+});
+
+// Ctrl/Cmd+Enter to confirm from textarea
+shareTextInput.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    confirmShareModal(true);
+  }
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeShareModal();
+  }
+});
+
 // ---- Event Delegation ---------------------------------------------------
 
-// Mark done / undone
+// Mark done / undone + edit share text
 gameGrid.addEventListener('click', e => {
+  // Edit share text button
+  const editBtn = e.target.closest('.btn-edit-share');
+  if (editBtn) {
+    const id = editBtn.dataset.id;
+    if (id) openShareModal(id, 'edit');
+    return;
+  }
+
+  // Done / undone button
   const btn = e.target.closest('.btn-done');
   if (!btn) return;
   const id = btn.dataset.id;
   if (!id) return;
 
   if (doneGames.has(id)) {
+    // Toggle back to undone — clear share text too
     doneGames.delete(id);
+    saveDone();
+    render();
   } else {
-    doneGames.add(id);
-    // micro-haptic on mobile
-    if (navigator.vibrate) navigator.vibrate(30);
+    // Open share modal before marking done
+    openShareModal(id, 'done');
   }
-  saveDone();
-  render();
 });
 
 // Filter buttons
@@ -355,7 +506,7 @@ settingsBtn.addEventListener('click', openSettings);
 closeSettings.addEventListener('click', closeSettingsPanel);
 overlay.addEventListener('click', closeSettingsPanel);
 
-// ESC to close
+// ESC to close settings (share modal handles its own ESC via keydown)
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !settingsPanel.classList.contains('hidden')) {
     closeSettingsPanel();
@@ -412,6 +563,8 @@ customGameList.addEventListener('click', e => {
   saveHidden();
   doneGames.delete(id);
   saveDone();
+  delete shareTexts[id];
+  saveShareTexts();
   renderSettingsToggles();
   renderCustomGameList();
   render();
@@ -421,10 +574,77 @@ customGameList.addEventListener('click', e => {
 resetTodayBtn.addEventListener('click', () => {
   if (!confirm("Reset today's progress? This can't be undone.")) return;
   doneGames.clear();
+  shareTexts = {};
   saveDone();
+  saveShareTexts();
   closeSettingsPanel();
   render();
 });
+
+// ---- Share All ----------------------------------------------------------
+
+function buildShareText() {
+  const games  = activeGames();
+  const total  = games.length;
+  const done   = games.filter(g => doneGames.has(g.id)).length;
+  const header = `🎮 Daily Games — ${formatDateLong(todayStr())}`;
+
+  const parts = [header, ''];
+
+  games.forEach(game => {
+    if (!doneGames.has(game.id)) return;
+    const text = shareTexts[game.id];
+    if (text) {
+      parts.push(text.trim());
+    } else {
+      parts.push(`✅ ${game.name}`);
+    }
+    parts.push('');
+  });
+
+  parts.push(`${done}/${total} completed`);
+  parts.push('games.lobslab.com');
+
+  return parts.join('\n');
+}
+
+shareAllBtn.addEventListener('click', () => {
+  const text = buildShareText();
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('📋 Copied to clipboard!');
+  }).catch(() => {
+    // Fallback for older browsers / non-secure contexts
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 Copied to clipboard!');
+  });
+});
+
+// ---- Toast --------------------------------------------------------------
+
+let toastTimer = null;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.remove('hidden', 'toast-hide');
+  toast.classList.add('toast-show');
+
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('toast-show');
+    toast.classList.add('toast-hide');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      toast.classList.remove('toast-hide');
+    }, 300);
+  }, 2000);
+}
 
 // ---- Confetti -----------------------------------------------------------
 

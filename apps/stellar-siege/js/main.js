@@ -468,17 +468,18 @@ function startMultiplayerGame(initialState, playerId, seed) {
 function applyStateUpdate(state) {
   if (!mpWorld) return;
 
-  // Server is the authoritative copy — it runs the same deterministic
-  // simulation at 1/60s with the same seeded RNG. Accept its state as truth.
-  // Any tiny drift is corrected here every ~2 seconds.
+  // The client runs its own full simulation. The server sync is only used
+  // to correct ownership disagreements (the one thing that MUST match).
+  // Energy values are NOT synced — they naturally differ slightly because
+  // motes arrive at slightly different ticks. That's fine; it's cosmetic.
   for (const nState of state.nodes) {
     const node = mpWorld.getNodeById(nState.id);
-    if (node) {
-      if (node.owner !== nState.owner) {
-        node.captureFlash = 1.0;
-      }
+    if (!node) continue;
+    // Only correct ownership if server disagrees
+    if (node.owner !== nState.owner) {
       node.owner = nState.owner;
-      node.energy = nState.energy;
+      node.energy = nState.energy; // snap energy on ownership change
+      node.captureFlash = 1.0;
     }
   }
 
@@ -749,20 +750,17 @@ function loop(timestamp) {
       }
     }
   } else if (mpGame && mpGame.state === GameState.PLAYING) {
-    // Multiplayer — run only visual/predictive systems locally.
-    // CaptureSystem is SKIPPED: ownership changes come exclusively from
-    // the server sync. Running it locally caused jitter (client captures
-    // a node, sync says "not yet", node flips back and forth).
-    // AI is also server-only.
+    // Multiplayer — run full local simulation (production, swarms, capture).
+    // Each client is self-sufficient; the server only sends discrete events
+    // (action broadcasts, ownership corrections, game over).
+    // AI is server-only — actions arrive via action_broadcast.
     accumulator += dt;
     while (accumulator >= TICK_RATE) {
       mpGame.world.time += TICK_RATE;
-      // No productionSystem — energy comes from server sync
-      // No captureSystem — ownership comes from server sync
-      // No aiSystem — server runs AI
-      // SwarmSystem in visualOnly mode — motes move and die on arrival
-      // but don't modify node energy. All game state is server-authoritative.
-      mpGame.swarmSystem.update(mpGame.world, TICK_RATE, true);
+      mpGame.productionSystem.update(mpGame.world, TICK_RATE);
+      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
+      mpGame.captureSystem.update(mpGame.world, TICK_RATE);
+      mpGame.checkGameOver();
       accumulator -= TICK_RATE;
     }
     // Debug: log game loop running (once per second)

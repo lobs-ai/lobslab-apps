@@ -1,18 +1,27 @@
-import { random } from '../utils/rng.js';
-
 let nextSwarmId = 1;
 
 /**
- * A Mote is one particle in a swarm — represents 1 unit of energy.
+ * Deterministic hash for mote placement — no RNG needed.
+ * Uses the golden ratio to spread values evenly in [0,1).
  */
-export function createMote(x, y) {
+function moteHash(index, seed) {
+  return ((index * 2654435761 + seed) >>> 0) / 4294967296;
+}
+
+/**
+ * A Mote is one particle in a swarm — represents 1 unit of energy.
+ * Position is deterministic based on index and swarm ID (no RNG).
+ */
+export function createMote(x, y, index, swarmId) {
   const spread = 12;
   return {
-    x: x + (random() - 0.5) * spread,
-    y: y + (random() - 0.5) * spread,
+    x: x + (moteHash(index, swarmId) - 0.5) * spread,
+    y: y + (moteHash(index, swarmId + 7919) - 0.5) * spread,
     vx: 0,
     vy: 0,
     alive: true,
+    // Store a per-mote phase for deterministic jitter (replaces Math.random)
+    phase: moteHash(index, swarmId + 104729),
   };
 }
 
@@ -29,13 +38,14 @@ export function posTarget(x, y)    { return { type: 'position', x, y }; }
  * `target` is a target descriptor (node or position).
  */
 export function createSwarm(sourceNode, targetNode, amount, owner) {
+  const id = nextSwarmId++;
   const motes = [];
   for (let i = 0; i < amount; i++) {
-    motes.push(createMote(sourceNode.position.x, sourceNode.position.y));
+    motes.push(createMote(sourceNode.position.x, sourceNode.position.y, i, id));
   }
 
   return {
-    id: nextSwarmId++,
+    id,
     owner,
     sourceId: sourceNode.id,
     target: nodeTarget(targetNode.id),
