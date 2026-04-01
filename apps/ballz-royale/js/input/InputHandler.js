@@ -27,8 +27,13 @@ export class InputHandler {
 
     c.addEventListener('mousedown', (e) => this._onDown(e.clientX, e.clientY));
     c.addEventListener('mousemove', (e) => this._onMove(e.clientX, e.clientY));
-    c.addEventListener('mouseup',   (e) => this._onUp());
     c.addEventListener('contextmenu', (e) => { e.preventDefault(); this._cancel(); });
+
+    // Listen on window so mouseup fires even when cursor leaves the canvas mid-drag
+    window.addEventListener('mouseup', (e) => this._onUp());
+    window.addEventListener('mousemove', (e) => {
+      if (this.aiming) this._onMove(e.clientX, e.clientY);
+    });
 
     // Touch support
     c.addEventListener('touchstart', (e) => {
