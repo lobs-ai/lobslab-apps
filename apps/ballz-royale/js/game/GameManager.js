@@ -2,7 +2,7 @@
 // Top-level game state machine. Coordinates all subsystems.
 
 import {
-  BALL_SPAWN_DISTANCE, STORM_SHRINK_INTERVAL,
+  BALL_SPAWN_DISTANCE,
   ITEM_SPAWN_INTERVAL, AI_TURN_DELAY, MIN_SPEED,
 } from '../constants.js';
 import { Ball, resetBallIds } from './Ball.js';
@@ -199,25 +199,6 @@ export class GameManager {
     this.selectedBall = null;
     this.activeItemIndex = null;
 
-    // ── Storm damage: eliminate any ball outside the storm radius ──
-    if (this.storm) {
-      const sr = this.storm.currentRadius;
-      const cx = this.arena.cx;
-      const cy = this.arena.cy;
-      for (const ball of this.balls) {
-        if (!ball.alive) continue;
-        const dx = ball.x - cx;
-        const dy = ball.y - cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist > sr) {
-          ball.alive = false;
-          const owner = this.players[ball.owner];
-          this.particles.spawn(ball.x, ball.y, '#ff4444', 20);
-          this.effects.announce(`⚡ ${owner.name}'s ball destroyed by storm!`, 2000);
-        }
-      }
-    }
-
     // Check for winner
     const activePlayers = this.players.filter(p => !p.isEliminated(this.balls));
     if (activePlayers.length <= 1) {
@@ -242,18 +223,9 @@ export class GameManager {
       this.turnInRound = 0;
       this.round++;
 
-      // Storm shrink check
-      if (this.round % STORM_SHRINK_INTERVAL === 1 && this.round > 1) {
-        if (this.storm.shrink()) {
-          this.effects.announce(`⚡ STORM CLOSING — ${this.storm.percent}%`, 2000);
-          this.effects.shake(10);
-          this.itemSpawner.pruneOutsideStorm(this.arena.cx, this.arena.cy, this.storm.currentRadius);
-        }
-      }
-
       // Item spawn check
       if (this.round % ITEM_SPAWN_INTERVAL === 0) {
-        this.itemSpawner.spawnItems(this.arena.cx, this.arena.cy, this.storm.currentRadius);
+        this.itemSpawner.spawnItems(this.arena.cx, this.arena.cy, this.arena.radius);
       }
     }
 
@@ -324,9 +296,6 @@ export class GameManager {
     // Update effects (returns slow-mo multiplier)
     const slowMo = this.effects.update(realDtMs);
     const dt = (realDtMs / 1000) * slowMo;
-
-    // Storm lerp
-    this.storm.update(dt);
 
     // Physics simulation
     if (this.phase === 'simulate') {
