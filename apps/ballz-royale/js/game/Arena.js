@@ -1,7 +1,12 @@
 // ── Arena ──
-// Manages the circular play area, pockets, and storm zone.
+// Rectangular billiard table with 6 pockets (4 corners + 2 side midpoints).
 
-import { POCKET_COUNT, POCKET_RADIUS, ARENA_SCALE } from '../constants.js';
+import { POCKET_RADIUS } from '../constants.js';
+
+// Table aspect ratio: standard pool table is 2:1 (length:width)
+const TABLE_ASPECT = 2.0;
+// Fraction of the smaller screen dimension used for table width
+const TABLE_SCALE = 0.82;
 
 export class Arena {
   constructor(canvasWidth, canvasHeight) {
@@ -9,55 +14,62 @@ export class Arena {
   }
 
   resize(canvasWidth, canvasHeight) {
-    this.radius = Math.min(canvasWidth, canvasHeight) * ARENA_SCALE;
     this.cx = canvasWidth / 2;
     this.cy = canvasHeight / 2;
+
+    // Fit table to screen maintaining 2:1 aspect ratio
+    const maxH = canvasHeight * TABLE_SCALE;
+    const maxW = canvasWidth * TABLE_SCALE;
+
+    if (maxW / TABLE_ASPECT <= maxH) {
+      this.tableW = maxW;
+      this.tableH = maxW / TABLE_ASPECT;
+    } else {
+      this.tableH = maxH;
+      this.tableW = maxH * TABLE_ASPECT;
+    }
+
+    this.left   = this.cx - this.tableW / 2;
+    this.right  = this.cx + this.tableW / 2;
+    this.top    = this.cy - this.tableH / 2;
+    this.bottom = this.cy + this.tableH / 2;
+
+    // Keep a radius for storm compatibility (use half-diagonal)
+    this.radius = Math.sqrt((this.tableW / 2) ** 2 + (this.tableH / 2) ** 2);
+
     this.buildPockets();
   }
 
-  buildPockets(angleOffsets) {
-    this.pockets = [];
-    for (let i = 0; i < POCKET_COUNT; i++) {
-      const baseAngle = (i / POCKET_COUNT) * Math.PI * 2 - Math.PI / 2;
-      // Optional small per-pocket offset for map variety (max ±0.15 rad)
-      const offset = angleOffsets ? angleOffsets[i] : 0;
-      const angle = baseAngle + offset;
-      this.pockets.push({
-        x: this.cx + Math.cos(angle) * this.radius,
-        y: this.cy + Math.sin(angle) * this.radius,
-        angle,
-        radius: POCKET_RADIUS,
-      });
-    }
+  buildPockets() {
+    const { left, right, top, bottom, cx, cy } = this;
+    // Pocket offset inward from corners (pocket sits at corner cut)
+    const co = POCKET_RADIUS * 0.5;
+    this.pockets = [
+      // 4 corners
+      { x: left  + co, y: top    + co, radius: POCKET_RADIUS + 2 },
+      { x: right - co, y: top    + co, radius: POCKET_RADIUS + 2 },
+      { x: left  + co, y: bottom - co, radius: POCKET_RADIUS + 2 },
+      { x: right - co, y: bottom - co, radius: POCKET_RADIUS + 2 },
+      // 2 side midpoints
+      { x: cx,         y: top    - 2,  radius: POCKET_RADIUS },
+      { x: cx,         y: bottom + 2,  radius: POCKET_RADIUS },
+    ];
   }
 
-  /** Returns true if a point is inside the arena. */
+  /** Returns true if a point is inside the table. */
   contains(x, y) {
-    const dx = x - this.cx;
-    const dy = y - this.cy;
-    return dx * dx + dy * dy <= this.radius * this.radius;
+    return x >= this.left && x <= this.right && y >= this.top && y <= this.bottom;
   }
 
-  /** Distance from center to point. */
+  /** Distance from center (kept for storm compat — always returns 0 since storm disabled). */
   distFromCenter(x, y) {
     const dx = x - this.cx;
     const dy = y - this.cy;
     return Math.sqrt(dx * dx + dy * dy);
   }
 
-  /** Get storm push force vector for a position outside the safe zone. */
+  /** Storm force — disabled on billiard table, always zero. */
   getStormForce(x, y, stormRadius) {
-    const dx = x - this.cx;
-    const dy = y - this.cy;
-    const d = Math.sqrt(dx * dx + dy * dy);
-    if (d <= stormRadius || d === 0) return { fx: 0, fy: 0 };
-
-    // Scale from 0.3 (just outside) to 1.0 (at arena edge) — strong enough to actually move balls
-    const overflow = (d - stormRadius) / Math.max(1, this.radius - stormRadius);
-    const strength = 0.3 + overflow * 0.7;
-    return {
-      fx: -(dx / d) * strength,
-      fy: -(dy / d) * strength,
-    };
+    return { fx: 0, fy: 0 };
   }
 }

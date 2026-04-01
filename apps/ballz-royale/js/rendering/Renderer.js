@@ -48,101 +48,80 @@ export class Renderer {
 
   _drawArena(arena) {
     const { ctx } = this;
-    // Felt surface
+    const { left, right, top, bottom, tableW, tableH, cx, cy } = arena;
+    const railW = Math.max(14, tableW * 0.028);
+
+    // Outer wood frame
+    ctx.fillStyle = '#5c3210';
     ctx.beginPath();
-    ctx.arc(arena.cx, arena.cy, arena.radius, 0, Math.PI * 2);
-    const feltGrad = ctx.createRadialGradient(arena.cx, arena.cy, 0, arena.cx, arena.cy, arena.radius);
-    feltGrad.addColorStop(0, '#1a3d2a');
-    feltGrad.addColorStop(1, '#0d2818');
-    ctx.fillStyle = feltGrad;
+    ctx.roundRect(left - railW * 1.8, top - railW * 1.8, tableW + railW * 3.6, tableH + railW * 3.6, 10);
     ctx.fill();
 
-    // Border
+    // Rail cushions (dark green)
+    ctx.fillStyle = '#145a32';
     ctx.beginPath();
-    ctx.arc(arena.cx, arena.cy, arena.radius, 0, Math.PI * 2);
-    ctx.strokeStyle = '#2a5a3a';
-    ctx.lineWidth = 4;
+    ctx.roundRect(left - railW, top - railW, tableW + railW * 2, tableH + railW * 2, 6);
+    ctx.fill();
+
+    // Felt surface
+    const feltGrad = ctx.createLinearGradient(left, top, right, bottom);
+    feltGrad.addColorStop(0,   '#1e6b3a');
+    feltGrad.addColorStop(0.5, '#217a40');
+    feltGrad.addColorStop(1,   '#1a5c32');
+    ctx.fillStyle = feltGrad;
+    ctx.fillRect(left, top, tableW, tableH);
+
+    // Subtle felt grain lines
+    ctx.save();
+    ctx.globalAlpha = 0.04;
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1;
+    for (let x = left + 20; x < right; x += 20) {
+      ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, bottom); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+
+    // Center spot
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.fill();
+
+    // Center line (baulk line)
+    ctx.beginPath();
+    ctx.moveTo(left + tableW * 0.25, top);
+    ctx.lineTo(left + tableW * 0.25, bottom);
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
     ctx.stroke();
+
+    // Table border (inner edge of rail)
+    ctx.strokeStyle = '#0d3d1e';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(left, top, tableW, tableH);
   }
 
   _drawStorm(arena, storm) {
-    if (storm.currentRadius >= arena.radius) return;
-    const { ctx } = this;
-    const time = performance.now();
-
-    const warning = storm.warningActive;
-    // When warning is active, pulse opacity using sin wave
-    const warnPulse = warning ? (0.5 + Math.sin(time / 200) * 0.5) : 0;
-
-    // Danger zone fill — stronger red tint when warning active
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(arena.cx, arena.cy, arena.radius, 0, Math.PI * 2);
-    ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2, true);
-    const fillAlpha = warning ? (0.18 + warnPulse * 0.17) : 0.15;
-    ctx.fillStyle = `rgba(255, 50, 50, ${fillAlpha})`;
-    ctx.fill();
-
-    // Animated storm ring
-    const pulse = 0.5 + Math.sin(time / 333) * 0.3;
-    const ringAlpha = warning ? (0.6 + warnPulse * 0.4) : (0.5 + pulse * 0.3);
-    const ringWidth = warning ? (5 + warnPulse * 4) : (3 + pulse * 2);
-    ctx.beginPath();
-    ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(255, ${warning ? 30 : 80}, 50, ${ringAlpha})`;
-    ctx.lineWidth = ringWidth;
-    ctx.stroke();
-
-    // Energy particles on the storm ring
-    for (let i = 0; i < 30; i++) {
-      const a = (i / 30) * Math.PI * 2 + time / 2000;
-      const r = storm.currentRadius + Math.sin(time / 200 + i) * 4;
-      ctx.beginPath();
-      ctx.arc(
-        arena.cx + Math.cos(a) * r,
-        arena.cy + Math.sin(a) * r,
-        1.5 + Math.sin(time / 333 + i) * 0.5,
-        0, Math.PI * 2
-      );
-      ctx.fillStyle = `rgba(255, ${100 + Math.sin(i) * 60 | 0}, 50, ${0.3 + pulse * 0.3})`;
-      ctx.fill();
-    }
-    ctx.restore();
-
-    // When warning active, draw pulsing "danger ring" at targetRadius to show where storm is closing TO
-    if (warning && storm.targetRadius < storm.currentRadius) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(arena.cx, arena.cy, storm.targetRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 255, 0, ${0.3 + warnPulse * 0.5})`;
-      ctx.lineWidth = 2 + warnPulse * 3;
-      ctx.setLineDash([10, 8]);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.restore();
-    }
-
-    // Safe zone hint ring
-    ctx.beginPath();
-    ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(100, 200, 100, 0.2)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+    // Storm is disabled on the billiard table — nothing to draw
   }
 
   _drawPockets(arena) {
     const { ctx } = this;
     for (const pocket of arena.pockets) {
+      const r = pocket.radius;
+      // Deep black hole
       ctx.beginPath();
-      ctx.arc(pocket.x, pocket.y, POCKET_RADIUS, 0, Math.PI * 2);
-      const grad = ctx.createRadialGradient(pocket.x, pocket.y, 0, pocket.x, pocket.y, POCKET_RADIUS);
-      grad.addColorStop(0, '#000');
-      grad.addColorStop(0.7, '#111');
-      grad.addColorStop(1, '#1a3d2a');
+      ctx.arc(pocket.x, pocket.y, r, 0, Math.PI * 2);
+      const grad = ctx.createRadialGradient(pocket.x, pocket.y, 0, pocket.x, pocket.y, r);
+      grad.addColorStop(0,   '#000');
+      grad.addColorStop(0.6, '#0a0a0a');
+      grad.addColorStop(1,   '#1a3d2a');
       ctx.fillStyle = grad;
       ctx.fill();
-      ctx.strokeStyle = '#0a2a1a';
-      ctx.lineWidth = 2;
+      // Leather rim
+      ctx.strokeStyle = '#3d1f00';
+      ctx.lineWidth = 3;
       ctx.stroke();
     }
   }

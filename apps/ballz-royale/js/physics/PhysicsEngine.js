@@ -49,28 +49,47 @@ function applyStormForce(ball, arena, stormRadius) {
 }
 
 function resolveWallCollision(ball, arena) {
-  const dx = ball.x - arena.cx;
-  const dy = ball.y - arena.cy;
-  const d = Math.sqrt(dx * dx + dy * dy);
+  let hit = false;
+  let hitX = ball.x;
+  let hitY = ball.y;
+  let speed = 0;
 
-  if (d + ball.radius > arena.radius) {
-    const nx = dx / d;
-    const ny = dy / d;
-    ball.x = arena.cx + nx * (arena.radius - ball.radius);
-    ball.y = arena.cy + ny * (arena.radius - ball.radius);
+  const r = ball.radius;
 
-    const dot = ball.vx * nx + ball.vy * ny;
-    if (dot > 0) {
-      ball.vx -= 2 * dot * nx * WALL_RESTITUTION;
-      ball.vy -= 2 * dot * ny * WALL_RESTITUTION;
-      return {
-        type: 'wallHit',
-        ball,
-        x: ball.x + nx * ball.radius,
-        y: ball.y + ny * ball.radius,
-        speed: Math.abs(dot),
-      };
+  if (ball.x - r < arena.left) {
+    ball.x = arena.left + r;
+    if (ball.vx < 0) {
+      speed = Math.abs(ball.vx);
+      ball.vx = -ball.vx * WALL_RESTITUTION;
+      hit = true; hitX = arena.left; hitY = ball.y;
     }
+  } else if (ball.x + r > arena.right) {
+    ball.x = arena.right - r;
+    if (ball.vx > 0) {
+      speed = Math.abs(ball.vx);
+      ball.vx = -ball.vx * WALL_RESTITUTION;
+      hit = true; hitX = arena.right; hitY = ball.y;
+    }
+  }
+
+  if (ball.y - r < arena.top) {
+    ball.y = arena.top + r;
+    if (ball.vy < 0) {
+      speed = Math.max(speed, Math.abs(ball.vy));
+      ball.vy = -ball.vy * WALL_RESTITUTION;
+      hit = true; hitX = ball.x; hitY = arena.top;
+    }
+  } else if (ball.y + r > arena.bottom) {
+    ball.y = arena.bottom - r;
+    if (ball.vy > 0) {
+      speed = Math.max(speed, Math.abs(ball.vy));
+      ball.vy = -ball.vy * WALL_RESTITUTION;
+      hit = true; hitX = ball.x; hitY = arena.bottom;
+    }
+  }
+
+  if (hit) {
+    return { type: 'wallHit', ball, x: hitX, y: hitY, speed };
   }
   return null;
 }
