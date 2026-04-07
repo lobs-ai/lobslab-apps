@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Coordination Visualizer — LobsLab</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07071a;
+    --bg2: #0d0d2b;
+    --panel: rgba(13, 13, 43, 0.85);
+    --border: rgba(80, 220, 255, 0.18);
+    --text: #c8d8ff;
+    --text-dim: #5a6a9a;
+    --cyan: #00e5ff;
+    --magenta: #ff00cc;
+    --green: #39ff14;
+    --yellow: #ffd600;
+    --orange: #ff6b00;
+    --purple: #b94fff;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    overflow: hidden;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: 48px 1fr 180px;
+    height: 100vh;
+    gap: 0;
+  }
+
+  /* ── Header ── */
+  #header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: rgba(7,7,26,0.95);
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    z-index: 10;
+  }
+  #header .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-shadow: 0 0 12px var(--cyan);
+  }
+  #header .separator { flex: 1; }
+  #header .title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  #header .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  #header .live-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+  #header .clock {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+    margin-left: 16px;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+    50% { opacity: 0.4; box-shadow: 0 0 3px var(--green); }
+  }
+
+  /* ── Canvas ── */
+  #canvas-wrap {
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  #canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #grid-canvas {
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+  }
+  #main-canvas {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ── Right Panel ── */
+  #right-panel {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 12px 16px 8px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Agent detail */
+  #agent-detail {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    min-height: 140px;
+  }
+  #agent-detail.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  #agent-detail .agent-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  #agent-detail .agent-role {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  #agent-detail .detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(80,220,255,0.07);
+  }
+  #agent-detail .detail-row .key { color: var(--text-dim); }
+  #agent-detail .detail-row .val { color: var(--text); font-weight: 600; }
+  #agent-detail .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+  #agent-detail .status-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+  #agent-detail .connections-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  #agent-detail .conn-chips {
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  #agent-detail .conn-chip {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    border: 1px solid;
+    opacity: 0.8;
+  }
+
+  /* Stats */
+  #stats-bar {
+    padding: 10px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .stat-cell {
+    text-align: center;
+    background: rgba(0,229,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 4px;
+  }
+  .stat-cell .num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+    line-height: 1;
+  }
+  .stat-cell .lbl {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* ── Log Panel ── */
+  #log-panel {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+  }
+  #log-panel .panel-header {
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #log-panel .panel-header .count {
+    background: rgba(0,229,255,0.12);
+    color: var(--cyan);
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+  }
+  #log-scroll {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,229,255,0.2) transparent;
+  }
+  #log-scroll::-webkit-scrollbar { width: 4px; }
+  #log-scroll::-webkit-scrollbar-track { background: transparent; }
+  #log-scroll::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.2); border-radius: 2px; }
+  .log-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 16px;
+    font-size: 11px;
+    border-bottom: 1px solid rgba(80,220,255,0.04);
+    transition: background 0.3s;
+    animation: fadeInLog 0.4s ease;
+  }
+  .log-entry.new { background: rgba(0,229,255,0.06); }
+  @keyframes fadeInLog {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .log-entry .time { color: var(--text-dim); font-variant-numeric: tabular-nums; min-width: 60px; font-size: 10px; }
+  .log-entry .from-chip {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    min-width: 52px;
+    text-align: center;
+  }
+  .log-entry .arrow { color: var(--text-dim); font-size: 10px; }
+  .log-entry .to-chip {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    min-width: 52px;
+    text-align: center;
+  }
+  .log-entry .msg { color: var(--text); flex: 1; }
+  .log-entry .type-badge {
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 4px;
+    min-width: 48px;
+    text-align: center;
+    border: 1px solid;
+  }
+
+  /* Agent filter pills in right panel bottom */
+  #agent-list {
+    padding: 8px 12px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  #agent-list::-webkit-scrollbar { display: none; }
+  .agent-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .agent-list-item:hover, .agent-list-item.selected {
+    background: rgba(0,229,255,0.06);
+    border-color: var(--border);
+  }
+  .agent-list-item .ava {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    border: 2px solid;
+  }
+  .agent-list-item .info { flex: 1; min-width: 0; }
+  .agent-list-item .aname {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .agent-list-item .arole {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .agent-list-item .astatus {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed;
+    background: rgba(13,13,43,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s;
+    max-width: 200px;
+    backdrop-filter: blur(8px);
+  }
+  #tooltip.show { opacity: 1; }
+  #tooltip .tt-name { font-weight: 700; margin-bottom: 3px; }
+  #tooltip .tt-status { font-size: 10px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="header">
+    <span class="logo">LobsLab</span>
+    <span style="color:var(--text-dim);font-size:12px;">▸</span>
+    <span class="title">Agent Coordination Visualizer</span>
+    <span class="separator"></span>
+    <span class="status-dot"></span>
+    <span class="live-label">Live</span>
+    <span class="clock" id="clock">00:00:00</span>
+  </header>
+
+  <div id="canvas-wrap">
+    <canvas id="grid-canvas"></canvas>
+    <canvas id="main-canvas"></canvas>
+  </div>
+
+  <div id="right-panel">
+    <div class="panel-header">Agents</div>
+    <div id="agent-list"></div>
+    <div id="stats-bar">
+      <div class="stat-cell"><div class="num" id="stat-msgs">0</div><div class="lbl">Messages</div></div>
+      <div class="stat-cell"><div class="num" id="stat-active">0</div><div class="lbl">Active</div></div>
+      <div class="stat-cell"><div class="num" id="stat-tasks">0</div><div class="lbl">Tasks</div></div>
+      <div class="stat-cell"><div class="num" id="stat-uptime">0s</div><div class="lbl">Uptime</div></div>
+    </div>
+    <div class="panel-header">Selected Agent</div>
+    <div id="agent-detail" class="empty">Click an agent node</div>
+  </div>
+
+  <div id="log-panel">
+    <div class="panel-header">
+      Event Log
+      <span class="count" id="log-count">0 events</span>
+    </div>
+    <div id="log-scroll"></div>
+  </div>
+</div>
+
+<div id="tooltip">
+  <div class="tt-name" id="tt-name"></div>
+  <div class="tt-status" id="tt-status"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const AGENTS = {
+  rafe:   { id:'rafe',   name:'Rafe',   role:'Director / Human',        icon:'👤', color:'#ffd600', glow:'rgba(255,214,0,0.6)',   tasks:[] },
+  lobs:   { id:'lobs',   name:'Lobs',   role:'Coordinator / Tech Lead',  icon:'🤖', color:'#00e5ff', glow:'rgba(0,229,255,0.6)',   tasks:[] },
+  briggs: { id:'briggs', name:'Briggs', role:'PAW Engineering',          icon:'⚙️', color:'#ff00cc', glow:'rgba(255,0,204,0.6)',   tasks:[] },
+  sam:    { id:'sam',    name:'Sam',    role:'LobsLab / Experiments',    icon:'🧪', color:'#39ff14', glow:'rgba(57,255,20,0.6)',   tasks:[] },
+  lena:   { id:'lena',   name:'Lena',   role:'Academic / AASE',         icon:'📚', color:'#b94fff', glow:'rgba(185,79,255,0.6)',  tasks:[] },
+};
+
+const AGENT_IDS = Object.keys(AGENTS);
+
+// Simulated task pool
+const TASK_TEMPLATES = [
+  ['lobs',   'rafe',   'task',   'Coordinator status report ready for review'],
+  ['lobs',   'briggs', 'task',   'Routing PAW API optimization request'],
+  ['lobs',   'sam',    'task',   'Assigning new LobsLab experiment: agent viz'],
+  ['lobs',   'lena',   'task',   'Flagging academic milestone for AASE review'],
+  ['briggs', 'lobs',   'update', 'PAW pipeline v2.3 build complete'],
+  ['briggs', 'lobs',   'update', 'Agent registry sync successful'],
+  ['briggs', 'sam',    'task',   'Providing API bindings for new experiment'],
+  ['sam',    'lobs',   'update', 'Visualizer demo build complete ✓'],
+  ['sam',    'briggs', 'query',  'Requesting PAW data schema for integration'],
+  ['sam',    'lena',   'update', 'Experiment logs forwarded for academic analysis'],
+  ['lena',   'lobs',   'update', 'AASE benchmark results compiled'],
+  ['lena',   'rafe',   'update', 'PhD milestone progress: 73% complete'],
+  ['lena',   'sam',    'query',  'Need experiment data for paper draft'],
+  ['rafe',   'lobs',   'task',   'Prioritize revenue-generating agent work'],
+  ['rafe',   'briggs', 'task',   'Review PAW subscription model architecture'],
+  ['rafe',   'lena',   'task',   'Confirm paper submission deadline'],
+  ['lobs',   'rafe',   'update', 'All agents nominal — system healthy'],
+  ['briggs', 'rafe',   'update', 'PAW feature request queue: 4 items ready'],
+  ['sam',    'lobs',   'query',  'Clarifying coordination protocol for new task'],
+  ['lena',   'briggs', 'query',  'Requesting computational resource estimate'],
+];
+
+const STATUS_POOL = ['active', 'active', 'active', 'busy', 'idle'];
+const MSG_TYPES   = { task:'#ff6b00', update:'#00e5ff', query:'#b94fff' };
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let selectedAgent = null;
+let totalMessages = 0;
+let totalTasks    = 0;
+let logEntries    = [];
+let particles     = [];
+let agentStates   = {};
+let nodePositions = {};
+let startTime     = Date.now();
+let frame         = 0;
+
+AGENT_IDS.forEach(id => {
+  agentStates[id] = {
+    status: STATUS_POOL[Math.floor(Math.random()*STATUS_POOL.length)],
+    task: 'Initializing...',
+    msgIn: 0, msgOut: 0,
+    pulse: 0,
+    glow: 0,
+  };
+});
+agentStates.rafe.status  = 'active';
+agentStates.lobs.status  = 'active';
+agentStates.sam.status   = 'busy';
+
+// ─────────────────────────────────────────────
+// CANVAS SETUP
+// ─────────────────────────────────────────────
+const gridCanvas = document.getElementById('grid-canvas');
+const mainCanvas = document.getElementById('main-canvas');
+const gCtx = gridCanvas.getContext('2d');
+const mCtx = mainCanvas.getContext('2d');
+
+function resize() {
+  const wrap = document.getElementById('canvas-wrap');
+  const dpr = window.devicePixelRatio || 1;
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  [gridCanvas, mainCanvas].forEach(c => {
+    c.width  = w * dpr;
+    c.height = h * dpr;
+    c.style.width  = w + 'px';
+    c.style.height = h + 'px';
+  });
+  gCtx.scale(dpr, dpr);
+  mCtx.scale(dpr, dpr);
+  computeLayout(w, h);
+  drawGrid(w, h);
+}
+
+function getCanvasSize() {
+  const wrap = document.getElementById('canvas-wrap');
+  return { w: wrap.clientWidth, h: wrap.clientHeight };
+}
+
+// ─────────────────────────────────────────────
+// LAYOUT — node positions
+// ─────────────────────────────────────────────
+function computeLayout(w, h) {
+  const cx = w / 2, cy = h / 2;
+  const rx = Math.min(w, h) * 0.32;
+  const ry = Math.min(w, h) * 0.28;
+
+  // Rafe top center, others in a ring
+  const angleOffsets = { rafe: -Math.PI/2, lobs: -Math.PI/2 + Math.PI*2/5, briggs: -Math.PI/2 + Math.PI*4/5, sam: -Math.PI/2 + Math.PI*6/5, lena: -Math.PI/2 + Math.PI*8/5 };
+
+  // Rafe at top, Lobs center-ish, others around
+  nodePositions = {
+    rafe:   { x: cx,                y: cy - ry * 1.0 },
+    lobs:   { x: cx,                y: cy },
+    briggs: { x: cx - rx * 0.95,    y: cy + ry * 0.3 },
+    sam:    { x: cx + rx * 0.95,    y: cy + ry * 0.3 },
+    lena:   { x: cx,                y: cy + ry * 1.0 },
+  };
+}
+
+// ─────────────────────────────────────────────
+// GRID
+// ─────────────────────────────────────────────
+function drawGrid(w, h) {
+  gCtx.clearRect(0, 0, w, h);
+  const step = 40;
+  gCtx.strokeStyle = 'rgba(80,140,220,0.12)';
+  gCtx.lineWidth = 0.5;
+  for (let x = 0; x < w; x += step) {
+    gCtx.beginPath(); gCtx.moveTo(x,0); gCtx.lineTo(x,h); gCtx.stroke();
+  }
+  for (let y = 0; y < h; y += step) {
+    gCtx.beginPath(); gCtx.moveTo(0,y); gCtx.lineTo(w,y); gCtx.stroke();
+  }
+  // Radial vignette overlay
+  const grad = gCtx.createRadialGradient(w/2,h/2,h*0.1, w/2,h/2,h*0.8);
+  grad.addColorStop(0, 'rgba(7,7,26,0)');
+  grad.addColorStop(1, 'rgba(7,7,26,0.7)');
+  gCtx.fillStyle = grad;
+  gCtx.fillRect(0, 0, w, h);
+}
+
+// ─────────────────────────────────────────────
+// EDGES
+// ─────────────────────────────────────────────
+const EDGES = [
+  ['rafe','lobs'],['rafe','briggs'],['rafe','lena'],
+  ['lobs','briggs'],['lobs','sam'],['lobs','lena'],
+  ['briggs','sam'],['sam','lena'],
+  ['briggs','lena'],
+];
+
+function drawEdges() {
+  const { w, h } = getCanvasSize();
+  EDGES.forEach(([a, b]) => {
+    const pa = nodePositions[a], pb = nodePositions[b];
+    if (!pa || !pb) return;
+    const isSelected = selectedAgent && (selectedAgent === a || selectedAgent === b);
+
+    // glow line
+    mCtx.save();
+    mCtx.beginPath();
+    mCtx.moveTo(pa.x, pa.y);
+    mCtx.lineTo(pb.x, pb.y);
+    mCtx.strokeStyle = isSelected ? 'rgba(0,229,255,0.35)' : 'rgba(80,140,220,0.12)';
+    mCtx.lineWidth = isSelected ? 2.5 : 1;
+    mCtx.stroke();
+    if (isSelected) {
+      mCtx.strokeStyle = 'rgba(0,229,255,0.08)';
+      mCtx.lineWidth = 8;
+      mCtx.stroke();
+    }
+    mCtx.restore();
+  });
+}
+
+// ─────────────────────────────────────────────
+// PARTICLES
+// ─────────────────────────────────────────────
+class Particle {
+  constructor(fromId, toId, color) {
+    this.fromId = fromId;
+    this.toId   = toId;
+    this.color  = color;
+    this.t      = 0;
+    this.speed  = 0.004 + Math.random() * 0.003;
+    this.size   = 3.5 + Math.random() * 2;
+    this.tail   = [];
+    this.maxTail = 12;
+    this.alive  = true;
+  }
+  update() {
+    this.t += this.speed;
+    if (this.t >= 1) { this.alive = false; return; }
+    const pa = nodePositions[this.fromId];
+    const pb = nodePositions[this.toId];
+    if (!pa || !pb) { this.alive = false; return; }
+
+    // Slight curve via control point
+    const mx = (pa.x+pb.x)/2 + (pa.y-pb.y)*0.1;
+    const my = (pa.y+pb.y)/2 + (pb.x-pa.x)*0.1;
+    const t = this.t;
+    const x = (1-t)*(1-t)*pa.x + 2*(1-t)*t*mx + t*t*pb.x;
+    const y = (1-t)*(1-t)*pa.y + 2*(1-t)*t*my + t*t*pb.y;
+
+    this.tail.push({x, y, a: 1});
+    if (this.tail.length > this.maxTail) this.tail.shift();
+    this.x = x; this.y = y;
+  }
+  draw(ctx) {
+    if (!this.alive) return;
+    // tail
+    for (let i = 0; i < this.tail.length; i++) {
+      const p = this.tail[i];
+      const alpha = (i / this.tail.length) * 0.6;
+      const r = this.size * (i / this.tail.length) * 0.7;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, Math.max(0.5, r), 0, Math.PI*2);
+      ctx.fillStyle = this.color.replace(')', `,${alpha})`).replace('rgb(','rgba(').replace('#','');
+      const hex = this.color;
+      ctx.fillStyle = hexAlpha(hex, alpha);
+      ctx.fill();
+      ctx.restore();
+    }
+    // head glow
+    ctx.save();
+    const grad = ctx.createRadialGradient(this.x,this.y,0, this.x,this.y,this.size*2.5);
+    grad.addColorStop(0, hexAlpha(this.color, 1));
+    grad.addColorStop(0.4, hexAlpha(this.color, 0.5));
+    grad.addColorStop(1, hexAlpha(this.color, 0));
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size*2.5, 0, Math.PI*2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    // core dot
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 10;
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+function hexAlpha(hex, alpha) {
+  // supports #rrggbb
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ─────────────────────────────────────────────
+// NODE DRAWING
+// ─────────────────────────────────────────────
+const NODE_R = 42;
+
+function drawNodes() {
+  AGENT_IDS.forEach(id => {
+    const agent = AGENTS[id];
+    const pos   = nodePositions[id];
+    const state = agentStates[id];
+    if (!pos) return;
+
+    const selected = selectedAgent === id;
+    const color = agent.color;
+
+    // Animated glow pulse
+    state.pulse = (state.pulse || 0) + 0.04;
+    const glowSize = NODE_R * 1.6 + Math.sin(state.pulse) * 6 + (selected ? 8 : 0);
+    const glowAlpha = (state.status === 'idle') ? 0.12 : (selected ? 0.45 : 0.25 + Math.sin(state.pulse)*0.08);
+
+    // Outer glow
+    const grd = mCtx.createRadialGradient(pos.x, pos.y, NODE_R*0.5, pos.x, pos.y, glowSize);
+    grd.addColorStop(0, hexAlpha(color, glowAlpha));
+    grd.addColorStop(1, hexAlpha(color, 0));
+    mCtx.beginPath();
+    mCtx.arc(pos.x, pos.y, glowSize, 0, Math.PI*2);
+    mCtx.fillStyle = grd;
+    mCtx.fill();
+
+    // Ring for busy
+    if (state.status === 'busy') {
+      mCtx.save();
+      mCtx.beginPath();
+      mCtx.arc(pos.x, pos.y, NODE_R + 6, 0, Math.PI*2);
+      mCtx.strokeStyle = hexAlpha(color, 0.4);
+      mCtx.lineWidth = 2;
+      mCtx.setLineDash([6, 10]);
+      mCtx.lineDashOffset = -frame * 0.5;
+      mCtx.stroke();
+      mCtx.restore();
+    }
+
+    // Selection ring
+    if (selected) {
+      mCtx.save();
+      mCtx.beginPath();
+      mCtx.arc(pos.x, pos.y, NODE_R + 10, 0, Math.PI*2);
+      mCtx.strokeStyle = hexAlpha(color, 0.7);
+      mCtx.lineWidth = 2;
+      mCtx.shadowColor = color;
+      mCtx.shadowBlur = 15;
+      mCtx.stroke();
+      mCtx.restore();
+    }
+
+    // Node circle background
+    mCtx.save();
+    const bgGrad = mCtx.createRadialGradient(pos.x, pos.y-10, 4, pos.x, pos.y, NODE_R);
+    bgGrad.addColorStop(0, '#1a1a3e');
+    bgGrad.addColorStop(1, '#0a0a1e');
+    mCtx.beginPath();
+    mCtx.arc(pos.x, pos.y, NODE_R, 0, Math.PI*2);
+    mCtx.fillStyle = bgGrad;
+    mCtx.fill();
+
+    // Border
+    mCtx.beginPath();
+    mCtx.arc(pos.x, pos.y, NODE_R, 0, Math.PI*2);
+    mCtx.strokeStyle = hexAlpha(color, selected ? 0.95 : 0.55);
+    mCtx.lineWidth = selected ? 2.5 : 1.5;
+    mCtx.shadowColor = color;
+    mCtx.shadowBlur = selected ? 20 : 8;
+    mCtx.stroke();
+    mCtx.restore();
+
+    // Icon
+    mCtx.font = '22px serif';
+    mCtx.textAlign = 'center';
+    mCtx.textBaseline = 'middle';
+    mCtx.fillText(agent.icon, pos.x, pos.y - 8);
+
+    // Name
+    mCtx.font = 'bold 13px ' + getComputedStyle(document.body).fontFamily;
+    mCtx.textAlign = 'center';
+    mCtx.textBaseline = 'middle';
+    mCtx.fillStyle = color;
+    mCtx.shadowColor = color;
+    mCtx.shadowBlur = 8;
+    mCtx.fillText(agent.name, pos.x, pos.y + 14);
+    mCtx.shadowBlur = 0;
+
+    // Status dot
+    const statusColors = { active:'#39ff14', busy:'#ff6b00', idle:'#5a6a9a' };
+    const sdot = statusColors[state.status] || '#5a6a9a';
+    mCtx.beginPath();
+    mCtx.arc(pos.x + NODE_R * 0.65, pos.y - NODE_R * 0.65, 5, 0, Math.PI*2);
+    mCtx.fillStyle = sdot;
+    mCtx.shadowColor = sdot;
+    mCtx.shadowBlur = 8;
+    mCtx.fill();
+    mCtx.shadowBlur = 0;
+
+    // Msg burst effect
+    if (state.glow > 0) {
+      state.glow -= 0.04;
+      mCtx.save();
+      mCtx.beginPath();
+      mCtx.arc(pos.x, pos.y, NODE_R + state.glow * 20, 0, Math.PI*2);
+      mCtx.strokeStyle = hexAlpha(color, state.glow * 0.8);
+      mCtx.lineWidth = state.glow * 4;
+      mCtx.stroke();
+      mCtx.restore();
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+// MAIN RENDER LOOP
+// ─────────────────────────────────────────────
+function render() {
+  const { w, h } = getCanvasSize();
+  mCtx.clearRect(0, 0, w, h);
+
+  drawEdges();
+
+  // Update + draw particles
+  particles = particles.filter(p => p.alive);
+  particles.forEach(p => { p.update(); p.draw(mCtx); });
+
+  drawNodes();
+
+  frame++;
+  requestAnimationFrame(render);
+}
+
+// ─────────────────────────────────────────────
+// SIMULATION
+// ─────────────────────────────────────────────
+function spawnEvent() {
+  const tmpl = TASK_TEMPLATES[Math.floor(Math.random() * TASK_TEMPLATES.length)];
+  const [fromId, toId, type, msg] = tmpl;
+
+  // Spawn particle
+  const color = MSG_TYPES[type] || '#00e5ff';
+  particles.push(new Particle(fromId, toId, color));
+
+  // Update agent states
+  agentStates[fromId].msgOut++;
+  agentStates[toId].msgIn++;
+  agentStates[fromId].glow = 1;
+  agentStates[toId].glow   = 0.5;
+  agentStates[fromId].task = msg;
+  if (type === 'task') agentStates[toId].status = 'busy';
+
+  totalMessages++;
+  if (type === 'task') totalTasks++;
+
+  // Log entry
+  const now = new Date();
+  const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+  logEntries.unshift({ time: ts, fromId, toId, type, msg });
+  if (logEntries.length > 60) logEntries.pop();
+
+  updateLog();
+  updateStats();
+  if (selectedAgent) updateDetailPanel(selectedAgent);
+}
+
+function randomStatusChange() {
+  const id = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
+  const statuses = ['active', 'busy', 'idle'];
+  agentStates[id].status = statuses[Math.floor(Math.random() * statuses.length)];
+  // rafe stays active mostly
+  if (id === 'rafe') agentStates.rafe.status = 'active';
+  updateAgentList();
+}
+
+// Schedule events
+function scheduleEvents() {
+  const delay = 1200 + Math.random() * 2200;
+  setTimeout(() => { spawnEvent(); scheduleEvents(); }, delay);
+}
+function scheduleStatusChanges() {
+  const delay = 4000 + Math.random() * 6000;
+  setTimeout(() => { randomStatusChange(); scheduleStatusChanges(); }, delay);
+}
+
+// ─────────────────────────────────────────────
+// UI UPDATES
+// ─────────────────────────────────────────────
+function updateLog() {
+  const scroll = document.getElementById('log-scroll');
+  const count  = document.getElementById('log-count');
+  count.textContent = `${logEntries.length} events`;
+
+  // Prepend new entry (first in array = newest)
+  const entry = logEntries[0];
+  const agA = AGENTS[entry.fromId], agB = AGENTS[entry.toId];
+
+  const el = document.createElement('div');
+  el.className = 'log-entry new';
+  el.innerHTML = `
+    <span class="time">${entry.time}</span>
+    <span class="from-chip" style="background:${hexAlpha(agA.color,0.18)};color:${agA.color};border:1px solid ${hexAlpha(agA.color,0.4)}">${agA.name.toUpperCase()}</span>
+    <span class="arrow">▶</span>
+    <span class="to-chip" style="background:${hexAlpha(agB.color,0.18)};color:${agB.color};border:1px solid ${hexAlpha(agB.color,0.4)}">${agB.name.toUpperCase()}</span>
+    <span class="msg">${entry.msg}</span>
+    <span class="type-badge" style="color:${MSG_TYPES[entry.type]};border-color:${hexAlpha(MSG_TYPES[entry.type],0.4)}">${entry.type.toUpperCase()}</span>
+  `;
+  scroll.insertBefore(el, scroll.firstChild);
+  setTimeout(() => el.classList.remove('new'), 600);
+
+  // Trim DOM
+  while (scroll.children.length > 40) scroll.removeChild(scroll.lastChild);
+}
+
+function updateStats() {
+  document.getElementById('stat-msgs').textContent = totalMessages;
+  document.getElementById('stat-tasks').textContent = totalTasks;
+  const active = AGENT_IDS.filter(id => agentStates[id].status === 'active').length;
+  document.getElementById('stat-active').textContent = active;
+}
+
+function updateUptime() {
+  const s = Math.floor((Date.now() - startTime) / 1000);
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = s%60;
+  document.getElementById('stat-uptime').textContent =
+    h > 0 ? `${h}h${m}m` : m > 0 ? `${m}m${sec}s` : `${sec}s`;
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+}
+
+setInterval(() => { updateClock(); updateUptime(); }, 1000);
+
+function updateAgentList() {
+  const list = document.getElementById('agent-list');
+  list.innerHTML = '';
+  AGENT_IDS.forEach(id => {
+    const agent = AGENTS[id];
+    const state = agentStates[id];
+    const statusColors = { active:'#39ff14', busy:'#ff6b00', idle:'#5a6a9a' };
+    const sc = statusColors[state.status] || '#5a6a9a';
+    const el = document.createElement('div');
+    el.className = 'agent-list-item' + (selectedAgent === id ? ' selected' : '');
+    el.dataset.id = id;
+    el.innerHTML = `
+      <div class="ava" style="border-color:${agent.color};background:${hexAlpha(agent.color,0.12)};box-shadow:0 0 8px ${hexAlpha(agent.color,0.3)}">${agent.icon}</div>
+      <div class="info">
+        <div class="aname" style="color:${agent.color}">${agent.name}</div>
+        <div class="arole">${agent.role}</div>
+      </div>
+      <div class="astatus" style="background:${sc};box-shadow:0 0 6px ${sc}"></div>
+    `;
+    el.addEventListener('click', () => selectAgent(id));
+    list.appendChild(el);
+  });
+}
+
+function updateDetailPanel(id) {
+  const panel = document.getElementById('agent-detail');
+  if (!id) {
+    panel.className = 'empty';
+    panel.innerHTML = 'Click an agent node';
+    return;
+  }
+  panel.className = '';
+  const agent = AGENTS[id];
+  const state = agentStates[id];
+  const statusColors = { active:'#39ff14', busy:'#ff6b00', idle:'#5a6a9a' };
+  const sc = statusColors[state.status] || '#5a6a9a';
+  const statusLabels = { active:'ACTIVE', busy:'BUSY', idle:'IDLE' };
+
+  // Connections
+  const connected = EDGES
+    .filter(([a,b]) => a===id || b===id)
+    .map(([a,b]) => a===id ? b : a);
+
+  const chips = connected.map(cid => {
+    const ca = AGENTS[cid];
+    return `<span class="conn-chip" style="color:${ca.color};border-color:${hexAlpha(ca.color,0.5)};background:${hexAlpha(ca.color,0.1)}">${ca.name}</span>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="agent-name" style="color:${agent.color};text-shadow:0 0 12px ${hexAlpha(agent.color,0.5)}">${agent.icon} ${agent.name}</div>
+    <div class="agent-role">${agent.role}</div>
+    <div class="detail-row"><span class="key">STATUS</span><span class="val" style="color:${sc}">${statusLabels[state.status]}</span></div>
+    <div class="detail-row"><span class="key">MSG IN</span><span class="val">${state.msgIn}</span></div>
+    <div class="detail-row"><span class="key">MSG OUT</span><span class="val">${state.msgOut}</span></div>
+    <div class="detail-row"><span class="key">LAST TASK</span><span class="val" style="font-size:9px;max-width:120px;text-align:right">${state.task}</span></div>
+    <div class="status-badge" style="background:${hexAlpha(sc,0.15)};color:${sc};border:1px solid ${hexAlpha(sc,0.4)}">
+      <div class="dot" style="background:${sc};box-shadow:0 0 6px ${sc}"></div>
+      ${statusLabels[state.status]}
+    </div>
+    <div class="connections-label">Connections</div>
+    <div class="conn-chips">${chips}</div>
+  `;
+}
+
+// ─────────────────────────────────────────────
+// INTERACTION
+// ─────────────────────────────────────────────
+function selectAgent(id) {
+  selectedAgent = selectedAgent === id ? null : id;
+  updateAgentList();
+  updateDetailPanel(selectedAgent);
+}
+
+function getNodeAt(x, y) {
+  for (const id of AGENT_IDS) {
+    const pos = nodePositions[id];
+    if (!pos) continue;
+    const dx = x - pos.x, dy = y - pos.y;
+    if (dx*dx + dy*dy <= NODE_R * NODE_R) return id;
+  }
+  return null;
+}
+
+mainCanvas.addEventListener('click', e => {
+  const rect = mainCanvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const hit = getNodeAt(x, y);
+  selectAgent(hit);
+});
+
+// Tooltip
+const tooltip = document.getElementById('tooltip');
+mainCanvas.addEventListener('mousemove', e => {
+  const rect = mainCanvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const hit = getNodeAt(x, y);
+  if (hit) {
+    const agent = AGENTS[hit];
+    const state = agentStates[hit];
+    document.getElementById('tt-name').textContent = `${agent.icon} ${agent.name}`;
+    document.getElementById('tt-status').textContent = `${agent.role} · ${state.status.toUpperCase()}`;
+    document.getElementById('tt-name').style.color = agent.color;
+    tooltip.style.left = (e.clientX + 14) + 'px';
+    tooltip.style.top  = (e.clientY - 10) + 'px';
+    tooltip.classList.add('show');
+    mainCanvas.style.cursor = 'pointer';
+  } else {
+    tooltip.classList.remove('show');
+    mainCanvas.style.cursor = 'default';
+  }
+});
+mainCanvas.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+
+// ─────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────
+window.addEventListener('resize', resize);
+
+resize();
+updateAgentList();
+updateDetailPanel(null);
+updateStats();
+updateClock();
+
+// Fire a burst of initial events
+setTimeout(() => {
+  for (let i = 0; i < 3; i++) setTimeout(spawnEvent, i * 400);
+}, 300);
+
+scheduleEvents();
+scheduleStatusChanges();
+render();
+</script>
+</body>
+</html>
