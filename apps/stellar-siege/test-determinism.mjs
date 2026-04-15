@@ -5,11 +5,12 @@
 import { Game, GameState } from './js/game/Game.js';
 import { World } from './js/game/World.js';
 import { resetNodeIds } from './js/game/Node.js';
-import { resetSwarmIds } from './js/game/Swarm.js';
+import { resetSwarmIds, seedSwarmRng } from './js/game/Swarm.js';
 
 function createTestGame() {
   resetNodeIds();
   resetSwarmIds();
+  seedSwarmRng(42); // deterministic PRNG for mote spread/phase
 
   const world = new World();
   world.width = 800;

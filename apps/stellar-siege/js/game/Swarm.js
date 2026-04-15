@@ -1,18 +1,39 @@
 let nextSwarmId = 1;
 
+// Seeded PRNG — Linear Congruential Generator
+// Must be reset via seedSwarmRng() at the start of each game/level for determinism.
+let _rngState = 1;
+const _rngA = 1664525;
+const _rngC = 1013904223;
+const _rngM = 4294967296;
+
+/**
+ * Seed the swarm RNG. Call this at the start of each game/level so that
+ * identical actions produce identical mote positions across clients.
+ * @param {number} seed — integer seed
+ */
+export function seedSwarmRng(seed) {
+  _rngState = (seed >>> 0) || 1;
+}
+
+/** Returns a float in [0, 1). */
+function rng() {
+  _rngState = ((_rngA * _rngState + _rngC) >>> 0) % _rngM;
+  return _rngState / _rngM;
+}
+
 /**
  * A Mote is one particle in a swarm — represents 1 unit of energy.
- * Positions are purely visual — Math.random() is fine here.
  */
 export function createMote(x, y) {
   const spread = 12;
   return {
-    x: x + (Math.random() - 0.5) * spread,
-    y: y + (Math.random() - 0.5) * spread,
+    x: x + (rng() - 0.5) * spread,
+    y: y + (rng() - 0.5) * spread,
     vx: 0,
     vy: 0,
     alive: true,
-    phase: Math.random(), // per-mote phase for visual jitter
+    phase: rng(), // per-mote phase for visual jitter
   };
 }
 

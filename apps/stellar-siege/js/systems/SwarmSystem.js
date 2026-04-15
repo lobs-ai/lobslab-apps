@@ -70,7 +70,9 @@ export class SwarmSystem {
               const offsetDist = Math.random() * spread;
               mote.x = paired.position.x + Math.cos(angle) * offsetDist;
               mote.y = paired.position.y + Math.sin(angle) * offsetDist;
-              // Velocity direction is preserved — mote continues toward original target
+              // Change swarm target to a position at the paired wormhole so the mote
+              // enters idle/orbit mode rather than flying past in its original direction.
+              swarm.target = { type: 'position', x: paired.position.x, y: paired.position.y };
               world.events.push({
                 type: 'wormhole_transit',
                 x: paired.position.x,
@@ -78,7 +80,7 @@ export class SwarmSystem {
                 pairColor: paired.pairColor || '#cc44ff',
                 time: world.time,
               });
-              // Do NOT kill mote — continue toward original target
+              // Do NOT kill mote — continue toward new position target
               continue;
             } else {
               // No paired wormhole found — destroy mote
@@ -103,7 +105,7 @@ export class SwarmSystem {
 
         if (isPosition && isNear) {
           // Position target: idle — orbit gently around the hold point
-          this._applyIdleBehavior(mote, tx, ty, cx, cy, aliveCount, dt);
+          this._applyIdleBehavior(mote, tx, ty, cx, cy, aliveCount, dt, world);
         } else {
           // Still traveling — steer toward target
           if (dist > 0.1) {
@@ -164,7 +166,7 @@ export class SwarmSystem {
   /**
    * Idle behavior — motes mill around the hold point with gentle orbiting.
    */
-  _applyIdleBehavior(mote, tx, ty, cx, cy, aliveCount, dt) {
+  _applyIdleBehavior(mote, tx, ty, cx, cy, aliveCount, dt, world) {
     const dx = tx - mote.x;
     const dy = ty - mote.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
