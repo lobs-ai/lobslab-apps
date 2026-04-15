@@ -40,8 +40,10 @@ const MIME = {
 
 const httpServer = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  let filePath = url.pathname === '/' ? '/index.html' : url.pathname;
-  filePath = path.join(__dirname, filePath);
+  const pathname = url.pathname === '/' ? '/index.html' : url.pathname;
+
+  const normalized = pathname.replace(/^\//, "");
+  const filePath = path.join(__dirname, normalized);
 
   if (!filePath.startsWith(__dirname)) {
     res.writeHead(403);

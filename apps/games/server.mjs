@@ -17,8 +17,11 @@ const MIME = {
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  let filePath = url.pathname === "/" ? "/index.html" : url.pathname;
-  filePath = path.join(__dirname, filePath);
+  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+
+  // Strip leading slash to make path relative, preventing path.join from ignoring __dirname
+  const normalized = pathname.replace(/^\//, "");
+  const filePath = path.join(__dirname, normalized);
 
   // Prevent directory traversal
   if (!filePath.startsWith(__dirname)) {

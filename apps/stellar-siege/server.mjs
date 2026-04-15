@@ -32,17 +32,35 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-  const filePath = path.join(__dirname, req.url === "/" ? "index.html" : req.url);
-  const ext = path.extname(filePath);
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
 
-  if (!fs.existsSync(filePath)) {
+  const normalized = pathname.replace(/^\//, "");
+  const filePath = path.join(__dirname, normalized);
+
+  if (!filePath.startsWith(__dirname)) {
+    res.writeHead(403);
+    return res.end("Forbidden");
+  }
+
+  const ext = path.extname(filePath).toLowerCase();
+  if (!MIME[ext]) {
     res.writeHead(404);
     res.end("Not found");
     return;
   }
 
-  res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
-  fs.createReadStream(filePath).pipe(res);
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      return res.end("Not found");
+    }
+    res.writeHead(200, {
+      "Content-Type": MIME[ext] || "application/octet-stream",
+      "Cache-Control": "no-cache, must-revalidate",
+    });
+    res.end(data);
+  });
 });
 
 const io = new SocketIOServer(server, {
