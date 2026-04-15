@@ -20,6 +20,7 @@ export const NODE_TYPE_ACCENTS = {
   asteroid:  '#cc9966',
   blackhole: '#aa00ff',
   nebula:    '#6644aa',
+  wormhole:  '#cc44ff',
 };
 
 /**

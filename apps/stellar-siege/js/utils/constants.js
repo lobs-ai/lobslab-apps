@@ -5,6 +5,7 @@ export const NODE_DEFAULTS = {
   asteroid:  { productionRate: 4, maxEnergy: 100,  defense: 0.6, radius: 16 },
   blackhole: { productionRate: 4, maxEnergy: 400, defense: 1.4, radius: 35 },
   nebula:    { productionRate: 0.8,  maxEnergy: 160, defense: 1.0, radius: 24 },
+  wormhole:  { productionRate: 0,  maxEnergy: 200, defense: 1.5, radius: 28 },
 };
 
 // ===== Stream =====

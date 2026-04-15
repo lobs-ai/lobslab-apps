@@ -12,6 +12,7 @@ import { poissonDisk, dist, randRange, randInt } from '../utils/math.js';
  *   4. Assign node types based on proximity to center / clusters
  *   5. Give each player a star + 2 nearby planets to start
  *   6. Remaining nodes are neutral planets/asteroids
+ *   7. Create wormhole pairs on opposite sides of the map
  */
 export function generateMap({ playerCount, mapSize }) {
   resetNodeIds();
@@ -120,6 +121,13 @@ export function generateMap({ playerCount, mapSize }) {
     }));
   }
 
+  // --- Step 6: Create wormhole pairs ---
+  const wormholePairCount = getWormholePairCount(mapSize);
+  if (wormholePairCount > 0) {
+    const pairColors = generateWormholeColors(wormholePairCount);
+    addWormholePairs(nodes, wormholePairCount, pairColors, width, height, playerPositions);
+  }
+
   return { nodes, width, height };
 }
 
@@ -164,4 +172,116 @@ function isUsed(pos, usedList) {
     if (dist(pos, used) < MAP_NODE_MIN_DISTANCE * 0.9) return true;
   }
   return false;
+}
+
+// --- Wormhole helpers ---
+
+const WORMHOLE_COLORS = [
+  '#cc44ff', // violet
+  '#44ffcc', // cyan
+  '#ffaa33', // amber
+  '#ff44aa', // magenta
+  '#44aaff', // blue
+  '#aaff44', // lime
+];
+
+function getWormholePairCount(mapSize) {
+  switch (mapSize) {
+    case 'small':  return 1;
+    case 'medium': return Math.random() < 0.5 ? 1 : 2;
+    case 'large':  return 2;
+    default:       return 1;
+  }
+}
+
+function generateWormholeColors(pairCount) {
+  const shuffled = [...WORMHOLE_COLORS].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, pairCount);
+}
+
+/**
+ * Place wormhole pairs roughly opposite each other, away from player starts.
+ */
+function addWormholePairs(nodes, pairCount, pairColors, width, height, playerPositions) {
+  const cx = width / 2;
+  const cy = height / 2;
+  const mapRadius = Math.min(width, height) * 0.5;
+  const minPlayerDist = mapRadius * 0.3;
+
+  for (let pairIdx = 0; pairIdx < pairCount; pairIdx++) {
+    const pairId = pairIdx;
+    const color = pairColors[pairIdx];
+    const usedPositions = nodes.map(n => n.position);
+
+    // Place entry A and exit B roughly opposite
+    const angleStep = (Math.PI * 2) / (pairCount + 1);
+    const baseAngle = Math.PI * 0.5 + pairIdx * angleStep; // start from top
+
+    // A: left-ish side
+    const angleA = baseAngle + Math.PI + randRange(-0.3, 0.3);
+    const distA = mapRadius * randRange(0.55, 0.8);
+    const posA = findWormholePosition(nodes, cx + Math.cos(angleA) * distA, cy + Math.sin(angleA) * distA, usedPositions, playerPositions, minPlayerDist);
+    if (posA) {
+      usedPositions.push(posA);
+    }
+
+    // B: roughly opposite
+    const angleB = baseAngle + randRange(-0.3, 0.3);
+    const distB = mapRadius * randRange(0.55, 0.8);
+    const posB = findWormholePosition(nodes, cx + Math.cos(angleB) * distB, cy + Math.sin(angleB) * distB, usedPositions, playerPositions, minPlayerDist);
+    if (posB) {
+      usedPositions.push(posB);
+    }
+
+    if (posA) {
+      const nodeA = createNode('wormhole', posA.x, posA.y);
+      nodeA.pairId = pairId;
+      nodeA.pairColor = color;
+      nodeA.pulsePhase = Math.random() * Math.PI * 2;
+      nodes.push(nodeA);
+    }
+    if (posB) {
+      const nodeB = createNode('wormhole', posB.x, posB.y);
+      nodeB.pairId = pairId;
+      nodeB.pairColor = color;
+      nodeB.pulsePhase = Math.random() * Math.PI * 2;
+      nodes.push(nodeB);
+    }
+  }
+}
+
+/**
+ * Find a valid wormhole position, avoiding other nodes and player starts.
+ */
+function findWormholePosition(nodes, targetX, targetY, usedPositions, playerPositions, minPlayerDist) {
+  const margin = 50;
+  const attempts = 30;
+
+  for (let i = 0; i < attempts; i++) {
+    const x = Math.max(margin, Math.min(targetX + randRange(-80, 80), nodes[0]?.position.x * 2 - margin || 2000 - margin));
+    const y = Math.max(margin, Math.min(targetY + randRange(-80, 80), (nodes[0]?.position.y || 1000) * 2 - margin || 2000 - margin));
+
+    // Check distance from other nodes
+    let tooClose = false;
+    for (const node of nodes) {
+      if (dist({ x, y }, node.position) < MAP_NODE_MIN_DISTANCE * 1.5) {
+        tooClose = true;
+        break;
+      }
+    }
+    if (tooClose) continue;
+
+    // Check distance from player starts
+    for (const pp of playerPositions) {
+      if (dist({ x, y }, pp) < minPlayerDist) {
+        tooClose = true;
+        break;
+      }
+    }
+    if (tooClose) continue;
+
+    return { x, y };
+  }
+
+  return null;
 }

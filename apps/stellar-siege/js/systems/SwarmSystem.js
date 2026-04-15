@@ -58,7 +58,36 @@ export class SwarmSystem {
         const isNear = dist < arrivalDist;
 
         if (targetNode && isNear) {
-          // Node target: mote arrives — kill it visually
+          // Node target: mote arrives — check for wormhole transit
+          if (targetNode.type === 'wormhole') {
+            // Wormhole transit — find paired wormhole and teleport
+            const paired = world.nodes.find(
+              n => n.type === 'wormhole' && n.pairId === targetNode.pairId && n.id !== targetNode.id
+            );
+            if (paired) {
+              const spread = paired.radius * 0.5;
+              const angle = Math.random() * Math.PI * 2;
+              const offsetDist = Math.random() * spread;
+              mote.x = paired.position.x + Math.cos(angle) * offsetDist;
+              mote.y = paired.position.y + Math.sin(angle) * offsetDist;
+              // Velocity direction is preserved — mote continues toward original target
+              world.events.push({
+                type: 'wormhole_transit',
+                x: paired.position.x,
+                y: paired.position.y,
+                pairColor: paired.pairColor || '#cc44ff',
+                time: world.time,
+              });
+              // Do NOT kill mote — continue toward original target
+              continue;
+            } else {
+              // No paired wormhole found — destroy mote
+              mote.alive = false;
+              continue;
+            }
+          }
+
+          // Normal node arrival
           mote.alive = false;
           if (!visualOnly) {
             // Only modify energy when running authoritatively (server / solo)

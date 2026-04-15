@@ -4,9 +4,6 @@ import { InputManager }    from './input/InputManager.js';
 import { World }           from './game/World.js';
 import { TICK_RATE }       from './utils/constants.js';
 import { NetClient }       from './net/NetClient.js';
-import { resetNodeIds }    from './game/Node.js';
-import { resetSwarmIds }   from './game/Swarm.js';
-import { seedRng }         from './utils/rng.js';
 
 // ============================================================================
 // Bootstrap
@@ -28,7 +25,6 @@ window.game = game;
 let isMultiplayer = false;
 let netClient     = null;
 let mpWorld       = null;   // World populated from server state in multiplayer
-let mpGame        = null;   // Game instance running the local simulation in multiplayer
 let myPlayerId    = 0;
 let isHost        = false;
 
@@ -173,8 +169,8 @@ document.getElementById('mp-create-go').addEventListener('click', async () => {
     };
 
     netClient.onLobbyUpdate = (lobby) => updateLobbyDisplay(lobby);
-    netClient.onGameStart   = (initialState, playerId, seed) => startMultiplayerGame(initialState, playerId, seed);
-    netClient.onStateUpdate = (state) => applyStateUpdate(state);
+    netClient.onGameStart   = (payload, playerId) => startMultiplayerGame(payload, playerId);
+    netClient.onStateUpdate = (state) => { mpWorld = state; };
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
     netClient.onError       = (msg) => showMpError(msg);
     netClient.onDisconnect  = () => {
@@ -211,8 +207,8 @@ document.getElementById('mp-join-go').addEventListener('click', async () => {
     };
 
     netClient.onLobbyUpdate = (lobby) => updateLobbyDisplay(lobby);
-    netClient.onGameStart   = (initialState, playerId, seed) => startMultiplayerGame(initialState, playerId, seed);
-    netClient.onStateUpdate = (state) => applyStateUpdate(state);
+    netClient.onGameStart   = (payload, playerId) => startMultiplayerGame(payload, playerId);
+    netClient.onStateUpdate = (state) => { mpWorld = state; };
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
     netClient.onError       = (msg) => showMpError(msg);
     netClient.onDisconnect  = () => {
@@ -332,41 +328,13 @@ function updateLobbyDisplay(lobby) {
 // Multiplayer game start / state handling
 // ============================================================================
 
-function startMultiplayerGame(initialState, playerId, seed) {
-  // Reset ID counters so swarm/node IDs match the server's fresh game
-  resetNodeIds();
-  resetSwarmIds();
-
-  // Seed the deterministic RNG with the same seed the server used.
-  // This ensures mote positions and jitter are identical.
-  if (seed != null) seedRng(seed);
-
+function startMultiplayerGame(initialState, playerId) {
   isMultiplayer = true;
   myPlayerId = playerId;
-
-  // Build a World from the initial state
-  mpWorld = new World();
-  mpWorld.width  = initialState.width;
-  mpWorld.height = initialState.height;
-  mpWorld.time   = initialState.time;
-
-  // Rebuild nodes with all expected fields
-  mpWorld.nodes = initialState.nodes.map(n => ({
-    id: n.id,
-    type: n.type,
-    owner: n.owner,
-    energy: n.energy,
-    maxEnergy: n.maxEnergy,
-    productionRate: n.productionRate,
-    defense: n.defense,
-    position: { x: n.position.x, y: n.position.y },
-    radius: n.radius,
-    upgrade: n.upgrade,
-    pulsePhase: n.pulsePhase || Math.random() * Math.PI * 2,
-    captureFlash: 0,
-  }));
-
-  mpWorld.players = initialState.players.map(p => ({
+  mpWorld = netClient?.getRenderWorld() || new World();
+  mpWorld.width = initialState.world?.width || 0;
+  mpWorld.height = initialState.world?.height || 0;
+  mpWorld.players = (initialState.players || []).map(p => ({
     id: p.id,
     color: p.color,
     isHuman: p.isHuman,
@@ -374,55 +342,6 @@ function startMultiplayerGame(initialState, playerId, seed) {
     difficulty: p.difficulty || 'medium',
     name: p.name || `Player ${p.id + 1}`,
   }));
-
-  mpWorld.swarms = [];
-  mpWorld.events = [];
-
-  // Create a local Game instance to run the full simulation client-side
-  mpGame = new Game();
-  mpGame.world = mpWorld;
-  mpGame.state = GameState.PLAYING;
-  mpGame.gameSpeed = 1.0;
-  mpGame.isMultiplayer = true; // use last-player-standing game-over logic
-  mpGame.skipAI = true;        // server runs AI; clients must NOT run it locally
-  // Init AI system structures (needed for any redirects) but AI won't tick
-  mpGame.aiSystem.init(mpWorld);
-
-  // Wire up action broadcast handler — apply remote player actions to local sim
-  netClient.onActionBroadcast = (action) => {
-    console.log('[net] onActionBroadcast', action);
-    if (!mpGame || !mpWorld) return;
-    // Apply ALL actions from server broadcast — including our own.
-    // We don't apply locally on input anymore; the server is the sole authority.
-
-    switch (action.type) {
-      case 'send_energy': {
-        const source = mpWorld.getNodeById(action.sourceId);
-        const target = mpWorld.getNodeById(action.targetId);
-        if (source && target) {
-          if (action.amount != null) {
-            // Server-authoritative — exact mote count and swarm ID for determinism
-            mpGame.sendEnergyExact(source, target, action.amount, action.playerId, action.swarmId);
-          } else {
-            mpGame.sendEnergy(source, target, action.ratio ?? 0.5);
-          }
-        }
-        break;
-      }
-      case 'redirect_swarm': {
-        const swarm = mpWorld.swarms.find(s => s.id === action.swarmId && s.alive);
-        if (swarm) {
-          mpGame.redirectSwarm(
-            swarm,
-            action.targetNodeId != null ? mpWorld.getNodeById(action.targetNodeId) : null,
-            action.targetPos ?? null,
-            action.playerId
-          );
-        }
-        break;
-      }
-    }
-  };
 
   // Set input manager to use multiplayer playerId
   inputManager.localPlayerId = myPlayerId;
@@ -439,8 +358,8 @@ function startMultiplayerGame(initialState, playerId, seed) {
     myPlayerId,
     isMultiplayer,
     localPlayerId: inputManager.localPlayerId,
-    worldNodes: mpWorld.nodes.length,
-    worldPlayers: mpWorld.players.length,
+    worldNodes: mpWorld.nodes?.length ?? 0,
+    worldPlayers: mpWorld.players?.length ?? 0,
     ownedNodes: mpWorld.nodes.filter(n => n.owner === myPlayerId).map(n => ({
       id: n.id, owner: n.owner, pos: `${Math.round(n.position.x)},${Math.round(n.position.y)}`, radius: n.radius
     })),
@@ -462,46 +381,6 @@ function startMultiplayerGame(initialState, playerId, seed) {
       dot.style.background = myPlayer.color;
       dot.style.boxShadow  = `0 0 8px ${myPlayer.color}`;
     }
-  }
-}
-
-function applyStateUpdate(state) {
-  if (!mpWorld) return;
-
-  // Only apply sync if the server is at or ahead of where the client is.
-  // This prevents the "going backwards" problem where a stale sync
-  // reverts a capture or energy change the client already computed.
-  const serverTick = state.tick ?? 0;
-  const clientTick = mpWorld._tickCount ?? 0;
-
-  // If server is behind, skip this sync entirely — client is ahead
-  if (serverTick < clientTick - 5) return; // allow small tolerance
-
-  // Server is roughly in sync or ahead — apply corrections
-  for (const nState of state.nodes) {
-    const node = mpWorld.getNodeById(nState.id);
-    if (!node) continue;
-
-    // Ownership: trust server when it disagrees
-    if (node.owner !== nState.owner) {
-      node.owner = nState.owner;
-      node.energy = nState.energy;
-      node.captureFlash = 1.0;
-    } else {
-      // Energy: blend toward server to avoid jarring jumps
-      const diff = nState.energy - node.energy;
-      if (Math.abs(diff) > 2) {
-        node.energy += diff * 0.4;
-      }
-    }
-  }
-
-  // Sync client tick to server to stay aligned
-  mpWorld._tickCount = serverTick;
-
-  for (const pState of state.players) {
-    const player = mpWorld.players.find(p => p.id === pState.id);
-    if (player) player.alive = pState.alive;
   }
 }
 
@@ -533,7 +412,6 @@ function cleanupMultiplayer() {
   }
   isMultiplayer = false;
   mpWorld = null;
-  mpGame = null;
   myPlayerId = 0;
   isHost = false;
   inputManager.localPlayerId = 0;
@@ -765,27 +643,8 @@ function loop(timestamp) {
         accumulator -= TICK_RATE;
       }
     }
-  } else if (mpGame && mpGame.state === GameState.PLAYING) {
-    // Multiplayer — full local simulation for responsiveness.
-    // Server sync corrects drift via tick-stamped updates.
-    accumulator += dt;
-    while (accumulator >= TICK_RATE) {
-      mpGame.world.time += TICK_RATE;
-      mpGame.productionSystem.update(mpGame.world, TICK_RATE);
-      mpGame.swarmSystem.update(mpGame.world, TICK_RATE);
-      mpGame.captureSystem.update(mpGame.world, TICK_RATE);
-      mpGame.checkGameOver();
-      if (!mpWorld._tickCount) mpWorld._tickCount = 0;
-      mpWorld._tickCount++;
-      accumulator -= TICK_RATE;
-    }
-    // Debug: log game loop running (once per second)
-    if (!loop._mpLogTimer) loop._mpLogTimer = 0;
-    loop._mpLogTimer += dt;
-    if (loop._mpLogTimer >= 5) {
-      loop._mpLogTimer = 0;
-      console.log('[loop] mp tick, state=', mpGame.state, 'players=', mpWorld?.players?.length, 'myPlayerId=', myPlayerId);
-    }
+  } else if (isMultiplayer && netClient) {
+    mpWorld = netClient.getRenderWorld();
   }
 
   const world = isMultiplayer ? mpWorld : game.world;

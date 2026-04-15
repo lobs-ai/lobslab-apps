@@ -116,6 +116,7 @@ export class Renderer {
 
     // 5. Particles
     this.particles.update(dt);
+    this._processWorldEvents(world); // wormhole_transit etc.
     this.particles.draw(ctx);
 
     // 6. UI overlay
@@ -447,6 +448,40 @@ export class Renderer {
     });
 
     ctx.restore();
+  }
+
+  // -------------------------------------------------------------------------
+  // Process world events and spawn particle effects
+  // -------------------------------------------------------------------------
+
+  _processWorldEvents(world) {
+    if (!world.events || world.events.length === 0) return;
+    const spawnSpray = (x, y, color, count = 8) => {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 30 + Math.random() * 50;
+        this.particles.spawn({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 0.4 + Math.random() * 0.3,
+          color,
+          size: 2 + Math.random() * 2,
+          type: 'spark',
+        });
+      }
+    };
+
+    // Consume and react to events
+    const remaining = [];
+    for (const event of world.events) {
+      if (event.type === 'wormhole_transit') {
+        spawnSpray(event.x, event.y, event.pairColor || '#cc44ff', 10);
+      } else {
+        remaining.push(event);
+      }
+    }
+    world.events = remaining;
   }
 }
 

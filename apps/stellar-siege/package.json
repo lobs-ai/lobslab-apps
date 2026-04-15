@@ -3,9 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:determinism": "node --test test/determinism.test.mjs",
+    "test:regression": "node --test test/schema-regression.test.mjs test/multiplayer-regression.test.mjs"
   },
   "dependencies": {
+    "lance-gg": "^5.0.2",
     "ws": "^8.0.0"
   }
 }

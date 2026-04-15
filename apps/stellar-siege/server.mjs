@@ -2,61 +2,62 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { WebSocketServer } from "ws";
+import { Server as SocketIOServer } from "socket.io";
+import {
+  BaseTypes,
+  GameEngine as LanceGameEngine,
+  GameObject,
+  ServerEngine,
+} from "lance-gg";
 
-// Import game modules for server-side simulation
 import { Game, GameState } from "./js/game/Game.js";
-import { seedRng } from "./js/utils/rng.js";
+import { createStellarLanceClasses } from "./js/net/lance/schema.js";
+
+const { StellarNodeObject, StellarSwarmObject } = createStellarLanceClasses({ GameObject, BaseTypes });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
 
 const MIME = {
   ".html": "text/html",
-  ".css":  "text/css",
-  ".js":   "application/javascript",
+  ".css": "text/css",
+  ".js": "application/javascript",
   ".json": "application/json",
-  ".png":  "image/png",
-  ".jpg":  "image/jpeg",
-  ".svg":  "image/svg+xml",
-  ".ico":  "image/x-icon",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
   ".woff": "font/woff",
-  ".woff2":"font/woff2",
+  ".woff2": "font/woff2",
 };
 
-// ========== HTTP Server ==========
-
 const server = http.createServer((req, res) => {
-  let filePath = path.join(__dirname, req.url === "/" ? "index.html" : req.url);
+  const filePath = path.join(__dirname, req.url === "/" ? "index.html" : req.url);
   const ext = path.extname(filePath);
 
   if (!fs.existsSync(filePath)) {
     res.writeHead(404);
-    return res.end("Not found");
+    res.end("Not found");
+    return;
   }
 
   res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
   fs.createReadStream(filePath).pipe(res);
 });
 
-// ========== WebSocket Server ==========
+const io = new SocketIOServer(server, {
+  serveClient: false,
+  cors: { origin: true, credentials: true },
+});
 
-const wss = new WebSocketServer({ server });
-
-/** @type {Map<string, Lobby>} code -> Lobby */
+const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const lobbies = new Map();
-
-/** @type {Map<WebSocket, Lobby>} ws -> Lobby they're in */
 const clientLobby = new Map();
 
-// ===== Invite code generation =====
-
-const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no ambiguous I/O/0/1
-
 function generateCode() {
-  let code;
+  let code = "";
   do {
-    code = '';
+    code = "";
     for (let i = 0; i < 6; i++) {
       code += CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)];
     }
@@ -64,541 +65,506 @@ function generateCode() {
   return code;
 }
 
-// ===== Lobby =====
+function emitSafe(socket, event, payload) {
+  try {
+    if (socket?.connected) socket.emit(event, payload);
+  } catch {
+    // ignore closing socket failures
+  }
+}
 
-class Lobby {
-  /**
-   * @param {WebSocket} hostWs
-   * @param {{ mapSize: string, slots: Array<{type: string, difficulty?: string}> }} config
-   */
-  constructor(hostWs, config) {
-    this.code = generateCode();
-    this.host = hostWs;
-    this.config = config;
-    /** @type {Map<WebSocket, { playerId: number, name: string }>} */
-    this.clients = new Map();
-    this.game = null;
-    this.started = false;
-    this.tickInterval = null;
-    this.stateTickCounter = 0;
+class StellarServerGameEngine extends LanceGameEngine {
+  constructor() {
+    super({ traceLevel: 0 });
+    this.matches = new Map();
+    this.playerToMatch = new Map();
+    this.serverEngineRef = null;
+    this.io = null;
 
-    // Normalize slots — ensure slot 0 is always the host
-    // Ensure each slot has a 'taken' flag for tracking human joins
-    for (const slot of this.config.slots) {
-      slot.taken = slot.taken || false;
-    }
-    // Host takes slot 0
-    this.config.slots[0].taken = true;
-
-    // Assign host as player 0 — name comes from config.name
-    this.clients.set(hostWs, { playerId: 0, name: config.name || 'Player 1' });
-    clientLobby.set(hostWs, this);
+    this.on("postStep", () => {
+      this._updateMatches(1 / 60);
+    });
   }
 
-  /**
-   * Add a human client to the next open slot.
-   * @param {WebSocket} ws
-   * @param {string}    [name]  - display name for this player
-   * @returns {number|null} playerId or null if no room
-   */
-  addClient(ws, name) {
-    // Find an open (human) slot that isn't taken
-    const slotIdx = this.config.slots.findIndex(s => s.type === 'open' && !s.taken);
-    if (slotIdx === -1) return null;
-
-    this.config.slots[slotIdx].taken = true;
-    this.config.slots[slotIdx].wsId = ws; // track which ws is in this slot
-
-    const playerId = slotIdx;
-    this.clients.set(ws, { playerId, name: name || 'Player' });
-    clientLobby.set(ws, this);
-    return playerId;
+  attachNetworking(serverEngineRef, ioRef) {
+    this.serverEngineRef = serverEngineRef;
+    this.io = ioRef;
   }
 
-  /**
-   * Remove a client from the lobby.
-   */
-  removeClient(ws) {
-    const info = this.clients.get(ws);
-    if (!info) return;
+  registerClasses(serializer) {
+    serializer.registerClass(StellarNodeObject);
+    serializer.registerClass(StellarSwarmObject);
+  }
 
-    // Free up the slot
-    const slot = this.config.slots[info.playerId];
-    if (slot) {
-      slot.taken = false;
-      delete slot.wsId;
-    }
+  processInput(inputDesc, socketPlayerId, isServer) {
+    if (!isServer) return;
 
-    this.clients.delete(ws);
-    clientLobby.delete(ws);
+    const code = this.playerToMatch.get(socketPlayerId);
+    if (!code) return;
 
-    // If host left, destroy lobby
-    if (ws === this.host) {
-      this.destroy('Host left the lobby');
+    const match = this.matches.get(code);
+    if (!match || !match.game || match.game.state !== GameState.PLAYING) return;
+
+    const compactPlayerId = match.socketToCompact.get(socketPlayerId);
+    if (compactPlayerId == null) return;
+
+    const action = inputDesc.options || {};
+    const world = match.game.world;
+
+    if (inputDesc.input === "send_energy") {
+      const source = world.getNodeById(action.sourceId);
+      const target = world.getNodeById(action.targetId);
+      if (!source || !target) return;
+      if (source.owner !== compactPlayerId) return;
+      match.game.sendEnergy(source, target, action.ratio ?? 0.5);
       return;
     }
 
-    // If game is already running and player leaves, just disconnect them
-    if (!this.started) {
-      this.broadcastLobbyUpdate();
+    if (inputDesc.input === "redirect_swarm") {
+      const swarm = world.swarms.find(s => s.id === action.swarmId && s.alive);
+      if (!swarm || swarm.owner !== compactPlayerId) return;
+
+      const targetNode = action.targetNodeId != null ? world.getNodeById(action.targetNodeId) : null;
+      match.game.redirectSwarm(swarm, targetNode, action.targetPos ?? null, compactPlayerId);
     }
   }
 
-  /**
-   * Serialize lobby state for clients.
-   */
+  startMatch(lobby) {
+    if (this.matches.has(lobby.code)) return;
+
+    const gameSlots = lobby.config.slots.map(slot => {
+      if (slot.type === "human" && slot.taken) return { type: "human" };
+      if (slot.type === "open" && slot.taken) return { type: "human" };
+      if (slot.type === "ai") return { type: "ai", difficulty: slot.difficulty || "medium" };
+      return { type: "closed" };
+    });
+
+    const game = new Game();
+    game.startMultiplayerGame({
+      mapSize: lobby.config.mapSize || "medium",
+      slots: gameSlots,
+    });
+
+    const roomName = `match:${lobby.code}`;
+    this.serverEngineRef.createRoom(roomName);
+
+    const match = {
+      code: lobby.code,
+      roomName,
+      lobby,
+      game,
+      socketToCompact: new Map(),
+      nodeObjects: new Map(),
+      swarmObjects: new Map(),
+    };
+    this.matches.set(lobby.code, match);
+
+    const roster = game.world.players.map(player => {
+      let name = `Player ${player.id + 1}`;
+
+      for (const [, info] of lobby.clients) {
+        const compactId = game._slotToPlayer?.[info.playerId];
+        if (compactId === player.id) {
+          name = info.name || name;
+          break;
+        }
+      }
+
+      if (!player.isHuman) {
+        name = `AI (${player.difficulty || "medium"})`;
+      }
+
+      return {
+        id: player.id,
+        color: player.color,
+        isHuman: player.isHuman,
+        alive: player.alive,
+        difficulty: player.difficulty,
+        name,
+      };
+    });
+
+    for (const [socket, info] of lobby.clients) {
+      const compactId = game._slotToPlayer?.[info.playerId];
+      if (compactId == null) continue;
+
+      match.socketToCompact.set(socket.playerId, compactId);
+      this.playerToMatch.set(socket.playerId, lobby.code);
+      this.serverEngineRef.assignPlayerToRoom(socket.playerId, roomName);
+
+      emitSafe(socket, "game_start", {
+        playerId: compactId,
+        world: { width: game.world.width, height: game.world.height },
+        players: roster,
+      });
+    }
+
+    for (const node of game.world.nodes) {
+      const obj = this._createNodeObject(node);
+      this.addObjectToWorld(obj);
+      this.serverEngineRef.assignObjectToRoom(obj, roomName);
+      match.nodeObjects.set(node.id, obj);
+    }
+  }
+
+  removePlayer(socketPlayerId) {
+    const code = this.playerToMatch.get(socketPlayerId);
+    if (!code) return;
+    this.destroyMatch(code, "Player disconnected");
+  }
+
+  destroyMatch(code, reason = "Match closed", notifyClients = true) {
+    const match = this.matches.get(code);
+    if (!match) return;
+
+    for (const obj of match.nodeObjects.values()) {
+      if (this.world.objects[obj.id]) this.removeObjectFromWorld(obj.id);
+    }
+    for (const obj of match.swarmObjects.values()) {
+      if (this.world.objects[obj.id]) this.removeObjectFromWorld(obj.id);
+    }
+
+    for (const socketPlayerId of match.socketToCompact.keys()) {
+      this.playerToMatch.delete(socketPlayerId);
+    }
+    for (const socket of match.lobby.clients.keys()) {
+      clientLobby.delete(socket.id);
+    }
+    lobbies.delete(code);
+
+    if (notifyClients) {
+      for (const socket of match.lobby.clients.keys()) {
+        emitSafe(socket, "error_message", { message: reason });
+      }
+    }
+
+    match.nodeObjects.clear();
+    match.swarmObjects.clear();
+    this.matches.delete(code);
+  }
+
+  _updateMatches(dt) {
+    for (const match of this.matches.values()) {
+      if (match.game.state !== GameState.PLAYING) continue;
+
+      match.game.update(dt);
+      this._syncNodes(match);
+      this._syncSwarms(match);
+
+      if (match.game.state === GameState.GAME_OVER) {
+        const winnerId = match.game.winner?.id ?? null;
+        for (const socket of match.lobby.clients.keys()) {
+          emitSafe(socket, "game_over", { winnerId });
+        }
+        this.destroyMatch(match.code, "Match complete", false);
+      }
+    }
+  }
+
+  _createNodeObject(node) {
+    return new StellarNodeObject(this, { id: this.world.getNewId() }, {
+      playerId: node.owner ?? 0,
+      nodeId: node.id,
+      nodeType: node.type,
+      ownerId: node.owner ?? -1,
+      energy: node.energy,
+      maxEnergy: node.maxEnergy,
+      productionRate: node.productionRate,
+      defense: node.defense,
+      radius: node.radius,
+      x: node.position.x,
+      y: node.position.y,
+      upgrade: node.upgrade || "",
+      pulsePhase: node.pulsePhase || 0,
+      captureFlash: node.captureFlash || 0,
+    });
+  }
+
+  _syncNodes(match) {
+    for (const node of match.game.world.nodes) {
+      const obj = match.nodeObjects.get(node.id);
+      if (!obj) continue;
+
+      obj.playerId = node.owner ?? 0;
+      obj.nodeType = node.type;
+      obj.ownerId = node.owner ?? -1;
+      obj.energy = node.energy;
+      obj.maxEnergy = node.maxEnergy;
+      obj.productionRate = node.productionRate;
+      obj.defense = node.defense;
+      obj.radius = node.radius;
+      obj.x = node.position.x;
+      obj.y = node.position.y;
+      obj.upgrade = node.upgrade || "";
+      obj.pulsePhase = node.pulsePhase || 0;
+      obj.captureFlash = node.captureFlash || 0;
+    }
+  }
+
+  _syncSwarms(match) {
+    const liveSwarmIds = new Set();
+
+    for (const swarm of match.game.world.swarms) {
+      if (!swarm.alive) continue;
+
+      const aliveMotes = swarm.motes.filter(m => m.alive);
+      if (aliveMotes.length === 0) continue;
+
+      liveSwarmIds.add(swarm.id);
+
+      let centerX = 0;
+      let centerY = 0;
+      for (const mote of aliveMotes) {
+        centerX += mote.x;
+        centerY += mote.y;
+      }
+      centerX /= aliveMotes.length;
+      centerY /= aliveMotes.length;
+
+      let targetX = centerX;
+      let targetY = centerY;
+      let targetNodeId = -1;
+      if (swarm.target.type === "node") {
+        targetNodeId = swarm.target.nodeId;
+        const node = match.game.world.getNodeById(targetNodeId);
+        if (node) {
+          targetX = node.position.x;
+          targetY = node.position.y;
+        }
+      } else {
+        targetX = swarm.target.x;
+        targetY = swarm.target.y;
+      }
+
+      let obj = match.swarmObjects.get(swarm.id);
+      if (!obj) {
+        obj = new StellarSwarmObject(this, { id: this.world.getNewId() }, {
+          playerId: swarm.owner,
+          swarmId: swarm.id,
+          ownerId: swarm.owner,
+          sourceNodeId: swarm.sourceId,
+          targetNodeId,
+          moteCount: aliveMotes.length,
+          centerX,
+          centerY,
+          targetX,
+          targetY,
+        });
+        this.addObjectToWorld(obj);
+        this.serverEngineRef.assignObjectToRoom(obj, match.roomName);
+        match.swarmObjects.set(swarm.id, obj);
+      }
+
+      obj.playerId = swarm.owner;
+      obj.ownerId = swarm.owner;
+      obj.sourceNodeId = swarm.sourceId;
+      obj.targetNodeId = targetNodeId;
+      obj.moteCount = aliveMotes.length;
+      obj.centerX = centerX;
+      obj.centerY = centerY;
+      obj.targetX = targetX;
+      obj.targetY = targetY;
+    }
+
+    for (const [swarmId, obj] of [...match.swarmObjects.entries()]) {
+      if (liveSwarmIds.has(swarmId)) continue;
+      if (this.world.objects[obj.id]) this.removeObjectFromWorld(obj.id);
+      match.swarmObjects.delete(swarmId);
+    }
+  }
+}
+
+class Lobby {
+  constructor(hostSocket, config, gameEngine) {
+    this.code = generateCode();
+    this.host = hostSocket;
+    this.config = config;
+    this.clients = new Map();
+    this.started = false;
+    this.gameEngine = gameEngine;
+
+    for (const slot of this.config.slots) {
+      slot.taken = slot.taken || false;
+    }
+    this.config.slots[0].taken = true;
+
+    this.clients.set(hostSocket, {
+      playerId: 0,
+      name: config.name || "Player 1",
+    });
+    clientLobby.set(hostSocket.id, this);
+  }
+
+  addClient(socket, name) {
+    const slotIdx = this.config.slots.findIndex(slot => slot.type === "open" && !slot.taken);
+    if (slotIdx === -1) return null;
+
+    this.config.slots[slotIdx].taken = true;
+    this.clients.set(socket, {
+      playerId: slotIdx,
+      name: name || "Player",
+    });
+    clientLobby.set(socket.id, this);
+    return slotIdx;
+  }
+
+  removeClient(socket) {
+    const info = this.clients.get(socket);
+    if (!info) return;
+
+    const slot = this.config.slots[info.playerId];
+    if (slot) slot.taken = false;
+
+    this.clients.delete(socket);
+    clientLobby.delete(socket.id);
+
+    if (this.started) {
+      this.destroy("Player disconnected");
+      return;
+    }
+
+    if (socket === this.host) {
+      this.destroy("Host left the lobby");
+      return;
+    }
+
+    this.broadcastLobbyUpdate();
+  }
+
+  countPlayers() {
+    return this.config.slots.filter(slot =>
+      (slot.type === "human" && slot.taken) ||
+      (slot.type === "open" && slot.taken) ||
+      slot.type === "ai",
+    ).length;
+  }
+
   serialize() {
     const hostInfo = this.clients.get(this.host);
     return {
       code: this.code,
       config: {
         mapSize: this.config.mapSize,
-        slots: this.config.slots.map((s, i) => ({
-          index: i,
-          type: s.type,
-          difficulty: s.difficulty || null,
-          taken: s.taken || false,
+        slots: this.config.slots.map((slot, index) => ({
+          index,
+          type: slot.type,
+          difficulty: slot.difficulty || null,
+          taken: slot.taken || false,
         })),
       },
-      players: [...this.clients.values()].map(c => ({
-        playerId: c.playerId,
-        isHost: hostInfo?.playerId === c.playerId,
-        name: c.name || 'Player',
+      players: [...this.clients.values()].map(info => ({
+        playerId: info.playerId,
+        isHost: hostInfo?.playerId === info.playerId,
+        name: info.name || "Player",
       })),
     };
   }
 
   broadcastLobbyUpdate() {
-    const msg = JSON.stringify({ type: 'lobby_update', lobby: this.serialize() });
-    for (const ws of this.clients.keys()) {
-      safeSend(ws, msg);
+    const lobby = this.serialize();
+    for (const socket of this.clients.keys()) {
+      emitSafe(socket, "lobby_update", { lobby });
     }
   }
 
-  /**
-   * Count total active players (humans + AIs).
-   */
-  countPlayers() {
-    let count = 0;
-    for (const slot of this.config.slots) {
-      if (slot.type === 'human' && slot.taken) count++;
-      else if (slot.type === 'open' && slot.taken) count++;
-      else if (slot.type === 'ai') count++;
-    }
-    return count;
-  }
-
-  /**
-   * Start the game.
-   */
   start() {
     if (this.started) return;
     if (this.countPlayers() < 2) return;
 
     this.started = true;
-    this.actionSeq = 0;
-
-    // Build game slots — map lobby slots to game slots
-    // Filter out closed and untaken open slots
-    const gameSlots = [];
-    for (const slot of this.config.slots) {
-      if (slot.type === 'human' && slot.taken) {
-        gameSlots.push({ type: 'human' });
-      } else if (slot.type === 'open' && slot.taken) {
-        gameSlots.push({ type: 'human' });
-      } else if (slot.type === 'open' && !slot.taken) {
-        // Skip untaken open slots
-        gameSlots.push({ type: 'closed' });
-      } else if (slot.type === 'ai') {
-        gameSlots.push({ type: 'ai', difficulty: slot.difficulty || 'medium' });
-      } else {
-        // closed
-        gameSlots.push({ type: 'closed' });
-      }
-    }
-
-    // Create game
-    this.game = new Game();
-    this.game.startMultiplayerGame({
-      mapSize: this.config.mapSize,
-      slots: gameSlots,
-    });
-
-    // Build slot -> compactId mapping from game
-    this.slotToPlayer = this.game._slotToPlayer || {};
-
-    // Seed the deterministic RNG — same seed goes to all clients so
-    // mote positions, jitter, and swarm behavior are identical everywhere.
-    this.gameSeed = Date.now() & 0x7FFFFFFF;
-    seedRng(this.gameSeed);
-
-    // Send initial state to all clients
-    const fullState = this.serializeFullState();
-    for (const [ws, info] of this.clients) {
-      const compactId = this.slotToPlayer[info.playerId] ?? info.playerId;
-      safeSend(ws, JSON.stringify({
-        type: 'game_start',
-        initialState: fullState,
-        playerId: compactId,
-        seed: this.gameSeed,
-      }));
-    }
-
-    // Server simulation runs at the same tick rate as clients (1/60s).
-    // This makes the server an exact copy of the client simulation —
-    // it's the authoritative state that all clients sync to.
-    const SIM_TICK = 1 / 60;
-    const SIM_TICK_MS = Math.round(SIM_TICK * 1000); // ~16ms
-    const SYNC_INTERVAL = 60; // send sync every 60 ticks (~1s)
-    this.stateTickCounter = 0;
-    this.serverTickCount = 0;
-
-    this.tickInterval = setInterval(() => {
-      if (!this.game) return;
-
-      if (this.game.state === GameState.GAME_OVER) {
-        const winnerId = this.game.winner?.id ?? null;
-        const msg = JSON.stringify({ type: 'game_over', winnerId });
-        for (const ws of this.clients.keys()) safeSend(ws, msg);
-        clearInterval(this.tickInterval);
-        this.tickInterval = null;
-        setTimeout(() => this.destroy(), 5000);
-        return;
-      }
-
-      if (this.game.state !== GameState.PLAYING) return;
-
-      // Snapshot swarm count before update so we can detect new AI swarms
-      const swarmCountBefore = this.game.world.swarms.length;
-
-      // Single tick — same dt as every client frame
-      this.game.update(SIM_TICK);
-      this.serverTickCount++;
-
-      // Broadcast any swarms that AI created during this tick
-      const newSwarms = this.game.world.swarms.slice(swarmCountBefore);
-      for (const swarm of newSwarms) {
-        const player = this.game.world.players.find(p => p.id === swarm.owner);
-        if (player && !player.isHuman) {
-          const targetNodeId = swarm.target.type === 'node' ? swarm.target.nodeId : null;
-          if (targetNodeId == null) continue;
-          const broadcastAction = {
-            type: 'action_broadcast',
-            action: {
-              type: 'send_energy',
-              sourceId: swarm.sourceId,
-              targetId: targetNodeId,
-              playerId: swarm.owner,
-              amount: swarm.motes.filter(m => m.alive).length,
-              swarmId: swarm.id,
-            },
-            seq: this.actionSeq++,
-          };
-          const aiMsg = JSON.stringify(broadcastAction);
-          for (const ws of this.clients.keys()) safeSend(ws, aiMsg);
-        }
-      }
-
-      // Send authoritative sync every SYNC_INTERVAL ticks (~2s)
-      this.stateTickCounter++;
-      if (this.stateTickCounter >= SYNC_INTERVAL) {
-        this.stateTickCounter = 0;
-        const state = this.serializeState();
-        state.tick = this.serverTickCount;
-        const msg = JSON.stringify({ type: 'sync', state });
-        for (const ws of this.clients.keys()) safeSend(ws, msg);
-      }
-    }, SIM_TICK_MS);
+    this.gameEngine.startMatch(this);
   }
 
-  /**
-   * Handle a player action — broadcast to all clients, then apply to server state.
-   */
-  handleAction(ws, action) {
-    if (!this.game || this.game.state !== GameState.PLAYING) return;
-
-    const info = this.clients.get(ws);
-    if (!info) return;
-
-    // Map slot index to compact player ID
-    const slotId = info.playerId;
-    const playerId = this.slotToPlayer?.[slotId] ?? slotId;
-    const world = this.game.world;
-
-    // Validate the action before broadcasting
-    let valid = false;
-    switch (action.type) {
-      case 'send_energy': {
-        const source = world.getNodeById(action.sourceId);
-        const target = world.getNodeById(action.targetId);
-        if (source && target && source.owner === playerId) valid = true;
-        break;
-      }
-      case 'redirect_swarm': {
-        // Swarms are client-local — just trust the playerId ownership claim
-        // (server doesn't track mote positions anyway)
-        valid = true;
-        break;
-      }
+  destroy(reason = "Lobby closed") {
+    if (this.started) {
+      this.gameEngine.destroyMatch(this.code, reason);
     }
 
-    if (!valid) return;
-
-    // Apply to server state FIRST, computing exact amounts.
-    // Then broadcast with exact amounts so all clients produce identical results.
-    const broadcastAction = { type: 'action_broadcast', action: { ...action, playerId }, seq: this.actionSeq++ };
-
-    switch (action.type) {
-      case 'send_energy': {
-        const source = world.getNodeById(action.sourceId);
-        const target = world.getNodeById(action.targetId);
-        if (source && target) {
-          // Compute exact mote count from server's current energy
-          const amount = Math.floor(source.energy * (action.ratio ?? 0.5));
-          if (amount < 5) return; // not enough energy — don't broadcast
-          const swarm = this.game.sendEnergyExact(source, target, amount, playerId);
-          // Include exact amount and swarm ID so clients create identical swarms
-          broadcastAction.action.amount = amount;
-          if (swarm) broadcastAction.action.swarmId = swarm.id;
-        } else {
-          return; // invalid — don't broadcast
-        }
-        break;
-      }
-      case 'redirect_swarm': {
-        // Server doesn't track client swarms — just pass through
-        break;
-      }
-    }
-
-    // Broadcast to ALL clients (including sender)
-    const broadcastMsg = JSON.stringify(broadcastAction);
-    for (const ws of this.clients.keys()) safeSend(ws, broadcastMsg);
-  }
-
-  /**
-   * Serialize full state (initial — includes positions, etc.).
-   */
-  serializeFullState() {
-    const w = this.game.world;
-    return {
-      width: w.width,
-      height: w.height,
-      time: w.time,
-      nodes: w.nodes.map(n => ({
-        id: n.id,
-        type: n.type,
-        owner: n.owner,
-        energy: n.energy,
-        maxEnergy: n.maxEnergy,
-        productionRate: n.productionRate,
-        defense: n.defense,
-        radius: n.radius,
-        position: { x: n.position.x, y: n.position.y },
-        upgrade: n.upgrade,
-        pulsePhase: n.pulsePhase,
-        captureFlash: 0,
-      })),
-      players: w.players.map(p => {
-        // Build a reverse map from compact playerId -> name via slotToPlayer
-        // slotToPlayer maps slotIdx -> compactId; clients maps ws -> {playerId:slotIdx, name}
-        let name = `Player ${p.id + 1}`;
-        for (const [, info] of this.clients) {
-          const compactId = this.slotToPlayer?.[info.playerId] ?? info.playerId;
-          if (compactId === p.id) { name = info.name || name; break; }
-        }
-        return {
-          id: p.id,
-          color: p.color,
-          isHuman: p.isHuman,
-          alive: p.alive,
-          difficulty: p.difficulty,
-          name,
-        };
-      }),
-      swarms: [],
-      events: [],
-    };
-  }
-
-  /**
-   * Serialize lightweight sync state — node ownership/energy only, no mote positions.
-   * Clients run their own simulation; this is just for drift correction.
-   */
-  serializeState() {
-    const w = this.game.world;
-    return {
-      time: w.time,
-      nodes: w.nodes.map(n => ({
-        id: n.id,
-        owner: n.owner,
-        energy: Math.round(n.energy),
-      })),
-      players: w.players.map(p => ({ id: p.id, alive: p.alive })),
-    };
-  }
-
-  /**
-   * Destroy the lobby and disconnect all clients.
-   */
-  destroy(reason) {
-    if (this.tickInterval) {
-      clearInterval(this.tickInterval);
-      this.tickInterval = null;
-    }
-
-    const msg = JSON.stringify({ type: 'error', message: reason || 'Lobby closed' });
-    for (const ws of this.clients.keys()) {
-      safeSend(ws, msg);
-      clientLobby.delete(ws);
+    for (const socket of this.clients.keys()) {
+      emitSafe(socket, "error_message", { message: reason });
+      clientLobby.delete(socket.id);
     }
     this.clients.clear();
     lobbies.delete(this.code);
-    this.game = null;
   }
 }
 
-// ===== Helpers =====
+const gameEngine = new StellarServerGameEngine();
+const serverEngine = new ServerEngine(io, gameEngine, {
+  stepRate: 60,
+  updateRate: 2,
+  fullSyncRate: 30,
+  timeoutInterval: 120,
+});
+gameEngine.attachNetworking(serverEngine, io);
+serverEngine.start();
 
-function safeSend(ws, msg) {
-  try {
-    if (ws.readyState === 1) { // WebSocket.OPEN
-      ws.send(msg);
+io.on("connection", socket => {
+  socket.on("create_lobby", config => {
+    const existing = clientLobby.get(socket.id);
+    if (existing) existing.removeClient(socket);
+
+    const slots = (config?.slots || []).map((slot, index) => {
+      if (index === 0) return { type: "human", taken: false };
+      if (slot.type === "open") return { type: "open", taken: false };
+      if (slot.type === "ai") return { type: "ai", difficulty: slot.difficulty || "medium", taken: false };
+      return { type: "closed", taken: false };
+    });
+    if (slots.length < 2) slots.push({ type: "ai", difficulty: "medium", taken: false });
+
+    const lobby = new Lobby(socket, {
+      mapSize: config?.mapSize || "medium",
+      slots,
+      name: config?.name || "Player 1",
+    }, gameEngine);
+    lobbies.set(lobby.code, lobby);
+
+    emitSafe(socket, "lobby_created", {
+      code: lobby.code,
+      lobby: lobby.serialize(),
+    });
+  });
+
+  socket.on("join_lobby", ({ code, name }) => {
+    const lobby = lobbies.get((code || "").toUpperCase());
+    if (!lobby) {
+      emitSafe(socket, "error_message", { message: "Lobby not found" });
+      return;
     }
-  } catch (e) {
-    // Ignore send errors on closing connections
-  }
-}
-
-// ===== WebSocket connection handler =====
-
-wss.on('connection', (ws) => {
-  ws.on('message', (raw) => {
-    let msg;
-    try {
-      msg = JSON.parse(raw);
-    } catch {
+    if (lobby.started) {
+      emitSafe(socket, "error_message", { message: "Game already started" });
       return;
     }
 
-    switch (msg.type) {
-      // ---- Lobby creation ----
-      case 'create_lobby': {
-        // If client is already in a lobby, leave it first
-        const existing = clientLobby.get(ws);
-        if (existing) existing.removeClient(ws);
-
-        const config = msg.config || {};
-        // Normalize slots
-        const slots = (config.slots || []).map((s, i) => {
-          if (i === 0) return { type: 'human', taken: false }; // host slot, taken in constructor
-          if (s.type === 'open') return { type: 'open', taken: false };
-          if (s.type === 'ai') return { type: 'ai', difficulty: s.difficulty || 'medium', taken: false };
-          return { type: 'closed', taken: false };
-        });
-
-        // Ensure at least 2 slots
-        if (slots.length < 2) {
-          slots.push({ type: 'ai', difficulty: 'medium', taken: false });
-        }
-
-        const lobby = new Lobby(ws, {
-          mapSize: config.mapSize || 'medium',
-          slots,
-        });
-        lobbies.set(lobby.code, lobby);
-
-        safeSend(ws, JSON.stringify({
-          type: 'lobby_created',
-          code: lobby.code,
-          lobby: lobby.serialize(),
-        }));
-        break;
-      }
-
-      // ---- Joining ----
-      case 'join_lobby': {
-        const existing = clientLobby.get(ws);
-        if (existing) existing.removeClient(ws);
-
-        const code = (msg.code || '').toUpperCase();
-        const lobby = lobbies.get(code);
-
-        if (!lobby) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Lobby not found' }));
-          break;
-        }
-        if (lobby.started) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Game already started' }));
-          break;
-        }
-
-        const playerId = lobby.addClient(ws, msg.name || 'Player');
-        if (playerId === null) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Lobby is full' }));
-          break;
-        }
-
-        safeSend(ws, JSON.stringify({
-          type: 'lobby_joined',
-          lobby: lobby.serialize(),
-          playerId,
-        }));
-
-        // Notify other clients
-        lobby.broadcastLobbyUpdate();
-        break;
-      }
-
-      // ---- Start game (host only) ----
-      case 'start_game': {
-        const lobby = clientLobby.get(ws);
-        if (!lobby) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Not in a lobby' }));
-          break;
-        }
-        if (lobby.host !== ws) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Only host can start' }));
-          break;
-        }
-        if (lobby.countPlayers() < 2) {
-          safeSend(ws, JSON.stringify({ type: 'error', message: 'Need at least 2 players' }));
-          break;
-        }
-        lobby.start();
-        break;
-      }
-
-      // ---- In-game action ----
-      case 'action': {
-        const lobby = clientLobby.get(ws);
-        if (!lobby || !lobby.started) break;
-        lobby.handleAction(ws, msg.action);
-        break;
-      }
-
-      // ---- Leave ----
-      case 'leave': {
-        const lobby = clientLobby.get(ws);
-        if (lobby) lobby.removeClient(ws);
-        break;
-      }
+    const playerId = lobby.addClient(socket, name || "Player");
+    if (playerId == null) {
+      emitSafe(socket, "error_message", { message: "Lobby is full" });
+      return;
     }
+
+    const serialized = lobby.serialize();
+    emitSafe(socket, "lobby_joined", { lobby: serialized, playerId });
+    lobby.broadcastLobbyUpdate();
   });
 
-  ws.on('close', () => {
-    const lobby = clientLobby.get(ws);
-    if (lobby) lobby.removeClient(ws);
+  socket.on("start_game", () => {
+    const lobby = clientLobby.get(socket.id);
+    if (!lobby) return;
+    if (socket !== lobby.host) return;
+    lobby.start();
   });
 
-  ws.on('error', () => {
-    const lobby = clientLobby.get(ws);
-    if (lobby) lobby.removeClient(ws);
+  socket.on("leave", () => {
+    const lobby = clientLobby.get(socket.id);
+    if (lobby) lobby.removeClient(socket);
+  });
+
+  socket.on("disconnect", () => {
+    const lobby = clientLobby.get(socket.id);
+    if (lobby) lobby.removeClient(socket);
   });
 });
 
-// ========== Start ==========
-
 server.listen(PORT, () => {
-  console.log(`Stellar Siege running on http://localhost:${PORT}`);
+  console.log(`Stellar Siege running at http://localhost:${PORT}`);
 });

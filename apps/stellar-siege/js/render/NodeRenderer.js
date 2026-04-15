@@ -65,6 +65,7 @@ export class NodeRenderer {
       case 'asteroid':  this._drawAsteroid(ctx, node, color, time); break;
       case 'nebula':    this._drawNebula(ctx, node, color, time); break;
       case 'blackhole': this._drawBlackhole(ctx, node, color, time); break;
+      case 'wormhole':   this._drawWormhole(ctx, node, world, time); break;
       default:          this._drawPlanet(ctx, node, color, time); break;
     }
 
@@ -288,6 +289,91 @@ export class NodeRenderer {
     ctx.globalAlpha = 0.8;
     ctx.beginPath();
     ctx.arc(x, y, r * 0.85, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  _drawWormhole(ctx, node, world, time) {
+    const { x, y } = node.position;
+    const r = node.radius;
+    const pairColor = node.pairColor || '#cc44ff';
+    const rotSpeed = 1.0; // rad/sec
+
+    ctx.save();
+
+    // Draw faint connection line to paired wormhole
+    if (node.pairId !== undefined) {
+      const paired = world.nodes.find(
+        n => n.type === 'wormhole' && n.pairId === node.pairId && n.id !== node.id
+      );
+      if (paired) {
+        ctx.save();
+        ctx.globalAlpha = 0.15;
+        ctx.strokeStyle = pairColor;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 6]);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(paired.position.x, paired.position.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+      }
+    }
+
+    // Outer swirling ring (rotates clockwise)
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(time * rotSpeed);
+    ctx.strokeStyle = pairColor;
+    ctx.lineWidth = 2.5;
+    ctx.globalAlpha = 0.6;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = pairColor;
+    ctx.beginPath();
+    // Draw a partial arc with dashes to simulate swirl
+    ctx.setLineDash([8, 4]);
+    ctx.arc(0, 0, r * 1.1, 0, Math.PI * 1.5);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Inner swirling ring (rotates counter-clockwise)
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(-time * rotSpeed * 1.3);
+    ctx.strokeStyle = pairColor;
+    ctx.lineWidth = 1.8;
+    ctx.globalAlpha = 0.5;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = pairColor;
+    ctx.setLineDash([6, 5]);
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.75, 0, Math.PI * 1.3);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Dark center (event horizon)
+    const centerGrad = ctx.createRadialGradient(x, y, 0, x, y, r * 0.6);
+    centerGrad.addColorStop(0, '#020008');
+    centerGrad.addColorStop(0.7, '#0a0020');
+    centerGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = centerGrad;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Pulsing inner glow
+    const pulse = 0.6 + 0.4 * Math.sin(time * 3 + node.pulsePhase);
+    ctx.globalAlpha = pulse * 0.7;
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = pairColor;
+    ctx.strokeStyle = pairColor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.4, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.restore();
