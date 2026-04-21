@@ -79,6 +79,11 @@ export class NetClient {
     this.renderWorld.events = [];
     this.worldBounds = { width: 0, height: 0 };
     this._combatEventTimer = 0;
+
+    // Client-side prediction: fake swarms spawned immediately on send_energy,
+    // handed off to the real server swarm on arrival (no jump).
+    this._predictiveSwarms = []; // { fakeId, sourceId, targetId, expireAt, swarm }
+    this._predictiveFakeId  = -1;
   }
 
   async connect() {
@@ -188,6 +193,9 @@ export class NetClient {
 
   sendAction(action) {
     if (!this.clientEngine) return;
+    if (action.type === 'send_energy') {
+      this._spawnPredictiveSwarm(action);
+    }
     this.clientEngine.sendInput(action.type, action);
   }
 
@@ -215,8 +223,79 @@ export class NetClient {
 
     this.clientEngine.step(performance.now(), CLIENT_STEP_MS);
     this._rebuildRenderWorld();
+    this._reconcilePredictiveSwarms();
     this._simulateVisualSwarms(CLIENT_DT);
     if (this.onStateUpdate) this.onStateUpdate(this.renderWorld);
+  }
+
+  _spawnPredictiveSwarm(action) {
+    const sourceNode = this.renderWorld._nodeMap.get(action.sourceId);
+    const targetNode = this.renderWorld._nodeMap.get(action.targetId);
+    if (!sourceNode || !targetNode) return;
+
+    const moteCount = Math.max(1, Math.round(sourceNode.energy * (action.ratio ?? 0.5)));
+    const sx = sourceNode.position.x, sy = sourceNode.position.y;
+    const fakeId = this._predictiveFakeId--;
+
+    const motes = [];
+    for (let i = 0; i < moteCount; i++) {
+      const seed = Math.abs(fakeId) * 997 + i * 131;
+      const angle = (seed * 0.23917) % (Math.PI * 2);
+      const r = 3 + (seed % 7) * 1.8;
+      motes.push({
+        alive: true, seed,
+        phase: ((Math.abs(fakeId) * 31 + i * 17) % 360) / 360,
+        x: sx + Math.cos(angle) * r,
+        y: sy + Math.sin(angle) * r,
+        vx: Math.cos(angle) * 8,
+        vy: Math.sin(angle) * 8,
+        anchorX: sx, anchorY: sy,
+        targetX: targetNode.position.x,
+        targetY: targetNode.position.y,
+      });
+    }
+
+    const fakeSwarm = {
+      id: fakeId,
+      owner: this.playerId,
+      sourceId: action.sourceId,
+      target: { type: 'node', nodeId: action.targetId },
+      motes,
+      alive: true,
+      _isPredictive: true,
+    };
+
+    this._predictiveSwarms.push({
+      fakeId,
+      sourceId: action.sourceId,
+      targetId: action.targetId,
+      expireAt: performance.now() + 4000,
+      swarm: fakeSwarm,
+    });
+  }
+
+  // Called after _rebuildRenderWorld — merges surviving predictive swarms into the
+  // render list and expires any that were never confirmed.
+  _reconcilePredictiveSwarms() {
+    if (this._predictiveSwarms.length === 0) return;
+    const now = performance.now();
+    this._predictiveSwarms = this._predictiveSwarms.filter(ps => {
+      if (now > ps.expireAt || !ps.swarm.alive) { ps.swarm.alive = false; return false; }
+      return true;
+    });
+    for (const ps of this._predictiveSwarms) {
+      this.renderWorld.swarms.push(ps.swarm);
+    }
+  }
+
+  // Find and remove the oldest predictive swarm matching source→target→owner.
+  // Called from _rebuildRenderWorld when a real swarm first appears.
+  _consumeMatchingPredictive(sourceId, targetId, ownerId) {
+    const idx = this._predictiveSwarms.findIndex(
+      ps => ps.sourceId === sourceId && ps.targetId === targetId && ps.swarm.owner === ownerId
+    );
+    if (idx === -1) return null;
+    return this._predictiveSwarms.splice(idx, 1)[0];
   }
 
   _rebuildRenderWorld() {
@@ -280,6 +359,14 @@ export class NetClient {
             alive: true,
           };
           swarmMap.set(obj.swarmId, swarm);
+
+          // Seamless hand-off: inherit the predictive swarm's live mote positions so
+          // _syncFakeMotes only updates anchor/target metadata, not mote coordinates.
+          const ps = this._consumeMatchingPredictive(obj.sourceNodeId, obj.targetNodeId, obj.ownerId);
+          if (ps) {
+            swarm.motes = ps.swarm.motes;
+            ps.swarm.alive = false;
+          }
         }
 
         swarm.owner = obj.ownerId;

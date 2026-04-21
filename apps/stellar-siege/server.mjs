@@ -219,6 +219,7 @@ class StellarServerGameEngine extends LanceGameEngine {
 
     for (const node of game.world.nodes) {
       const obj = this._createNodeObject(node);
+      obj._roomName = roomName;
       this.addObjectToWorld(obj);
       this.serverEngineRef.assignObjectToRoom(obj, roomName);
       match.nodeObjects.set(node.id, obj);
@@ -368,6 +369,9 @@ class StellarServerGameEngine extends LanceGameEngine {
           targetX,
           targetY,
         });
+        // Pre-assign the room before addObjectToWorld so onObjectAdded sets
+        // requestImmediateSync on the correct match room (not the default /lobby room).
+        obj._roomName = match.roomName;
         this.addObjectToWorld(obj);
         this.serverEngineRef.assignObjectToRoom(obj, match.roomName);
         match.swarmObjects.set(swarm.id, obj);
