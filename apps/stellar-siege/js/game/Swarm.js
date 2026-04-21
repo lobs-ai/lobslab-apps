@@ -26,14 +26,14 @@ function rng() {
  * A Mote is one particle in a swarm — represents 1 unit of energy.
  */
 export function createMote(x, y) {
-  const spread = 12;
+  const spread = 14;
   return {
     x: x + (rng() - 0.5) * spread,
     y: y + (rng() - 0.5) * spread,
-    vx: 0,
-    vy: 0,
+    vx: (rng() - 0.5) * 28,  // random kick so motes don't start identically
+    vy: (rng() - 0.5) * 28,
     alive: true,
-    phase: rng(), // per-mote phase for visual jitter
+    phase: rng(),
   };
 }
 

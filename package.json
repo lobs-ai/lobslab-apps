@@ -1,4 +1,16 @@
 {
+  "scripts": {
+    "setup": "npm i --prefix apps/ballz-royale && npm i --prefix apps/stellar-siege",
+    "dev": "concurrently --names \"ballz,ballz-royale,crapuler,games,stellar-siege\" --prefix-colors \"cyan,magenta,yellow,green,blue\" \"npm run dev:ballz\" \"npm run dev:ballz-royale\" \"npm run dev:crapuler\" \"npm run dev:games\" \"npm run dev:stellar-siege\"",
+    "dev:ballz": "cd apps/ballz && PORT=47100 node server.mjs",
+    "dev:ballz-royale": "cd apps/ballz-royale && PORT=47101 node server.mjs",
+    "dev:crapuler": "cd apps/crapuler && PORT=47102 node server.mjs",
+    "dev:games": "cd apps/games && PORT=47103 node server.mjs",
+    "dev:stellar-siege": "cd apps/stellar-siege && PORT=47104 node server.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
   "dependencies": {
     "ws": "^8.20.0"
   }

@@ -12,20 +12,24 @@ import { createStellarLanceClasses } from './lance/schema.js';
 const { StellarNodeObject, StellarSwarmObject } = createStellarLanceClasses({ GameObject, BaseTypes });
 const CLIENT_STEP_MS = 1000 / 60;
 const CLIENT_DT = CLIENT_STEP_MS / 1000;
-const FORMATION_WIDTH = 5;
-const LANE_SPACING = 5.5;
-const ROW_SPACING = 4.2;
-const ANCHOR_PULL = 18;
-const PATH_PULL = 11;
-const VELOCITY_DAMPING = 0.9;
-const WOBBLE_STRENGTH = 10;
-const MAX_VISUAL_SPEED = 85;
-const COMBAT_REPEL_RADIUS = 12;
-const COMBAT_EVENT_COOLDOWN = 0.08;
+// Swarm visual physics — local Boids: separation + alignment + cohesion + target steering
+const STEER_FORCE        = 320;  // each mote steers toward swarm target
+const NEIGHBOR_RADIUS    = 38;   // local interaction radius for alignment + cohesion
+const SEPARATION_RADIUS  = 13;   // motes push apart within this range
+const SEPARATION_FORCE   = 160;
+const LOCAL_ALIGN        = 6;    // steer toward avg velocity of local neighbors
+const LOCAL_COHESION     = 3;    // move toward center of local neighborhood
+const BOUNDARY_RADIUS    = 48;   // soft containment: only pulls if mote strays this far from anchor
+const BOUNDARY_SPRING    = 7;    // spring constant (px/s² per px outside boundary)
+const TURB_STRENGTH      = 25;   // light turbulence, unique per mote via seed
+const VELOCITY_DAMPING   = 0.91;
+const MAX_VISUAL_SPEED   = 100;
+const COMBAT_REPEL_RADIUS    = 12;
+const COMBAT_EVENT_COOLDOWN  = 0.08;
 
 class StellarClientGameEngine extends GameEngine {
   constructor() {
-    super({ traceLevel: 0 });
+    super({ traceLevel: 1000 });
   }
 
   registerClasses(serializer) {
@@ -304,16 +308,18 @@ export class NetClient {
     const wanted = Math.max(0, obj.moteCount | 0);
     while (swarm.motes.length < wanted) {
       const idx = swarm.motes.length;
+      const seed = obj.swarmId * 997 + idx * 131;
+      // Spread new motes around the center so separation has natural material to work with
+      const spawnAngle = (seed * 0.23917) % (Math.PI * 2);
+      const spawnR = 3 + (seed % 7) * 1.8;
       swarm.motes.push({
         alive: true,
+        seed,
         phase: ((obj.swarmId * 31 + idx * 17) % 360) / 360,
-        lane: (idx % FORMATION_WIDTH) - (FORMATION_WIDTH - 1) / 2,
-        row: Math.floor(idx / FORMATION_WIDTH),
-        seed: obj.swarmId * 997 + idx * 131,
-        x: obj.centerX,
-        y: obj.centerY,
-        vx: 0,
-        vy: 0,
+        x: obj.centerX + Math.cos(spawnAngle) * spawnR,
+        y: obj.centerY + Math.sin(spawnAngle) * spawnR,
+        vx: Math.cos(spawnAngle) * 8,
+        vy: Math.sin(spawnAngle) * 8,
       });
     }
     if (swarm.motes.length > wanted) {
@@ -336,54 +342,97 @@ export class NetClient {
 
   _simulateVisualSwarms(dt) {
     const swarms = this.renderWorld.swarms;
+    const time = this.renderWorld.time;
     this._combatEventTimer = Math.max(0, this._combatEventTimer - dt);
 
     for (const swarm of swarms) {
       if (!swarm.alive) continue;
 
-      const targetNode = swarm.target?.type === 'node'
-        ? this.renderWorld.getNodeById(swarm.target.nodeId)
-        : null;
-      const center = this._getSwarmCenter(swarm);
-      const targetX = targetNode?.position.x ?? swarm.target?.x ?? center.x;
-      const targetY = targetNode?.position.y ?? swarm.target?.y ?? center.y;
-      const dirXRaw = targetX - center.x;
-      const dirYRaw = targetY - center.y;
-      const dirLen = Math.hypot(dirXRaw, dirYRaw) || 1;
-      const dirX = dirXRaw / dirLen;
-      const dirY = dirYRaw / dirLen;
-      const perpX = -dirY;
-      const perpY = dirX;
+      const motes = swarm.motes;
 
-      swarm._visualCenter = center;
+      // Server-authoritative anchor center (where the swarm actually is)
+      let aliveCount = 0, anchorX = 0, anchorY = 0;
+      for (const m of motes) {
+        if (!m.alive) continue;
+        aliveCount++;
+        anchorX += m.anchorX ?? m.x;
+        anchorY += m.anchorY ?? m.y;
+      }
+      if (aliveCount === 0) continue;
+      anchorX /= aliveCount;
+      anchorY /= aliveCount;
 
-      for (let i = 0; i < swarm.motes.length; i++) {
-        const mote = swarm.motes[i];
-        if (!mote.alive) continue;
-
-        const wave = this.renderWorld.time * 4 + mote.phase * Math.PI * 2;
-        const laneOffset = mote.lane * LANE_SPACING + Math.sin(wave * 1.7) * 1.8;
-        const rowOffset = mote.row * ROW_SPACING;
-        const desiredX =
-          center.x
-          - dirX * rowOffset
-          + perpX * laneOffset
-          + Math.sin(wave + mote.seed * 0.001) * 1.3;
-        const desiredY =
-          center.y
-          - dirY * rowOffset
-          + perpY * laneOffset
-          + Math.cos(wave * 1.2 + mote.seed * 0.001) * 1.3;
-
-        mote.vx += (desiredX - mote.x) * ANCHOR_PULL * dt;
-        mote.vy += (desiredY - mote.y) * ANCHOR_PULL * dt;
-        mote.vx += dirX * PATH_PULL * dt;
-        mote.vy += dirY * PATH_PULL * dt;
-        mote.vx += Math.sin(wave * 2.1 + mote.seed * 0.004) * WOBBLE_STRENGTH * dt;
-        mote.vy += Math.cos(wave * 1.9 + mote.seed * 0.003) * WOBBLE_STRENGTH * dt;
+      // Get swarm target from first alive mote
+      let tgtX = anchorX, tgtY = anchorY;
+      for (const m of motes) {
+        if (m.alive) { tgtX = m.targetX ?? anchorX; tgtY = m.targetY ?? anchorY; break; }
       }
 
-      this._applyFriendlySpacing(swarm, dt);
+      // Local Boids — O(N²) single pass: separation + alignment + cohesion
+      for (let i = 0; i < motes.length; i++) {
+        const a = motes[i];
+        if (!a.alive) continue;
+
+        let cnt = 0, avgVx = 0, avgVy = 0, nbrCx = 0, nbrCy = 0;
+        for (let j = 0; j < motes.length; j++) {
+          if (i === j) continue;
+          const b = motes[j];
+          if (!b.alive) continue;
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 0.01) continue;
+          const d = Math.sqrt(d2);
+          if (d < SEPARATION_RADIUS) {
+            const push = SEPARATION_FORCE * (1 - d / SEPARATION_RADIUS) * dt;
+            a.vx += (dx / d) * push;
+            a.vy += (dy / d) * push;
+          }
+          if (d < NEIGHBOR_RADIUS) {
+            cnt++;
+            avgVx += b.vx; avgVy += b.vy;
+            nbrCx += b.x;  nbrCy += b.y;
+          }
+        }
+        if (cnt > 0) {
+          // Alignment — steer toward neighbors' average heading
+          a.vx += (avgVx / cnt - a.vx) * LOCAL_ALIGN * dt;
+          a.vy += (avgVy / cnt - a.vy) * LOCAL_ALIGN * dt;
+          // Local cohesion — drift toward neighborhood center (not global anchor)
+          a.vx += (nbrCx / cnt - a.x) * LOCAL_COHESION * dt;
+          a.vy += (nbrCy / cnt - a.y) * LOCAL_COHESION * dt;
+        }
+      }
+
+      // Per-mote forces
+      for (const mote of motes) {
+        if (!mote.alive) continue;
+        const s = mote.seed * 0.00017;
+
+        // Target steering
+        const toTX = tgtX - mote.x, toTY = tgtY - mote.y;
+        const toTLen = Math.hypot(toTX, toTY) || 1;
+        mote.vx += (toTX / toTLen) * STEER_FORCE * dt;
+        mote.vy += (toTY / toTLen) * STEER_FORCE * dt;
+
+        // Three-harmonic turbulence, unique per mote via seed
+        mote.vx += Math.sin(time * 2.1 + s * 41)  * TURB_STRENGTH        * dt
+                 + Math.sin(time * 4.9 + s * 23)  * TURB_STRENGTH * 0.55 * dt
+                 + Math.sin(time * 10.3 + s * 11) * TURB_STRENGTH * 0.28 * dt;
+        mote.vy += Math.cos(time * 1.7 + s * 37 + 1.7)  * TURB_STRENGTH        * dt
+                 + Math.cos(time * 4.3 + s * 17 + 2.9)  * TURB_STRENGTH * 0.55 * dt
+                 + Math.cos(time * 8.9 + s *  9 + 0.5)  * TURB_STRENGTH * 0.28 * dt;
+
+        // Soft boundary spring — no pull inside radius, gentle restoring force outside
+        const bDX = anchorX - mote.x, bDY = anchorY - mote.y;
+        const bDist = Math.hypot(bDX, bDY);
+        if (bDist > BOUNDARY_RADIUS) {
+          const overshoot = bDist - BOUNDARY_RADIUS;
+          mote.vx += (bDX / bDist) * BOUNDARY_SPRING * overshoot * dt;
+          mote.vy += (bDY / bDist) * BOUNDARY_SPRING * overshoot * dt;
+        }
+      }
+
+      swarm._visualCenter = { x: anchorX, y: anchorY };
     }
 
     this._applyEnemyCombatRepulsion(swarms, dt);
@@ -393,39 +442,13 @@ export class NetClient {
         if (!mote.alive) continue;
         mote.vx *= VELOCITY_DAMPING;
         mote.vy *= VELOCITY_DAMPING;
-
         const speed = Math.hypot(mote.vx, mote.vy);
         if (speed > MAX_VISUAL_SPEED) {
           mote.vx = (mote.vx / speed) * MAX_VISUAL_SPEED;
           mote.vy = (mote.vy / speed) * MAX_VISUAL_SPEED;
         }
-
         mote.x += mote.vx * dt;
         mote.y += mote.vy * dt;
-      }
-    }
-  }
-
-  _applyFriendlySpacing(swarm, dt) {
-    const motes = swarm.motes;
-    for (let i = 0; i < motes.length; i++) {
-      const a = motes[i];
-      if (!a.alive) continue;
-      for (let j = i + 1; j < motes.length; j++) {
-        const b = motes[j];
-        if (!b.alive) continue;
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 <= 0.01 || d2 > 36) continue;
-        const dist = Math.sqrt(d2);
-        const push = ((6 - dist) / 6) * 10 * dt;
-        const nx = dx / dist;
-        const ny = dy / dist;
-        a.vx += nx * push;
-        a.vy += ny * push;
-        b.vx -= nx * push;
-        b.vy -= ny * push;
       }
     }
   }

@@ -1,7 +1,9 @@
 {
   "name": "ballz-tests",
   "private": true,
+  "type": "module",
   "scripts": {
+    "start": "node server.mjs",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
   },

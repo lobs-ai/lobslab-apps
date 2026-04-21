@@ -4,12 +4,14 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test test/*.test.mjs",
+    "test": "node --test test/determinism.test.mjs && node --test test/schema-regression.test.mjs && node --test test/multiplayer-regression.test.mjs && node --test test/game-sync.test.mjs",
     "test:determinism": "node --test test/determinism.test.mjs",
-    "test:regression": "node --test test/schema-regression.test.mjs test/multiplayer-regression.test.mjs"
+    "test:regression": "node --test test/schema-regression.test.mjs test/multiplayer-regression.test.mjs",
+    "test:sync": "node --test test/game-sync.test.mjs"
   },
   "dependencies": {
     "lance-gg": "^5.0.2",
+    "socket.io-client": "^4.7.5",
     "ws": "^8.0.0"
   }
 }

@@ -32,6 +32,9 @@ export function createStellarLanceClasses(runtime) {
       }, super.netScheme());
     }
 
+    // Lance requires syncTo on the immediate prototype (hasOwnProperty check in addNewObject)
+    syncTo(other) { super.syncTo(other); }
+
     constructor(gameEngine, options, props = {}) {
       const ctor = normalizeCtorArgs(gameEngine, options, props);
       super(ctor.gameEngine, ctor.options, { playerId: ctor.props.playerId ?? 0 });
@@ -66,6 +69,9 @@ export function createStellarLanceClasses(runtime) {
         targetY: { type: BaseTypes.Float32 },
       }, super.netScheme());
     }
+
+    // Lance requires syncTo on the immediate prototype (hasOwnProperty check in addNewObject)
+    syncTo(other) { super.syncTo(other); }
 
     constructor(gameEngine, options, props = {}) {
       const ctor = normalizeCtorArgs(gameEngine, options, props);

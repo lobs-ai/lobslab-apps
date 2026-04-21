@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-PORT="${PORT:-47102}"
+PORT="${PORT:-47100}"
 
 "$ROOT_DIR/bin/dev-run"
 open "http://localhost:$PORT"

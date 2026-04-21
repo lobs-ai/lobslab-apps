@@ -9,12 +9,16 @@ import { getEffectiveDefense } from '../game/Node.js';
  *   { type: 'position', x, y  }   — motes steer to point, then idle/orbit there
  */
 
-const MOTE_STEER_FORCE = 120;   // steering toward target (px/s²) — lowered for slower feel
-const COHESION_FORCE   = 12;    // pull toward swarm center of mass
-const MOTE_MAX_SPEED   = 55;    // px/s — roughly half the old speed
-const MOTE_JITTER      = 12;    // organic wobble
-const COMBAT_RADIUS    = 12;    // motes within this distance fight
-const CENTER_SKIP_DIST = 80;    // skip combat check if swarm centers are farther apart
+const MOTE_STEER_FORCE  = 120;  // steering toward target (px/s²)
+const MOTE_MAX_SPEED    = 70;   // px/s
+const MOTE_JITTER       = 16;   // per-mote turbulence amplitude
+const ALIGN_FORCE       = 5;    // steer toward swarm average velocity
+const SEPARATION_RADIUS = 13;   // motes push apart within this distance
+const SEPARATION_FORCE  = 70;   // separation strength
+const BOUNDARY_RADIUS   = 28;   // motes roam freely within this radius of swarm center
+const BOUNDARY_SPRING   = 9;    // spring constant (px/s² per px outside boundary)
+const COMBAT_RADIUS    = 14;    // motes within this distance fight
+const CENTER_SKIP_DIST = 150;   // skip combat check if swarm centers are farther apart
 const IDLE_RADIUS      = 20;    // when within this dist of a position target, start idling
 const IDLE_ORBIT_FORCE = 30;    // gentle tangential force when idling
 const IDLE_MAX_SPEED   = 20;    // slow drift when holding position
@@ -36,15 +40,22 @@ export class SwarmSystem {
 
       const { tx, ty, node: targetNode, isPosition } = tgt;
 
-      // Compute center of mass
-      let cx = 0, cy = 0, aliveCount = 0;
+      // Compute center of mass and average velocity for alignment
+      let cx = 0, cy = 0, avgVx = 0, avgVy = 0, aliveCount = 0;
       for (const m of swarm.motes) {
         if (!m.alive) continue;
-        cx += m.x; cy += m.y; aliveCount++;
+        cx += m.x; cy += m.y;
+        avgVx += m.vx; avgVy += m.vy;
+        aliveCount++;
       }
       if (aliveCount === 0) { swarm.alive = false; continue; }
       cx /= aliveCount;
       cy /= aliveCount;
+      avgVx /= aliveCount;
+      avgVy /= aliveCount;
+
+      // Separation pass — push apart motes that are too close
+      this._applyMoteSeparation(swarm, dt);
 
       for (const mote of swarm.motes) {
         if (!mote.alive) continue;
@@ -113,14 +124,25 @@ export class SwarmSystem {
             mote.vy += (dy / dist) * MOTE_STEER_FORCE * dt;
           }
 
-          // Cohesion toward swarm center
-          mote.vx += (cx - mote.x) * COHESION_FORCE * dt / Math.max(aliveCount, 1);
-          mote.vy += (cy - mote.y) * COHESION_FORCE * dt / Math.max(aliveCount, 1);
+          // Alignment — nudge toward swarm average velocity so they move together
+          mote.vx += (avgVx - mote.vx) * ALIGN_FORCE * dt;
+          mote.vy += (avgVy - mote.vy) * ALIGN_FORCE * dt;
 
-          // Deterministic jitter — sin/cos based on mote phase + world time
-          const jt = world.time * 5 + mote.phase * 6.2832;
-          mote.vx += Math.sin(jt) * MOTE_JITTER * dt;
-          mote.vy += Math.cos(jt * 1.3 + 1.0) * MOTE_JITTER * dt;
+          // Boundary spring — no force inside radius, gentle pull if too far
+          const toCX = cx - mote.x, toCY = cy - mote.y;
+          const toCenter = Math.hypot(toCX, toCY);
+          if (toCenter > BOUNDARY_RADIUS) {
+            const overshoot = toCenter - BOUNDARY_RADIUS;
+            mote.vx += (toCX / toCenter) * BOUNDARY_SPRING * overshoot * dt;
+            mote.vy += (toCY / toCenter) * BOUNDARY_SPRING * overshoot * dt;
+          }
+
+          // Per-mote turbulence — unique frequency per mote via phase
+          const freq = 1.5 + mote.phase * 5.5;
+          const jx = world.time * freq       + mote.phase * 83.7;
+          const jy = world.time * (freq * 1.37) + mote.phase * 61.2;
+          mote.vx += Math.sin(jx) * MOTE_JITTER * dt;
+          mote.vy += Math.cos(jy) * MOTE_JITTER * dt;
 
           // Clamp speed
           const speed = Math.sqrt(mote.vx * mote.vx + mote.vy * mote.vy);
@@ -195,10 +217,12 @@ export class SwarmSystem {
       mote.vy += pushY * 20 * dt;
     }
 
-    // Deterministic jitter — sin/cos based on mote phase + world time
-    const jt = world.time * 3 + mote.phase * 6.2832;
-    mote.vx += Math.sin(jt) * 3 * dt;
-    mote.vy += Math.cos(jt * 1.3 + 1.0) * 3 * dt;
+    // Per-mote turbulence at reduced strength (idle mode)
+    const freq = 1.2 + mote.phase * 3.8;
+    const jx = world.time * freq + mote.phase * 83.7;
+    const jy = world.time * (freq * 1.37) + mote.phase * 61.2;
+    mote.vx += Math.sin(jx) * 3 * dt;
+    mote.vy += Math.cos(jy) * 3 * dt;
 
     // Dampen velocity so they don't fly away
     mote.vx *= (1 - 2.0 * dt);
@@ -209,6 +233,26 @@ export class SwarmSystem {
     if (speed > IDLE_MAX_SPEED) {
       mote.vx = (mote.vx / speed) * IDLE_MAX_SPEED;
       mote.vy = (mote.vy / speed) * IDLE_MAX_SPEED;
+    }
+  }
+
+  _applyMoteSeparation(swarm, dt) {
+    const motes = swarm.motes;
+    for (let i = 0; i < motes.length; i++) {
+      const a = motes[i];
+      if (!a.alive) continue;
+      for (let j = i + 1; j < motes.length; j++) {
+        const b = motes[j];
+        if (!b.alive) continue;
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 0.01 || d2 > SEPARATION_RADIUS * SEPARATION_RADIUS) continue;
+        const d = Math.sqrt(d2);
+        const push = SEPARATION_FORCE * (1 - d / SEPARATION_RADIUS) * dt;
+        const nx = dx / d, ny = dy / d;
+        a.vx += nx * push; a.vy += ny * push;
+        b.vx -= nx * push; b.vy -= ny * push;
+      }
     }
   }
 

@@ -93,7 +93,7 @@ function emitSafe(socket, event, payload) {
 
 class StellarServerGameEngine extends LanceGameEngine {
   constructor() {
-    super({ traceLevel: 0 });
+    super({ traceLevel: 1000 });
     this.matches = new Map();
     this.playerToMatch = new Map();
     this.serverEngineRef = null;
