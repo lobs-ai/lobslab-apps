@@ -16,7 +16,13 @@ export class Connection {
   /** Connect to the WebSocket server. */
   connect(url) {
     this.url = url;
-    this._doConnect();
+    try {
+      this._doConnect();
+    } catch (err) {
+      console.error('WS connect error:', err);
+      this.connected = false;
+      this.onStatusChange?.(false);
+    }
   }
 
   _doConnect() {
@@ -25,7 +31,16 @@ export class Connection {
       this.ws.close();
     }
 
-    this.ws = new WebSocket(this.url);
+    let ws;
+    try {
+      ws = new WebSocket(this.url);
+    } catch (err) {
+      console.error('WS connection error:', err);
+      this.connected = false;
+      this.onStatusChange?.(false);
+      return;
+    }
+    this.ws = ws;
 
     this.ws.onopen = () => {
       this.connected = true;
