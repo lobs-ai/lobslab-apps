@@ -721,6 +721,87 @@
 
   /* Fusion/Spin/Rush CSS removed */
 
+  /* ── News Ticker ── */
+  #news-ticker {
+    position: fixed;
+    top: 8px;
+    left: 12px;
+    right: 372px;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(160,170,220,0.75);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 500;
+    transition: opacity 0.6s;
+    opacity: 1;
+  }
+  #news-ticker.fading { opacity: 0; }
+
+  /* ── Buff Bar ── */
+  #buff-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 6px;
+    min-height: 0;
+  }
+  .buff-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1a1a35;
+    border: 1px solid #4d96ff;
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #cdf;
+    animation: buffPulse 1.2s ease-in-out infinite;
+  }
+  .buff-chip.gold { border-color: #ffd700; color: #ffe9a0; }
+  .buff-chip.storm { border-color: #00e5ff; color: #aef4ff; }
+  .buff-chip.boon { border-color: #6bcb77; color: #c0eec5; }
+  @keyframes buffPulse {
+    0%,100% { box-shadow: 0 0 4px rgba(120,150,255,0.25); }
+    50% { box-shadow: 0 0 10px rgba(120,150,255,0.55); }
+  }
+
+  /* ── Mute button ── */
+  #mute-btn {
+    background: none;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 3px 8px;
+    transition: all 0.15s;
+  }
+  #mute-btn:hover { border-color: #4d96ff; color: #cdf; }
+
+  /* ── Tab badge ── */
+  .tab-badge {
+    display: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffd93d;
+    margin-left: 4px;
+    vertical-align: middle;
+    box-shadow: 0 0 6px #ffd93d;
+  }
+  .tab-badge.visible { display: inline-block; }
+
+  /* ── Generator upgrade cards ── */
+  .genup-btn { border-left: 3px solid #ffd700 !important; }
+  .genup-count { font-size: 10px; color: #777; padding: 4px; }
+
+  @media (max-width: 700px) {
+    #news-ticker { right: 12px; }
+  }
+
   @media (max-width: 700px) {
     body { flex-direction: column; }
     canvas { height: 40vh; flex: none; }
@@ -730,6 +811,7 @@
 </head>
 <body>
 <canvas id="c"></canvas>
+<div id="news-ticker"></div>
 <div id="skill-tree-overlay" style="display:none">
   <div class="overlay-header">
     <h2>🔮 Skill Tree</h2>
@@ -743,7 +825,10 @@
 </div>
 <div id="ui">
   <div id="ui-header">
-    <h1>B A L L Z</h1>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h1>B A L L Z</h1>
+      <button id="mute-btn" onclick="toggleMute()" title="Toggle sound">🔊</button>
+    </div>
     <div class="stat-bar" style="margin-top:8px">
       <div><div class="label">Balls</div></div>
       <div class="value" id="ball-count">0</div>
@@ -755,11 +840,12 @@
     <div class="combo-display" style="margin-top:4px">
       Click balls for bonus! Combo: <span id="combo">x1</span>
     </div>
+    <div id="buff-bar"></div>
   </div>
 
   <div id="ui-tabs">
     <button class="tab-btn active" data-tab="generators" onclick="switchTab('generators')">Generators</button>
-    <button class="tab-btn" data-tab="upgrades" onclick="switchTab('upgrades')">Upgrades</button>
+    <button class="tab-btn" data-tab="upgrades" onclick="switchTab('upgrades')">Upgrades<span class="tab-badge" id="upgrades-badge"></span></button>
     <button class="tab-btn" data-tab="skills" onclick="switchTab('skills')">Skills</button>
     <button class="tab-btn locked" data-tab="challenges" onclick="switchTab('challenges')">Challenges</button>
     <button class="tab-btn" data-tab="achievements" onclick="switchTab('achievements')">Achievements</button>
@@ -784,6 +870,11 @@
 
     <!-- Upgrades Tab -->
     <div id="panel-upgrades" class="tab-panel">
+      <div id="gen-upgrades-section" style="display:none">
+        <div class="section-title">🏭 Generator Upgrades</div>
+        <div id="gen-upgrades"></div>
+      </div>
+      <div class="section-title">⚡ Upgrades</div>
       <div id="upgrades"></div>
     </div>
 
@@ -1039,17 +1130,23 @@ const ACHIEVEMENTS = [
   { id: 'prod_100m',  cat: 'Production', name: 'Ball Baron',          desc: 'Produce 100M total balls', icon: '👑', check: s => s.totalBallsEver >= 1e8 },
   { id: 'prod_1b',    cat: 'Production', name: 'Billionaire',         desc: 'Produce 1B total balls',   icon: '🌟', check: s => s.totalBallsEver >= 1e9 },
   { id: 'prod_1t',    cat: 'Production', name: 'Trillionaire',        desc: 'Produce 1T total balls',   icon: '🌌', check: s => s.totalBallsEver >= 1e12 },
+  { id: 'prod_1qa',   cat: 'Production', name: 'Quadrillionaire',     desc: 'Produce 1Qa total balls',  icon: '🌠', check: s => s.totalBallsEver >= 1e15 },
+  { id: 'prod_1qi',   cat: 'Production', name: 'Beyond Counting',     desc: 'Produce 1Qi total balls',  icon: '🔭', check: s => s.totalBallsEver >= 1e18 },
   { id: 'bps_100',    cat: 'Production', name: 'Trickle',             desc: 'Reach 100 BPS',            icon: '💧', check: s => s.highestBPS >= 100 },
   { id: 'bps_1k',     cat: 'Production', name: 'Stream',              desc: 'Reach 1K BPS',             icon: '🌊', check: s => s.highestBPS >= 1e3 },
   { id: 'bps_10k',    cat: 'Production', name: 'River',               desc: 'Reach 10K BPS',            icon: '🏞️', check: s => s.highestBPS >= 1e4 },
   { id: 'bps_100k',   cat: 'Production', name: 'Niagara',             desc: 'Reach 100K BPS',           icon: '🌈', check: s => s.highestBPS >= 1e5 },
   { id: 'bps_1m',     cat: 'Production', name: 'Tsunami',             desc: 'Reach 1M BPS',             icon: '🌀', check: s => s.highestBPS >= 1e6 },
+  { id: 'bps_1b',     cat: 'Production', name: 'Ball Singularity',    desc: 'Reach 1B BPS',             icon: '🕳️', check: s => s.highestBPS >= 1e9 },
+  { id: 'bps_1t',     cat: 'Production', name: 'Reality Firehose',    desc: 'Reach 1T BPS',             icon: '🚒', check: s => s.highestBPS >= 1e12 },
   // Clicking
   { id: 'click_100',  cat: 'Clicking', name: 'Clicker',              desc: 'Click 100 times',          icon: '👆', check: s => s.totalClicks >= 100 },
   { id: 'click_500',  cat: 'Clicking', name: 'Dedicated Clicker',    desc: 'Click 500 times',          icon: '👆', check: s => s.totalClicks >= 500 },
   { id: 'click_1k',   cat: 'Clicking', name: 'Click Machine',        desc: 'Click 1,000 times',        icon: '🤖', check: s => s.totalClicks >= 1000 },
   { id: 'click_5k',   cat: 'Clicking', name: 'Click Master',         desc: 'Click 5,000 times',        icon: '⚡', check: s => s.totalClicks >= 5000 },
   { id: 'click_10k',  cat: 'Clicking', name: 'Click God',            desc: 'Click 10,000 times',       icon: '🌟', check: s => s.totalClicks >= 10000 },
+  { id: 'click_50k',  cat: 'Clicking', name: 'Carpal Tunnel',        desc: 'Click 50,000 times',       icon: '🩹', check: s => s.totalClicks >= 50000 },
+  { id: 'click_100k', cat: 'Clicking', name: 'Transcend the Flesh',  desc: 'Click 100,000 times',      icon: '🦾', check: s => s.totalClicks >= 100000 },
   { id: 'combo_10',   cat: 'Clicking', name: 'Combo Starter',        desc: 'Reach x10 combo',          icon: '🔥', check: s => s.highestCombo >= 10 },
   { id: 'combo_25',   cat: 'Clicking', name: 'Combo Adept',          desc: 'Reach x25 combo',          icon: '🔥', check: s => s.highestCombo >= 25 },
   { id: 'combo_50',   cat: 'Clicking', name: 'Combo Master',         desc: 'Reach x50 combo',          icon: '💥', check: s => s.highestCombo >= 50 },
@@ -1057,17 +1154,28 @@ const ACHIEVEMENTS = [
   { id: 'golden_1',   cat: 'Clicking', name: 'Golden Touch',         desc: 'Click a golden ball',       icon: '✨', check: s => s.goldenClicks >= 1 },
   { id: 'golden_10',  cat: 'Clicking', name: 'Midas',                desc: 'Click 10 golden balls',     icon: '✨', check: s => s.goldenClicks >= 10 },
   { id: 'golden_50',  cat: 'Clicking', name: 'Gold Hoarder',         desc: 'Click 50 golden balls',     icon: '👑', check: s => s.goldenClicks >= 50 },
+  { id: 'golden_200', cat: 'Clicking', name: 'Golden God',           desc: 'Click 200 golden balls',    icon: '🌞', check: s => s.goldenClicks >= 200 },
+  { id: 'buff_1',     cat: 'Clicking', name: 'Buffed',               desc: 'Trigger a golden event',    icon: '✨', check: s => (s.buffsTriggered || 0) >= 1 },
+  { id: 'buff_25',    cat: 'Clicking', name: 'Event Horizon',        desc: 'Trigger 25 golden events',  icon: '✨', check: s => (s.buffsTriggered || 0) >= 25 },
+  { id: 'buff_100',   cat: 'Clicking', name: 'Storm Caller',         desc: 'Trigger 100 golden events', icon: '🌩️', check: s => (s.buffsTriggered || 0) >= 100 },
+  { id: 'storm_50',   cat: 'Clicking', name: 'Storm Chaser',         desc: 'Click 50 storm balls',      icon: '⚡', check: s => (s.stormBallsClicked || 0) >= 50 },
+  { id: 'lucky_1b',   cat: 'Clicking', name: 'Lottery Winner',       desc: 'Single Lucky gain of 1B+',  icon: '🍀', check: s => (s.biggestLucky || 0) >= 1e9 },
   // Generators
   { id: 'gen_all1',   cat: 'Generators', name: 'Collector',           desc: 'Own 1 of each generator type', icon: '📦', check: s => { const base = s.generators.filter(g => !['overflow','qfabric'].includes(g.id)); return base.every(g => g.count >= 1); } },
   { id: 'gen_100any', cat: 'Generators', name: 'Centurion',           desc: 'Own 100 of any generator',     icon: '💯', check: s => s.generators.some(g => g.count >= 100) },
   { id: 'gen_100all', cat: 'Generators', name: 'Completionist',       desc: 'Own 100 of ALL base gens',     icon: '🏆', check: s => { const base = s.generators.filter(g => !['overflow','qfabric'].includes(g.id)); return base.every(g => g.count >= 100); } },
   { id: 'gen_1000',   cat: 'Generators', name: 'Factory Empire',      desc: 'Own 1000 total generators',    icon: '🏗️', check: s => s.generators.reduce((a,g) => a + g.count, 0) >= 1000 },
+  { id: 'gen_2500',   cat: 'Generators', name: 'Industrial Revolution', desc: 'Own 2500 total generators',  icon: '🏙️', check: s => s.generators.reduce((a,g) => a + g.count, 0) >= 2500 },
+  { id: 'genup_10',   cat: 'Generators', name: 'Tinkerer',            desc: 'Buy 10 generator upgrades',    icon: '🔧', check: s => Object.keys(s.genUpgradesBought || {}).length >= 10 },
+  { id: 'genup_40',   cat: 'Generators', name: 'Engineer',            desc: 'Buy 40 generator upgrades',    icon: '⚙️', check: s => Object.keys(s.genUpgradesBought || {}).length >= 40 },
+  { id: 'genup_80',   cat: 'Generators', name: 'Omega Machinist',     desc: 'Buy ALL 80 generator upgrades',icon: '🛠️', check: s => Object.keys(s.genUpgradesBought || {}).length >= 80 },
   // Prestige
   { id: 'prest_1',    cat: 'Prestige', name: 'Reborn',               desc: 'Prestige 1 time',           icon: '⟳', check: s => s.prestiges >= 1 },
   { id: 'prest_5',    cat: 'Prestige', name: 'Serial Prestiger',     desc: 'Prestige 5 times',          icon: '⟳', check: s => s.prestiges >= 5 },
   { id: 'prest_10',   cat: 'Prestige', name: 'Prestige Addict',      desc: 'Prestige 10 times',         icon: '🌀', check: s => s.prestiges >= 10 },
   { id: 'prest_25',   cat: 'Prestige', name: 'Eternal Cycle',        desc: 'Prestige 25 times',         icon: '♾️', check: s => s.prestiges >= 25 },
   { id: 'prest_50',   cat: 'Prestige', name: 'Prestige Legend',      desc: 'Prestige 50 times',         icon: '🌟', check: s => s.prestiges >= 50 },
+  { id: 'prest_100',  cat: 'Prestige', name: 'Centennial',           desc: 'Prestige 100 times',        icon: '💯', check: s => s.prestiges >= 100 },
   { id: 'pp_10',      cat: 'Prestige', name: 'Skillful',             desc: 'Earn 10 total PP',          icon: '💠', check: s => s.totalPPEarned >= 10 },
   { id: 'pp_50',      cat: 'Prestige', name: 'Adept',                desc: 'Earn 50 total PP',          icon: '💠', check: s => s.totalPPEarned >= 50 },
   { id: 'pp_100',     cat: 'Prestige', name: 'Master',               desc: 'Earn 100 total PP',         icon: '💠', check: s => s.totalPPEarned >= 100 },
@@ -1113,6 +1221,104 @@ const GEN_VISUALS = {
   qfabric:     { emoji: '🧵', color: '#aa66ff' },
 
 };
+
+// ── Generator tier upgrades (Cookie-Clicker-style: each doubles that generator) ──
+const GEN_UPGRADE_TIERS = [
+  { threshold: 10,  costMult: 30,    label: 'Reinforced' },
+  { threshold: 25,  costMult: 150,   label: 'Overclocked' },
+  { threshold: 50,  costMult: 1000,  label: 'Gilded' },
+  { threshold: 100, costMult: 1e4,   label: 'Quantum-Tuned' },
+  { threshold: 200, costMult: 1e5,   label: 'Transcendent' },
+  { threshold: 300, costMult: 1e6,   label: 'Mythic' },
+  { threshold: 400, costMult: 1e7,   label: 'Cosmic' },
+  { threshold: 500, costMult: 1e8,   label: 'Omega' },
+];
+
+const GEN_UPGRADES = (() => {
+  const baseGens = [
+    { id: 'dropper',     baseCost: 100 },
+    { id: 'launcher',    baseCost: 1000 },
+    { id: 'factory',     baseCost: 10000 },
+    { id: 'vortex',      baseCost: 120000 },
+    { id: 'singularity', baseCost: 1500000 },
+    { id: 'quantum',     baseCost: 20e6 },
+    { id: 'dimension',   baseCost: 300e6 },
+    { id: 'bigbang',     baseCost: 5000e6 },
+    { id: 'overflow',    baseCost: 10e9 },
+    { id: 'qfabric',     baseCost: 50e9 },
+  ];
+  const defs = [];
+  for (const g of baseGens) {
+    for (const t of GEN_UPGRADE_TIERS) {
+      defs.push({
+        id: `gu_${g.id}_${t.threshold}`,
+        genId: g.id,
+        threshold: t.threshold,
+        cost: g.baseCost * t.costMult,
+        name: `${t.label}`,
+        desc: `doubles production`,
+      });
+    }
+  }
+  return defs;
+})();
+
+function genUpgradeMult(genId) {
+  if (!state.genUpgradesBought) return 1;
+  let mult = 1;
+  for (const def of GEN_UPGRADES) {
+    if (def.genId === genId && state.genUpgradesBought[def.id]) mult *= 2;
+  }
+  return mult;
+}
+
+// ── Golden ball events (weighted) ──
+const GOLDEN_EVENTS = [
+  { id: 'lucky',       weight: 28, name: 'Lucky!',        icon: '🍀' },
+  { id: 'frenzy',      weight: 28, name: 'Frenzy',        icon: '🔥' },
+  { id: 'clickFrenzy', weight: 14, name: 'Click Frenzy',  icon: '👆' },
+  { id: 'storm',       weight: 10, name: 'Ball Storm',    icon: '⚡' },
+  { id: 'boon',        weight: 12, name: "Builder's Boon",icon: '🛠️' },
+  { id: 'jackpot',     weight: 8,  name: 'JACKPOT',       icon: '💰' },
+];
+
+// ── News ticker ──
+const NEWS_STATIC = [
+  'Ball production up 5,000%. Economists baffled.',
+  'Local man clicks ball, feels something for the first time in years.',
+  'BREAKING: sphere prices soar as global demand for balls hits all-time high.',
+  '"They\'re just circles," claims flat-ball theorist. Experts disagree.',
+  'Scientists confirm: balls remain round.',
+  'Ball factory workers report "unusually bouncy" working conditions.',
+  'Anti-ball protesters disperse after being gently bounced away.',
+  'New study links ball ownership to happiness, also to owning balls.',
+  'Stock market replaced with ball market. Nobody noticed.',
+  'Astronomers discover the moon may be a very large, very distant ball.',
+  'Government announces strategic ball reserve.',
+  'Philosophers ask: if a ball bounces and no one clicks it, is it worth anything?',
+  'Ball overflow insurance premiums skyrocket.',
+  'Sphere enthusiasts gather for annual BallCon. Venue described as "round".',
+  'Weather forecast: 90% chance of balls.',
+  'Archaeologists unearth ancient ball. "They had balls back then too," says expert.',
+  'The first rule of Ball Club: click the balls.',
+  'Doctors recommend at least 10,000 clicks a day.',
+  'Ball-based currency now accepted at participating retailers.',
+  'Reality reportedly "fine" despite repeated destabilization warnings.',
+];
+
+function getNewsLine() {
+  const dynamic = [];
+  const s = state;
+  if (s.totalBallsEver > 1e6) dynamic.push(`${formatNum(s.totalBallsEver)} balls produced to date. Storage concerns mounting.`);
+  if (s.prestiges > 0) dynamic.push(`Universe reset ${s.prestiges} time${s.prestiges>1?'s':''}. Residents have stopped asking questions.`);
+  if (s.leechers && s.leechers.length > 0) dynamic.push('🦠 Leecher infestation reported. Authorities recommend vigorous clicking.');
+  if (s.overflowActive) dynamic.push('⚠️ Overflow Core humming ominously. Officials: "probably fine".');
+  if (getGenCount('bigbang') > 0) dynamic.push('Big Bang Engine emits new universe; janitorial staff exhausted.');
+  if (s.totalClicks > 10000) dynamic.push(`${s.totalClicks.toLocaleString()} clicks recorded. Local mouse files for hazard pay.`);
+  if (s.highestCombo >= 50) dynamic.push(`Combo x${s.highestCombo} witnessed. Crowd goes mild.`);
+  const pool = NEWS_STATIC.concat(dynamic, dynamic); // dynamic lines weighted 2x
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 
 // ══════════════════════════════════════════════════════
 //  GAME STATE
@@ -1175,6 +1381,11 @@ function getDefaultState() {
       { id: 'vortexConv',   name: 'Vortex Convergence',   desc: 'Each Singularity: all gens +1%',    cost: 500000, bought: false, effect: 'vortexConv' },
       { id: 'quantumEnt',   name: 'Quantum Entanglement', desc: 'Quantum count ×5% boost to Dim Rifts', cost: 5e6,  bought: false, effect: 'quantumEnt' },
       { id: 'cosmicRes',    name: 'Cosmic Resonance',     desc: 'Big Bang count ×2% boost to ALL',      cost: 50e6, bought: false, effect: 'cosmicRes' },
+      // Click-scaling upgrades (clicks gain % of BPS)
+      { id: 'clickBps1',    name: 'Ergonomic Mouse',       desc: 'Clicks also gain +1% of BPS',  cost: 1e6,   bought: false, effect: 'clickBPS', pct: 0.01 },
+      { id: 'clickBps2',    name: 'Gaming Mouse',          desc: 'Clicks also gain +2% of BPS',  cost: 100e6, bought: false, effect: 'clickBPS', pct: 0.02 },
+      { id: 'clickBps3',    name: 'Neural Click Implant',  desc: 'Clicks also gain +4% of BPS',  cost: 10e9,  bought: false, effect: 'clickBPS', pct: 0.04 },
+      { id: 'clickBps4',    name: 'Telekinetic Interface', desc: 'Clicks also gain +8% of BPS',  cost: 1e12,  bought: false, effect: 'clickBPS', pct: 0.08 },
       // Overflow upgrades
       { id: 'realityAnchor', name: 'Reality Anchor', desc: 'All production ×3 permanently', cost: 10e6, bought: false, effect: 'realityAnchor', requiresOverflow: true },
     ],
@@ -1199,6 +1410,17 @@ function getDefaultState() {
     leechersPopped: 0,
     // Ball Nova timer
     lastBallNova: Date.now(),
+    // Generator tier upgrades
+    genUpgradesBought: {},
+    // Golden ball event buffs
+    buffs: [],
+    buffsTriggered: 0,
+    stormUntil: 0,
+    stormBallsClicked: 0,
+    biggestLucky: 0,
+    lastGoldenSpawn: Date.now(),
+    // Sound
+    muted: false,
   };
 }
 
@@ -1272,6 +1494,15 @@ function loadGame() {
       if (!state.leechers) state.leechers = [];
       if (state.leechersPopped == null) state.leechersPopped = 0;
       if (state.lastBallNova == null) state.lastBallNova = Date.now();
+      if (!state.genUpgradesBought) state.genUpgradesBought = {};
+      if (!Array.isArray(state.buffs)) state.buffs = [];
+      state.buffs = state.buffs.filter(b => b.until > Date.now());
+      if (state.buffsTriggered == null) state.buffsTriggered = 0;
+      if (state.stormUntil == null) state.stormUntil = 0;
+      if (state.stormBallsClicked == null) state.stormBallsClicked = 0;
+      if (state.biggestLucky == null) state.biggestLucky = 0;
+      if (state.lastGoldenSpawn == null) state.lastGoldenSpawn = Date.now();
+      if (state.muted == null) state.muted = false;
 
       // Migrate v2: convert old prestigeMulti into skill points
       if (!loaded.prestigePoints && loaded.prestigeMulti > 1) {
@@ -1321,6 +1552,7 @@ let bgParticles = [];
 let tabFocused = true;
 let pendingChallengeId = null;
 let leecher_spawn_timer = 0;
+let newsTimer = 11; // show first headline ~1s after load
 
 // ══════════════════════════════════════════════════════
 //  HELPER FUNCTIONS
@@ -1378,6 +1610,216 @@ function totalSkillLevels() {
   return Object.values(state.skills).reduce((a, s) => a + s.level, 0);
 }
 
+// ══════════════════════════════════════════════════════
+//  SOUND (WebAudio synth — no assets)
+// ══════════════════════════════════════════════════════
+
+let audioCtx = null;
+let lastPopTime = 0;
+
+function initAudio() {
+  if (audioCtx) return;
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) audioCtx = new AC();
+  } catch (e) {}
+}
+
+function tone(freq, dur, type = 'sine', vol = 0.15, delay = 0, slideTo = null) {
+  if (!audioCtx) return;
+  const t0 = audioCtx.currentTime + delay;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t0);
+  if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t0 + dur);
+  gain.gain.setValueAtTime(vol, t0);
+  gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t0);
+  osc.stop(t0 + dur + 0.05);
+}
+
+function playSound(kind) {
+  if (state.muted || !audioCtx) return;
+  try {
+    switch (kind) {
+      case 'pop': {
+        const now = Date.now();
+        if (now - lastPopTime < 60) return; // throttle
+        lastPopTime = now;
+        tone(300 + Math.random() * 300, 0.08, 'triangle', 0.12);
+        break;
+      }
+      case 'buy':
+        tone(220, 0.06, 'square', 0.06);
+        tone(330, 0.06, 'square', 0.06, 0.05);
+        break;
+      case 'golden':
+        tone(523, 0.12, 'sine', 0.15);
+        tone(659, 0.12, 'sine', 0.15, 0.08);
+        tone(784, 0.2, 'sine', 0.15, 0.16);
+        break;
+      case 'buff':
+        tone(200, 0.3, 'sawtooth', 0.08, 0, 800);
+        break;
+      case 'achievement':
+        tone(660, 0.1, 'sine', 0.12);
+        tone(880, 0.25, 'sine', 0.12, 0.1);
+        break;
+      case 'prestige':
+        tone(880, 0.6, 'sine', 0.15, 0, 110);
+        tone(1320, 0.6, 'sine', 0.08, 0.1, 165);
+        break;
+      case 'leecher':
+        tone(400, 0.25, 'sawtooth', 0.12, 0, 80);
+        break;
+      case 'storm':
+        for (let i = 0; i < 5; i++) tone(400 + i * 150, 0.08, 'triangle', 0.08, i * 0.05);
+        break;
+    }
+  } catch (e) {}
+}
+
+function toggleMute() {
+  state.muted = !state.muted;
+  const btn = document.getElementById('mute-btn');
+  if (btn) btn.textContent = state.muted ? '🔇' : '🔊';
+  saveGame();
+}
+
+// ══════════════════════════════════════════════════════
+//  BUFFS (golden ball events)
+// ══════════════════════════════════════════════════════
+
+function addBuff(id, name, icon, durationMs, opts = {}) {
+  if (!state.buffs) state.buffs = [];
+  const now = Date.now();
+  const existing = state.buffs.find(b => b.id === id && b.genId === (opts.genId || undefined));
+  if (existing) {
+    existing.until = Math.max(now, existing.until) + durationMs;
+  } else {
+    state.buffs.push({ id, name, icon, until: now + durationMs, ...opts });
+  }
+}
+
+function buffBPSMult() {
+  if (!state.buffs || state.buffs.length === 0) return 1;
+  const now = Date.now();
+  let mult = 1;
+  for (const b of state.buffs) {
+    if (b.until > now && b.bpsMult && !b.genId) mult *= b.bpsMult;
+  }
+  return mult;
+}
+
+function buffClickMult() {
+  if (!state.buffs || state.buffs.length === 0) return 1;
+  const now = Date.now();
+  let mult = 1;
+  for (const b of state.buffs) {
+    if (b.until > now && b.clickMult) mult *= b.clickMult;
+  }
+  return mult;
+}
+
+function buffGenMult(genId) {
+  if (!state.buffs || state.buffs.length === 0) return 1;
+  const now = Date.now();
+  let mult = 1;
+  for (const b of state.buffs) {
+    if (b.until > now && b.genId === genId && b.bpsMult) mult *= b.bpsMult;
+  }
+  return mult;
+}
+
+function clickBpsPct() {
+  let pct = 0;
+  for (const u of state.upgrades) {
+    if (u.effect === 'clickBPS' && u.bought) pct += u.pct || 0;
+  }
+  return pct;
+}
+
+// Roll and apply a golden ball event. Returns {value, label, color} for the floating text.
+function triggerGoldenEvent(x, y) {
+  const bps = getBPS();
+  const goldenPayoutMult = state.challengeCompleted?.darkModeReward ? 2 : 1;
+
+  const totalWeight = GOLDEN_EVENTS.reduce((a, e) => a + e.weight, 0);
+  let roll = Math.random() * totalWeight;
+  let event = GOLDEN_EVENTS[0];
+  for (const e of GOLDEN_EVENTS) {
+    roll -= e.weight;
+    if (roll <= 0) { event = e; break; }
+  }
+
+  state.buffsTriggered = (state.buffsTriggered || 0) + 1;
+  state.goldenClicks++;
+
+  // Golden Frenzy skill: extra 2x boost on any golden click (existing behavior)
+  if (skillLevel('goldenFrenzy') > 0) {
+    const dur = skillLevel('goldenFrenzy') * 5000;
+    state.goldenFrenzyUntil = Math.max(state.goldenFrenzyUntil, Date.now()) + dur;
+  }
+
+  let value = 0;
+  let label = '';
+  let color = '#ffd700';
+
+  switch (event.id) {
+    case 'lucky': {
+      value = Math.floor(Math.min(state.balls * 0.15, bps * 60 * 13)) * goldenPayoutMult;
+      value = Math.max(value, getClickValue() * 100, 500);
+      if (value > (state.biggestLucky || 0)) state.biggestLucky = value;
+      label = ' 🍀 LUCKY!';
+      showToast(`🍀 Lucky! +${formatNum(value)} balls!`, 'reward', '🍀');
+      break;
+    }
+    case 'frenzy':
+      addBuff('frenzy', 'Frenzy ×7', '🔥', 45000, { bpsMult: 7 });
+      label = ' 🔥 FRENZY ×7!';
+      showToast('🔥 Frenzy! Production ×7 for 45s!', 'event', '🔥');
+      playSound('buff');
+      break;
+    case 'clickFrenzy':
+      addBuff('clickFrenzy', 'Click ×77', '👆', 15000, { clickMult: 77 });
+      label = ' 👆 CLICK ×77!';
+      showToast('👆 Click Frenzy! Clicks ×77 for 15s!', 'event', '👆');
+      playSound('buff');
+      break;
+    case 'storm':
+      state.stormUntil = Math.max(state.stormUntil, Date.now()) + 12000;
+      label = ' ⚡ BALL STORM!';
+      color = '#00e5ff';
+      showToast('⚡ BALL STORM! Click everything!', 'event', '⚡');
+      playSound('storm');
+      break;
+    case 'boon': {
+      const owned = state.generators.filter(g => g.count > 0 && isGenUnlocked(g.id));
+      if (owned.length > 0) {
+        const gen = owned[Math.floor(Math.random() * owned.length)];
+        const vis = GEN_VISUALS[gen.id] || { emoji: '🛠️' };
+        addBuff('boon', `${gen.name} ×10`, vis.emoji, 30000, { bpsMult: 10, genId: gen.id });
+        label = ` 🛠️ ${gen.name.toUpperCase()} ×10!`;
+        showToast(`🛠️ Builder's Boon! ${vis.emoji} ${gen.name} ×10 for 30s!`, 'event', '🛠️');
+        playSound('buff');
+      } else {
+        value = Math.max(500, getClickValue() * 50);
+        label = ' 🛠️ BOON!';
+      }
+      break;
+    }
+    case 'jackpot':
+      value = Math.max(100, Math.floor(bps * 10)) * (state.challengeCompleted?.darkModeReward ? 200 : 100);
+      label = ' 💰 JACKPOT!';
+      showToast(`💰 JACKPOT! +${formatNum(value)} balls!`, 'reward', '💰');
+      break;
+  }
+
+  return { value, label, color };
+}
+
 
 function getGenCount(id) {
   return state.generators.find(g => g.id === id)?.count || 0;
@@ -1398,10 +1840,20 @@ function getClickValue() {
   base *= (1 + skillLevel('ballMagnetism') * 0.2);
   // Combo
   base *= state.combo;
+
+  let val = Math.max(1, Math.floor(base));
+
+  // Click-BPS upgrades: clicks gain a % of BPS (not multiplied by combo)
+  const pct = clickBpsPct();
+  if (pct > 0) val += Math.floor(getBPS() * pct);
+
+  // Click Frenzy buff
+  val = Math.floor(val * buffClickMult());
+
   // Challenge: noClick active
   if (state.activeChallenge?.noClick) return 0;
 
-  return Math.max(1, Math.floor(base));
+  return Math.max(1, val);
 }
 
 function getGenCost(gen, quantity) {
@@ -1498,6 +1950,12 @@ function getBPS() {
     if (milBoostLevel > 0) msMulti = Math.pow(msMulti, 1 + milBoostLevel * 0.5);
     perUnit *= msMulti;
 
+    // Generator tier upgrades (each bought = ×2)
+    perUnit *= genUpgradeMult(gen.id);
+
+    // Builder's Boon buff (per-generator ×10)
+    perUnit *= buffGenMult(gen.id);
+
     // Synergy upgrades
     if (gen.id === 'launcher' && state.upgrades.find(u => u.id === 'launcherCal')?.bought) {
       const factoryCount = getGenCount('factory');
@@ -1590,6 +2048,9 @@ function getBPS() {
 
   // Golden frenzy
   if (now < state.goldenFrenzyUntil) total *= 2;
+
+  // Golden ball event buffs (Frenzy ×7, etc.)
+  total *= buffBPSMult();
 
   // Ball frenzy active (checked elsewhere, but contribute here for display)
   if (frenzyActive) {
@@ -1704,6 +2165,9 @@ function getGenBPS(gen) {
   if (milBoostLevel > 0) msMulti = Math.pow(msMulti, 1 + milBoostLevel * 0.5);
   perUnit *= msMulti;
 
+  perUnit *= genUpgradeMult(gen.id);
+  perUnit *= buffGenMult(gen.id);
+
   if (state.upgrades.find(u => u.id === 'overclock')?.bought) perUnit *= 2;
   if (state.upgrades.find(u => u.id === 'magnet')?.bought) perUnit *= 1.5;
   if (state.upgrades.find(u => u.id === 'realityAnchor')?.bought) perUnit *= 3;
@@ -1756,6 +2220,17 @@ function showToast(message, type = 'default', icon = '') {
   setTimeout(() => toast.remove(), 3000);
   // Cap max toasts
   while (container.children.length > 5) container.removeChild(container.firstChild);
+}
+
+// ── News ticker ──
+function rotateNewsTicker() {
+  const el = document.getElementById('news-ticker');
+  if (!el) return;
+  el.classList.add('fading');
+  setTimeout(() => {
+    el.textContent = '📰 ' + getNewsLine();
+    el.classList.remove('fading');
+  }, 600);
 }
 
 // ── Welcome back modal ──
@@ -1903,12 +2378,14 @@ function buyGenerator(id, quantity) {
     if (mb.count > 0 && state.balls >= mb.totalCost) {
       state.balls -= mb.totalCost;
       gen.count += mb.count;
+      playSound('buy');
     }
   } else {
     const cost = getGenCost(gen, quantity);
     if (state.balls >= cost) {
       state.balls -= cost;
       gen.count += quantity;
+      playSound('buy');
     }
   }
 
@@ -1957,6 +2434,7 @@ function renderMilestones() {
 // ══════════════════════════════════════════════════════
 
 function renderUpgrades() {
+  renderGenUpgrades();
   const el = document.getElementById('upgrades');
   let html = '';
   for (const up of state.upgrades) {
@@ -1985,6 +2463,59 @@ function buyUpgrade(id) {
   if (!up || up.bought || state.balls < up.cost) return;
   state.balls -= up.cost;
   up.bought = true;
+  playSound('buy');
+  renderUpgrades();
+}
+
+// ── Generator tier upgrades (Cookie-Clicker-style store) ──
+function renderGenUpgrades() {
+  const section = document.getElementById('gen-upgrades-section');
+  const el = document.getElementById('gen-upgrades');
+  if (!section || !el) return;
+
+  const available = GEN_UPGRADES
+    .filter(def => !state.genUpgradesBought[def.id] && getGenCount(def.genId) >= def.threshold)
+    .sort((a, b) => a.cost - b.cost);
+  const boughtCount = Object.keys(state.genUpgradesBought).length;
+
+  if (available.length === 0 && boughtCount === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+
+  let html = '';
+  for (const def of available.slice(0, 12)) {
+    const gen = state.generators.find(g => g.id === def.genId);
+    const vis = GEN_VISUALS[def.genId] || { emoji: '❓', color: '#888' };
+    const canBuy = state.balls >= def.cost;
+    html += `<div class="upgrade-btn genup-btn ${canBuy ? '' : 'locked'}" onclick="buyGenUpgrade('${def.id}')">
+      <div class="top-row">
+        <span class="name">${vis.emoji} ${def.name} ${gen ? gen.name : def.genId}</span>
+        <span class="cost">${formatNum(def.cost)} 🔵</span>
+      </div>
+      <div class="desc">${gen ? gen.name : def.genId} production ×2 (owned ${getGenCount(def.genId)})</div>
+    </div>`;
+  }
+  if (available.length > 12) {
+    html += `<div class="genup-count">…and ${available.length - 12} more (sorted by price)</div>`;
+  }
+  if (boughtCount > 0) {
+    html += `<div class="genup-count">✓ ${boughtCount} / ${GEN_UPGRADES.length} generator upgrades bought</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function buyGenUpgrade(id) {
+  const def = GEN_UPGRADES.find(d => d.id === id);
+  if (!def || state.genUpgradesBought[def.id]) return;
+  if (getGenCount(def.genId) < def.threshold) return;
+  if (state.balls < def.cost) return;
+  state.balls -= def.cost;
+  state.genUpgradesBought[def.id] = true;
+  playSound('buy');
+  const gen = state.generators.find(g => g.id === def.genId);
+  showToast(`🏭 ${def.name} ${gen ? gen.name : def.genId}: production ×2!`, 'reward', '🏭');
   renderUpgrades();
 }
 
@@ -2283,6 +2814,7 @@ function buySkill(id) {
 
   state.prestigePoints -= cost;
   state.skills[id].level++;
+  playSound('buy');
   renderSkillTree();
   // Update overlay PP count
   const ppEl = document.getElementById('overlay-pp-count');
@@ -2356,6 +2888,7 @@ function doPrestige() {
     for (const up of state.upgrades) {
       up.bought = false;
     }
+    state.genUpgradesBought = {};
 
     // Starting balls skill
     const startBalls = skillLevel('startingBalls') * 500;
@@ -2365,9 +2898,11 @@ function doPrestige() {
     }
   }
 
-  // Reset leechers on prestige
+  // Reset leechers and active buffs on prestige
   state.leechers = [];
   leecher_spawn_timer = 0;
+  state.buffs = [];
+  state.stormUntil = 0;
 
   // Prestige Cascade: free random T1 skills
   const cascadeLevel = skillLevel('prestigeCascade');
@@ -2393,6 +2928,7 @@ function doPrestige() {
   }
 
   showToast(`Prestige #${state.prestiges}! +${pp} PP`, 'reward', '⟳');
+  playSound('prestige');
   balls = [];
   updateTabLocks();
   saveGame();
@@ -2436,6 +2972,7 @@ function checkAchievements() {
       if (ach.check(state)) {
         state.achievementsUnlocked[ach.id] = Date.now();
         showToast(`🏅 Achievement: ${ach.name} — ${ach.desc}`, 'achievement', ach.icon);
+        playSound('achievement');
       }
     } catch(e) {}
   }
@@ -2520,6 +3057,9 @@ function startChallenge(id) {
   state.totalBalls = 0;
   for (const gen of state.generators) gen.count = 0;
   for (const up of state.upgrades) up.bought = false;
+  state.genUpgradesBought = {};
+  state.buffs = [];
+  state.stormUntil = 0;
   state.combo = 1;
   state.comboTimer = 0;
   balls = [];
@@ -2569,6 +3109,7 @@ function checkChallengeCompletion() {
   if (state.totalBalls >= ch.goal) {
     state.challengeCompleted[ch.rewardId] = true;
     showToast(`🏆 Challenge complete: ${cDef.name}! ${cDef.reward}`, 'achievement', '⚔️');
+    playSound('achievement');
     state.activeChallenge = null;
     renderActiveTab();
   }
@@ -2596,6 +3137,10 @@ function renderStats() {
     <div class="stat-line"><span>Total Clicks</span><span class="sv">${state.totalClicks.toLocaleString()}</span></div>
     <div class="stat-line"><span>Highest Combo</span><span class="sv">x${state.highestCombo}</span></div>
     <div class="stat-line"><span>Golden Balls Clicked</span><span class="sv">${state.goldenClicks}</span></div>
+    <div class="stat-line"><span>✨ Golden Events Triggered</span><span class="sv">${state.buffsTriggered || 0}</span></div>
+    <div class="stat-line"><span>🍀 Biggest Lucky Gain</span><span class="sv">${formatNum(state.biggestLucky || 0)}</span></div>
+    <div class="stat-line"><span>⚡ Storm Balls Clicked</span><span class="sv">${state.stormBallsClicked || 0}</span></div>
+    <div class="stat-line"><span>🏭 Generator Upgrades</span><span class="sv">${Object.keys(state.genUpgradesBought || {}).length} / ${GEN_UPGRADES.length}</span></div>
 
     <div class="section-title" style="margin-top:12px">⟳ Prestige</div>
     <div class="stat-line"><span>Prestiges</span><span class="sv">${state.prestiges}</span></div>
@@ -2636,12 +3181,52 @@ function renderStats() {
   }
 
   html += `<div class="section-title" style="margin-top:16px">💾 Data</div>
+    <div class="upgrade-btn" onclick="exportSave()">
+      <div class="name" style="color:#6bcb77">📤 Export Save</div>
+      <div class="desc">Copy your save to the clipboard as a string</div>
+    </div>
+    <div class="upgrade-btn" onclick="importSave()">
+      <div class="name" style="color:#4d96ff">📥 Import Save</div>
+      <div class="desc">Paste a previously exported save string</div>
+    </div>
     <div class="upgrade-btn" onclick="if(confirm('Reset everything?')){localStorage.clear();location.reload()}">
       <div class="name" style="color:#ff4444">🗑️ Hard Reset</div>
       <div class="desc">Delete ALL save data and start fresh</div>
     </div>`;
 
   el.innerHTML = html;
+}
+
+function exportSave() {
+  try {
+    state.lastSaveTime = Date.now();
+    const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(data).then(
+        () => showToast('📤 Save copied to clipboard!', 'reward', '📤'),
+        () => prompt('Copy your save string:', data)
+      );
+    } else {
+      prompt('Copy your save string:', data);
+    }
+  } catch (e) {
+    showToast('Export failed: ' + e.message, 'default', '❌');
+  }
+}
+
+function importSave() {
+  const data = prompt('Paste your save string:');
+  if (!data) return;
+  try {
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(data.trim()))));
+    if (typeof parsed.balls !== 'number' || !Array.isArray(parsed.generators)) {
+      throw new Error('not a valid Ballz save');
+    }
+    localStorage.setItem(SAVE_KEY, JSON.stringify(parsed));
+    location.reload();
+  } catch (e) {
+    showToast('Import failed: invalid save string', 'default', '❌');
+  }
 }
 
 function doTimeWarp() {
@@ -2694,10 +3279,12 @@ function spawnBall(x, y, opts = {}) {
   const r = opts.r || baseR + Math.random() * 4;
   const isGolden = opts.golden || false;
   const isOverflow = opts.overflow || false;
+  const isStorm = opts.storm || false;
 
   // Color
   let color;
   if (isGolden) color = '#ffd700';
+  else if (isStorm) color = '#00e5ff';
   else if (isOverflow) color = '#ff0000';
   else if (state.upgrades.find(u => u.id === 'rainbow')?.bought) {
     color = `hsl(${Math.random() * 360}, 80%, 60%)`;
@@ -2706,7 +3293,9 @@ function spawnBall(x, y, opts = {}) {
     color = colors[Math.floor(Math.random() * colors.length)];
   }
 
-  const gravity = (state.upgrades.find(u => u.id === 'gravity')?.bought) ? 0.04 : 0.12;
+  // Golden balls float gently so they're easier to catch
+  let gravity = (state.upgrades.find(u => u.id === 'gravity')?.bought) ? 0.04 : 0.12;
+  if (isGolden) gravity = Math.min(gravity, 0.025);
   const bounce = -0.6;
 
   balls.push({
@@ -2714,12 +3303,13 @@ function spawnBall(x, y, opts = {}) {
     y: y || -10,
     vx: (Math.random() - 0.5) * 3,
     vy: opts.vy || Math.random() * 2,
-    r,
+    r: isGolden ? r + 4 : r,
     color,
     gravity,
     bounce,
     golden: isGolden,
     overflow: isOverflow,
+    storm: isStorm,
     trail: [],
     life: 0,
   });
@@ -2773,6 +3363,7 @@ canvas.addEventListener('click', (e) => {
       spawnFloatingText(l.x, l.y, '+' + formatNum(gain) + ' 🦠 POPPED!', '#cc44ff');
       state.leechers.splice(i, 1);
       showToast(`🦠 Leecher popped! +${formatNum(gain)} balls!`, 'reward', '🦠');
+      playSound('leecher');
       return; // don't also click a ball
     }
   }
@@ -2792,6 +3383,7 @@ canvas.addEventListener('click', (e) => {
 
   let value = getClickValue();
   let extra = '';
+  let textColor = null;
 
   if (clickedBall) {
     // Combo
@@ -2799,24 +3391,29 @@ canvas.addEventListener('click', (e) => {
     state.comboTimer = 3 + skillLevel('comboSustain');
     if (state.combo > state.highestCombo) state.highestCombo = state.combo;
 
-    // Golden ball
+    // Golden ball → random event
     if (clickedBall.golden) {
-      const goldenMulti = state.challengeCompleted?.darkModeReward ? 200 : 100;
-      value = Math.max(100, Math.floor(getBPS() * 10)) * goldenMulti;
-      extra = ' GOLDEN!';
-      state.goldenClicks++;
+      const outcome = triggerGoldenEvent(clickedBall.x, clickedBall.y);
+      value = outcome.value;
+      extra = outcome.label;
+      textColor = outcome.color;
+      playSound('golden');
+    }
 
-      // Golden Frenzy skill
-      if (skillLevel('goldenFrenzy') > 0) {
-        const dur = skillLevel('goldenFrenzy') * 5000;
-        state.goldenFrenzyUntil = Math.max(state.goldenFrenzyUntil, Date.now()) + dur;
-      }
+    // Storm ball
+    if (clickedBall.storm) {
+      value = Math.max(getClickValue() * 15, Math.floor(getBPS() * 5));
+      extra = ' STORM!';
+      textColor = '#00e5ff';
+      state.stormBallsClicked = (state.stormBallsClicked || 0) + 1;
+      playSound('pop');
     }
 
     // Overflow ball
     if (clickedBall.overflow) {
       value = Math.max(1000, Math.floor(getBPS() * 30));
       extra = ' OVERFLOW!';
+      playSound('buff');
     }
 
     // Ball Magnetism bonus already in getClickValue
@@ -2844,9 +3441,12 @@ canvas.addEventListener('click', (e) => {
   // Always spawn a visual ball on click
   if (!clickedBall) {
     spawnBall(mx, my, { vy: -2 - Math.random() * 3 });
+    playSound('pop');
+  } else if (!clickedBall.golden && !clickedBall.storm && !clickedBall.overflow) {
+    playSound('pop');
   }
 
-  spawnFloatingText(mx, my, '+' + formatNum(value) + extra, clickedBall?.golden ? '#ffd700' : clickedBall?.overflow ? '#ff4444' : '#ffd93d');
+  spawnFloatingText(mx, my, '+' + formatNum(value) + extra, textColor || (clickedBall?.golden ? '#ffd700' : clickedBall?.overflow ? '#ff4444' : '#ffd93d'));
 });
 
 // ── Visibility ──
@@ -3043,10 +3643,40 @@ function gameLoop(timestamp) {
       }
     }
 
+    if (isGolden) state.lastGoldenSpawn = now;
     spawnBall(null, null, {
       golden: isGolden,
       overflow: isOverflow,
     });
+  }
+
+  // ── Golden pity timer: guarantee a golden ball every 90s once unlocked ──
+  {
+    const goldenUnlocked = state.upgrades.find(u => u.id === 'golden')?.bought || skillLevel('goldenChance') > 0;
+    const noSpecial = state.activeChallenge?.noSpecialBalls;
+    if (goldenUnlocked && !noSpecial && now - (state.lastGoldenSpawn || 0) > 90000) {
+      state.lastGoldenSpawn = now;
+      spawnBall(null, null, { golden: true });
+    }
+  }
+
+  // ── Ball Storm: rain clickable storm balls ──
+  if (now < state.stormUntil) {
+    if (Math.random() < 8 * dt) {
+      spawnBall(null, null, { storm: true, vy: 1 + Math.random() * 2 });
+    }
+  }
+
+  // ── Expire buffs ──
+  if (state.buffs && state.buffs.length > 0) {
+    state.buffs = state.buffs.filter(b => b.until > now);
+  }
+
+  // ── News ticker (rotate every ~12s) ──
+  newsTimer += dt;
+  if (newsTimer >= 12) {
+    newsTimer = 0;
+    rotateNewsTicker();
   }
 
   // ── UI Updates (throttled) ──
@@ -3102,6 +3732,20 @@ function updateUI() {
   if (frenzyActive) boosts.push('🎉');
   label.textContent = 'Per Second' + (boosts.length ? ' ' + boosts.join(' ') : '');
 
+  // Buff bar
+  renderBuffBar();
+
+  // Upgrades tab badge: something affordable?
+  const badge = document.getElementById('upgrades-badge');
+  if (badge) {
+    let affordable = state.upgrades.some(u => !u.bought && state.balls >= u.cost && (!u.requiresOverflow || state.overflowActive));
+    if (!affordable) {
+      affordable = GEN_UPGRADES.some(def => !state.genUpgradesBought[def.id]
+        && getGenCount(def.genId) >= def.threshold && state.balls >= def.cost);
+    }
+    badge.classList.toggle('visible', affordable);
+  }
+
   // Update tab locks
   updateTabLocks();
 
@@ -3109,6 +3753,30 @@ function updateUI() {
   if (activeTab === 'generators') { renderGenerators(); renderMilestones(); }
   if (activeTab === 'stats') renderStats();
   if (activeTab === 'challenges' && state.activeChallenge) renderChallenges();
+}
+
+function renderBuffBar() {
+  const bar = document.getElementById('buff-bar');
+  if (!bar) return;
+  const now = Date.now();
+  let html = '';
+
+  for (const b of (state.buffs || [])) {
+    if (b.until <= now) continue;
+    const secs = Math.ceil((b.until - now) / 1000);
+    const cls = b.id === 'boon' ? 'boon' : b.clickMult ? 'gold' : '';
+    html += `<span class="buff-chip ${cls}">${b.icon} ${b.name} ${secs}s</span>`;
+  }
+  if (now < state.stormUntil) {
+    html += `<span class="buff-chip storm">⚡ Ball Storm ${Math.ceil((state.stormUntil - now) / 1000)}s</span>`;
+  }
+  if (now < state.goldenFrenzyUntil) {
+    html += `<span class="buff-chip gold">🌈 Golden ×2 ${Math.ceil((state.goldenFrenzyUntil - now) / 1000)}s</span>`;
+  }
+  if (frenzyActive) {
+    html += `<span class="buff-chip gold">🎉 Ball Frenzy</span>`;
+  }
+  bar.innerHTML = html;
 }
 
 // ══════════════════════════════════════════════════════
@@ -3231,6 +3899,21 @@ function render() {
       ctx.strokeStyle = '#fff';
       ctx.lineWidth = 2;
       ctx.stroke();
+    } else if (b.storm) {
+      // Cyan electric glow
+      const glow = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r * 2);
+      glow.addColorStop(0, '#00e5ff');
+      glow.addColorStop(0.5, '#0088bb');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#00e5ff';
+      ctx.fill();
+      ctx.strokeStyle = '#bff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
     } else if (b.overflow) {
       // Red pulsing glow
       ctx.fillStyle = '#ff2200';
@@ -3326,6 +4009,11 @@ function init() {
   loadGame();
   updateTabLocks();
   renderActiveTab();
+
+  // Audio unlocks on first user gesture (browser policy)
+  document.addEventListener('pointerdown', initAudio, { once: true });
+  const muteBtn = document.getElementById('mute-btn');
+  if (muteBtn) muteBtn.textContent = state.muted ? '🔇' : '🔊';
 
   // Start game loop
   requestAnimationFrame(gameLoop);

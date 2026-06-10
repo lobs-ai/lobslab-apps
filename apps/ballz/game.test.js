@@ -30,6 +30,10 @@ function createGameContext() {
   globalThis.ACHIEVEMENTS = ACHIEVEMENTS;
   globalThis.CHALLENGE_DEFS = CHALLENGE_DEFS;
   globalThis.GEN_VISUALS = GEN_VISUALS;
+  globalThis.GEN_UPGRADES = GEN_UPGRADES;
+  globalThis.GEN_UPGRADE_TIERS = GEN_UPGRADE_TIERS;
+  globalThis.GOLDEN_EVENTS = GOLDEN_EVENTS;
+  globalThis.NEWS_STATIC = NEWS_STATIC;
   // State accessor — reading/writing ctx.state goes through a getter/setter
   // so that changes from outside the vm propagate to the inner 'state' variable.
   Object.defineProperty(globalThis, 'state', {
@@ -46,6 +50,12 @@ function createGameContext() {
     innerHTML: '',
     textContent: '',
     style: {},
+    className: '',
+    appendChild: () => {},
+    removeChild: () => {},
+    remove: () => {},
+    children: [],
+    firstChild: null,
     classList: {
       add: () => {},
       remove: () => {},
@@ -89,6 +99,7 @@ function createGameContext() {
     },
     document: {
       getElementById: () => mockElement(),
+      createElement: () => mockElement(),
       querySelectorAll: () => [],
       querySelector: () => null,
       addEventListener: () => {},
@@ -158,7 +169,7 @@ describe('Script Parsing', () => {
     expect(typeof ctx.gameLoop).toBe('function');
     expect(typeof ctx.saveGame).toBe('function');
     expect(typeof ctx.loadGame).toBe('function');
-    expect(typeof ctx.openSkillTreeWindow).toBe('function');
+    expect(typeof ctx.openSkillTree).toBe('function');
   });
 
   test('no references to removed functions exist as globals', () => {
@@ -477,5 +488,151 @@ describe('Save / Load', () => {
     expect(() => ctx.loadGame()).not.toThrow();
     // Core fields should still load
     expect(ctx.state.balls).toBe(0);
+  });
+
+  test('loadGame initializes new feature fields from a pre-expansion save', () => {
+    const old = ctx.getDefaultState();
+    delete old.genUpgradesBought;
+    delete old.buffs;
+    delete old.buffsTriggered;
+    delete old.stormUntil;
+    delete old.muted;
+    ctx.localStorage._data[ctx.SAVE_KEY] = JSON.stringify(old);
+    expect(() => ctx.loadGame()).not.toThrow();
+    expect(ctx.state.genUpgradesBought).toEqual({});
+    expect(Array.isArray(ctx.state.buffs)).toBe(true);
+    expect(ctx.state.buffsTriggered).toBe(0);
+    expect(ctx.state.muted).toBe(false);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Generator tier upgrades
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Generator Upgrades', () => {
+  beforeEach(() => {
+    ctx.state = ctx.getDefaultState();
+  });
+
+  test('GEN_UPGRADES has 8 tiers for each of the 10 generators', () => {
+    expect(ctx.GEN_UPGRADES.length).toBe(80);
+    const ids = ctx.GEN_UPGRADES.map(d => d.id);
+    expect(new Set(ids).size).toBe(80); // unique ids
+  });
+
+  test('every gen upgrade references a real generator and has a positive cost', () => {
+    const genIds = ctx.state.generators.map(g => g.id);
+    for (const def of ctx.GEN_UPGRADES) {
+      expect(genIds).toContain(def.genId);
+      expect(def.cost).toBeGreaterThan(0);
+      expect(def.threshold).toBeGreaterThan(0);
+    }
+  });
+
+  test('genUpgradeMult is 1 with nothing bought, 2 with one bought, 4 with two', () => {
+    expect(ctx.genUpgradeMult('dropper')).toBe(1);
+    ctx.state.genUpgradesBought['gu_dropper_10'] = true;
+    expect(ctx.genUpgradeMult('dropper')).toBe(2);
+    ctx.state.genUpgradesBought['gu_dropper_25'] = true;
+    expect(ctx.genUpgradeMult('dropper')).toBe(4);
+    // Other generators unaffected
+    expect(ctx.genUpgradeMult('launcher')).toBe(1);
+  });
+
+  test('buying a gen upgrade doubles that generator BPS', () => {
+    ctx.state.generators[0].count = 10;
+    const before = ctx.getBPS();
+    ctx.state.genUpgradesBought['gu_dropper_10'] = true;
+    const after = ctx.getBPS();
+    expect(after).toBeCloseTo(before * 2, 5);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Golden events & buffs
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Golden Events & Buffs', () => {
+  beforeEach(() => {
+    ctx.state = ctx.getDefaultState();
+  });
+
+  test('GOLDEN_EVENTS all have positive weights and required fields', () => {
+    expect(ctx.GOLDEN_EVENTS.length).toBeGreaterThanOrEqual(5);
+    for (const e of ctx.GOLDEN_EVENTS) {
+      expect(typeof e.id).toBe('string');
+      expect(e.weight).toBeGreaterThan(0);
+      expect(typeof e.name).toBe('string');
+    }
+  });
+
+  test('frenzy buff multiplies BPS by 7', () => {
+    ctx.state.generators[0].count = 10;
+    const before = ctx.getBPS();
+    ctx.addBuff('frenzy', 'Frenzy ×7', '🔥', 60000, { bpsMult: 7 });
+    const after = ctx.getBPS();
+    expect(after).toBeCloseTo(before * 7, 5);
+  });
+
+  test('expired buffs have no effect', () => {
+    ctx.state.buffs.push({ id: 'frenzy', name: 'x', icon: 'x', until: Date.now() - 1000, bpsMult: 7 });
+    expect(ctx.buffBPSMult()).toBe(1);
+  });
+
+  test('addBuff extends duration instead of stacking the same buff', () => {
+    ctx.addBuff('frenzy', 'Frenzy ×7', '🔥', 10000, { bpsMult: 7 });
+    ctx.addBuff('frenzy', 'Frenzy ×7', '🔥', 10000, { bpsMult: 7 });
+    expect(ctx.state.buffs.filter(b => b.id === 'frenzy').length).toBe(1);
+    expect(ctx.buffBPSMult()).toBe(7); // not 49
+  });
+
+  test('click frenzy buff multiplies click value', () => {
+    const before = ctx.getClickValue();
+    ctx.addBuff('clickFrenzy', 'Click ×77', '👆', 60000, { clickMult: 77 });
+    const after = ctx.getClickValue();
+    expect(after).toBeGreaterThanOrEqual(before * 77);
+  });
+
+  test('per-generator boon buff only affects that generator', () => {
+    ctx.state.generators[0].count = 10; // dropper
+    ctx.state.generators[1].count = 10; // launcher
+    const dropperBefore = ctx.getGenBPS(ctx.state.generators[0]);
+    const launcherBefore = ctx.getGenBPS(ctx.state.generators[1]);
+    ctx.addBuff('boon', 'Dropper ×10', '💧', 60000, { bpsMult: 10, genId: 'dropper' });
+    expect(ctx.getGenBPS(ctx.state.generators[0])).toBeCloseTo(dropperBefore * 10, 5);
+    expect(ctx.getGenBPS(ctx.state.generators[1])).toBeCloseTo(launcherBefore, 5);
+  });
+
+  test('triggerGoldenEvent increments counters and returns an outcome', () => {
+    ctx.state.generators[0].count = 5;
+    const outcome = ctx.triggerGoldenEvent(0, 0);
+    expect(ctx.state.buffsTriggered).toBe(1);
+    expect(ctx.state.goldenClicks).toBe(1);
+    expect(typeof outcome.value).toBe('number');
+    expect(typeof outcome.label).toBe('string');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Click-BPS upgrades
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Click-BPS upgrades', () => {
+  beforeEach(() => {
+    ctx.state = ctx.getDefaultState();
+  });
+
+  test('clickBpsPct sums bought click upgrades', () => {
+    expect(ctx.clickBpsPct()).toBe(0);
+    ctx.state.upgrades.find(u => u.id === 'clickBps1').bought = true;
+    expect(ctx.clickBpsPct()).toBeCloseTo(0.01, 5);
+    ctx.state.upgrades.find(u => u.id === 'clickBps3').bought = true;
+    expect(ctx.clickBpsPct()).toBeCloseTo(0.05, 5);
+  });
+
+  test('click value includes % of BPS when upgrade bought', () => {
+    ctx.state.generators[2].count = 100; // big BPS
+    const bps = ctx.getBPS();
+    ctx.state.upgrades.find(u => u.id === 'clickBps4').bought = true;
+    const val = ctx.getClickValue();
+    expect(val).toBeGreaterThanOrEqual(Math.floor(bps * 0.08));
   });
 });

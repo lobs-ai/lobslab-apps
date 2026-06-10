@@ -45,6 +45,14 @@ if (typeof module !== 'undefined' && module.exports) {
     GEN_MILESTONES,
     ACHIEVEMENTS,
     CHALLENGE_DEFS,
+    GEN_UPGRADES,
+    GOLDEN_EVENTS,
+    genUpgradeMult,
+    addBuff,
+    buffBPSMult,
+    buffClickMult,
+    buffGenMult,
+    clickBpsPct,
   };
 }
 `;
