@@ -11,9 +11,12 @@ import { dist } from '../utils.js';
 /** Single physics frame. Returns an array of events that happened. */
 export function simulateStep(balls, arena, stormRadius, dt) {
   const events = [];
-  const subDt = dt / PHYSICS_STEPS;
+  // Adaptive steps prevent powerful shots tunnelling through other balls.
+  const fastest = Math.max(0, ...balls.filter(b => b.alive).map(b => b.speed));
+  const steps = Math.max(PHYSICS_STEPS, Math.ceil(fastest * dt * 60 / 7));
+  const subDt = dt / steps;
 
-  for (let s = 0; s < PHYSICS_STEPS; s++) {
+  for (let s = 0; s < steps; s++) {
     // Move & apply friction
     for (const ball of balls) {
       if (!ball.alive) continue;
@@ -36,8 +39,9 @@ export function simulateStep(balls, arena, stormRadius, dt) {
 function integrateBall(ball, dt) {
   ball.x += ball.vx * dt * 60;
   ball.y += ball.vy * dt * 60;
-  ball.vx *= FRICTION;
-  ball.vy *= FRICTION;
+  const drag = Math.pow(FRICTION, dt * 60 * PHYSICS_STEPS);
+  ball.vx *= drag;
+  ball.vy *= drag;
   if (Math.abs(ball.vx) < MIN_SPEED * 0.1) ball.vx = 0;
   if (Math.abs(ball.vy) < MIN_SPEED * 0.1) ball.vy = 0;
 }
@@ -101,9 +105,11 @@ function checkPockets(ball, arena) {
       if (ball.shielded) {
         // Shield consumes the pocket event — bounce ball away from pocket
         ball.shielded = false;
-        const dx = ball.x - pocket.x;
-        const dy = ball.y - pocket.y;
+        const dx = ball.x - pocket.x || arena.cx - pocket.x;
+        const dy = ball.y - pocket.y || arena.cy - pocket.y;
         const d = Math.sqrt(dx * dx + dy * dy) || 1;
+        ball.x = pocket.x + (dx / d) * (pocket.radius + ball.radius + 2);
+        ball.y = pocket.y + (dy / d) * (pocket.radius + ball.radius + 2);
         ball.vx += (dx / d) * 6;
         ball.vy += (dy / d) * 6;
         return { type: 'shieldBlock', ball, pocket };
@@ -129,11 +135,17 @@ function resolveBallCollisions(balls) {
       const d = Math.sqrt(dx * dx + dy * dy);
       const minDist = a.radius + b.radius;
 
-      if (d >= minDist || d === 0) continue;
+      if (d >= minDist) {
+        if (a.ghostPassId === b.id) a.ghostPassId = null;
+        if (b.ghostPassId === a.id) b.ghostPassId = null;
+        continue;
+      }
+      if (a.ghostPassId === b.id || b.ghostPassId === a.id) continue;
+      if (d === 0) continue;
 
       // Ghost: phase through on first collision
-      if (a.ghost && !a.ghostUsed) { a.ghostUsed = true; a.ghost = false; continue; }
-      if (b.ghost && !b.ghostUsed) { b.ghostUsed = true; b.ghost = false; continue; }
+      if (a.ghost && !a.ghostUsed) { a.ghostUsed = true; a.ghost = false; a.ghostPassId = b.id; continue; }
+      if (b.ghost && !b.ghostUsed) { b.ghostUsed = true; b.ghost = false; b.ghostPassId = a.id; continue; }
 
       const nx = dx / d;
       const ny = dy / d;

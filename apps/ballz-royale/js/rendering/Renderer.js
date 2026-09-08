@@ -11,8 +11,14 @@ export class Renderer {
   }
 
   resize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = Math.round(this.width * dpr);
+    this.canvas.height = Math.round(this.height * dpr);
+    this.canvas.style.width = `${this.width}px`;
+    this.canvas.style.height = `${this.height}px`;
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   /** Main render pass. */
@@ -23,6 +29,7 @@ export class Renderer {
             powerBarEl, powerFillEl } = state;
 
     ctx.save();
+    this.state = state;
 
     // Screen shake offset
     if (effects.shakeMag > 0) {
@@ -30,8 +37,8 @@ export class Renderer {
     }
 
     // Background
-    ctx.fillStyle = '#0a0a1a';
-    ctx.fillRect(-10, -10, this.canvas.width + 20, this.canvas.height + 20);
+    ctx.fillStyle = '#101d28';
+    ctx.fillRect(-10, -10, this.width + 20, this.height + 20);
 
     this._drawArena(arena);
     this._drawStorm(arena, storm);
@@ -52,22 +59,27 @@ export class Renderer {
     const railW = Math.max(14, tableW * 0.028);
 
     // Outer wood frame
-    ctx.fillStyle = '#5c3210';
+    ctx.shadowColor = '#0008';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetY = 18;
+    ctx.fillStyle = '#70503c';
     ctx.beginPath();
     ctx.roundRect(left - railW * 1.8, top - railW * 1.8, tableW + railW * 3.6, tableH + railW * 3.6, 10);
     ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
 
     // Rail cushions (dark green)
-    ctx.fillStyle = '#145a32';
+    ctx.fillStyle = '#103f52';
     ctx.beginPath();
     ctx.roundRect(left - railW, top - railW, tableW + railW * 2, tableH + railW * 2, 6);
     ctx.fill();
 
     // Felt surface
     const feltGrad = ctx.createLinearGradient(left, top, right, bottom);
-    feltGrad.addColorStop(0,   '#1e6b3a');
-    feltGrad.addColorStop(0.5, '#217a40');
-    feltGrad.addColorStop(1,   '#1a5c32');
+    feltGrad.addColorStop(0,   '#1c6883');
+    feltGrad.addColorStop(0.5, '#24778d');
+    feltGrad.addColorStop(1,   '#15546c');
     ctx.fillStyle = feltGrad;
     ctx.fillRect(left, top, tableW, tableH);
 
@@ -97,13 +109,43 @@ export class Renderer {
     ctx.stroke();
 
     // Table border (inner edge of rail)
-    ctx.strokeStyle = '#0d3d1e';
+    ctx.strokeStyle = '#0d394d';
     ctx.lineWidth = 2;
     ctx.strokeRect(left, top, tableW, tableH);
+    ctx.font = `900 ${Math.max(15, tableW * 0.04)}px 'Arial Black', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#e1f4e412';
+    ctx.fillText('BALLZ ROYALE', cx, cy + tableW * 0.014);
+    // Brass rail sights, useful for lining up bank shots.
+    for (const t of [0.125, 0.25, 0.375, 0.625, 0.75, 0.875]) {
+      for (const y of [top - railW * 1.4, bottom + railW * 1.4]) {
+        ctx.fillStyle = '#e9be70';
+        ctx.beginPath();
+        ctx.arc(left + tableW * t, y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
   }
 
   _drawStorm(arena, storm) {
-    // Storm is disabled on the billiard table — nothing to draw
+    if (storm.percent === 100) return;
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(arena.left, arena.top, arena.tableW, arena.tableH);
+    ctx.clip();
+    ctx.beginPath();
+    ctx.rect(arena.left, arena.top, arena.tableW, arena.tableH);
+    ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2, true);
+    ctx.fillStyle = '#d85b6c55';
+    ctx.fill('evenodd');
+    ctx.beginPath();
+    ctx.arc(arena.cx, arena.cy, storm.currentRadius, 0, Math.PI * 2);
+    ctx.strokeStyle = '#f6a78e';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([9, 7]);
+    ctx.stroke();
+    ctx.restore();
   }
 
   _drawPockets(arena) {
@@ -166,7 +208,7 @@ export class Renderer {
       // Glow
       ctx.save();
       ctx.shadowColor = pc.glow;
-      ctx.shadowBlur = isSelected ? 25 : 10;
+      ctx.shadowBlur = isSelected ? 18 : 3;
 
       // Body
       ctx.beginPath();
@@ -186,6 +228,15 @@ export class Renderer {
       ctx.lineWidth = isSelected ? 3 : 1.5;
       ctx.stroke();
       ctx.restore();
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.radius * 0.42, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff3df';
+      ctx.fill();
+      ctx.fillStyle = '#24303b';
+      ctx.font = `800 ${Math.max(7, ball.radius * 0.65)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(ball.owner + 1), ball.x, ball.y + 0.5);
 
       // Ghost ring
       if (ball.ghost) {
@@ -246,9 +297,26 @@ export class Renderer {
       if (powerFillEl) powerFillEl.style.width = `${(power / MAX_POWER) * 100}%`;
 
       if (power > 0.5) {
-        const lineLen = 80 + power * 12;
-        const endX = selectedBall.x + Math.cos(angle) * lineLen;
-        const endY = selectedBall.y + Math.sin(angle) * lineLen;
+        const dx = Math.cos(angle), dy = Math.sin(angle);
+        const { arena, balls } = this.state;
+        let lineLen = power * 16;
+        let target = null;
+        const r = selectedBall.radius;
+        const wallX = dx > 0 ? (arena.right - r - selectedBall.x) / dx : dx < 0 ? (arena.left + r - selectedBall.x) / dx : Infinity;
+        const wallY = dy > 0 ? (arena.bottom - r - selectedBall.y) / dy : dy < 0 ? (arena.top + r - selectedBall.y) / dy : Infinity;
+        lineLen = Math.min(lineLen, wallX, wallY);
+        for (const ball of balls) {
+          if (!ball.alive || ball === selectedBall) continue;
+          const x = ball.x - selectedBall.x, y = ball.y - selectedBall.y;
+          const projection = x * dx + y * dy;
+          const perpendicularSq = x * x + y * y - projection * projection;
+          const radius = r + ball.radius;
+          if (projection <= 0 || perpendicularSq > radius * radius) continue;
+          const hit = projection - Math.sqrt(radius * radius - perpendicularSq);
+          if (hit >= 0 && hit < lineLen) { lineLen = hit; target = ball; }
+        }
+        const endX = selectedBall.x + dx * lineLen;
+        const endY = selectedBall.y + dy * lineLen;
 
         // Trajectory dotted line
         ctx.beginPath();
@@ -265,6 +333,20 @@ export class Renderer {
         ctx.arc(endX, endY, 4, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
         ctx.fill();
+        ctx.beginPath();
+        ctx.arc(endX, endY, r, 0, Math.PI * 2);
+        ctx.strokeStyle = '#fff9';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        if (target) {
+          const normal = Math.atan2(target.y - endY, target.x - endX);
+          ctx.beginPath();
+          ctx.moveTo(target.x, target.y);
+          ctx.lineTo(target.x + Math.cos(normal) * 70, target.y + Math.sin(normal) * 70);
+          ctx.strokeStyle = '#e9be70';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        }
 
         // Slingshot pull line
         ctx.beginPath();

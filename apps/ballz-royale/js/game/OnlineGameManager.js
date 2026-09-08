@@ -6,7 +6,8 @@ import {
   PLAYER_COLORS, BALL_RADIUS, CANONICAL_SIZE, MAX_POWER,
   ITEM_RADIUS, POCKET_RADIUS,
 } from '../constants.js';
-import { darken, lighten, dist } from '../utils.js';
+import { darken, lighten, dist, escapeHTML } from '../utils.js';
+import { audio } from '../effects/Audio.js';
 import { Connection } from '../net/Connection.js';
 import { ReplayPlayer } from './ReplayPlayer.js';
 import { ParticleSystem } from '../effects/ParticleSystem.js';
@@ -181,7 +182,8 @@ export class OnlineGameManager {
 
       this.selectedBallId = ball.id;
       this.conn.send({ type: 'select', ballId: ball.id });
-      // Don't change phase locally — wait for server 'turn' message
+      this.phase = 'aim';
+      this._syncInputPhase();
     };
 
     this.input.onShot = (angle, power) => {
@@ -196,6 +198,7 @@ export class OnlineGameManager {
         power: Math.min(power, MAX_POWER),
         itemIndex: this.selectedItemIndex,
       });
+      audio.play('shot', power / 5);
 
       // Disable input immediately
       this.input.setPhase('wait');
@@ -205,7 +208,7 @@ export class OnlineGameManager {
       // Go back to select phase if we had selected a ball
       if (this.phase === 'aim' && this.currentPlayer === this.myIndex) {
         this.selectedBallId = null;
-        this.conn.send({ type: 'select', ballId: -1 }); // deselect (server ignores invalid)
+        this.phase = 'select';
         this._syncInputPhase();
       }
     };
@@ -213,7 +216,7 @@ export class OnlineGameManager {
     // Item bar clicks
     const itemBar = document.getElementById('itemBar');
     if (itemBar) {
-      itemBar.addEventListener('click', (e) => {
+      itemBar.onclick = (e) => {
         if (this.currentPlayer !== this.myIndex) return;
         const slot = e.target.closest('.item-slot');
         if (!slot) return;
@@ -221,7 +224,7 @@ export class OnlineGameManager {
         if (isNaN(idx)) return;
         this.selectedItemIndex = this.selectedItemIndex === idx ? -1 : idx;
         this._updateItemBar();
-      });
+      };
     }
   }
 
@@ -316,6 +319,7 @@ export class OnlineGameManager {
 
     switch (event.type) {
       case 'ballCollision': {
+        audio.play('hit', event.speed);
         const strength = Math.min(event.speed / 20, 1);
         if (strength > 0.2) {
           this.particles.burst(sx(event.cx), sy(event.cy), '#ffffff', Math.floor(4 * strength), strength * 3);
@@ -332,6 +336,7 @@ export class OnlineGameManager {
         break;
       }
       case 'pocketed': {
+        audio.play('pocket', 10);
         const color = this.players[event.owner]?.color?.main || '#ffffff';
         this.particles.burst(sx(event.pocketX), sy(event.pocketY), color, 20, 5);
         this.effects.shake(6);
@@ -478,8 +483,8 @@ export class OnlineGameManager {
   }
 
   _updateScale() {
-    const W = this.canvas.width;
-    const H = this.canvas.height;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
     this.scale = Math.min(W, H) / CANONICAL_SIZE;
     this.offsetX = (W - CANONICAL_SIZE * this.scale) / 2;
     this.offsetY = (H - CANONICAL_SIZE * this.scale) / 2;
@@ -549,23 +554,26 @@ export class OnlineGameManager {
 
   _render() {
     const ctx = this.ctx;
-    let W = this.canvas.width;
-    let H = this.canvas.height;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     // Resize check
-    if (W !== window.innerWidth || H !== window.innerHeight) {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      W = this.canvas.width;
-      H = this.canvas.height;
+    if (this.canvas.width !== Math.round(W * dpr) || this.canvas.height !== Math.round(H * dpr)) {
+      this.canvas.width = Math.round(W * dpr);
+      this.canvas.height = Math.round(H * dpr);
+      this.canvas.style.width = `${W}px`;
+      this.canvas.style.height = `${H}px`;
       this._updateScale();
+      this._syncInputPhase();
     }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     ctx.save();
     ctx.translate(this.effects.shakeX, this.effects.shakeY);
 
     // Clear
-    ctx.fillStyle = '#0a0a1a';
+    ctx.fillStyle = '#101d28';
     ctx.fillRect(-20, -20, W + 40, H + 40);
 
     if (this.arena) {
@@ -596,16 +604,27 @@ export class OnlineGameManager {
     const sy = cy * this.scale + this.offsetY;
     const sr = radius * this.scale;
 
-    // Arena fill
+    // Walnut rail and blue felt, matching the local table.
+    ctx.beginPath();
+    ctx.arc(sx, sy, sr + 14, 0, Math.PI * 2);
+    ctx.fillStyle = '#70503c';
+    ctx.fill();
     ctx.beginPath();
     ctx.arc(sx, sy, sr, 0, Math.PI * 2);
-    ctx.fillStyle = '#111128';
+    const felt = ctx.createRadialGradient(sx - sr * 0.3, sy - sr * 0.3, 0, sx, sy, sr);
+    felt.addColorStop(0, '#24778d');
+    felt.addColorStop(1, '#15546c');
+    ctx.fillStyle = felt;
     ctx.fill();
 
     // Border
-    ctx.strokeStyle = '#334';
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#103f52';
+    ctx.lineWidth = 8;
     ctx.stroke();
+    ctx.fillStyle = '#e1f4e422';
+    ctx.font = `900 ${Math.max(14, sr * 0.075)}px 'Arial Black', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('BALLZ ROYALE', sx, sy);
 
     // Pockets
     for (const p of pockets) {
@@ -616,7 +635,7 @@ export class OnlineGameManager {
       ctx.arc(px, py, pr, 0, Math.PI * 2);
       ctx.fillStyle = '#000';
       ctx.fill();
-      ctx.strokeStyle = '#222';
+      ctx.strokeStyle = '#947052';
       ctx.lineWidth = 2;
       ctx.stroke();
     }
@@ -713,6 +732,15 @@ export class OnlineGameManager {
       ctx.arc(sx, sy, sr, 0, Math.PI * 2);
       ctx.fillStyle = grad;
       ctx.fill();
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr * 0.42, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff3df';
+      ctx.fill();
+      ctx.fillStyle = '#24303b';
+      ctx.font = `800 ${Math.max(6, sr * 0.65)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(ball.owner + 1), sx, sy + 0.5);
 
       // Item indicators
       const emojiSize = `${sr}px sans-serif`;
@@ -821,6 +849,7 @@ export class OnlineGameManager {
     if (!player) return;
 
     const isMe = this.currentPlayer === this.myIndex;
+    document.getElementById('shotHint').textContent = isMe ? 'Drag your ball back, then release to shoot. • Esc to cancel' : 'Watch your rivals. Your turn is coming.';
     const color = player.color?.main || '#888';
 
     // Turn indicator
@@ -859,7 +888,7 @@ export class OnlineGameManager {
         const c = p.color?.main || '#888';
         const arrow = p.index === this.currentPlayer ? '► ' : '';
         const you = p.index === this.myIndex ? ' (you)' : '';
-        return `<div class="score-row" style="color:${c}">${arrow}${p.name}${you}: ${alive}🔴</div>`;
+        return `<div class="score-row" style="color:${c}">${arrow}${escapeHTML(p.name)}${you}: ${'●'.repeat(alive)}</div>`;
       }).join('');
     }
   }
@@ -888,7 +917,7 @@ export class OnlineGameManager {
         const status = p.connected ? '🟢' : '🔴';
         const host = p.index === 0 ? ' 👑' : '';
         const you = p.index === this.myIndex ? ' (you)' : '';
-        return `<div class="lobby-player">${status} ${p.name}${host}${you}</div>`;
+        return `<div class="lobby-player">${status} ${escapeHTML(p.name)}${host}${you}</div>`;
       }).join('');
     }
 
@@ -926,6 +955,8 @@ export class OnlineGameManager {
   }
 
   _showGame() {
+    document.getElementById('matchControls').hidden = false;
+    document.getElementById('shotHint').hidden = false;
     const hud = document.getElementById('hud');
     if (hud) hud.style.display = 'flex';
     this.canvas.style.display = 'block';
@@ -947,7 +978,7 @@ export class OnlineGameManager {
         const s = stats[i] || {};
         const c = p.color?.main || '#888';
         return `<div style="color:${c}; margin:4px 0;">
-          ${p.name}: ${s.shotsFired || 0} shots, ${s.ballsPocketed || 0} pocketed, ${s.itemsUsed || 0} items
+          ${escapeHTML(p.name)}: ${s.shotsFired || 0} shots, ${s.ballsPocketed || 0} pocketed, ${s.itemsUsed || 0} items
         </div>`;
       }).join('');
     }
@@ -969,6 +1000,12 @@ export class OnlineGameManager {
   // ════════════════════════════════════════════════════════════
 
   destroy() {
+    document.getElementById('hud').style.display = 'none';
+    document.getElementById('itemBar').style.display = 'none';
+    document.getElementById('turnTimer').style.display = 'none';
+    document.getElementById('matchControls').hidden = true;
+    document.getElementById('shotHint').hidden = true;
+    this.input.destroy();
     if (this._rafId) cancelAnimationFrame(this._rafId);
     this.conn.disconnect();
     this.replay.stop();

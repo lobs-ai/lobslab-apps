@@ -3,10 +3,50 @@
 import { PLAYER_COLORS } from './constants.js';
 import { GameManager } from './game/GameManager.js';
 import { OnlineGameManager } from './game/OnlineGameManager.js';
+import { audio } from './effects/Audio.js';
+
+document.addEventListener('pointerdown', () => audio.unlock());
+document.getElementById('soundBtn').onclick = (e) => {
+  audio.enabled = !audio.enabled;
+  e.currentTarget.textContent = audio.enabled ? 'Sound on' : 'Sound off';
+  e.currentTarget.setAttribute('aria-pressed', audio.enabled);
+  if (audio.enabled) audio.unlock();
+};
 
 const canvas = document.getElementById('c');
 let game = null;
 let onlineGame = null;
+
+function startLocal(configs) {
+  game?.destroy();
+  game = new GameManager(canvas);
+  document.getElementById('matchControls').hidden = false;
+  document.getElementById('shotHint').hidden = false;
+  resize();
+  game.start(configs);
+}
+
+function returnToMenu() {
+  game?.destroy();
+  game = null;
+  onlineGame?.destroy();
+  onlineGame = null;
+  document.getElementById('matchControls').hidden = true;
+  document.getElementById('shotHint').hidden = true;
+  document.getElementById('lobbyOverlay').style.display = 'none';
+  document.getElementById('lobbyJoinCreate').style.display = 'block';
+  document.getElementById('lobbyRoom').style.display = 'none';
+  document.getElementById('gameOverOverlay').style.display = 'none';
+  document.getElementById('modeSelect').style.display = 'flex';
+}
+document.getElementById('menuBtn').onclick = returnToMenu;
+document.getElementById('winMenuBtn').onclick = returnToMenu;
+document.getElementById('quickPlayBtn').onclick = () => {
+  document.getElementById('modeSelect').style.display = 'none';
+  startLocal(['You', 'Scratch', 'Sidewinder', 'Lucky'].map((name, i) => ({
+    name, color: PLAYER_COLORS[i], isAI: i > 0,
+  })));
+};
 
 // ── Resize ──
 function resize() {
@@ -50,8 +90,8 @@ function updateSetupNames() {
     row.className = 'setup-row';
     row.innerHTML = `
       <label style="color:${PLAYER_COLORS[i].main}">●</label>
-      <input type="text" placeholder="Player ${i + 1}" id="pname${i}" maxlength="12">
-      ${i > 0 ? `<label><input type="checkbox" class="aiCheck" data-idx="${i}"> AI</label>` : ''}
+      <input type="text" aria-label="Player ${i + 1} name" placeholder="Player ${i + 1}" id="pname${i}" maxlength="12">
+      ${i > 0 ? `<label><input type="checkbox" aria-label="Make player ${i + 1} a bot" class="aiCheck" data-idx="${i}"> AI</label>` : ''}
     `;
     playerNamesEl.appendChild(row);
   }
@@ -78,9 +118,7 @@ startBtn.addEventListener('click', () => {
   }
 
   document.getElementById('setup').style.display = 'none';
-  game = new GameManager(canvas);
-  resize();
-  game.start(configs);
+  startLocal(configs);
 });
 
 // ═══════════════════════════════════════════
@@ -113,9 +151,9 @@ function startOnlineLobby() {
     onlineGame.joinRoom(code, name);
   };
 
-  joinCode.addEventListener('keydown', (e) => {
+  joinCode.onkeydown = (e) => {
     if (e.key === 'Enter') joinBtn.click();
-  });
+  };
 
   lobbyStartBtn.onclick = () => {
     onlineGame.startGame();

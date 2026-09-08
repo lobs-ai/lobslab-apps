@@ -24,32 +24,29 @@ export class InputHandler {
 
   _bindEvents() {
     const c = this.canvas;
-
-    c.addEventListener('mousedown', (e) => this._onDown(e.clientX, e.clientY));
-    c.addEventListener('mousemove', (e) => this._onMove(e.clientX, e.clientY));
-    c.addEventListener('contextmenu', (e) => { e.preventDefault(); this._cancel(); });
-
-    // Listen on window so mouseup fires even when cursor leaves the canvas mid-drag
-    window.addEventListener('mouseup', (e) => this._onUp());
-    window.addEventListener('mousemove', (e) => {
-      if (this.aiming) this._onMove(e.clientX, e.clientY);
-    });
-
-    // Touch support
-    c.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      const t = e.touches[0];
-      this._onDown(t.clientX, t.clientY);
-    }, { passive: false });
-    c.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      const t = e.touches[0];
-      this._onMove(t.clientX, t.clientY);
-    }, { passive: false });
-    c.addEventListener('touchend', (e) => {
-      e.preventDefault();
+    this.events = new AbortController();
+    const signal = this.events.signal;
+    c.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      c.setPointerCapture(e.pointerId);
+      this._onDown(e.clientX, e.clientY);
+    }, { signal });
+    c.addEventListener('pointermove', (e) => this._onMove(e.clientX, e.clientY), { signal });
+    c.addEventListener('pointerup', (e) => {
+      this._onMove(e.clientX, e.clientY);
       this._onUp();
-    }, { passive: false });
+    }, { signal });
+    c.addEventListener('pointercancel', () => this._cancel(), { signal });
+    c.addEventListener('contextmenu', (e) => { e.preventDefault(); this._cancel(); }, { signal });
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Escape') this._cancel();
+    }, { signal });
+    window.addEventListener('blur', () => this._cancel(), { signal });
+  }
+
+  destroy() {
+    this.events.abort();
+    this.setPhase('menu');
   }
 
   _screenToCanvas(clientX, clientY) {
@@ -68,6 +65,11 @@ export class InputHandler {
         const threshold = (ball.radius + 10) ** 2;
         if (distSq(x, y, ball.x, ball.y) < threshold) {
           this.onBallSelected?.(ball);
+          if (this._phase === 'aim') {
+            this.aiming = true;
+            this.aimStartX = x;
+            this.aimStartY = y;
+          }
           return;
         }
       }
@@ -85,6 +87,11 @@ export class InputHandler {
             const t = (b.radius + 10) ** 2;
             if (distSq(x, y, b.x, b.y) < t) {
               this.onBallSelected?.(b);
+              if (this._phase === 'aim') {
+                this.aiming = true;
+                this.aimStartX = x;
+                this.aimStartY = y;
+              }
               return;
             }
           }
@@ -106,9 +113,9 @@ export class InputHandler {
     const dx = this.aimStartX - this.mouseX;
     const dy = this.aimStartY - this.mouseY;
     const d = Math.sqrt(dx * dx + dy * dy);
-    const power = Math.min(d / 15, MAX_POWER);
+    const power = this._power(d);
 
-    if (power < 1) return; // too weak, cancel
+    if (d < 6 || power < 1) return; // A tap selects without accidentally firing.
 
     const angle = Math.atan2(dy, dx);
     this.onShot?.(angle, power);
@@ -116,7 +123,11 @@ export class InputHandler {
 
   _cancel() {
     this.aiming = false;
-    this.onCancel?.();
+    if (this._phase === 'aim') this.onCancel?.();
+  }
+
+  _power(distance) {
+    return Math.min(distance / Math.min(180, this.canvas.clientWidth * 0.32) * MAX_POWER, MAX_POWER);
   }
 
   /** Called by GameManager to update what phase we're in and what's selectable. */
@@ -136,7 +147,7 @@ export class InputHandler {
     return {
       ball: this._selectedBall,
       angle: Math.atan2(dy, dx),
-      power: Math.min(d / 15, MAX_POWER),
+      power: this._power(d),
       pullX: this.mouseX,
       pullY: this.mouseY,
     };

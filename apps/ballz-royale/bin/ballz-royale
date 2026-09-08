@@ -1,0 +1,47 @@
+#!/bin/bash
+set -euo pipefail
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR"
+RUNTIME_DIR="$ROOT_DIR/.runtime"
+PID_FILE="$RUNTIME_DIR/server.pid"
+APP_PORT="${PORT:-47101}"
+mkdir -p "$RUNTIME_DIR"
+running() { [[ -f "$PID_FILE" ]] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; }
+stop() {
+  if running; then
+    kill "$(cat "$PID_FILE")"
+    for ((i=0;i<50;i++)); do
+      if ! running; then break; fi
+      sleep .1
+    done
+    if running; then echo 'Server has not stopped yet.'; exit 1; fi
+  fi
+  rm -f "$PID_FILE"
+  echo 'Ballz Royale stopped.'
+}
+start() {
+  if running; then echo "Ballz Royale running at http://localhost:$APP_PORT"; return; fi
+  if [[ "${1:-}" == --build ]]; then npm ci --silent; fi
+  if [[ ! -d node_modules/ws ]]; then npm ci --silent; fi
+  if lsof -tiTCP:"$APP_PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+    echo "Port $APP_PORT is occupied. Set PORT to use another port."; exit 1
+  fi
+  PORT="$APP_PORT" node --input-type=module -e '
+    import {spawn} from "node:child_process";
+    import {openSync, writeFileSync} from "node:fs";
+    const log = openSync(".runtime/server.log", "a");
+    const child = spawn(process.execPath, ["server.mjs"], {detached:true, stdio:["ignore",log,log]});
+    writeFileSync(".runtime/server.pid", String(child.pid));
+    child.unref();
+  '
+  sleep .5
+  if ! running; then cat "$RUNTIME_DIR/server.log"; exit 1; fi
+  echo "Ballz Royale running at http://localhost:$APP_PORT"
+}
+case "${1:-status}" in
+  start) start "${2:-}" ;;
+  stop) stop ;;
+  restart) stop; start --build ;;
+  status) if running; then echo "Ballz Royale running at http://localhost:$APP_PORT"; else echo 'Ballz Royale stopped.'; fi ;;
+  *) echo 'Usage: bin/ballz-royale {start [--build]|stop|restart|status}'; exit 1 ;;
+esac

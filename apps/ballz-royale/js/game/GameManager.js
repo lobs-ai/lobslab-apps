@@ -2,8 +2,8 @@
 // Top-level game state machine. Coordinates all subsystems.
 
 import {
-  BALL_SPAWN_DISTANCE,
-  ITEM_SPAWN_INTERVAL, AI_TURN_DELAY, MIN_SPEED,
+  STORM_SHRINK_INTERVAL, ITEM_TYPES,
+  ITEM_SPAWN_INTERVAL, AI_TURN_DELAY,
 } from '../constants.js';
 import { Ball, resetBallIds } from './Ball.js';
 import { Player } from './Player.js';
@@ -17,6 +17,7 @@ import { ScreenEffects } from '../effects/ScreenEffects.js';
 import { Renderer } from '../rendering/Renderer.js';
 import { HUD } from '../rendering/HUD.js';
 import { InputHandler } from '../input/InputHandler.js';
+import { audio } from '../effects/Audio.js';
 
 /**
  * Game phases:
@@ -49,6 +50,9 @@ export class GameManager {
     this.activeItemIndex = null;
     this.ballsPerPlayer = 4;
     this.lastTime = 0;
+    this._raf = null;
+    this._aiTimer = null;
+    this.configs = null;
 
     this._bindInput();
     this._bindUI();
@@ -58,51 +62,51 @@ export class GameManager {
     this.input.onBallSelected = (ball) => this._selectBall(ball);
     this.input.onShot = (angle, power) => this._shoot(angle, power);
     this.input.onCancel = () => this._cancelAim();
-
-    // Prevent scroll
-    window.addEventListener('keydown', (e) => {
-      if (['Space', 'ArrowUp', 'ArrowDown'].includes(e.code)) e.preventDefault();
-    });
   }
 
   _bindUI() {
     this.hud.onItemClick = (index) => {
-      if (this.phase === 'select' || this.phase === 'aim') {
+      if (!this.players[this.currentPlayer]?.isAI && (this.phase === 'select' || this.phase === 'aim')) {
         this.activeItemIndex = this.activeItemIndex === index ? null : index;
         this._updateHUD();
       }
     };
 
-    document.getElementById('playAgainBtn').addEventListener('click', () => {
+    document.getElementById('playAgainBtn').onclick = () => {
       this.hud.hideWin();
-      document.getElementById('setup').style.display = 'flex';
-      this.phase = 'menu';
-    });
+      this.start(this.configs);
+    };
   }
 
   // ── Lifecycle ──
 
   resize() {
+    const old = this.arena && { cx: this.arena.cx, cy: this.arena.cy, w: this.arena.tableW, h: this.arena.tableH };
     this.renderer.resize();
     if (this.arena) {
-      this.arena.resize(this.canvas.width, this.canvas.height);
+      this.arena.resize(this.renderer.width, this.renderer.height);
       if (this.storm) this.storm.resize(this.arena.radius);
+      const scale = this.arena.tableW / old.w;
+      for (const object of [...this.balls, ...this.itemSpawner.pickups]) {
+        object.x = this.arena.cx + (object.x - old.cx) * scale;
+        object.y = this.arena.cy + (object.y - old.cy) * this.arena.tableH / old.h;
+        if ('radius' in object) object.radius = this.arena.ballRadius;
+      }
+      if (this.phase === 'aim') this._cancelAim();
     }
   }
 
   /** Start a new game with the given player configs. */
   start(playerConfigs) {
+    cancelAnimationFrame(this._raf);
+    clearTimeout(this._aiTimer);
+    this.configs = playerConfigs;
     resetBallIds();
-    this.arena = new Arena(this.canvas.width, this.canvas.height);
-    // Vary pocket positions slightly each game for map variety
-    this.arena.buildPockets(
-      Array.from({ length: 6 }, () => (Math.random() - 0.5) * 0.3)
-    );
+    this.arena = new Arena(this.renderer.width, this.renderer.height);
     this.storm = new Storm(this.arena.radius);
     this.itemSpawner.clear();
     this.particles.clear();
     this.effects = new ScreenEffects();
-    this.effects.bindUI(document.getElementById('announcement'));
 
     this.players = playerConfigs.map((cfg, i) =>
       new Player(i, cfg.name, cfg.color, cfg.isAI)
@@ -110,6 +114,8 @@ export class GameManager {
 
     this.ballsPerPlayer = this.players.length <= 2 ? 5 : 4;
     this.balls = this._spawnBalls();
+    this.players.forEach(p => p.collectItem(ITEM_TYPES[0]));
+    this.itemSpawner.spawnItems(this.arena.cx, this.arena.cy, this.arena.tableH * 0.42);
     this.currentPlayer = 0;
     this.round = 1;
     this.turnInRound = 0;
@@ -124,27 +130,26 @@ export class GameManager {
 
     // Start AI if first player is AI
     if (this.players[0].isAI) {
-      setTimeout(() => this._doAITurn(), AI_TURN_DELAY);
+      this._aiTimer = setTimeout(() => this._doAITurn(), AI_TURN_DELAY);
     }
 
-    requestAnimationFrame((t) => this._loop(t));
+    this._raf = requestAnimationFrame((t) => this._loop(t));
   }
 
   _spawnBalls() {
     const balls = [];
-    const total = this.players.length * this.ballsPerPlayer;
-    let idx = 0;
     for (let p = 0; p < this.players.length; p++) {
       for (let b = 0; b < this.ballsPerPlayer; b++) {
-        const angle = (idx / total) * Math.PI * 2 - Math.PI / 2;
-        const dist = this.arena.radius * BALL_SPAWN_DISTANCE;
+        // Equal-distance starting positions safely inside any table shape.
+        const angle = (p * this.ballsPerPlayer + b) / (this.players.length * this.ballsPerPlayer) * Math.PI * 2 - Math.PI / 2;
+        const radius = Math.min(this.arena.tableW, this.arena.tableH) * 0.34;
         const ball = new Ball(
-          this.arena.cx + Math.cos(angle) * dist,
-          this.arena.cy + Math.sin(angle) * dist,
+          this.arena.cx + Math.cos(angle) * radius,
+          this.arena.cy + Math.sin(angle) * radius,
           p
         );
+        ball.radius = this.arena.ballRadius;
         balls.push(ball);
-        idx++;
       }
     }
     return balls;
@@ -176,12 +181,16 @@ export class GameManager {
     }
 
     this.selectedBall.shoot(angle, power);
+    audio.play('shot', power / 5);
     this.players[this.currentPlayer].stats.shotsFired++;
     this.phase = 'simulate';
+    this.simulationTime = 0;
+    this._updateHUD();
     this._updateInputPhase();
   }
 
   _cancelAim() {
+    if (this.phase !== 'aim') return;
     this.selectedBall = null;
     this.activeItemIndex = null;
     this.phase = 'select';
@@ -192,6 +201,18 @@ export class GameManager {
   // ── Turn Flow ──
 
   _endTurn() {
+    // Give each player their turn to rescue balls before the storm takes them.
+    for (const ball of this.balls) {
+      if (ball.alive && ball.owner === this.currentPlayer &&
+          !this.storm.isSafe(ball.x, ball.y, this.arena.cx, this.arena.cy)) {
+        ball.kill();
+        this.players[ball.owner].stats.ballsLost++;
+        this.particles.spawn(ball.x, ball.y, '#ee977c', 18);
+        this.effects.announce('The storm claimed a ball');
+      }
+      ball.vx = 0;
+      ball.vy = 0;
+    }
     // Reset ball effects
     for (const ball of this.balls) {
       ball.resetEffects();
@@ -207,6 +228,9 @@ export class GameManager {
         ? activePlayers[0]
         : { name: 'Nobody', color: { main: '#888' } };
       this.hud.showWin(winner.name, winner.color.main);
+      document.getElementById('winStats').textContent = this.players.map(p =>
+        `${p.name}: ${p.stats.ballsPocketed} pocketed / ${p.stats.shotsFired} shots`).join(' · ');
+      this._updateInputPhase();
       return;
     }
 
@@ -218,14 +242,16 @@ export class GameManager {
       safety++;
     }
 
-    this.turnInRound++;
-    if (this.turnInRound >= activePlayers.length) {
+    if (next <= this.currentPlayer) {
       this.turnInRound = 0;
       this.round++;
+      if (this.round % STORM_SHRINK_INTERVAL === 1 && this.storm.shrink()) {
+        this.effects.announce('Storm closing. Bring your balls inside!');
+      }
 
       // Item spawn check
       if (this.round % ITEM_SPAWN_INTERVAL === 0) {
-        this.itemSpawner.spawnItems(this.arena.cx, this.arena.cy, this.arena.radius);
+        this.itemSpawner.spawnItems(this.arena.cx, this.arena.cy, Math.min(this.arena.tableH * 0.42, this.storm.targetRadius * 0.8));
       }
     }
 
@@ -235,13 +261,14 @@ export class GameManager {
     this._updateInputPhase();
 
     if (this.players[this.currentPlayer].isAI) {
-      setTimeout(() => this._doAITurn(), AI_TURN_DELAY);
+      this._aiTimer = setTimeout(() => this._doAITurn(), AI_TURN_DELAY);
     }
   }
 
   // ── AI ──
 
   _doAITurn() {
+    if (this.phase !== 'select' || !this.players[this.currentPlayer]?.isAI) return;
     const player = this.players[this.currentPlayer];
     const shot = this.ai.computeShot(player, this.balls, this.arena);
 
@@ -259,8 +286,11 @@ export class GameManager {
     }
 
     shot.ball.shoot(shot.angle, shot.power);
+    audio.play('shot', shot.power / 5);
     player.stats.shotsFired++;
     this.phase = 'simulate';
+    this.simulationTime = 0;
+    this._updateHUD();
     this._updateInputPhase();
   }
 
@@ -280,22 +310,27 @@ export class GameManager {
   }
 
   _updateInputPhase() {
-    const selectableBalls = this.phase === 'select'
+    const selectableBalls = this.phase === 'select' && !this.players[this.currentPlayer].isAI
       ? this.players[this.currentPlayer].getAliveBalls(this.balls)
       : null;
-    this.input.setPhase(this.phase, this.selectedBall, selectableBalls);
+    this.input.setPhase(this.players[this.currentPlayer]?.isAI ? 'wait' : this.phase, this.selectedBall, selectableBalls);
   }
 
   // ── Main Loop ──
 
   _loop(timestamp) {
+    if (this.phase === 'menu') return;
     if (!this.lastTime) this.lastTime = timestamp;
     const realDtMs = Math.min(timestamp - this.lastTime, 50);
     this.lastTime = timestamp;
 
-    // Update effects (returns slow-mo multiplier)
-    const slowMo = this.effects.update(realDtMs);
-    const dt = (realDtMs / 1000) * slowMo;
+    // Effects use seconds, like the physics simulation.
+    this.effects.update(realDtMs / 1000);
+    const dt = (realDtMs / 1000) * this.effects.slowFactor;
+    this.storm.update(dt);
+    const announcement = document.getElementById('announcement');
+    announcement.textContent = this.effects.announcementText;
+    announcement.style.opacity = this.effects.announcementAlpha;
 
     // Physics simulation
     if (this.phase === 'simulate') {
@@ -309,7 +344,8 @@ export class GameManager {
         }
       }
 
-      if (allBallsStopped(this.balls)) {
+      this.simulationTime += dt;
+      if (allBallsStopped(this.balls) || this.simulationTime > 8) {
         this._endTurn();
       }
     }
@@ -335,7 +371,7 @@ export class GameManager {
     });
 
     if (this.phase !== 'gameover') {
-      requestAnimationFrame((t) => this._loop(t));
+      this._raf = requestAnimationFrame((t) => this._loop(t));
     }
   }
 
@@ -343,10 +379,12 @@ export class GameManager {
     for (const evt of events) {
       switch (evt.type) {
         case 'wallHit':
+          audio.play('hit', evt.speed);
           this.particles.spawn(evt.x, evt.y, '#888', 3);
           break;
 
         case 'pocketed': {
+          audio.play('pocket', 10);
           const ownerPlayer = this.players[evt.ball.owner];
           ownerPlayer.stats.ballsLost++;
 
@@ -357,7 +395,7 @@ export class GameManager {
 
           this.particles.spawn(evt.pocket.x, evt.pocket.y, ownerPlayer.color.main, 15);
           this.effects.shake(8);
-          this.effects.enterSlowMo(0.3, 400);
+          this.effects.slowMo(0.3, 250);
           this.effects.announce(`${ownerPlayer.name} lost a ball!`);
           break;
         }
@@ -371,6 +409,7 @@ export class GameManager {
         }
 
         case 'ballCollision':
+          audio.play('hit', evt.speed);
           this.particles.spawn(evt.cx, evt.cy, '#fff', Math.min(8, Math.floor(evt.speed)));
           if (evt.speed > 5) this.effects.shake(Math.min(evt.speed * 0.8, 6));
           break;
@@ -404,5 +443,16 @@ export class GameManager {
         }
       }
     }
+  }
+
+  destroy() {
+    this.phase = 'menu';
+    cancelAnimationFrame(this._raf);
+    clearTimeout(this._aiTimer);
+    this.input.destroy();
+    this.hud.hide();
+    this.hud.hideWin();
+    document.getElementById('itemsBar').replaceChildren();
+    document.getElementById('announcement').style.opacity = 0;
   }
 }

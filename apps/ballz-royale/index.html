@@ -10,20 +10,41 @@
 
   <!-- ══ Mode Select Screen ══ -->
   <div id="modeSelect">
-    <h1>🎱 BALLZ ROYALE</h1>
-    <h2>Turn-Based Billiards Battle Royale</h2>
-    <div class="mode-buttons">
-      <button id="localPlayBtn" class="mode-btn">🎮 Local Play</button>
-      <button id="onlinePlayBtn" class="mode-btn mode-btn-online">🌐 Online Play</button>
+    <nav class="home-nav"><span class="brand"><b>8</b> Ballz Royale</span><span>Pool. With consequences.</span></nav>
+    <div class="home-content">
+      <div class="home-copy">
+        <h1>LAST BALL<br>STANDING.</h1>
+        <p class="intro">A friendly game of pool.<br>Until you blow up your friends.</p>
+        <button id="quickPlayBtn" class="primary-play">Play now <span>vs. 3 bots</span></button>
+        <div class="mode-buttons">
+          <button id="localPlayBtn" class="mode-btn">Pass & play</button>
+          <button id="onlinePlayBtn" class="mode-btn mode-btn-online">Play online</button>
+        </div>
+        <p class="play-note">No sign-up. Just a very unfriendly table.</p>
+      </div>
+      <div class="table-preview" aria-label="Pool table with four teams of balls">
+        <div class="preview-felt">
+          <i class="pocket p1"></i><i class="pocket p2"></i><i class="pocket p3"></i><i class="pocket p4"></i><i class="pocket p5"></i><i class="pocket p6"></i>
+          <span class="table-stamp">BALLZ<br><strong>ROYALE</strong></span>
+          <i class="preview-ball red" style="--x:25%;--y:28%">1</i>
+          <i class="preview-ball blue" style="--x:72%;--y:26%">2</i>
+          <i class="preview-ball green" style="--x:65%;--y:69%">3</i>
+          <i class="preview-ball gold" style="--x:32%;--y:75%">4</i>
+          <i class="preview-ball red shot-ball" style="--x:40%;--y:49%">1</i>
+          <span class="preview-aim"></span>
+        </div>
+        <span class="table-caption">Your color. Your shots. Everyone else’s problem.</span>
+      </div>
     </div>
+    <div class="how-to"><div><b>Pull back. Let go.</b><span>Drag your ball away from the shot.</span></div><div><b>Make it personal.</b><span>Pocket rivals. Pick up power-ups.</span></div><div><b>Beat the storm.</b><span>Stay inside. Be the last color left.</span></div></div>
   </div>
 
   <!-- ══ Local Setup Screen ══ -->
   <div id="setup" style="display:none;">
-    <h1>🎱 BALLZ ROYALE</h1>
-    <h2>Local Match Setup</h2>
+    <h1>Set the table.</h1>
+    <h2>2–4 players. One screen. No friendships guaranteed.</h2>
     <div class="setup-row">
-      <label>Players:</label>
+      <label for="playerCount">Players:</label>
       <select id="playerCount">
         <option value="2">2 Players</option>
         <option value="3">3 Players</option>
@@ -34,7 +55,7 @@
     <div class="setup-row">
       <label><input type="checkbox" id="aiToggle" checked> Fill empty slots with AI</label>
     </div>
-    <button id="startBtn">⚡ START MATCH</button>
+    <button id="startBtn">Start match</button>
     <button id="setupBackBtn" class="back-btn">← Back</button>
   </div>
 
@@ -46,13 +67,13 @@
     <!-- Join/Create section -->
     <div id="lobbyJoinCreate">
       <div class="lobby-name-row">
-        <label>Your Name:</label>
+        <label for="lobbyName">Your Name:</label>
         <input type="text" id="lobbyName" placeholder="Enter name" maxlength="16">
       </div>
       <div class="lobby-actions">
         <button id="createRoomBtn" class="mode-btn">🏠 Create Room</button>
         <div class="lobby-join-row">
-          <input type="text" id="joinCodeInput" placeholder="ABCD" maxlength="4" class="code-input">
+          <input type="text" id="joinCodeInput" aria-label="Room code" placeholder="ABCD" maxlength="4" class="code-input">
           <button id="joinRoomBtn" class="mode-btn mode-btn-join">🚪 Join Room</button>
         </div>
       </div>
@@ -76,6 +97,8 @@
 
   <!-- ══ Game Canvas ══ -->
   <canvas id="c"></canvas>
+  <div id="matchControls" hidden><button id="menuBtn">Leave match</button><button id="soundBtn" aria-pressed="true">Sound on</button></div>
+  <div id="shotHint" hidden aria-live="polite"></div>
 
   <!-- ══ HUD ══ -->
   <div id="hud" style="display:none;">
@@ -98,7 +121,9 @@
   <!-- ══ Win Overlay (local) ══ -->
   <div id="winOverlay">
     <h1 id="winText">🏆 Player 1 Wins!</h1>
-    <button id="playAgainBtn">🔄 Play Again</button>
+    <p id="winStats"></p>
+    <button id="playAgainBtn">Rematch</button>
+    <button id="winMenuBtn" class="back-btn">Back to menu</button>
   </div>
 
   <!-- ══ Game Over Overlay (online) ══ -->

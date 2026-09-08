@@ -27,7 +27,7 @@ export class Storm {
   /** Update the storm radius (smooth lerp toward target). */
   update(dt) {
     if (this.currentRadius > this.targetRadius + 1) {
-      this.currentRadius -= (this.currentRadius - this.targetRadius) * this.lerpSpeed;
+      this.currentRadius -= (this.currentRadius - this.targetRadius) * (1 - Math.pow(1 - this.lerpSpeed, dt * 60));
     } else {
       this.currentRadius = this.targetRadius;
     }

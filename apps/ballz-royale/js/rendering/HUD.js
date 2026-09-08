@@ -1,5 +1,6 @@
 // ── HUD ──
 // Manages all DOM-based UI: turn indicator, round info, player scores, item bar.
+import { escapeHTML } from '../utils.js';
 
 export class HUD {
   constructor() {
@@ -28,7 +29,7 @@ export class HUD {
     const player = players[currentPlayer];
 
     // Turn indicator
-    this.turnIndicator.textContent = `${player.name}'s Turn`;
+    this.turnIndicator.textContent = phase === 'simulate' ? `${player.name} shoots` : player.isAI ? `${player.name} is lining up…` : `${player.name === 'You' ? 'Your' : player.name + '’s'} turn`;
     this.turnIndicator.style.borderColor = player.color.main;
     this.turnIndicator.style.color = player.color.main;
 
@@ -36,7 +37,10 @@ export class HUD {
     this.roundInfo.textContent = `Round ${round}`;
 
     // Storm
-    this.stormInfo.textContent = `Storm: ${storm.percent}%`;
+    const until = 4 - ((round - 1) % 4);
+    this.stormInfo.textContent = storm.percent === 100 ? `Storm closes in ${until} rounds` : `Safe zone ${storm.percent}% · closes in ${until}`;
+    const hint = document.getElementById('shotHint');
+    if (hint) hint.textContent = phase === 'simulate' ? 'Let the table do the talking.' : player.isAI ? 'Watch your rivals. Your turn is coming.' : 'Drag one of your balls back, then release to shoot.  •  Esc to cancel';
 
     // Player scores
     this.playerScores.innerHTML = players.map((pl, i) => {
@@ -46,7 +50,7 @@ export class HUD {
       const empty = '○'.repeat(Math.max(0, ballsPerPlayer - alive));
       const pocketed = pl.stats.ballsPocketed || 0;
       return `<span style="color:${pl.color.main};opacity:${opacity};font-size:0.9rem;">
-        ${pl.name}: ${filled}${empty}${pocketed > 0 ? ` <span style="font-size:0.75rem;opacity:0.85">(${pocketed} kills)</span>` : ''}
+        ${escapeHTML(pl.name)}: ${filled}${empty}${pocketed > 0 ? ` <span style="font-size:0.75rem;opacity:0.85">(${pocketed} KOs)</span>` : ''}
       </span>`;
     }).join('');
 
@@ -57,17 +61,23 @@ export class HUD {
   _renderItems(player, activeItemIndex, phase) {
     this.itemsBar.innerHTML = '';
     const items = player.items;
-    const canUse = phase === 'select' || phase === 'aim';
+    const canUse = !player.isAI && (phase === 'select' || phase === 'aim');
 
     for (let i = 0; i < 3; i++) {
-      const slot = document.createElement('div');
+      const slot = document.createElement('button');
       slot.className = 'item-slot';
       if (i >= items.length) {
         slot.classList.add('empty');
+        slot.disabled = true;
+        slot.title = 'Collect power-ups on the table';
+        slot.textContent = '+';
       } else {
         if (activeItemIndex === i) slot.classList.add('active');
         slot.textContent = items[i].emoji;
         slot.title = `${items[i].name}: ${items[i].desc}`;
+        slot.setAttribute('aria-label', slot.title);
+        slot.setAttribute('aria-pressed', activeItemIndex === i);
+        slot.disabled = !canUse;
         if (canUse) {
           const idx = i;
           slot.addEventListener('click', () => this.onItemClick?.(idx));

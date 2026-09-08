@@ -49,3 +49,7 @@ export function darken(hex, amount) {
   const b = Math.max(0, (num & 0xff) - amount);
   return `rgb(${r},${g},${b})`;
 }
+
+export function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}

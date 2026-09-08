@@ -19,6 +19,7 @@ export class Ball {
     // Item effects (reset each turn)
     this.ghost = false;
     this.ghostUsed = false;
+    this.ghostPassId = null;
     this.bomb = false;
     this.magnet = false;
     this.shielded = false;
@@ -40,6 +41,7 @@ export class Ball {
 
   /** Reset per-turn item effects to defaults. */
   resetEffects() {
+    this.ghostPassId = null;
     this.mass = 1;
     this.ghost = false;
     this.ghostUsed = false;

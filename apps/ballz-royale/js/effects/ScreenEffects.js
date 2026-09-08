@@ -20,11 +20,13 @@ export class ScreenEffects {
 
   /** Trigger screen shake with a given magnitude. */
   shake(magnitude) {
+    if (globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     this.shakeMag = Math.max(this.shakeMag, magnitude);
   }
 
   /** Enter slow motion for a duration (seconds). */
   slowMo(factor = 0.3, durationMs = 400) {
+    if (globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     this._slowFactor = factor;
     this._slowTimer = durationMs / 1000;
   }
