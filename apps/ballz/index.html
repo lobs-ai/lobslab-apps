@@ -808,9 +808,40 @@
     #ui { width: 100%; min-width: unset; height: 60vh; border-left: none; border-top: 1px solid #2a2a4a; }
   }
 </style>
+<style>
+  button { font-family: inherit; touch-action: manipulation; }
+  button:focus-visible, canvas:focus-visible, [role="button"]:focus-visible { outline: 2px solid #ffd93d; outline-offset: -2px; }
+  button.upgrade-btn { width: 100%; text-align: left; }
+  #ui-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; padding: 6px 12px 0; }
+  .tab-btn { padding: 8px 4px; }
+  #generators, #upgrades, #gen-upgrades { display: flex; flex-direction: column; gap: 6px; }
+  #factory-goal { margin: 8px 0 2px; padding: 10px 12px; border: 1px solid #333366; border-radius: 8px; background: #1a1a3a; }
+  .goal-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px; color: #ddd; }
+  .goal-top span { color: #ffd93d; white-space: nowrap; }
+  .goal-detail { color: #999; font-size: 10px; margin-top: 5px; line-height: 1.4; }
+  .goal-track { background: #111128; height: 3px; border-radius: 3px; margin-top: 7px; overflow: hidden; }
+  .goal-track i { display: block; height: 100%; background: #6bcb77; }
+  .claim-goal { background: #253e2a; color: #8fe09a; border: 1px solid #4b8354; border-radius: 5px; padding: 5px 8px; font-size: 10px; cursor: pointer; }
+  .next-machine { font-size: 10px; color: #888; padding: 8px 3px; line-height: 1.5; }
+  #golden-catch { position: absolute; left: 16px; bottom: 16px; z-index: 11; background: #362b0a; border: 1px solid #ffd700; border-radius: 8px; color: #ffd93d; padding: 10px 14px; font-size: 12px; cursor: pointer; box-shadow: 0 0 15px #ffd70030; }
+  #golden-catch[hidden] { display: none; }
+  #play-hint { position: absolute; left: 16px; top: 55px; right: 390px; pointer-events: none; color: #777798; font-size: 12px; line-height: 1.6; }
+  #save-status { color: #777; font-size: 9px; text-align: right; padding-top: 5px; }
+  #prestige-btn { width: 100%; text-align: left; }
+  @media (max-width: 700px) {
+    body { height: 100dvh; } canvas { height: 38dvh; } #ui { height: 62dvh; }
+    #play-hint { right: 16px; top: 45px; font-size: 11px; }
+    #golden-catch { top: calc(38dvh - 48px); bottom: auto; padding: 8px 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
 </head>
 <body>
-<canvas id="c"></canvas>
+<canvas id="c" tabindex="0" aria-label="Ball playfield. Click anywhere to make balls, catch bouncing balls for combos. Enter or Space drops a ball."></canvas>
+<div id="play-hint">Click anywhere to make balls.<br>Catch bouncing balls for combos. Your first Dropper costs 15.</div>
+<button id="golden-catch" onclick="catchGolden()" hidden>✦ Catch golden ball</button>
 <div id="news-ticker"></div>
 <div id="skill-tree-overlay" style="display:none">
   <div class="overlay-header">
@@ -821,7 +852,11 @@
     </div>
   </div>
   <div id="skill-tree" style="overflow:auto;flex:1;padding:8px 0"></div>
-  <div id="skill-tooltip"></div>
+  <div id="skill-tooltip" class="skill-tooltip" role="tooltip">
+    <div class="tt-name"></div><div class="tt-desc"></div>
+    <div class="tt-level"></div><div class="tt-cost"></div>
+    <div class="tt-prereq"></div><div class="tt-tier-req"></div>
+  </div>
 </div>
 <div id="ui">
   <div id="ui-header">
@@ -838,9 +873,11 @@
       <div class="value" id="bps">0</div>
     </div>
     <div class="combo-display" style="margin-top:4px">
-      Click balls for bonus! Combo: <span id="combo">x1</span>
+      Catch bouncing balls for combos: <span id="combo">x1</span>
     </div>
     <div id="buff-bar"></div>
+    <div id="factory-goal"></div>
+    <div id="save-status">Autosaves every 15s</div>
   </div>
 
   <div id="ui-tabs">
@@ -880,10 +917,10 @@
 
     <!-- Skills Tab -->
     <div id="panel-skills" class="tab-panel">
-      <div id="prestige-btn" class="locked" onclick="openPrestigeModal()">
+      <button id="prestige-btn" class="locked" onclick="openPrestigeModal()">
         <div class="name">⟳ PRESTIGE <span id="prestige-tier-badge"></span></div>
-        <div class="desc" id="prestige-desc">Reset for multipliers (need 10,000 balls)</div>
-      </div>
+        <div class="desc" id="prestige-desc">Reset for multipliers (need 1 million balls)</div>
+      </button>
       <div class="prestige-points-bar" style="margin-top:8px">
         <div><div class="label">Prestige Points</div></div>
         <div class="value" id="pp-count">0</div>
@@ -1042,9 +1079,9 @@ const SKILL_DEFS = {
   cheapGens:      { tier: 1, maxLevel: 8,  baseCost: 2,  costScale: 2.0, name: '💰 Cheap Generators', desc: 'Generators cost 10% less per level' },
   startingBalls:  { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.5, name: '🎁 Starting Balls',   desc: 'Start with 500 balls per level after prestige' },
   maxCombo:       { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '🔥 Max Combo',        desc: '+20 max combo per level' },
-  idleEfficiency: { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '😴 Idle Efficiency',  desc: 'Earn 50%+10%/lvl of BPS while tab unfocused' },
+  idleEfficiency: { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '😴 Idle Efficiency',  desc: '+10% offline production per level (base 50%, up to 8h)' },
   luckyDrops:     { tier: 1, maxLevel: 5,  baseCost: 2,  costScale: 2.0, name: '🍀 Lucky Drops',      desc: '5% chance per tick for double production per level' },
-  bulkBuy:        { tier: 1, maxLevel: 1,  baseCost: 2,  costScale: 1,   name: '📦 Bulk Buy',         desc: 'Unlock 10x, 100x, and MAX buy buttons' },
+  bulkBuy:        { tier: 1, maxLevel: 1,  baseCost: 2,  costScale: 1,   name: '📦 Bulk Buy',         desc: 'All generators cost 5% less' },
 
   // Tier 2: requires 5 tier 1 levels
   autoClicker:    { tier: 2, maxLevel: 5,  baseCost: 3,  costScale: 2.0, name: '🤖 Auto Clicker',     desc: 'Auto-click once every 3s (-0.4s per level)' },
@@ -1236,14 +1273,14 @@ const GEN_UPGRADE_TIERS = [
 
 const GEN_UPGRADES = (() => {
   const baseGens = [
-    { id: 'dropper',     baseCost: 100 },
-    { id: 'launcher',    baseCost: 1000 },
-    { id: 'factory',     baseCost: 10000 },
-    { id: 'vortex',      baseCost: 120000 },
-    { id: 'singularity', baseCost: 1500000 },
-    { id: 'quantum',     baseCost: 20e6 },
-    { id: 'dimension',   baseCost: 300e6 },
-    { id: 'bigbang',     baseCost: 5000e6 },
+    { id: 'dropper',     baseCost: 15 },
+    { id: 'launcher',    baseCost: 150 },
+    { id: 'factory',     baseCost: 1800 },
+    { id: 'vortex',      baseCost: 24000 },
+    { id: 'singularity', baseCost: 350000 },
+    { id: 'quantum',     baseCost: 5e6 },
+    { id: 'dimension',   baseCost: 80e6 },
+    { id: 'bigbang',     baseCost: 1.3e9 },
     { id: 'overflow',    baseCost: 10e9 },
     { id: 'qfabric',     baseCost: 50e9 },
   ];
@@ -1325,6 +1362,12 @@ function getNewsLine() {
 // ══════════════════════════════════════════════════════
 
 let state = getDefaultState();
+let suppressSave = false;
+let pointerIsDown = false;
+document.addEventListener('pointerdown', () => { pointerIsDown = true; });
+document.addEventListener('pointerup', () => { pointerIsDown = false; });
+document.addEventListener('pointercancel', () => { pointerIsDown = false; });
+window.addEventListener('blur', () => { pointerIsDown = false; });
 
 function getDefaultState() {
   const skills = {};
@@ -1332,6 +1375,7 @@ function getDefaultState() {
     skills[id] = { level: 0 };
   }
   return {
+    goalsClaimed: {},
     balls: 0,
     totalBalls: 0,
     totalBallsEver: 0,
@@ -1351,25 +1395,25 @@ function getDefaultState() {
     comboTimer: 0,
     // Generators
     generators: [
-      { id: 'dropper',    name: 'Ball Dropper',        desc: 'Drops a ball every few seconds',      baseCost: 100,       baseRate: 0.5,    count: 0 },
-      { id: 'launcher',   name: 'Ball Launcher',       desc: 'Launches balls rapidly',              baseCost: 1000,      baseRate: 3,      count: 0 },
-      { id: 'factory',    name: 'Ball Factory',        desc: 'Mass-produces balls',                 baseCost: 10000,     baseRate: 20,     count: 0 },
-      { id: 'vortex',     name: 'Ball Vortex',         desc: 'Summons balls from the void',         baseCost: 120000,    baseRate: 100,    count: 0 },
-      { id: 'singularity',name: 'Singularity',         desc: 'Warps reality to create balls',       baseCost: 1500000,   baseRate: 600,    count: 0 },
-      { id: 'quantum',    name: 'Quantum Splitter',    desc: 'Splits each ball into many',          baseCost: 20e6,      baseRate: 4000,   count: 0 },
-      { id: 'dimension',  name: 'Dimension Rift',      desc: 'Pulls balls from other timelines',    baseCost: 300e6,     baseRate: 25000,  count: 0 },
-      { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 5000e6,    baseRate: 200000, count: 0 },
+      { id: 'dropper',    name: 'Ball Dropper',        desc: 'Your first employee. Never takes a break.',      baseCost: 15,        baseRate: 1,    count: 0 },
+      { id: 'launcher',   name: 'Ball Launcher',       desc: 'Launches balls rapidly',              baseCost: 150,       baseRate: 4,      count: 0 },
+      { id: 'factory',    name: 'Ball Factory',        desc: 'Mass-produces balls',                 baseCost: 1800,      baseRate: 20,     count: 0 },
+      { id: 'vortex',     name: 'Ball Vortex',         desc: 'Summons balls from the void',         baseCost: 24000,     baseRate: 120,    count: 0 },
+      { id: 'singularity',name: 'Singularity',         desc: 'Warps reality to create balls',       baseCost: 350000,    baseRate: 800,    count: 0 },
+      { id: 'quantum',    name: 'Quantum Splitter',    desc: 'Splits each ball into many',          baseCost: 5e6,       baseRate: 5500,   count: 0 },
+      { id: 'dimension',  name: 'Dimension Rift',      desc: 'Pulls balls from other timelines',    baseCost: 80e6,      baseRate: 40000,  count: 0 },
+      { id: 'bigbang',    name: 'Big Bang Engine',     desc: 'Creates universes of balls',          baseCost: 1.3e9,     baseRate: 300000, count: 0 },
       { id: 'overflow',   name: 'Overflow Core',       desc: 'Harnesses reality destabilization',   baseCost: 10e9,      baseRate: 2000000,count: 0 },
       { id: 'qfabric',    name: 'Quantum Fabric',      desc: 'Weaves balls from the quantum foam',  baseCost: 50e9,      baseRate: 0,      count: 0 }, // rate = prestige-based
     ],
     upgrades: [
       { id: 'bigBalls',   name: 'Bigger Balls',     desc: 'Balls are 2x larger on screen',  cost: 50,    bought: false, effect: 'ballSize' },
-      { id: 'clickPow',   name: 'Click Power',      desc: 'Clicking gives 5 balls',         cost: 200,   bought: false, effect: 'clickPower' },
+      { id: 'clickPow',   name: 'Click Power',      desc: 'Clicking gives 5 balls',         cost: 75,    bought: false, effect: 'clickPower' },
       { id: 'rainbow',    name: 'Rainbow Balls',    desc: 'Balls cycle through colors',     cost: 500,   bought: false, effect: 'rainbow' },
       { id: 'gravity',    name: 'Low Gravity',      desc: 'Balls float more',               cost: 2000,  bought: false, effect: 'lowGravity' },
       { id: 'explosion',  name: 'Ball Explosion',   desc: 'Balls burst into more on click', cost: 5000,  bought: false, effect: 'explosion' },
       { id: 'magnet',     name: 'Ball Magnet',      desc: '+50% production rate',           cost: 25000, bought: false, effect: 'magnet' },
-      { id: 'golden',     name: 'Golden Balls',     desc: 'Rare golden balls worth 100x',   cost: 100000,bought: false, effect: 'golden' },
+      { id: 'golden',     name: 'Golden Balls',     desc: 'Golden balls appear twice as often',   cost: 7500,  bought: false, effect: 'golden' },
       { id: 'critClick',  name: 'Critical Clicks',  desc: '10% chance for 10x click value', cost: 50000, bought: false, effect: 'critClick' },
       { id: 'ballTrails', name: 'Ball Trails',      desc: 'Balls leave glowing trails',     cost: 250000,bought: false, effect: 'ballTrails' },
       { id: 'hyperDrop',  name: 'Hyper Droppers',   desc: 'Droppers & launchers 3x faster', cost: 500000,bought: false, effect: 'hyperDrop' },
@@ -1382,7 +1426,7 @@ function getDefaultState() {
       { id: 'quantumEnt',   name: 'Quantum Entanglement', desc: 'Quantum count ×5% boost to Dim Rifts', cost: 5e6,  bought: false, effect: 'quantumEnt' },
       { id: 'cosmicRes',    name: 'Cosmic Resonance',     desc: 'Big Bang count ×2% boost to ALL',      cost: 50e6, bought: false, effect: 'cosmicRes' },
       // Click-scaling upgrades (clicks gain % of BPS)
-      { id: 'clickBps1',    name: 'Ergonomic Mouse',       desc: 'Clicks also gain +1% of BPS',  cost: 1e6,   bought: false, effect: 'clickBPS', pct: 0.01 },
+      { id: 'clickBps1',    name: 'Ergonomic Mouse',       desc: 'Clicks also gain +1% of BPS',  cost: 15000,   bought: false, effect: 'clickBPS', pct: 0.01 },
       { id: 'clickBps2',    name: 'Gaming Mouse',          desc: 'Clicks also gain +2% of BPS',  cost: 100e6, bought: false, effect: 'clickBPS', pct: 0.02 },
       { id: 'clickBps3',    name: 'Neural Click Implant',  desc: 'Clicks also gain +4% of BPS',  cost: 10e9,  bought: false, effect: 'clickBPS', pct: 0.04 },
       { id: 'clickBps4',    name: 'Telekinetic Interface', desc: 'Clicks also gain +8% of BPS',  cost: 1e12,  bought: false, effect: 'clickBPS', pct: 0.08 },
@@ -1429,10 +1473,117 @@ function getDefaultState() {
 // ══════════════════════════════════════════════════════
 
 function saveGame() {
+  if (suppressSave) return false;
   try {
     state.lastSaveTime = Date.now();
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
-  } catch(e) {}
+    const status = document.getElementById('save-status');
+    if (status) status.textContent = 'Saved just now';
+    return true;
+  } catch(e) {
+    const status = document.getElementById('save-status');
+    if (status) status.textContent = 'Save unavailable — export a backup';
+    return false;
+  }
+}
+
+function grantBalls(amount) {
+  if (!Number.isFinite(amount) || amount <= 0) return 0;
+  state.balls += amount;
+  state.totalBalls += amount;
+  state.totalBallsEver += amount;
+  return amount;
+}
+
+function getOfflineEarnings(seconds, round = true) {
+  const elapsed = Math.min(8 * 3600, Math.max(0, Number(seconds) || 0));
+  // Short-lived boosts are earned by playing, never extrapolated across hours away.
+  const saved = { buffs: state.buffs, golden: state.goldenFrenzyUntil,
+    double: state.doubleProdUntil, prestige: state.lastPrestigeTime, frenzy: frenzyActive };
+  try {
+    state.buffs = [];
+    state.goldenFrenzyUntil = 0;
+    state.doubleProdUntil = 0;
+    state.lastPrestigeTime = 0;
+    frenzyActive = false;
+    const earnings = getBPS() * elapsed * (0.5 + skillLevel('idleEfficiency') * 0.1);
+    return round ? Math.floor(earnings) : earnings;
+  } finally {
+    state.buffs = saved.buffs;
+    state.goldenFrenzyUntil = saved.golden;
+    state.doubleProdUntil = saved.double;
+    state.lastPrestigeTime = saved.prestige;
+    frenzyActive = saved.frenzy;
+  }
+}
+
+const FACTORY_GOALS = [
+  { id: 'first', name: 'Put the factory to work', detail: 'Buy your first Ball Dropper.', target: 1, value: () => getGenCount('dropper'), reward: 30 },
+  { id: 'crew', name: 'A very small workforce', detail: 'Own 5 Ball Droppers.', target: 5, value: () => getGenCount('dropper'), reward: 100 },
+  { id: 'launch', name: 'A little more ambition', detail: 'Buy your first Ball Launcher.', target: 1, value: () => getGenCount('launcher'), reward: 250 },
+  { id: 'steady', name: 'The first big breakthrough', detail: 'Own 10 Droppers to double their production.', target: 10, value: () => getGenCount('dropper'), reward: 500 },
+  { id: 'factory', name: 'Now we mean business', detail: 'Buy your first Ball Factory.', target: 1, value: () => getGenCount('factory'), reward: 1500 },
+  { id: 'gold', name: 'A golden opportunity', detail: 'Catch a golden ball. One arrives about every 90 seconds.', target: 1, value: () => state.goldenClicks, reward: 2500 },
+  { id: 'vortex', name: 'Definitely up to code', detail: 'Buy a Ball Vortex. Ignore the unusual noises.', target: 1, value: () => getGenCount('vortex'), reward: 10000 },
+  { id: 'million', name: 'One million tiny victories', detail: 'Make 1 million balls across all runs.', target: 1e6, value: () => state.totalBallsEver, reward: 50000 },
+  { id: 'rebirth', name: 'Bigger the second time', detail: 'Prestige from the Skills tab for permanent power.', target: 1, value: () => state.prestiges, reward: 1000 },
+];
+
+function claimGoal(id) {
+  const goal = FACTORY_GOALS.find(g => g.id === id);
+  if (!goal || state.goalsClaimed[id] || goal.value() < goal.target || state.activeChallenge) return;
+  state.goalsClaimed[id] = true;
+  grantBalls(goal.reward);
+  showToast(`${goal.name}! +${formatNum(goal.reward)} balls`, 'reward', '★');
+  playSound('buy');
+  saveGame();
+  updateUI();
+}
+
+function catchGolden() {
+  if (state.activeChallenge?.noClick) return;
+  const ball = balls.find(b => b.golden);
+  if (!ball) return;
+  balls.splice(balls.indexOf(ball), 1);
+  state.totalClicks++;
+  const result = triggerGoldenEvent(ball.x, ball.y);
+  grantBalls(result.value);
+  spawnFloatingText(W / 2, H * 0.3, result.label, result.color);
+  playSound('golden');
+  updateUI();
+}
+
+function updateFloor() {
+  const hint = document.getElementById('play-hint');
+  hint.style.display = state.totalClicks < 15 || state.activeChallenge?.noClick ? '' : 'none';
+  hint.textContent = state.activeChallenge?.noClick
+    ? 'Hands off! Your free Dropper is working. Buy machines to reach the goal.'
+    : 'Click anywhere to make balls. Catch bounces for combos. Your first Dropper costs 15.';
+  document.getElementById('golden-catch').hidden = !balls.some(b => b.golden) || !!state.activeChallenge?.noClick;
+  const goal = FACTORY_GOALS.find(g => !state.goalsClaimed[g.id]);
+  const el = document.getElementById('factory-goal');
+  let html;
+  if (state.activeChallenge) {
+    html = `<div class="goal-top"><strong>Challenge in progress</strong><span>${formatNum(state.totalBalls)} / ${formatNum(state.activeChallenge.goal)}</span></div><div class="goal-detail">Factory rewards pause until this challenge ends.</div>`;
+  } else if (goal) {
+    const value = Math.min(goal.target, goal.value());
+    const ready = value >= goal.target;
+    html = `<div class="goal-top"><strong>${goal.name}</strong>${ready ? `<button class="claim-goal" onclick="claimGoal('${goal.id}')">Claim +${formatNum(goal.reward)}</button>` : `<span>+${formatNum(goal.reward)} balls</span>`}</div><div class="goal-detail">${goal.detail} ${formatNum(value)}/${formatNum(goal.target)}</div><div class="goal-track"><i style="width:${100 * value / goal.target}%"></i></div>`;
+  } else {
+    html = `<div class="goal-top"><strong>${canPrestige() ? 'Ready for a new universe' : 'Your next ascension'}</strong><span>+${getPrestigeReward()} points</span></div><div class="goal-detail">${formatNum(state.totalBalls)} / ${formatNum(getPrestigeThreshold())} balls this run. Open Skills to prestige.</div><div class="goal-track"><i style="width:${Math.min(100, state.totalBalls / getPrestigeThreshold() * 100)}%"></i></div>`;
+  }
+  renderHTML(el, html);
+}
+
+function renderHTML(el, html) {
+  if (el.innerHTML === html || pointerIsDown) return;
+  const focused = document.activeElement;
+  const action = focused && el.contains?.(focused) ? focused.getAttribute('onclick') : null;
+  el.innerHTML = html;
+  if (action) {
+    const replacement = Array.from(el.querySelectorAll('[onclick]')).find(node => node.getAttribute('onclick') === action);
+    replacement?.focus({ preventScroll: true });
+  }
 }
 
 function loadGame() {
@@ -1513,18 +1664,11 @@ function loadGame() {
       if (loaded.lastSaveTime) {
         const elapsed = (Date.now() - loaded.lastSaveTime) / 1000;
         if (elapsed > 30) { // at least 30 seconds away
-          const offlineBPS = getBPS();
-          let offlineRate = 0.25; // 25% default
-          if (skillLevel('idleEfficiency') > 0) {
-            offlineRate = 0.5 + skillLevel('idleEfficiency') * 0.1;
-          }
-          const offlineBalls = Math.floor(offlineBPS * elapsed * offlineRate);
+          const offlineBalls = getOfflineEarnings(elapsed);
           if (offlineBalls > 0) {
-            state.balls += offlineBalls;
-            state.totalBalls += offlineBalls;
-            state.totalBallsEver += offlineBalls;
+            grantBalls(offlineBalls);
             // Show welcome back modal
-            setTimeout(() => showWelcomeBack(elapsed, offlineBalls), 200);
+            setTimeout(() => showWelcomeBack(Math.min(elapsed, 8 * 3600), offlineBalls), 200);
           }
         }
       }
@@ -1841,7 +1985,7 @@ function getClickValue() {
   // Combo
   base *= state.combo;
 
-  let val = Math.max(1, Math.floor(base));
+  let val = Math.max(1, Math.floor(base + getBPS() * 0.02));
 
   // Click-BPS upgrades: clicks gain a % of BPS (not multiplied by combo)
   const pct = clickBpsPct();
@@ -1857,10 +2001,10 @@ function getClickValue() {
 }
 
 function getGenCost(gen, quantity) {
-  quantity = quantity || 1;
-  const def = SKILL_DEFS.cheapGens;
+  quantity = quantity ?? 1;
   const cheapLevel = skillLevel('cheapGens');
   const discount = cheapLevel * 0.1;
+  const bulkDiscount = skillLevel('bulkBuy') ? 0.95 : 1;
 
   // Eternal generators discount (per prestige)
   const eternalLevel = skillLevel('eternalGens');
@@ -1878,44 +2022,29 @@ function getGenCost(gen, quantity) {
   // Challenge: inflation reward
   if (state.challengeCompleted?.inflationReward) challengeCostMulti *= 0.8;
 
-  let totalCost = 0;
-  const baseC = gen.baseCost;
-  for (let i = 0; i < quantity; i++) {
-    let cost = baseC * Math.pow(1.18, gen.count + i);
-    cost *= (1 - discount);
-    cost *= (1 - prestigeDiscount);
-    cost *= challengeCostMulti;
-    totalCost += cost;
-  }
-  return Math.floor(totalCost);
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10000) return Infinity;
+  const first = gen.baseCost * Math.pow(1.15, gen.count);
+  return Math.floor(first * (Math.pow(1.15, quantity) - 1) / 0.15
+    * (1 - discount) * bulkDiscount * (1 - prestigeDiscount) * challengeCostMulti + 1e-8);
+}
+
+function getCatchValue() {
+  if (state.activeChallenge?.noClick) return 0;
+  // Aim matters even after machines dwarf the flat click reward.
+  // Cap the production portion at 10% so sustained catches stay balanced.
+  const catchBonus = getBPS() * 0.01 * Math.min(10, state.combo);
+  return getClickValue() + Math.floor(catchBonus * buffClickMult());
 }
 
 function getMaxBuyable(gen) {
-  let count = 0;
-  let totalCost = 0;
-  while (true) {
-    const baseCost = gen.baseCost;
-    let cost = baseCost * Math.pow(1.18, gen.count + count);
-    const cheapLevel = skillLevel('cheapGens');
-    cost *= (1 - cheapLevel * 0.1);
-    const eternalLevel = skillLevel('eternalGens');
-    if (eternalLevel > 0) {
-      cost *= (1 - Math.min(0.9, 0.25 * state.prestiges * eternalLevel / 100));
-    }
-    let challengeCostMulti = 1;
-    if (state.activeChallenge) {
-      const cDef = CHALLENGE_DEFS.find(c => c.id === state.activeChallenge.id);
-      if (cDef?.costMulti) challengeCostMulti = cDef.costMulti;
-    }
-    if (state.challengeCompleted?.inflationReward) challengeCostMulti *= 0.8;
-    cost *= challengeCostMulti;
-    cost = Math.floor(cost);
-    if (totalCost + cost > state.balls) break;
-    totalCost += cost;
-    count++;
-    if (count > 10000) break; // safety
+  // Use the same rounded bundle price as the purchase path.
+  let low = 0, high = 10000;
+  while (low < high) {
+    const mid = Math.ceil((low + high) / 2);
+    if (getGenCost(gen, mid) <= state.balls) low = mid;
+    else high = mid - 1;
   }
-  return { count, totalCost };
+  return { count: low, totalCost: low ? getGenCost(gen, low) : 0 };
 }
 
 function getBPS() {
@@ -2186,16 +2315,15 @@ function isGenUnlocked(genId) {
 }
 
 function canPrestige() {
-  const required = 1e6 * Math.pow(10, state.prestiges);
-  return state.totalBalls >= required;
+  return state.totalBalls >= getPrestigeThreshold();
 }
 
 function getPrestigeThreshold() {
-  return 1e6 * Math.pow(10, state.prestiges);
+  return 1e6 * Math.pow(1 + state.prestiges, 2);
 }
 
 function getPrestigeReward() {
-  let pp = Math.max(1, Math.floor(Math.sqrt(state.totalBalls / 1e6)));
+  let pp = Math.max(1, Math.floor(5 * Math.sqrt(state.totalBalls / 1e6)));
   // Prestige multiplier: grows with each prestige
   pp *= (1 + state.prestiges * 0.05);
   // Ascension Bonus
@@ -2287,13 +2415,13 @@ function renderActiveTab() {
 }
 
 function setBuyAmount(amount) {
-  if (amount > 1 && skillLevel('bulkBuy') < 1) return;
+  if (![1, 10, 100, -1].includes(amount)) return;
   buyAmount = amount;
   document.querySelectorAll('.buy-amt-btn').forEach((btn, i) => {
     const amounts = [1, 10, 100, -1];
     btn.classList.toggle('active', amounts[i] === amount);
     if (amounts[i] > 1 || amounts[i] === -1) {
-      btn.classList.toggle('locked', skillLevel('bulkBuy') < 1);
+      btn.classList.toggle('locked', false);
     }
   });
   renderGenerators();
@@ -2310,13 +2438,16 @@ function renderGenerators() {
   for (const gen of state.generators) {
     if (!isGenUnlocked(gen.id)) continue;
 
+    const index = state.generators.indexOf(gen);
+    if (index > 0 && gen.count === 0 && state.generators[index - 1].count === 0 && state.totalBallsEver < gen.baseCost / 3) continue;
+
     const vis = GEN_VISUALS[gen.id] || { emoji: '❓', color: '#888' };
     let qty = buyAmount === -1 ? getMaxBuyable(gen).count : buyAmount;
     if (qty < 1) qty = 1;
     let cost;
     if (buyAmount === -1) {
       const mb = getMaxBuyable(gen);
-      cost = mb.totalCost;
+      cost = mb.count ? mb.totalCost : getGenCost(gen, 1);
       qty = mb.count;
     } else {
       cost = getGenCost(gen, qty);
@@ -2332,10 +2463,10 @@ function renderGenerators() {
       }
     }
 
-    const showBPS = skillLevel('omniscience') > 0;
+    const showBPS = true;
     const genBps = showBPS ? getGenBPS(gen) : 0;
 
-    html += `<div class="upgrade-btn ${canBuy && !typeBlocked ? '' : 'locked'}" onclick="buyGenerator('${gen.id}', ${qty})" style="border-left: 3px solid ${vis.color}">
+    html += `<button type="button" aria-disabled="${!canBuy || typeBlocked}" class="upgrade-btn ${canBuy && !typeBlocked ? '' : 'locked'}" onclick="buyGenerator('${gen.id}', ${qty || 1})" style="border-left: 3px solid ${vis.color}">
       <div class="top-row">
         <span class="name">${vis.emoji} ${gen.name}</span>
         <span class="cost">${formatNum(cost)} 🔵</span>
@@ -2343,18 +2474,23 @@ function renderGenerators() {
       <div class="desc">${gen.desc}${showBPS && gen.count > 0 ? ` — <span style="color:${vis.color}">${formatNum(genBps)} BPS</span>` : ''}</div>
       <div class="top-row">
         <span class="level">Owned: ${gen.count}${qty > 1 ? ` (+${qty})` : ''}</span>
-        <span class="desc">${formatNum(gen.baseRate * gen.count)}/s base</span>
+        <span class="desc">${gen.count > 0 ? formatNum(genBps) + "/s before global boosts" : "+" + formatNum(gen.baseRate) + "/s base"}</span>
       </div>
-    </div>`;
+      <div class="desc">${(() => {
+        const next = GEN_MILESTONES.find(m => m.genId === gen.id && m.threshold > gen.count);
+        return next ? `At ${next.threshold} owned: ×${next.multiplier} production${!canBuy && getBPS() > 0 ? ' · affordable in ' + formatTime(Math.ceil(Math.max(0, cost - state.balls) / getBPS())) : ''}` : 'All milestones reached';
+      })()}</div>
+    </button>`;
   }
-  el.innerHTML = html;
+  html += '<div class="next-machine">More machines appear as your factory grows.<br>Milestones at 10, 25 and 50 owned multiply production.</div>';
+  renderHTML(el, html);
 
   // Update buy amount buttons
   const bar = document.getElementById('buy-amount-bar');
   const btns = bar.querySelectorAll('.buy-amt-btn');
   [1, 10, 100, -1].forEach((amt, i) => {
     if (amt > 1 || amt === -1) {
-      btns[i].classList.toggle('locked', skillLevel('bulkBuy') < 1);
+      btns[i].classList.toggle('locked', false);
     }
     btns[i].classList.toggle('active', buyAmount === amt);
   });
@@ -2362,7 +2498,9 @@ function renderGenerators() {
 
 function buyGenerator(id, quantity) {
   const gen = state.generators.find(g => g.id === id);
-  if (!gen) return;
+  if (!gen || !isGenUnlocked(id) || !Number.isInteger(quantity) || quantity < 1 || quantity > 10000) return;
+
+  const previousCount = gen.count;
 
   // Challenge: max gen types
   if (state.activeChallenge) {
@@ -2389,6 +2527,12 @@ function buyGenerator(id, quantity) {
     }
   }
 
+  if (gen.count > previousCount) {
+    const crossed = GEN_MILESTONES.filter(m => m.genId === id && previousCount < m.threshold && gen.count >= m.threshold);
+    for (const m of crossed) showToast(`${m.name}: ${gen.name} production ×${m.multiplier}!`, 'reward', '★');
+    saveGame();
+    updateFloor();
+  }
   renderGenerators();
   renderMilestones();
   checkOverflow();
@@ -2437,7 +2581,8 @@ function renderUpgrades() {
   renderGenUpgrades();
   const el = document.getElementById('upgrades');
   let html = '';
-  for (const up of state.upgrades) {
+  for (const up of [...state.upgrades].sort((a, b) => Number(a.bought) - Number(b.bought) || a.cost - b.cost)) {
+    if (!up.bought && up.cost > Math.max(500, state.totalBallsEver * 3)) continue;
     if (up.requiresOverflow && !state.overflowActive) continue;
     if (up.bought) {
       html += `<div class="upgrade-btn maxed" style="opacity:0.4">
@@ -2446,16 +2591,16 @@ function renderUpgrades() {
       </div>`;
     } else {
       const canBuy = state.balls >= up.cost;
-      html += `<div class="upgrade-btn ${canBuy ? '' : 'locked'}" onclick="buyUpgrade('${up.id}')">
+      html += `<button type="button" aria-disabled="${!canBuy}" class="upgrade-btn ${canBuy ? '' : 'locked'}" onclick="buyUpgrade('${up.id}')">
         <div class="top-row">
           <span class="name">${up.name}</span>
           <span class="cost">${formatNum(up.cost)} 🔵</span>
         </div>
         <div class="desc">${up.desc}</div>
-      </div>`;
+      </button>`;
     }
   }
-  el.innerHTML = html;
+  renderHTML(el, html);
 }
 
 function buyUpgrade(id) {
@@ -2463,6 +2608,7 @@ function buyUpgrade(id) {
   if (!up || up.bought || state.balls < up.cost) return;
   state.balls -= up.cost;
   up.bought = true;
+  saveGame();
   playSound('buy');
   renderUpgrades();
 }
@@ -2489,13 +2635,13 @@ function renderGenUpgrades() {
     const gen = state.generators.find(g => g.id === def.genId);
     const vis = GEN_VISUALS[def.genId] || { emoji: '❓', color: '#888' };
     const canBuy = state.balls >= def.cost;
-    html += `<div class="upgrade-btn genup-btn ${canBuy ? '' : 'locked'}" onclick="buyGenUpgrade('${def.id}')">
+    html += `<button type="button" aria-disabled="${!canBuy}" class="upgrade-btn genup-btn ${canBuy ? '' : 'locked'}" onclick="buyGenUpgrade('${def.id}')">
       <div class="top-row">
         <span class="name">${vis.emoji} ${def.name} ${gen ? gen.name : def.genId}</span>
         <span class="cost">${formatNum(def.cost)} 🔵</span>
       </div>
       <div class="desc">${gen ? gen.name : def.genId} production ×2 (owned ${getGenCount(def.genId)})</div>
-    </div>`;
+    </button>`;
   }
   if (available.length > 12) {
     html += `<div class="genup-count">…and ${available.length - 12} more (sorted by price)</div>`;
@@ -2503,7 +2649,7 @@ function renderGenUpgrades() {
   if (boughtCount > 0) {
     html += `<div class="genup-count">✓ ${boughtCount} / ${GEN_UPGRADES.length} generator upgrades bought</div>`;
   }
-  el.innerHTML = html;
+  renderHTML(el, html);
 }
 
 function buyGenUpgrade(id) {
@@ -2513,6 +2659,7 @@ function buyGenUpgrade(id) {
   if (state.balls < def.cost) return;
   state.balls -= def.cost;
   state.genUpgradesBought[def.id] = true;
+  saveGame();
   playSound('buy');
   const gen = state.generators.find(g => g.id === def.genId);
   showToast(`🏭 ${def.name} ${gen ? gen.name : def.genId}: production ×2!`, 'reward', '🏭');
@@ -2741,8 +2888,11 @@ function renderSkillTree() {
     else if (!prereqsMet) cls += ' locked';
     else if (canBuy) cls += ' available';
 
-    nodesHtml += `<div class="${cls}" style="left:${pos.x}px;top:${pos.y}px"
+    nodesHtml += `<div class="${cls}" style="left:${pos.x}px;top:${pos.y}px" role="button" tabindex="0" aria-label="${def.name}, level ${lv} of ${def.maxLevel}, ${cost} points" aria-disabled="${!canBuy}"
       onclick="buySkill('${id}')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();buySkill('${id}')}"
+      onfocus="showSkillTooltip(event,'${id}')"
+      onblur="hideSkillTooltip()"
       onmouseenter="showSkillTooltip(event,'${id}')"
       onmouseleave="hideSkillTooltip()"
       ontouchstart="showSkillTooltip(event,'${id}')">
@@ -2778,11 +2928,12 @@ function showSkillTooltip(e, id) {
     : '';
 
   // Position near cursor but stay in viewport
-  const rect = tt.getBoundingClientRect();
-  let x = e.clientX + 12;
-  let y = e.clientY - 10;
-  if (x + 230 > window.innerWidth) x = e.clientX - 230;
-  if (y + 150 > window.innerHeight) y = e.clientY - 150;
+  const source = e.currentTarget?.getBoundingClientRect();
+  const pointer = e.touches?.[0] || e;
+  const px = pointer.clientX ?? source?.right ?? 10;
+  const py = pointer.clientY ?? source?.top ?? 10;
+  let x = Math.max(8, Math.min(window.innerWidth - 238, px + 12));
+  let y = Math.max(8, Math.min(window.innerHeight - 160, py - 10));
   tt.style.left = x + 'px';
   tt.style.top = y + 'px';
   tt.classList.add('visible');
@@ -2814,6 +2965,7 @@ function buySkill(id) {
 
   state.prestigePoints -= cost;
   state.skills[id].level++;
+  saveGame();
   playSound('buy');
   renderSkillTree();
   // Update overlay PP count
@@ -2830,6 +2982,7 @@ function openSkillTree() {
 }
 
 function closeSkillTree() {
+  hideSkillTooltip();
   document.getElementById('skill-tree-overlay').style.display = 'none';
 }
 
@@ -2844,7 +2997,7 @@ function openPrestigeModal() {
   const infinite = skillLevel('infinitePrestige') > 0;
   body.innerHTML = infinite
     ? `You will gain <strong>${pp} Prestige Points</strong>.<br>Your generators will NOT be reset! (Infinite Prestige)`
-    : `This will <strong>reset all your balls and generators</strong>.<br>You will gain <strong>${pp} Prestige Points</strong> to spend on skills.<br>Your skills are kept.`;
+    : `Reset your balls, machines, and purchased upgrades for <strong>${pp} Prestige Points</strong> and <strong>+25% permanent base production</strong>.<br>Skills, achievements, and claimed factory goals are kept.<br>Next ascension: ${formatNum(1e6 * Math.pow(state.prestiges + 2, 2))} balls in the new run.`;
   document.getElementById('prestige-modal-overlay').classList.add('visible');
 }
 
@@ -2864,7 +3017,7 @@ function doPrestige() {
   state.prestigePoints += pp;
   state.totalPPEarned += pp;
   state.prestiges++;
-  state.prestigeMulti = 1 + state.prestiges * 0.1;
+  state.prestigeMulti = 1 + state.prestiges * 0.25;
 
   const infinite = skillLevel('infinitePrestige') > 0;
   const rebirthLevel = skillLevel('rebirthMemory');
@@ -2897,6 +3050,12 @@ function doPrestige() {
       state.totalBalls += startBalls;
     }
   }
+
+  // Every ascension consumes this run, including Infinite Prestige.
+  state.totalBalls = 0;
+  state.goldenFrenzyUntil = 0;
+  state.doubleProdUntil = 0;
+  frenzyActive = false;
 
   // Reset leechers and active buffs on prestige
   state.leechers = [];
@@ -2956,8 +3115,8 @@ function renderAchievements() {
       const isUnlocked = state.achievementsUnlocked[ach.id];
       html += `<div class="ach-card ${isUnlocked ? 'unlocked' : ''}">
         <span class="ach-icon">${isUnlocked ? ach.icon : '🔒'}</span>
-        <div class="ach-name">${isUnlocked ? ach.name : '???'}</div>
-        <div>${isUnlocked ? ach.desc : '???'}</div>
+        <div class="ach-name">${ach.name}</div>
+        <div>${ach.desc}</div>
       </div>`;
     }
     html += '</div>';
@@ -3030,7 +3189,8 @@ function openChallengeModal(id) {
     <strong>${cDef.desc}</strong><br><br>
     Restriction: ${cDef.restriction}<br>
     Goal: ${formatNum(cDef.goal)} balls<br><br>
-    This will prestige and start a special run.
+    This resets your balls, machines, and upgrades to start a special run. Skills and achievements stay. No prestige points are awarded.
+    ${cDef.noClick ? '<br>You receive one free Ball Dropper.' : ''}
     ${cDef.timeLimit ? `<br>Time limit: ${formatTime(cDef.timeLimit)}` : ''}
   `;
   document.getElementById('challenge-modal-overlay').classList.add('visible');
@@ -3043,9 +3203,10 @@ function closeChallengeModal(e) {
 }
 
 function confirmStartChallenge() {
+  const id = pendingChallengeId;
   closeChallengeModal();
-  if (!pendingChallengeId) return;
-  startChallenge(pendingChallengeId);
+  if (!id) return;
+  startChallenge(id);
 }
 
 function startChallenge(id) {
@@ -3062,6 +3223,10 @@ function startChallenge(id) {
   state.stormUntil = 0;
   state.combo = 1;
   state.comboTimer = 0;
+  state.leechers = [];
+  state.goldenFrenzyUntil = 0;
+  state.doubleProdUntil = 0;
+  frenzyActive = false;
   balls = [];
 
   state.activeChallenge = {
@@ -3078,6 +3243,9 @@ function startChallenge(id) {
     goal: cDef.goal,
     rewardId: cDef.rewardId,
   };
+
+  if (cDef.noClick) state.generators[0].count = 1;
+  saveGame();
 
   showToast(`Challenge started: ${cDef.name}!`, 'event', '⚔️');
   renderActiveTab();
@@ -3189,12 +3357,20 @@ function renderStats() {
       <div class="name" style="color:#4d96ff">📥 Import Save</div>
       <div class="desc">Paste a previously exported save string</div>
     </div>
-    <div class="upgrade-btn" onclick="if(confirm('Reset everything?')){localStorage.clear();location.reload()}">
+    <div class="upgrade-btn" onclick="resetGame()">
       <div class="name" style="color:#ff4444">🗑️ Hard Reset</div>
       <div class="desc">Delete ALL save data and start fresh</div>
     </div>`;
 
   el.innerHTML = html;
+}
+
+function resetGame() {
+  if (!confirm('Delete this Ballz factory, all skills, and all achievements?')) return;
+  state = getDefaultState();
+  for (const key of [SAVE_KEY, 'ballz_save_v5', 'ballz_save_v4', 'ballz_save_v3', 'ballz_save_v2']) localStorage.removeItem(key);
+  saveGame();
+  location.reload();
 }
 
 function exportSave() {
@@ -3223,6 +3399,8 @@ function importSave() {
       throw new Error('not a valid Ballz save');
     }
     localStorage.setItem(SAVE_KEY, JSON.stringify(parsed));
+    suppressSave = true;
+    window.removeEventListener('pagehide', saveGame);
     location.reload();
   } catch (e) {
     showToast('Import failed: invalid save string', 'default', '❌');
@@ -3299,8 +3477,8 @@ function spawnBall(x, y, opts = {}) {
   const bounce = -0.6;
 
   balls.push({
-    x: x || Math.random() * W,
-    y: y || -10,
+    x: x ?? Math.random() * W,
+    y: y ?? -10,
     vx: (Math.random() - 0.5) * 3,
     vy: opts.vy || Math.random() * 2,
     r: isGolden ? r + 4 : r,
@@ -3321,6 +3499,7 @@ function spawnBall(x, y, opts = {}) {
 
 function spawnFloatingText(x, y, text, color = '#ffd93d') {
   floatingTexts.push({ x, y, text, color, life: 1.0 });
+  if (floatingTexts.length > 40) floatingTexts.shift();
 }
 
 function spawnLeecher() {
@@ -3338,7 +3517,7 @@ function spawnLeecher() {
 }
 
 // ── Click handling ──
-canvas.addEventListener('click', (e) => {
+function handlePlayClick(e, keyboard = false) {
   const rect = canvas.getBoundingClientRect();
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
@@ -3349,7 +3528,7 @@ canvas.addEventListener('click', (e) => {
   state.totalClicks++;
 
   // Check leecher clicks
-  for (let i = state.leechers.length - 1; i >= 0; i--) {
+  for (let i = keyboard ? -1 : state.leechers.length - 1; i >= 0; i--) {
     const l = state.leechers[i];
     const dx = mx - l.x;
     const dy = my - l.y;
@@ -3370,7 +3549,7 @@ canvas.addEventListener('click', (e) => {
 
   // Check if clicked on a ball
   let clickedBall = null;
-  for (let i = balls.length - 1; i >= 0; i--) {
+  for (let i = keyboard ? -1 : balls.length - 1; i >= 0; i--) {
     const b = balls[i];
     const dx = mx - b.x;
     const dy = my - b.y;
@@ -3381,15 +3560,17 @@ canvas.addEventListener('click', (e) => {
     }
   }
 
-  let value = getClickValue();
+  let value = clickedBall ? 0 : getClickValue();
   let extra = '';
   let textColor = null;
 
   if (clickedBall) {
     // Combo
     state.combo = Math.min(20 + skillLevel('maxCombo') * 20, state.combo + 1);
-    state.comboTimer = 3 + skillLevel('comboSustain');
+    state.comboTimer = 4 + skillLevel('comboSustain');
     if (state.combo > state.highestCombo) state.highestCombo = state.combo;
+    value = getCatchValue();
+    extra = ' ×' + state.combo;
 
     // Golden ball → random event
     if (clickedBall.golden) {
@@ -3447,12 +3628,22 @@ canvas.addEventListener('click', (e) => {
   }
 
   spawnFloatingText(mx, my, '+' + formatNum(value) + extra, textColor || (clickedBall?.golden ? '#ffd700' : clickedBall?.overflow ? '#ff4444' : '#ffd93d'));
+  updateFloor();
+}
+canvas.addEventListener('click', handlePlayClick);
+canvas.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  event.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  handlePlayClick({ clientX: rect.left + W / 2, clientY: rect.top + H / 2 }, true);
 });
 
 // ── Visibility ──
 document.addEventListener('visibilitychange', () => {
   tabFocused = !document.hidden;
+  if (document.hidden) saveGame();
 });
+window.addEventListener('pagehide', saveGame);
 
 // ══════════════════════════════════════════════════════
 //  GAME LOOP
@@ -3465,7 +3656,9 @@ let achievementCheckTimer = 0;
 
 function gameLoop(timestamp) {
  try {
-  const dt = Math.min((timestamp - lastTime) / 1000, 0.1); // cap dt
+  const elapsed = Math.max(0, (timestamp - lastTime) / 1000);
+  const dt = Math.min(elapsed, 0.1);
+  if (elapsed > 0.1) grantBalls(getOfflineEarnings(elapsed - dt, false));
   lastTime = timestamp;
 
   const now = Date.now();
@@ -3479,12 +3672,7 @@ function gameLoop(timestamp) {
 
   // Idle efficiency (tab unfocused)
   if (!tabFocused) {
-    const idleLevel = skillLevel('idleEfficiency');
-    if (idleLevel > 0) {
-      production *= (0.5 + idleLevel * 0.1);
-    } else {
-      production *= 0.1; // tiny amount when unfocused without skill
-    }
+    production *= (0.5 + skillLevel('idleEfficiency') * 0.1);
   }
 
   // Lucky Drops
@@ -3621,7 +3809,7 @@ function gameLoop(timestamp) {
   const totalBPS = bps;
   // Spawn rate: always some ambient balls, scales with BPS
   const baseSpawnRate = 0.5; // ambient balls even at 0 BPS
-  const bpsSpawnRate = Math.min(3, totalBPS / 500);
+  const bpsSpawnRate = Math.min(5, Math.sqrt(totalBPS) / 5);
   const spawnRate = Math.max(baseSpawnRate, bpsSpawnRate);
   if (Math.random() < spawnRate * dt) {
     // Challenge: no special balls
@@ -3652,9 +3840,9 @@ function gameLoop(timestamp) {
 
   // ── Golden pity timer: guarantee a golden ball every 90s once unlocked ──
   {
-    const goldenUnlocked = state.upgrades.find(u => u.id === 'golden')?.bought || skillLevel('goldenChance') > 0;
+    const goldenUnlocked = state.totalClicks >= 15 || state.generators.some(g => g.count > 0);
     const noSpecial = state.activeChallenge?.noSpecialBalls;
-    if (goldenUnlocked && !noSpecial && now - (state.lastGoldenSpawn || 0) > 90000) {
+    if (goldenUnlocked && !noSpecial && now - (state.lastGoldenSpawn || 0) > (state.upgrades.find(u => u.id === 'golden')?.bought ? 45000 : 90000)) {
       state.lastGoldenSpawn = now;
       spawnBall(null, null, { golden: true });
     }
@@ -3711,6 +3899,7 @@ function gameLoop(timestamp) {
 }
 
 function updateUI() {
+  updateFloor();
   document.getElementById('ball-count').textContent = formatNum(state.balls);
   const bps = getBPS();
   document.getElementById('bps').textContent = formatNum(bps);
@@ -3751,6 +3940,8 @@ function updateUI() {
 
   // Update active tab content (lightweight updates)
   if (activeTab === 'generators') { renderGenerators(); renderMilestones(); }
+  if (activeTab === 'upgrades') renderUpgrades();
+  if (activeTab === 'skills' && document.getElementById('skill-tree-overlay').style.display === 'none') renderSkillTree();
   if (activeTab === 'stats') renderStats();
   if (activeTab === 'challenges' && state.activeChallenge) renderChallenges();
 }
@@ -4007,6 +4198,10 @@ function render() {
 function init() {
   resize();
   loadGame();
+  saveGame();
+  // Make the original playfield immediately alive and ready for catching.
+  for (let i = 0; i < 12; i++) spawnBall(Math.random() * W, 40 + Math.random() * Math.max(1, H - 100), { vy: -1 });
+  updateFloor();
   updateTabLocks();
   renderActiveTab();
 

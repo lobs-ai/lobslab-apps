@@ -1,0 +1,4 @@
+.server.pid
+.server.log
+game-extracted.js
+.playtest/

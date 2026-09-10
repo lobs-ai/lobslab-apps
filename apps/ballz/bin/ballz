@@ -1,0 +1,17 @@
+#!/bin/zsh
+set -euo pipefail
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR"
+case "${1:-status}" in
+  start)
+    if [[ "${2:-}" == "--build" ]]; then npm ci --no-audit --no-fund; "$0" test; fi
+    exec "$ROOT_DIR/bin/dev-run"
+    ;;
+  stop) exec "$ROOT_DIR/bin/dev-stop" ;;
+  restart) "$0" stop; exec "$0" start --build ;;
+  status) exec "$ROOT_DIR/bin/dev-status" ;;
+  test) shift; exec npm test -- --runInBand "$@" ;;
+  balance) exec node bin/balance.cjs ;;
+  playtest) exec node bin/playtest.cjs ;;
+  *) echo "Usage: bin/ballz {start [--build]|stop|restart|status|test|balance|playtest}"; exit 1 ;;
+esac

@@ -28,9 +28,18 @@ if [[ -n "${PORT_PID:-}" ]]; then
 fi
 
 cd "$ROOT_DIR"
-PORT="$PORT" nohup node ./server.mjs >>"$LOG_FILE" 2>&1 &
-PID=$!
-echo "$PID" >"$PID_FILE"
+PID="$(PORT="$PORT" node --input-type=module <<'JS'
+import { spawn } from 'node:child_process';
+import { openSync, writeFileSync } from 'node:fs';
+const log = openSync('.server.log', 'a');
+const child = spawn(process.execPath, ['server.mjs'], {
+  detached: true, stdio: ['ignore', log, log], env: process.env,
+});
+writeFileSync('.server.pid', String(child.pid));
+child.unref();
+console.log(child.pid);
+JS
+)"
 sleep 1
 
 if kill -0 "$PID" 2>/dev/null; then
