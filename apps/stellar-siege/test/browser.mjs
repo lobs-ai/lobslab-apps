@@ -58,6 +58,18 @@ try {
   await host.mouse.down();
   await host.mouse.move(launch.tx, launch.ty, { steps: 8 });
   await host.mouse.up();
+  // The launch preview gathers at the source; flying early would jump back when the real swarm appears.
+  await host.waitForTimeout(120);
+  const preview = await host.evaluate(() => {
+    const c = window.testClient, ps = c._predictiveSwarms[0];
+    if (!ps) return null;
+    const source = c.renderWorld.nodes.find(n => n.id === ps.sourceId);
+    return { drift: Math.max(...ps.swarm.motes.map(m => Math.hypot(m.x - source.position.x, m.y - source.position.y))),
+      energy: source.energy, serverEnergy: source._serverEnergy, motes: ps.swarm.motes.length };
+  });
+  assert.ok(preview, 'preview should still be pending under 180ms RTT');
+  assert.ok(preview.drift < 20, `preview drifted ${preview.drift}px from its source`);
+  assert.ok(preview.energy <= preview.serverEnergy - preview.motes, JSON.stringify(preview));
   for (const page of [host, guest]) await page.waitForFunction(() => window.testClient.renderWorld.swarms.some(s => s.owner === 0 && s.id > 0 && s.motes.length));
   // Hold the guest's world updates for 400ms, then deliver the backlog in order.
   await guest.evaluate(() => {
@@ -84,8 +96,9 @@ try {
   }
   assert.equal(stats[0].id, stats[1].id);
   assert.equal(stats[0].predictive, 0);
-  // Rendering trails the newest sample by the jitter buffer (motes fly at 95px/s), never freezes.
-  assert.ok(stats.every(s => s.error < 30), JSON.stringify(stats));
+  // Rendering trails the newest sample by at most the jitter buffer plus one sync interval
+  // (motes fly at 95px/s); a frozen render would fall far outside that bound within 800ms.
+  assert.ok(stats.every(s => s.error < 95 * (s.delayMs + 50) / 1000 + 15), JSON.stringify(stats));
   // Redirect a confirmed swarm and verify both clients receive the same hold point.
   const swarmId = stats[0].id;
   await host.evaluate(id => window.testClient.sendAction({ type: 'redirect_swarm', swarmId: id,

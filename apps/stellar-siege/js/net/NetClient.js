@@ -424,13 +424,18 @@ export class NetClient {
       return true;
     });
     for (const ps of this._predictiveSwarms) {
+      // Gather at the source until the server's swarm reaches the render cursor. The real
+      // fleet starts from rest there, so a preview that flies early only jumps back on handoff.
       for (const m of ps.swarm.motes) {
-        const dx = m.targetX - m.x, dy = m.targetY - m.y;
-        const distance = Math.hypot(dx, dy) || 1;
-        const speed = Math.min(95, Math.hypot(m.vx, m.vy) + 120 * dt, distance * 3);
-        m.vx = dx / distance * speed; m.vy = dy / distance * speed;
-        m.x += m.vx * Math.min(dt, 0.05); m.y += m.vy * Math.min(dt, 0.05);
+        m.angle += 3 * dt;
+        m.x = m.anchorX + Math.cos(m.angle) * m.r;
+        m.y = m.anchorY + Math.sin(m.angle) * m.r;
+        m.vx = -Math.sin(m.angle) * m.r * 3;
+        m.vy = Math.cos(m.angle) * m.r * 3;
       }
+      // Show the launch cost now rather than when the server's deduction reaches the cursor.
+      const source = this._nodes.get(ps.sourceId);
+      if (source) source.energy = Math.max(0, source.energy - ps.swarm.motes.length);
       swarms.push(ps.swarm);
     }
     world.swarms = swarms;
@@ -463,7 +468,7 @@ export class NetClient {
     const previousOwner = node.owner;
     node.owner = current.owner;
     node.upgrade = current.upgrade;
-    node.energy = next && next.owner === current.owner && next.tick > current.tick
+    node.energy = node._serverEnergy = next && next.owner === current.owner && next.tick > current.tick
       ? current.energy + (next.energy - current.energy) * Math.min(1, (renderTick - current.tick) / (next.tick - current.tick))
       : current.energy;
     node.captureFlash = Math.max(0, node.captureFlash - dt * 2);
@@ -481,7 +486,8 @@ export class NetClient {
 
     const reserved = this._predictiveSwarms.filter(ps => ps.sourceId === action.sourceId)
       .reduce((sum, ps) => sum + ps.swarm.motes.length, 0);
-    const moteCount = Math.floor(Math.max(0, sourceNode.energy - reserved) * ratio);
+    const available = (sourceNode._serverEnergy ?? sourceNode.energy) - reserved;
+    const moteCount = Math.floor(Math.max(0, available) * ratio);
     if (moteCount < 5) return;
     const sx = sourceNode.position.x, sy = sourceNode.position.y;
     const fakeId = this._predictiveFakeId--;
@@ -496,11 +502,9 @@ export class NetClient {
         phase: ((Math.abs(fakeId) * 31 + i * 17) % 360) / 360,
         x: sx + Math.cos(angle) * r,
         y: sy + Math.sin(angle) * r,
-        vx: Math.cos(angle) * 8,
-        vy: Math.sin(angle) * 8,
-        anchorX: sx, anchorY: sy,
-        targetX: targetNode.position.x,
-        targetY: targetNode.position.y,
+        vx: -Math.sin(angle) * r * 3,
+        vy: Math.cos(angle) * r * 3,
+        anchorX: sx, anchorY: sy, angle, r,
       });
     }
 
