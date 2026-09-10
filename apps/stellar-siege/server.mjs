@@ -1,3 +1,5 @@
+import { PROTOCOL_VERSION } from './js/net/protocol.js';
+import { encodeMotes } from './js/net/moteCodec.js';
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -68,6 +70,14 @@ const io = new SocketIOServer(server, {
   cors: { origin: true, credentials: true },
 });
 
+io.use((socket, next) => {
+  if (socket.handshake.auth?.protocolVersion !== PROTOCOL_VERSION) {
+    next(new Error('Game updated. Reload this page to play.'));
+    return;
+  }
+  next();
+});
+
 const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const lobbies = new Map();
 const clientLobby = new Map();
@@ -132,9 +142,14 @@ class StellarServerGameEngine extends LanceGameEngine {
     if (inputDesc.input === "send_energy") {
       const source = world.getNodeById(action.sourceId);
       const target = world.getNodeById(action.targetId);
-      if (!source || !target) return;
-      if (source.owner !== compactPlayerId) return;
-      match.game.sendEnergy(source, target, action.ratio ?? 0.5);
+      const swarm = source && target && source.owner === compactPlayerId
+        ? match.game.sendEnergy(source, target, action.ratio ?? 0.5) : null;
+      if (swarm) swarm.commandId = Number.isInteger(action.commandId) ? action.commandId : 0;
+      for (const socket of match.lobby.clients.keys()) {
+        if (socket.playerId === socketPlayerId) emitSafe(socket, "action_result", {
+          commandId: action.commandId, accepted: !!swarm,
+        });
+      }
       return;
     }
 
@@ -143,7 +158,11 @@ class StellarServerGameEngine extends LanceGameEngine {
       if (!swarm || swarm.owner !== compactPlayerId) return;
 
       const targetNode = action.targetNodeId != null ? world.getNodeById(action.targetNodeId) : null;
-      match.game.redirectSwarm(swarm, targetNode, action.targetPos ?? null, compactPlayerId);
+      const pos = action.targetPos;
+      if (!targetNode && (!pos || !Number.isFinite(pos.x) || !Number.isFinite(pos.y))) return;
+      const targetPos = pos ? { x: Math.max(0, Math.min(world.width, pos.x)),
+        y: Math.max(0, Math.min(world.height, pos.y)) } : null;
+      match.game.redirectSwarm(swarm, targetNode, targetPos, compactPlayerId);
     }
   }
 
@@ -212,6 +231,7 @@ class StellarServerGameEngine extends LanceGameEngine {
 
       emitSafe(socket, "game_start", {
         playerId: compactId,
+        startStep: this.world.stepCount,
         world: { width: game.world.width, height: game.world.height },
         players: roster,
       });
@@ -245,6 +265,7 @@ class StellarServerGameEngine extends LanceGameEngine {
 
     for (const socketPlayerId of match.socketToCompact.keys()) {
       this.playerToMatch.delete(socketPlayerId);
+      this.serverEngineRef.assignPlayerToRoom(socketPlayerId, ServerEngine.DEFAULT_ROOM_NAME);
     }
     for (const socket of match.lobby.clients.keys()) {
       clientLobby.delete(socket.id);
@@ -253,13 +274,15 @@ class StellarServerGameEngine extends LanceGameEngine {
 
     if (notifyClients) {
       for (const socket of match.lobby.clients.keys()) {
-        emitSafe(socket, "error_message", { message: reason });
+        emitSafe(socket, "match_closed", { message: reason });
       }
     }
 
     match.nodeObjects.clear();
     match.swarmObjects.clear();
     this.matches.delete(code);
+    this.serverEngineRef.roomEvents?.delete(match.roomName);
+    delete this.serverEngineRef.rooms[match.roomName];
   }
 
   _updateMatches(dt) {
@@ -268,7 +291,14 @@ class StellarServerGameEngine extends LanceGameEngine {
 
       match.game.update(dt);
       this._syncNodes(match);
-      this._syncSwarms(match);
+      if (this.world.stepCount % 3 === 0) {
+        this._syncSwarms(match);
+        const effects = match.game.world.events.filter(e => e.type === 'mote_combat' || e.type === 'wormhole_transit');
+        if (effects.length) {
+          for (const socket of match.lobby.clients.keys()) emitSafe(socket, 'game_effects', effects);
+          match.game.world.events = match.game.world.events.filter(e => !effects.includes(e));
+        }
+      }
 
       if (match.game.state === GameState.GAME_OVER) {
         const winnerId = match.game.winner?.id ?? null;
@@ -285,6 +315,8 @@ class StellarServerGameEngine extends LanceGameEngine {
       playerId: node.owner ?? 0,
       nodeId: node.id,
       nodeType: node.type,
+      pairId: node.pairId ?? -1,
+      pairColor: node.pairColor || "",
       ownerId: node.owner ?? -1,
       energy: node.energy,
       maxEnergy: node.maxEnergy,
@@ -381,6 +413,10 @@ class StellarServerGameEngine extends LanceGameEngine {
       obj.ownerId = swarm.owner;
       obj.sourceNodeId = swarm.sourceId;
       obj.targetNodeId = targetNodeId;
+      obj.commandId = swarm.commandId || 0;
+      // Stable mote indices survive casualties. Quarter-pixel precision keeps payloads compact.
+      obj.sampleTick = this.world.stepCount;
+      obj.moteData = encodeMotes(swarm.motes);
       obj.moteCount = aliveMotes.length;
       obj.centerX = centerX;
       obj.centerY = centerY;
@@ -511,10 +547,38 @@ class Lobby {
   }
 }
 
+// Lance 5 shares one event transmitter across rooms. Its default lifecycle
+// queue otherwise sends every room's creates/destroys to the first room synced.
+class RoomServerEngine extends ServerEngine {
+  queueRoomEvent(obj, type) {
+    this.roomEvents ??= new Map();
+    const roomName = obj._roomName || ServerEngine.DEFAULT_ROOM_NAME;
+    const events = this.roomEvents.get(roomName) || [];
+    events.push({ obj, type });
+    this.roomEvents.set(roomName, events);
+    if (this.rooms[roomName]) this.rooms[roomName].requestImmediateSync = true;
+  }
+  onObjectAdded(obj) {
+    obj._roomName ||= ServerEngine.DEFAULT_ROOM_NAME;
+    this.queueRoomEvent(obj, 'create');
+  }
+  onObjectDestroyed(obj) { this.queueRoomEvent(obj, 'destroy'); }
+  syncStateToClients(roomName) {
+    const room = this.rooms[roomName];
+    if (!room || (!room.requestImmediateSync && this.gameEngine.world.stepCount % this.options.updateRate !== 0)) return;
+    for (const { obj, type } of this.roomEvents?.get(roomName) || []) {
+      if (type === 'create') this.networkTransmitter.sendCreate(this.gameEngine.world.stepCount, obj);
+      else this.networkTransmitter.sendDestroy(this.gameEngine.world.stepCount, obj);
+    }
+    this.roomEvents?.delete(roomName);
+    super.syncStateToClients(roomName);
+  }
+}
+
 const gameEngine = new StellarServerGameEngine();
-const serverEngine = new ServerEngine(io, gameEngine, {
+const serverEngine = new RoomServerEngine(io, gameEngine, {
   stepRate: 60,
-  updateRate: 2,
+  updateRate: 3,
   fullSyncRate: 30,
   timeoutInterval: 120,
 });

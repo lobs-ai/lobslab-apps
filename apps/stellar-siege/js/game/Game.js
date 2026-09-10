@@ -254,7 +254,7 @@ export class Game {
     if (amount < 1) return null;
 
     sourceNode.energy = Math.max(0, sourceNode.energy - amount);
-    const swarm = createSwarm(sourceNode, targetNode, amount, owner ?? sourceNode.owner, swarmId);
+    const swarm = createSwarm(sourceNode, targetNode, amount, owner ?? sourceNode.owner, swarmId ?? this.world.allocateSwarmId());
     this.world.addSwarm(swarm);
     return swarm;
   }
@@ -266,13 +266,15 @@ export class Game {
     if (!sourceNode || !targetNode) return;
     if (sourceNode.id === targetNode.id) return;
     if (sourceNode.owner === null) return; // can't send from neutral
+    if (!Number.isFinite(ratio) || ratio <= 0 || ratio > 1) return;
 
     const amount = Math.floor(sourceNode.energy * ratio);
     if (amount < 5) return; // not worth sending
 
     sourceNode.energy -= amount;
 
-    const swarm = createSwarm(sourceNode, targetNode, amount, sourceNode.owner);
+    const swarm = createSwarm(sourceNode, targetNode, amount, sourceNode.owner, this.world.allocateSwarmId());
     this.world.addSwarm(swarm);
+    return swarm;
   }
 }

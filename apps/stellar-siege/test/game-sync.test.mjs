@@ -1,3 +1,4 @@
+import { PROTOCOL_VERSION } from '../js/net/protocol.js';
 /**
  * game-sync.test.mjs
  *
@@ -24,6 +25,7 @@ function wait(ms) {
 
 function connectClient(baseUrl) {
   const socket = io(baseUrl, {
+    auth: { protocolVersion: PROTOCOL_VERSION },
     transports: ['websocket'],
     reconnection: false,
     timeout: 5000,
@@ -298,4 +300,17 @@ test('host + AI game starts and runs without human joiner', { timeout: 20000 }, 
     host.disconnect();
     await server.stop();
   }
+});
+
+test('obsolete clients get a reload message instead of a corrupt binary world', { timeout: 10000 }, async () => {
+  const port = await getFreePort();
+  const server = await startServer(port);
+  const socket = io(`http://127.0.0.1:${port}`, { reconnection: false,
+    transports: ['websocket'], auth: { protocolVersion: PROTOCOL_VERSION - 1 } });
+  try {
+    const error = await new Promise(resolve => socket.once('connect_error', resolve));
+    assert.match(error.message, /Reload this page/);
+    assert.equal(socket.connected, false);
+    assert.equal(server.child.exitCode, null);
+  } finally { socket.disconnect(); await server.stop(); }
 });

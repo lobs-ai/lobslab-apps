@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 export async function getFreePort() {
   return await new Promise((resolve, reject) => {
     const server = net.createServer();
-    server.listen(0, '127.0.0.1', () => {
+    server.listen(0, () => {
       const address = server.address();
       const port = typeof address === 'object' && address ? address.port : null;
       server.close(err => {

@@ -20,7 +20,7 @@ export class NodeRenderer {
 
   draw(ctx, world, hoveredNode, selectedNode, time) {
     for (const node of world.nodes) {
-      this._drawNode(ctx, node, hoveredNode, selectedNode, time);
+      this._drawNode(ctx, node, hoveredNode, selectedNode, time, world);
 
       // Spawn capture burst particles
       if (node.captureFlash > 0.9) {
@@ -37,7 +37,7 @@ export class NodeRenderer {
     }
   }
 
-  _drawNode(ctx, node, hoveredNode, selectedNode, time) {
+  _drawNode(ctx, node, hoveredNode, selectedNode, time, world) {
     const { x, y } = node.position;
     const r = node.radius;
     const color = getOwnerColor(node.owner);

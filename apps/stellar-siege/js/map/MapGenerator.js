@@ -115,6 +115,8 @@ export function generateMap({ playerCount, mapSize }) {
     const type = pickNeutralType(d, centerDist, width, height);
     nodes.push(createNode({
       type,
+      // Cheap frontier nodes start the expansion race; central prizes need commitment.
+      energy: { planet: 25, asteroid: 18, nebula: 30, star: 75, blackhole: 90 }[type] ?? 25,
       owner: null,
       x: pos.x,
       y: pos.y,
@@ -233,15 +235,16 @@ function addWormholePairs(nodes, pairCount, pairColors, width, height, playerPos
       usedPositions.push(posB);
     }
 
+    if (!posA || !posB) continue;
     if (posA) {
-      const nodeA = createNode('wormhole', posA.x, posA.y);
+      const nodeA = createNode({ type: 'wormhole', x: posA.x, y: posA.y, owner: null });
       nodeA.pairId = pairId;
       nodeA.pairColor = color;
       nodeA.pulsePhase = Math.random() * Math.PI * 2;
       nodes.push(nodeA);
     }
     if (posB) {
-      const nodeB = createNode('wormhole', posB.x, posB.y);
+      const nodeB = createNode({ type: 'wormhole', x: posB.x, y: posB.y, owner: null });
       nodeB.pairId = pairId;
       nodeB.pairColor = color;
       nodeB.pulsePhase = Math.random() * Math.PI * 2;

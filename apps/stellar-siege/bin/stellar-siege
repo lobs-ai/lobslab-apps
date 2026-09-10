@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+case "${1:-status}" in
+  start)
+    if [[ "${2:-}" == --build || ! -d node_modules ]]; then npm ci --silent; fi
+    exec node bin/server-process.mjs start ;;
+  stop) exec node bin/server-process.mjs stop ;;
+  restart) node bin/server-process.mjs stop; npm ci --silent; exec node bin/server-process.mjs start ;;
+  status) exec node bin/server-process.mjs status ;;
+  test) exec npm test ;;
+  *) echo 'Usage: bin/stellar-siege {start [--build]|stop|restart|status|test}' >&2; exit 2 ;;
+esac

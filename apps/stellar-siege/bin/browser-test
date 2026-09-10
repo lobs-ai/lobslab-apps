@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+if [[ "${1:-}" == --build ]]; then node node_modules/playwright-chromium/cli.js install chromium; fi
+exec node test/browser.mjs

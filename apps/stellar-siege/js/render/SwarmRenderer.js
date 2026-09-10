@@ -85,11 +85,27 @@ export class SwarmRenderer {
     ctx.save();
     ctx.shadowBlur = 0;
 
+    // Batched tapered plasma wakes: direction reads clearly even when zoomed out.
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = color;
+    ctx.lineCap = 'round';
+    for (const [width, alpha, duration] of [[4, 0.12, 0.16], [1.5, 0.55, 0.10]]) {
+      ctx.lineWidth = width;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      for (const m of aliveMotes) {
+        ctx.moveTo(m.x - (m.vx || 0) * duration, m.y - (m.vy || 0) * duration);
+        ctx.lineTo(m.x, m.y);
+      }
+      ctx.stroke();
+    }
+
     // Color layer
     ctx.fillStyle = color;
     ctx.globalAlpha = 0.75;
     for (const m of aliveMotes) {
-      ctx.fillRect(m.x - 1.5, m.y - 1.5, 3, 3);
+      const size = 2.2 + 0.8 * Math.sin(time * 5 + m.phase * 20);
+      ctx.fillRect(m.x - size / 2, m.y - size / 2, size, size);
     }
 
     // Bright white core
@@ -100,6 +116,16 @@ export class SwarmRenderer {
     }
 
     ctx.restore();
+    if (highlighted || aliveMotes.length >= 15) {
+      ctx.save();
+      ctx.font = '600 11px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = color;
+      ctx.shadowColor = '#000';
+      ctx.shadowBlur = 4;
+      ctx.fillText(String(aliveMotes.length), cx, cy - glowRadius - 4);
+      ctx.restore();
+    }
   }
 
   // ---------------------------------------------------------------------------

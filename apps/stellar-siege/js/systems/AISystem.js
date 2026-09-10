@@ -174,7 +174,7 @@ class AIController {
     if (amount < MIN_SEND_ENERGY) return;
 
     source.energy -= amount;
-    const swarm = createSwarm(source, target, amount, this.playerId);
+    const swarm = createSwarm(source, target, amount, this.playerId, world.allocateSwarmId());
     world.addSwarm(swarm);
   }
 }

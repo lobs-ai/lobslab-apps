@@ -112,3 +112,34 @@ test('StellarNodeObject ownerId -1 encodes neutral owner correctly', () => {
   assert.equal(decoded.ownerId, -1, 'neutral ownerId -1 must round-trip through Int16');
   assert.equal(decoded.upgrade, '', 'empty string upgrade must round-trip');
 });
+
+test('changed snapshot strings survive delta pruning and deserialization', () => {
+  const serializer = new Serializer();
+  serializer.registerClass(StellarSwarmObject);
+  const obj = new StellarSwarmObject(null, { id: 4 }, {
+    swarmId: 40000, sampleTick: 60, commandId: 9, moteData: '[[7,1,2,3,4]]',
+  });
+  const previous = obj.serialize(serializer).dataBuffer;
+  obj.moteData = '[[7,20,30,40,50]]';
+  const pruned = obj.prunedStringsClone(serializer, previous);
+  const decoded = serializer.deserialize(pruned.serialize(serializer).dataBuffer).obj;
+  assert.equal(decoded.moteData, obj.moteData);
+  assert.equal(decoded.swarmId, 40000);
+  assert.equal(decoded.commandId, 9);
+});
+
+test('compact mote payload round-trips through the actual wire serializer', async () => {
+  const { encodeMotes, decodeMotes } = await import('../js/net/moteCodec.js');
+  const motes = [{ alive: false }, { alive: true, x: -12.123, y: 1999.97, vx: -95, vy: 4.25 }];
+  const data = encodeMotes(motes);
+  assert.equal(data.length, 5);
+  const serializer = new Serializer(); serializer.registerClass(StellarSwarmObject);
+  const obj = new StellarSwarmObject(null, { id: 1 }, { moteData: data });
+  const decoded = serializer.deserialize(obj.serialize(serializer).dataBuffer).obj;
+  const [row] = decodeMotes(decoded.moteData);
+  assert.equal(row[0], 1);
+  assert.ok(Math.abs(row[1] - motes[1].x) <= 0.125);
+  assert.ok(Math.abs(row[2] - motes[1].y) <= 0.125);
+  assert.equal(row[3], -95);
+  assert.equal(row[4], 4.25);
+});

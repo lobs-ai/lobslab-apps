@@ -1,3 +1,4 @@
+import { SoundSystem } from './systems/SoundSystem.js';
 import { Game, GameState } from './game/Game.js';
 import { Renderer }        from './render/Renderer.js';
 import { InputManager }    from './input/InputManager.js';
@@ -29,11 +30,21 @@ let myPlayerId    = 0;
 let isHost        = false;
 
 // ============================================================================
+const sound = new SoundSystem();
+const soundButton = document.getElementById('sound-toggle');
+function updateSoundButton() {
+  soundButton.textContent = sound.enabled ? 'Sound on' : 'Sound off';
+  soundButton.setAttribute('aria-pressed', String(sound.enabled));
+}
+soundButton.addEventListener('click', () => { sound.toggle(); updateSoundButton(); });
+updateSoundButton();
+
 // Send-energy callback (works for both solo and multiplayer)
 // ============================================================================
 
 inputManager.onSendEnergy = (selectedNodes, targetNode, ratio) => {
   console.log('[input] onSendEnergy', { isMultiplayer, selectedNodes: selectedNodes.map(n => n.id), targetId: targetNode?.id, ratio });
+  if (selectedNodes.some(n => Math.floor(n.energy * ratio) >= 5)) sound.launch();
   if (isMultiplayer && netClient) {
     for (const source of selectedNodes) {
       // Don't apply locally — wait for the server broadcast so all clients
@@ -102,12 +113,17 @@ document.getElementById('game-over-restart').addEventListener('click', () => {
   startGame(lastConfig);
 });
 
-document.getElementById('game-over-menu').addEventListener('click', () => {
-  gameOverScreen.classList.add('hidden');
-  hud.classList.add('hidden');
+function returnToMenu() {
   cleanupMultiplayer();
+  game.state = GameState.MENU;
+  game.world = null;
+  hideAllScreens();
+  hud.classList.add('hidden');
+  document.getElementById('hud-players').classList.add('hidden');
   menuScreen.classList.remove('hidden');
-});
+}
+document.getElementById('game-over-menu').addEventListener('click', returnToMenu);
+document.getElementById('hud-menu').addEventListener('click', returnToMenu);
 
 // ============================================================================
 // Multiplayer menu wiring
@@ -146,7 +162,9 @@ document.getElementById('mp-join-back').addEventListener('click', () => {
 
 // ===== Create Lobby =====
 
-document.getElementById('mp-create-go').addEventListener('click', async () => {
+document.getElementById('mp-create-go').addEventListener('click', async (event) => {
+  const button = event.currentTarget;
+  button.disabled = true;
   try {
     netClient = new NetClient();
     await netClient.connect();
@@ -172,29 +190,34 @@ document.getElementById('mp-create-go').addEventListener('click', async () => {
     netClient.onGameStart   = (payload, playerId) => startMultiplayerGame(payload, playerId);
     netClient.onStateUpdate = (state) => { mpWorld = state; };
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
+    netClient.onMatchClosed = showMatchClosed;
     netClient.onError       = (msg) => showMpError(msg);
     netClient.onDisconnect  = () => {
       if (isMultiplayer) {
-        showMpError('Disconnected from server');
+        showMatchClosed('Disconnected from server');
       }
     };
 
     const createName = document.getElementById('mp-create-name').value.trim() || 'Player 1';
     netClient.createLobby({ mapSize, slots, name: createName });
   } catch (e) {
-    showMpError('Failed to connect to server');
+    showMpError(e?.message?.includes('Game updated') ? e.message : 'Failed to connect to server');
+  } finally {
+    button.disabled = false;
   }
 });
 
 // ===== Join Lobby =====
 
-document.getElementById('mp-join-go').addEventListener('click', async () => {
+document.getElementById('mp-join-go').addEventListener('click', async (event) => {
   const code = document.getElementById('mp-join-code').value.trim().toUpperCase();
   if (code.length !== 6) {
     showMpError('Enter a 6-character invite code');
     return;
   }
 
+  const button = event.currentTarget;
+  button.disabled = true;
   try {
     netClient = new NetClient();
     await netClient.connect();
@@ -210,17 +233,20 @@ document.getElementById('mp-join-go').addEventListener('click', async () => {
     netClient.onGameStart   = (payload, playerId) => startMultiplayerGame(payload, playerId);
     netClient.onStateUpdate = (state) => { mpWorld = state; };
     netClient.onGameOver    = (winnerId) => showMultiplayerGameOver(winnerId);
+    netClient.onMatchClosed = showMatchClosed;
     netClient.onError       = (msg) => showMpError(msg);
     netClient.onDisconnect  = () => {
       if (isMultiplayer) {
-        showMpError('Disconnected from server');
+        showMatchClosed('Disconnected from server');
       }
     };
 
     const joinName = document.getElementById('mp-join-name').value.trim() || 'Player';
     netClient.joinLobby(code, joinName);
   } catch (e) {
-    showMpError('Failed to connect to server');
+    showMpError(e?.message?.includes('Game updated') ? e.message : 'Failed to connect to server');
+  } finally {
+    button.disabled = false;
   }
 });
 
@@ -405,6 +431,13 @@ function showMultiplayerGameOver(winnerId) {
   gameOverScreen.classList.remove('hidden');
 }
 
+function showMatchClosed(message) {
+  document.getElementById('game-over-title').textContent = 'MATCH ENDED';
+  document.getElementById('game-over-title').style.color = '#93a5bb';
+  document.getElementById('game-over-stats').textContent = message;
+  gameOverScreen.classList.remove('hidden');
+}
+
 function cleanupMultiplayer() {
   if (netClient) {
     netClient.disconnect();
@@ -561,25 +594,30 @@ function updateHUD(dt) {
   if (elEnergy) elEnergy.textContent = `⚡ ${energy}`;
   if (elNodes)  elNodes.textContent  = `● ${nodeCount} node${nodeCount !== 1 ? 's' : ''}`;
   if (elTimer)  elTimer.textContent  = `${mins}:${secs.toString().padStart(2, '0')}`;
-  if (elFps)    elFps.textContent    = `${_hudFps} fps`;
+  if (elFps) {
+    const delayed = isMultiplayer && performance.now() - (netClient?.lastStateAt || 0) > 500;
+    elFps.textContent = isMultiplayer && !netClient?.connected ? 'Disconnected'
+      : delayed ? 'Network delayed' : `${_hudFps} fps`;
+  }
 
   // Multiplayer player list
   const elPlayers = document.getElementById('hud-players');
   if (elPlayers) {
     if (isMultiplayer && world.players.length > 0) {
       elPlayers.classList.remove('hidden');
-      elPlayers.innerHTML = world.players.map(p => {
+      const markup = world.players.map(p => {
         const nodes  = world.getNodesByOwner(p.id).length;
         const isMe   = p.id === myPlayerId;
         const status = p.alive ? '' : ' eliminated';
         const youTag = isMe ? ' <span class="hud-player-you">YOU</span>' : '';
         return `<div class="hud-player-row${status}">` +
           `<span class="hud-player-dot" style="background:${p.color}"></span>` +
-          `<span class="hud-player-name">${p.name || `P${p.id + 1}`}</span>` +
+          `<span class="hud-player-name">${escapeHtml(p.name || `P${p.id + 1}`)}</span>` +
           `${youTag}` +
           `<span class="hud-player-nodes">${nodes}▲</span>` +
           `</div>`;
       }).join('');
+      if (elPlayers._markup !== markup) { elPlayers.innerHTML = markup; elPlayers._markup = markup; }
     } else {
       elPlayers.classList.add('hidden');
     }
@@ -644,6 +682,7 @@ function loop(timestamp) {
       }
     }
   } else if (isMultiplayer && netClient) {
+    netClient.updateVisuals(dt, timestamp);
     mpWorld = netClient.getRenderWorld();
   }
 
@@ -657,6 +696,7 @@ function loop(timestamp) {
   // Render
   if (world) {
     const interpolation = accumulator / TICK_RATE;
+    sound.update(world, isMultiplayer ? myPlayerId : 0);
     renderer.draw(world, inputManager, interpolation, dt);
   }
 
@@ -676,3 +716,7 @@ function loop(timestamp) {
 }
 
 requestAnimationFrame(loop);
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}

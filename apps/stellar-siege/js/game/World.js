@@ -3,6 +3,7 @@
  */
 export class World {
   constructor() {
+    this._nextSwarmId = 1;
     this.nodes   = [];
     this.swarms  = [];
     this.players = [];
@@ -68,7 +69,10 @@ export class World {
     return closest;
   }
 
+  allocateSwarmId() { return this._nextSwarmId++; }
+
   addSwarm(swarm) {
+    this._nextSwarmId = Math.max(this._nextSwarmId, swarm.id + 1);
     this.swarms.push(swarm);
   }
 

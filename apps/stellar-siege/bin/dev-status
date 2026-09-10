@@ -1,28 +1,3 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 set -euo pipefail
-
-ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-APP="$(basename "$ROOT_DIR")"
-PID_FILE="$ROOT_DIR/.server.pid"
-PORT="${PORT:-47104}"
-
-port_pid() {
-  lsof -tiTCP:"$PORT" -sTCP:LISTEN 2>/dev/null | head -n 1
-}
-
-if [[ -f "$PID_FILE" ]]; then
-  PID="$(cat "$PID_FILE")"
-  if kill -0 "$PID" 2>/dev/null; then
-    echo "$APP is running on http://localhost:$PORT (pid $PID)"
-    exit 0
-  fi
-fi
-
-PORT_PID="$(port_pid || true)"
-if [[ -n "${PORT_PID:-}" ]]; then
-  echo "$APP is running on http://localhost:$PORT (pid $PORT_PID)"
-  echo "$PORT_PID" >"$PID_FILE"
-  exit 0
-fi
-
-echo "$APP is not running"
+exec "$(dirname "$0")/stellar-siege" status "$@"

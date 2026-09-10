@@ -1,3 +1,5 @@
+import { Camera } from './Camera.js';
+import { getEffectiveDefense } from '../game/Node.js';
 import { BackgroundRenderer } from './BackgroundRenderer.js';
 import { NodeRenderer } from './NodeRenderer.js';
 import { SwarmRenderer } from './SwarmRenderer.js';
@@ -14,6 +16,7 @@ import { PARTICLE_POOL_SIZE } from '../utils/constants.js';
 export class Renderer {
   constructor(canvas) {
     this.canvas = canvas;
+    this.camera = canvas._camera = new Camera();
     this.ctx = canvas.getContext('2d');
 
     // Device pixel ratio for crisp rendering on HiDPI displays
@@ -92,6 +95,13 @@ export class Renderer {
     // 2. Background (static starfield + twinkle)
     this.background.draw(ctx, simTime);
 
+    // Fit initially, then zoom around the pointer and pan within the battlefield.
+    const view = this.camera.update(w, h, world);
+    this.canvas._worldView = view;
+    ctx.save();
+    ctx.translate(view.x, view.y);
+    ctx.scale(view.scale, view.scale);
+
     // 3. Swarms — pass highlighted swarm id for redirect visual feedback
     const highlightedSwarmId = (inputManager && inputManager.isRedirecting && inputManager.selectedSwarm)
       ? inputManager.selectedSwarm.id
@@ -123,6 +133,13 @@ export class Renderer {
     if (inputManager) {
       this._drawUIOverlay(ctx, world, inputManager, simTime);
     }
+    ctx.restore();
+    ctx.save();
+    ctx.font = '12px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#93a5bb';
+    ctx.fillText('DRAG: SEND / REDIRECT  ·  SHIFT: ALL  ·  CTRL: 25%  ·  SCROLL: ZOOM  ·  MIDDLE DRAG: PAN  ·  F: FIT', w / 2, h - 20);
+    ctx.restore();
   }
 
   // -------------------------------------------------------------------------
@@ -164,7 +181,8 @@ export class Renderer {
 
     // --- Drag preview line (only when not redirecting) ---
     if (inputManager.isDragging && inputManager.dragStartNode && !inputManager.isRedirecting) {
-      this._drawDragLine(ctx, inputManager.dragStartNode, mouse, inputManager, time);
+      for (const source of inputManager.selectedNodes) this._drawDragLine(ctx, source, mouse, inputManager, time);
+      this._drawSendRatioHint(ctx, mouse, inputManager, getOwnerColor(inputManager.localPlayerId));
     }
 
     // --- Box selection rectangle ---
@@ -362,14 +380,23 @@ export class Renderer {
 
     ctx.restore();
 
-    // Show send ratio hint near cursor
-    this._drawSendRatioHint(ctx, mouse, inputManager, color);
+
   }
 
   _drawSendRatioHint(ctx, mouse, inputManager, color) {
     const ratio   = inputManager.getSendRatio();
     const pct     = Math.round(ratio * 100);
-    const label   = `${pct}%`;
+    const amount = inputManager.selectedNodes.reduce((sum, n) => {
+      const sent = Math.floor(n.energy * ratio);
+      return sum + (sent >= 5 ? sent : 0);
+    }, 0);
+    const target = inputManager.hoveredNode;
+    let label = `${amount} plasma · ${pct}%`;
+    if (target && !inputManager.selectedNodes.includes(target)) {
+      if (target.type === 'wormhole') label += ' · WORMHOLE TRANSIT';
+      else if (target.owner === inputManager.localPlayerId) label += ' · REINFORCE';
+      else label += ` · ${Math.floor(target.energy * getEffectiveDefense(target)) + 1} needed now`;
+    }
     const tx      = mouse.x + 14;
     const ty      = mouse.y - 14;
 
@@ -413,9 +440,12 @@ export class Renderer {
     // Position tooltip to the right of cursor, nudge left if near edge
     let tx = mouse.x + 16;
     let ty = mouse.y - H / 2;
-    if (tx + W > this.width  - 8) tx = mouse.x - W - 10;
+    const view = this.canvas._worldView;
+    const right = (this.width - view.x) / view.scale;
+    const bottom = (this.height - view.y) / view.scale;
+    if (tx + W > right - 8) tx = mouse.x - W - 10;
     if (ty < 4)                   ty = 4;
-    if (ty + H > this.height - 4) ty = this.height - H - 4;
+    if (ty + H > bottom - 4) ty = bottom - H - 4;
 
     ctx.save();
 

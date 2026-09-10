@@ -10,7 +10,7 @@ import { getEffectiveDefense } from '../game/Node.js';
  */
 
 const MOTE_STEER_FORCE  = 120;  // steering toward target (px/s²)
-const MOTE_MAX_SPEED    = 70;   // px/s
+const MOTE_MAX_SPEED    = 95;   // px/s
 const MOTE_JITTER       = 16;   // per-mote turbulence amplitude
 const ALIGN_FORCE       = 5;    // steer toward swarm average velocity
 const SEPARATION_RADIUS = 13;   // motes push apart within this distance
@@ -76,23 +76,23 @@ export class SwarmSystem {
               n => n.type === 'wormhole' && n.pairId === targetNode.pairId && n.id !== targetNode.id
             );
             if (paired) {
-              const spread = paired.radius * 0.5;
-              const angle = Math.random() * Math.PI * 2;
-              const offsetDist = Math.random() * spread;
-              mote.x = paired.position.x + Math.cos(angle) * offsetDist;
-              mote.y = paired.position.y + Math.sin(angle) * offsetDist;
-              // Change swarm target to a position at the paired wormhole so the mote
-              // enters idle/orbit mode rather than flying past in its original direction.
+              // Transit the fleet together. Moving only the first arrival changes
+              // the swarm target and strands the rest on the wrong side of the map.
+              for (const traveler of swarm.motes) {
+                if (!traveler.alive) continue;
+                const angle = traveler.phase * Math.PI * 2;
+                const radius = paired.radius * (0.15 + traveler.phase * 0.35);
+                traveler.x = paired.position.x + Math.cos(angle) * radius;
+                traveler.y = paired.position.y + Math.sin(angle) * radius;
+                traveler.vx *= 0.2;
+                traveler.vy *= 0.2;
+              }
               swarm.target = { type: 'position', x: paired.position.x, y: paired.position.y };
               world.events.push({
-                type: 'wormhole_transit',
-                x: paired.position.x,
-                y: paired.position.y,
-                pairColor: paired.pairColor || '#cc44ff',
-                time: world.time,
+                type: 'wormhole_transit', x: paired.position.x, y: paired.position.y,
+                pairColor: paired.pairColor || '#cc44ff', time: world.time,
               });
-              // Do NOT kill mote — continue toward new position target
-              continue;
+              break;
             } else {
               // No paired wormhole found — destroy mote
               mote.alive = false;
@@ -109,6 +109,13 @@ export class SwarmSystem {
             } else {
               const defense = getEffectiveDefense(targetNode);
               targetNode.energy -= 1 / defense;
+              // Resolve the actual arriving attack before removing its last mote.
+              if (targetNode.energy < 0) {
+                targetNode.owner = swarm.owner;
+                targetNode.energy = Math.min(-targetNode.energy, targetNode.maxEnergy * 0.1);
+                targetNode.upgrade = null;
+                targetNode.captureFlash = 1;
+              }
             }
           }
           continue;

@@ -1,3 +1,6 @@
+import { PROTOCOL_VERSION } from './protocol.js';
+import { decodeMotes } from './moteCodec.js';
+import { SwarmInterpolator } from './SwarmInterpolator.js';
 import { World } from '../game/World.js';
 import {
   BaseTypes,
@@ -11,21 +14,18 @@ import { createStellarLanceClasses } from './lance/schema.js';
 
 const { StellarNodeObject, StellarSwarmObject } = createStellarLanceClasses({ GameObject, BaseTypes });
 const CLIENT_STEP_MS = 1000 / 60;
-const CLIENT_DT = CLIENT_STEP_MS / 1000;
-// Swarm visual physics — local Boids: separation + alignment + cohesion + target steering
-const STEER_FORCE        = 320;  // each mote steers toward swarm target
-const NEIGHBOR_RADIUS    = 38;   // local interaction radius for alignment + cohesion
-const SEPARATION_RADIUS  = 13;   // motes push apart within this range
-const SEPARATION_FORCE   = 160;
-const LOCAL_ALIGN        = 6;    // steer toward avg velocity of local neighbors
-const LOCAL_COHESION     = 3;    // move toward center of local neighborhood
-const BOUNDARY_RADIUS    = 48;   // soft containment: only pulls if mote strays this far from anchor
-const BOUNDARY_SPRING    = 7;    // spring constant (px/s² per px outside boundary)
-const TURB_STRENGTH      = 25;   // light turbulence, unique per mote via seed
-const VELOCITY_DAMPING   = 0.91;
-const MAX_VISUAL_SPEED   = 100;
-const COMBAT_REPEL_RADIUS    = 12;
-const COMBAT_EVENT_COOLDOWN  = 0.08;
+// Apply each delta in arrival order: dropping deltas loses fields and lifecycles.
+class OrderedFrameSync extends FrameSyncStrategy {
+  collectSync(event) {
+    if (event.stepCount <= (this.lastAppliedStep ?? -1)) return;
+    super.collectSync(event);
+    if (!this.lastSync) return;
+    this.applySync(this.lastSync, false);
+    this.lastAppliedStep = event.stepCount;
+    this.lastSync = null;
+    this.requiredSyncs = [];
+  }
+}
 
 class StellarClientGameEngine extends GameEngine {
   constructor() {
@@ -65,7 +65,10 @@ export class NetClient {
     this.onGameOver = null;
     this.onError = null;
     this.onDisconnect = null;
+    this.onMatchClosed = null;
 
+    this._predictiveSwarms = [];
+    this._pendingEffects = [];
     this.clientEngine = null;
     this.gameEngine = null;
     this.renderer = null;
@@ -94,7 +97,7 @@ export class NetClient {
     this.renderer = new NullRenderer(this.gameEngine);
     this.clientEngine = new ClientEngine(
       this.gameEngine,
-      new FrameSyncStrategy({}),
+      new OrderedFrameSync({}),
       {
         autoConnect: false,
         scheduler: 'fixed',
@@ -106,9 +109,31 @@ export class NetClient {
 
     await this.renderer.init();
     this.gameEngine.start();
-    await this.clientEngine.connect();
+    let connectionTimeout;
+    try {
+      const connection = this.clientEngine.connect({
+        reconnection: false, timeout: 5000, auth: { protocolVersion: PROTOCOL_VERSION },
+      });
+      // Lance creates the socket in a resolved-promise callback and only listens
+      // for "error". Socket.IO uses "connect_error" for rejected handshakes.
+      await Promise.resolve();
+      await Promise.race([
+        connection,
+        new Promise((_, reject) => {
+          this.clientEngine.socket.once('connect_error', reject);
+          connectionTimeout = setTimeout(() => reject(new Error('Connection timed out')), 6000);
+        }),
+      ]);
+    } catch (error) {
+      this.disconnect();
+      throw error;
+    } finally {
+      clearTimeout(connectionTimeout);
+    }
 
     this.socket = this.clientEngine.socket;
+    // A disconnected match is closed by the server; reconnect through a fresh lobby.
+    this.socket.io.reconnection(false);
     this.socket.on('disconnect', () => {
       this.connected = false;
       if (this.stepTimer) {
@@ -135,7 +160,9 @@ export class NetClient {
     });
 
     this.socket.on('game_start', (payload) => {
+      this.matchActive = true;
       this.playerId = payload.playerId;
+      this._matchStartStep = payload.startStep || 0;
       this.worldBounds = payload.world ?? { width: 0, height: 0 };
       this.renderWorld.width = this.worldBounds.width;
       this.renderWorld.height = this.worldBounds.height;
@@ -143,7 +170,25 @@ export class NetClient {
       if (this.onGameStart) this.onGameStart(payload, payload.playerId);
     });
 
+    this.socket.on('game_effects', effects => {
+      this._pendingEffects ??= [];
+      const now = performance.now();
+      this._pendingEffects = this._pendingEffects.filter(batch => batch.at >= now - 350).slice(-11);
+      this._pendingEffects.push({ at: now + 75, effects });
+    });
+
+    this.socket.on('action_result', ({ commandId, accepted }) => {
+      if (!accepted) this._predictiveSwarms = this._predictiveSwarms.filter(ps => ps.commandId !== commandId);
+    });
+
+    this.socket.on('match_closed', ({ message }) => {
+      this.matchActive = false;
+      this._predictiveSwarms = [];
+      if (this.onMatchClosed) this.onMatchClosed(message);
+    });
+
     this.socket.on('game_over', ({ winnerId }) => {
+      this.matchActive = false;
       if (this.onGameOver) this.onGameOver(winnerId);
     });
 
@@ -192,14 +237,14 @@ export class NetClient {
   }
 
   sendAction(action) {
-    if (!this.clientEngine) return;
-    if (action.type === 'send_energy') {
-      this._spawnPredictiveSwarm(action);
-    }
+    if (!this.connected || !this.matchActive || !this.clientEngine) return;
+    action = { ...action, commandId: this._nextCommandId = (this._nextCommandId || 0) + 1 };
+    if (action.type === 'send_energy') this._spawnPredictiveSwarm(action);
     this.clientEngine.sendInput(action.type, action);
   }
 
   disconnect() {
+    this.onDisconnect = null; // Leaving intentionally is not a connection failure.
     if (this.stepTimer) {
       clearInterval(this.stepTimer);
       this.stepTimer = null;
@@ -208,7 +253,10 @@ export class NetClient {
       this.clientEngine.disconnect();
     }
     this.connected = false;
+    this.matchActive = false;
     this.socket = null;
+    this._predictiveSwarms = [];
+    this._pendingEffects = [];
     this.clientEngine = null;
     this.gameEngine = null;
     this.renderer = null;
@@ -221,19 +269,27 @@ export class NetClient {
   _stepClient() {
     if (!this.clientEngine || !this.gameEngine) return;
 
+    // Lance drains with pop(); reverse to preserve socket arrival order.
+    if (this.clientEngine.inboundMessages.length) this.lastStateAt = performance.now();
+    this.clientEngine.inboundMessages.reverse();
     this.clientEngine.step(performance.now(), CLIENT_STEP_MS);
     this._rebuildRenderWorld();
     this._reconcilePredictiveSwarms();
-    this._simulateVisualSwarms(CLIENT_DT);
+
     if (this.onStateUpdate) this.onStateUpdate(this.renderWorld);
   }
 
   _spawnPredictiveSwarm(action) {
     const sourceNode = this.renderWorld._nodeMap.get(action.sourceId);
     const targetNode = this.renderWorld._nodeMap.get(action.targetId);
-    if (!sourceNode || !targetNode) return;
+    if (!sourceNode || !targetNode || sourceNode.owner !== this.playerId || sourceNode.id === targetNode.id) return;
+    const ratio = action.ratio ?? 0.5;
+    if (!Number.isFinite(ratio) || ratio <= 0 || ratio > 1) return;
 
-    const moteCount = Math.max(1, Math.round(sourceNode.energy * (action.ratio ?? 0.5)));
+    const reserved = this._predictiveSwarms.filter(ps => ps.sourceId === action.sourceId)
+      .reduce((sum, ps) => sum + ps.swarm.motes.length, 0);
+    const moteCount = Math.floor(Math.max(0, sourceNode.energy - reserved) * ratio);
+    if (moteCount < 5) return;
     const sx = sourceNode.position.x, sy = sourceNode.position.y;
     const fakeId = this._predictiveFakeId--;
 
@@ -267,6 +323,7 @@ export class NetClient {
 
     this._predictiveSwarms.push({
       fakeId,
+      commandId: action.commandId,
       sourceId: action.sourceId,
       targetId: action.targetId,
       expireAt: performance.now() + 4000,
@@ -290,9 +347,9 @@ export class NetClient {
 
   // Find and remove the oldest predictive swarm matching source→target→owner.
   // Called from _rebuildRenderWorld when a real swarm first appears.
-  _consumeMatchingPredictive(sourceId, targetId, ownerId) {
+  _consumeMatchingPredictive(commandId, ownerId) {
     const idx = this._predictiveSwarms.findIndex(
-      ps => ps.sourceId === sourceId && ps.targetId === targetId && ps.swarm.owner === ownerId
+      ps => ps.commandId === commandId && ps.swarm.owner === ownerId
     );
     if (idx === -1) return null;
     return this._predictiveSwarms.splice(idx, 1)[0];
@@ -305,7 +362,7 @@ export class NetClient {
 
     this.renderWorld.width = this.worldBounds.width;
     this.renderWorld.height = this.worldBounds.height;
-    this.renderWorld.time = lanceWorld.stepCount / 60;
+    this.renderWorld.time = Math.max(0, (lanceWorld.stepCount - (this._matchStartStep || 0)) / 60);
 
     const seenNodes = new Set();
     const seenSwarms = new Set();
@@ -333,6 +390,8 @@ export class NetClient {
         }
 
         node.type = obj.nodeType;
+        node.pairId = obj.pairId;
+        node.pairColor = obj.pairColor;
         node.owner = obj.ownerId >= 0 ? obj.ownerId : null;
         node.energy = obj.energy;
         node.maxEnergy = obj.maxEnergy;
@@ -360,22 +419,27 @@ export class NetClient {
           };
           swarmMap.set(obj.swarmId, swarm);
 
-          // Seamless hand-off: inherit the predictive swarm's live mote positions so
-          // _syncFakeMotes only updates anchor/target metadata, not mote coordinates.
-          const ps = this._consumeMatchingPredictive(obj.sourceNodeId, obj.targetNodeId, obj.ownerId);
+          // Blend the launch preview into confirmed mote positions over 120ms.
+          const ps = this._consumeMatchingPredictive(obj.commandId, obj.ownerId);
           if (ps) {
-            swarm.motes = ps.swarm.motes;
+            swarm._handoffMotes = ps.swarm.motes;
+            swarm._handoffAt = performance.now();
             ps.swarm.alive = false;
           }
         }
 
+        delete swarm._removedAt;
         swarm.owner = obj.ownerId;
         swarm.sourceId = obj.sourceNodeId;
         swarm.target = obj.targetNodeId >= 0
           ? { type: 'node', nodeId: obj.targetNodeId }
           : { type: 'position', x: obj.targetX, y: obj.targetY };
         swarm.alive = obj.moteCount > 0;
-        this._syncFakeMotes(swarm, obj);
+        if (!swarm._interpolator) swarm._interpolator = new SwarmInterpolator();
+        if (swarm._sampleTick !== obj.sampleTick) {
+          swarm._interpolator.push(obj.sampleTick, decodeMotes(obj.moteData), performance.now());
+          swarm._sampleTick = obj.sampleTick;
+        }
       }
     }
 
@@ -383,222 +447,53 @@ export class NetClient {
       if (!seenNodes.has(nodeId)) nodeMap.delete(nodeId);
     }
     for (const swarmId of [...swarmMap.keys()]) {
-      if (!seenSwarms.has(swarmId)) swarmMap.delete(swarmId);
+      if (!seenSwarms.has(swarmId)) {
+        const swarm = swarmMap.get(swarmId);
+        swarm._removedAt ??= performance.now();
+        if (performance.now() - swarm._removedAt >= 75) swarmMap.delete(swarmId);
+      }
     }
 
     this.renderWorld.nodes = [...nodeMap.values()].sort((a, b) => a.id - b.id);
     this.renderWorld.swarms = [...swarmMap.values()].filter(s => s.alive);
+    if (this.renderWorld.nodes.length) {
+      for (const player of this.renderWorld.players) {
+        player.alive = this.renderWorld.nodes.some(n => n.owner === player.id)
+          || this.renderWorld.swarms.some(s => s.owner === player.id);
+      }
+    }
     this._pruneVisualEvents();
   }
 
-  _syncFakeMotes(swarm, obj) {
-    const wanted = Math.max(0, obj.moteCount | 0);
-    while (swarm.motes.length < wanted) {
-      const idx = swarm.motes.length;
-      const seed = obj.swarmId * 997 + idx * 131;
-      // Spread new motes around the center so separation has natural material to work with
-      const spawnAngle = (seed * 0.23917) % (Math.PI * 2);
-      const spawnR = 3 + (seed % 7) * 1.8;
-      swarm.motes.push({
-        alive: true,
-        seed,
-        phase: ((obj.swarmId * 31 + idx * 17) % 360) / 360,
-        x: obj.centerX + Math.cos(spawnAngle) * spawnR,
-        y: obj.centerY + Math.sin(spawnAngle) * spawnR,
-        vx: Math.cos(spawnAngle) * 8,
-        vy: Math.sin(spawnAngle) * 8,
-      });
-    }
-    if (swarm.motes.length > wanted) {
-      swarm.motes.length = wanted;
-    }
-
-    for (let i = 0; i < swarm.motes.length; i++) {
-      const mote = swarm.motes[i];
-      mote.alive = true;
-      mote.anchorX = obj.centerX;
-      mote.anchorY = obj.centerY;
-      mote.targetX = obj.targetX;
-      mote.targetY = obj.targetY;
-      if (!Number.isFinite(mote.x) || !Number.isFinite(mote.y)) {
-        mote.x = obj.centerX;
-        mote.y = obj.centerY;
-      }
-    }
-  }
-
-  _simulateVisualSwarms(dt) {
-    const swarms = this.renderWorld.swarms;
-    const time = this.renderWorld.time;
-    this._combatEventTimer = Math.max(0, this._combatEventTimer - dt);
-
-    for (const swarm of swarms) {
-      if (!swarm.alive) continue;
-
-      const motes = swarm.motes;
-
-      // Server-authoritative anchor center (where the swarm actually is)
-      let aliveCount = 0, anchorX = 0, anchorY = 0;
-      for (const m of motes) {
-        if (!m.alive) continue;
-        aliveCount++;
-        anchorX += m.anchorX ?? m.x;
-        anchorY += m.anchorY ?? m.y;
-      }
-      if (aliveCount === 0) continue;
-      anchorX /= aliveCount;
-      anchorY /= aliveCount;
-
-      // Get swarm target from first alive mote
-      let tgtX = anchorX, tgtY = anchorY;
-      for (const m of motes) {
-        if (m.alive) { tgtX = m.targetX ?? anchorX; tgtY = m.targetY ?? anchorY; break; }
-      }
-
-      // Local Boids — O(N²) single pass: separation + alignment + cohesion
-      for (let i = 0; i < motes.length; i++) {
-        const a = motes[i];
-        if (!a.alive) continue;
-
-        let cnt = 0, avgVx = 0, avgVy = 0, nbrCx = 0, nbrCy = 0;
-        for (let j = 0; j < motes.length; j++) {
-          if (i === j) continue;
-          const b = motes[j];
-          if (!b.alive) continue;
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < 0.01) continue;
-          const d = Math.sqrt(d2);
-          if (d < SEPARATION_RADIUS) {
-            const push = SEPARATION_FORCE * (1 - d / SEPARATION_RADIUS) * dt;
-            a.vx += (dx / d) * push;
-            a.vy += (dy / d) * push;
+  updateVisuals(dt, now = performance.now()) {
+    this._pendingEffects = (this._pendingEffects || []).filter(batch => {
+      if (batch.at > now) return true;
+      this.renderWorld.events.push(...batch.effects.map(e => ({ ...e, time: this.renderWorld.time })));
+      return false;
+    });
+    for (const swarm of this.renderWorld.swarms) {
+      if (swarm._interpolator) {
+        swarm.motes = swarm._interpolator.sample(now);
+        if (swarm._handoffMotes) {
+          const blend = Math.max(0, 1 - (now - swarm._handoffAt) / 120);
+          for (let i = 0; i < swarm.motes.length; i++) {
+            const m = swarm.motes[i], preview = swarm._handoffMotes[i];
+            if (!preview) continue;
+            m.x += (preview.x - m.x) * blend;
+            m.y += (preview.y - m.y) * blend;
           }
-          if (d < NEIGHBOR_RADIUS) {
-            cnt++;
-            avgVx += b.vx; avgVy += b.vy;
-            nbrCx += b.x;  nbrCy += b.y;
-          }
+          if (!blend) swarm._handoffMotes = null;
         }
-        if (cnt > 0) {
-          // Alignment — steer toward neighbors' average heading
-          a.vx += (avgVx / cnt - a.vx) * LOCAL_ALIGN * dt;
-          a.vy += (avgVy / cnt - a.vy) * LOCAL_ALIGN * dt;
-          // Local cohesion — drift toward neighborhood center (not global anchor)
-          a.vx += (nbrCx / cnt - a.x) * LOCAL_COHESION * dt;
-          a.vy += (nbrCy / cnt - a.y) * LOCAL_COHESION * dt;
-        }
-      }
-
-      // Per-mote forces
-      for (const mote of motes) {
-        if (!mote.alive) continue;
-        const s = mote.seed * 0.00017;
-
-        // Target steering
-        const toTX = tgtX - mote.x, toTY = tgtY - mote.y;
-        const toTLen = Math.hypot(toTX, toTY) || 1;
-        mote.vx += (toTX / toTLen) * STEER_FORCE * dt;
-        mote.vy += (toTY / toTLen) * STEER_FORCE * dt;
-
-        // Three-harmonic turbulence, unique per mote via seed
-        mote.vx += Math.sin(time * 2.1 + s * 41)  * TURB_STRENGTH        * dt
-                 + Math.sin(time * 4.9 + s * 23)  * TURB_STRENGTH * 0.55 * dt
-                 + Math.sin(time * 10.3 + s * 11) * TURB_STRENGTH * 0.28 * dt;
-        mote.vy += Math.cos(time * 1.7 + s * 37 + 1.7)  * TURB_STRENGTH        * dt
-                 + Math.cos(time * 4.3 + s * 17 + 2.9)  * TURB_STRENGTH * 0.55 * dt
-                 + Math.cos(time * 8.9 + s *  9 + 0.5)  * TURB_STRENGTH * 0.28 * dt;
-
-        // Soft boundary spring — no pull inside radius, gentle restoring force outside
-        const bDX = anchorX - mote.x, bDY = anchorY - mote.y;
-        const bDist = Math.hypot(bDX, bDY);
-        if (bDist > BOUNDARY_RADIUS) {
-          const overshoot = bDist - BOUNDARY_RADIUS;
-          mote.vx += (bDX / bDist) * BOUNDARY_SPRING * overshoot * dt;
-          mote.vy += (bDY / bDist) * BOUNDARY_SPRING * overshoot * dt;
-        }
-      }
-
-      swarm._visualCenter = { x: anchorX, y: anchorY };
-    }
-
-    this._applyEnemyCombatRepulsion(swarms, dt);
-
-    for (const swarm of swarms) {
-      for (const mote of swarm.motes) {
-        if (!mote.alive) continue;
-        mote.vx *= VELOCITY_DAMPING;
-        mote.vy *= VELOCITY_DAMPING;
-        const speed = Math.hypot(mote.vx, mote.vy);
-        if (speed > MAX_VISUAL_SPEED) {
-          mote.vx = (mote.vx / speed) * MAX_VISUAL_SPEED;
-          mote.vy = (mote.vy / speed) * MAX_VISUAL_SPEED;
-        }
-        mote.x += mote.vx * dt;
-        mote.y += mote.vy * dt;
-      }
-    }
-  }
-
-  _applyEnemyCombatRepulsion(swarms, dt) {
-    for (let i = 0; i < swarms.length; i++) {
-      const a = swarms[i];
-      if (!a.alive) continue;
-      const ac = a._visualCenter || this._getSwarmCenter(a);
-
-      for (let j = i + 1; j < swarms.length; j++) {
-        const b = swarms[j];
-        if (!b.alive || a.owner === b.owner) continue;
-        const bc = b._visualCenter || this._getSwarmCenter(b);
-        const centerDist = Math.hypot(ac.x - bc.x, ac.y - bc.y);
-        if (centerDist > 90) continue;
-
-        let spawnedFlash = false;
-        for (const ma of a.motes) {
-          if (!ma.alive) continue;
-          for (const mb of b.motes) {
-            if (!mb.alive) continue;
-            const dx = ma.x - mb.x;
-            const dy = ma.y - mb.y;
-            const d2 = dx * dx + dy * dy;
-            if (d2 <= 0.001 || d2 > COMBAT_REPEL_RADIUS * COMBAT_REPEL_RADIUS) continue;
-            const dist = Math.sqrt(d2);
-            const repel = ((COMBAT_REPEL_RADIUS - dist) / COMBAT_REPEL_RADIUS) * 26 * dt;
-            const nx = dx / dist;
-            const ny = dy / dist;
-            ma.vx += nx * repel;
-            ma.vy += ny * repel;
-            mb.vx -= nx * repel;
-            mb.vy -= ny * repel;
-
-            if (!spawnedFlash && this._combatEventTimer <= 0) {
-              spawnedFlash = true;
-              this._combatEventTimer = COMBAT_EVENT_COOLDOWN;
-              this.renderWorld.events.push({
-                type: 'mote_combat',
-                x: (ma.x + mb.x) * 0.5,
-                y: (ma.y + mb.y) * 0.5,
-                time: this.renderWorld.time,
-              });
-            }
-          }
+      } else if (swarm._isPredictive) {
+        for (const m of swarm.motes) {
+          const dx = m.targetX - m.x, dy = m.targetY - m.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          const speed = Math.min(95, Math.hypot(m.vx, m.vy) + 120 * dt, distance * 3);
+          m.vx = dx / distance * speed; m.vy = dy / distance * speed;
+          m.x += m.vx * Math.min(dt, 0.05); m.y += m.vy * Math.min(dt, 0.05);
         }
       }
     }
-  }
-
-  _getSwarmCenter(swarm) {
-    let cx = 0;
-    let cy = 0;
-    let count = 0;
-    for (const mote of swarm.motes) {
-      if (!mote.alive) continue;
-      cx += mote.anchorX ?? mote.x;
-      cy += mote.anchorY ?? mote.y;
-      count++;
-    }
-    if (count === 0) return { x: 0, y: 0 };
-    return { x: cx / count, y: cy / count };
   }
 
   _pruneVisualEvents() {

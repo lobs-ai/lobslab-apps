@@ -1,3 +1,4 @@
+import { PROTOCOL_VERSION } from '../js/net/protocol.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { io } from 'socket.io-client';
@@ -10,6 +11,7 @@ function wait(ms) {
 
 function connectClient(baseUrl) {
   const socket = io(baseUrl, {
+    auth: { protocolVersion: PROTOCOL_VERSION },
     transports: ['websocket'],
     reconnection: false,
     timeout: 5000,

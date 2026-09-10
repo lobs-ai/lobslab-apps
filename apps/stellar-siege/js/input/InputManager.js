@@ -93,6 +93,13 @@ export class InputManager {
    * @param {World} world
    */
   update(world) {
+    const view = this.canvas._worldView;
+    if (view && this._screenX != null) {
+      this._mouseX = (this._screenX - view.x) / view.scale;
+      this._mouseY = (this._screenY - view.y) / view.scale;
+    }
+    this.selectedNodes = this.selectedNodes.filter(n => n.owner === this.localPlayerId);
+    if (this.selectedSwarm && !world.swarms.includes(this.selectedSwarm)) this._cancelRedirect();
     this.hoveredNode = world.getNodeAt(this._mouseX, this._mouseY) ?? null;
   }
 
@@ -108,12 +115,20 @@ export class InputManager {
     canvas.addEventListener('mouseup',     e => this._onMouseUp(e));
     canvas.addEventListener('mouseleave',  e => this._onMouseLeave(e));
     canvas.addEventListener('contextmenu', e => this._onContextMenu(e));
+    canvas.addEventListener('wheel', e => {
+      if (!this.getWorld()) return;
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      canvas._camera?.zoomAt(e.clientX - rect.left, e.clientY - rect.top,
+        e.deltaY * (e.deltaMode === 1 ? 16 : 1));
+    }, { passive: false });
 
     // Track modifier keys globally so we catch them even if focus moves
     window.addEventListener('keydown', e => {
       this.shiftKey = e.shiftKey;
       this.ctrlKey  = e.ctrlKey || e.metaKey;
-      if (e.key === 'Escape') this._cancelRedirect();
+      if (e.key === 'Escape') this._onContextMenu(e);
+      if (e.code === 'KeyF' && !['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) canvas._camera?.reset();
     });
     window.addEventListener('keyup', e => {
       this.shiftKey = e.shiftKey;
@@ -126,7 +141,15 @@ export class InputManager {
   // -------------------------------------------------------------------------
 
   _onMouseDown(e) {
-    if (e.button !== 0) return; // left click only
+    if (e.button === 1 && this.canvas._camera) {
+      e.preventDefault();
+      this._panStart = { x: e.clientX, y: e.clientY,
+        panX: this.canvas._camera.panX, panY: this.canvas._camera.panY };
+      return;
+    }
+    if (e.button !== 0) return;
+    this._toggleOnClick = null;
+    this._downPoint = { x: e.clientX, y: e.clientY };
 
     this._updateModifiers(e);
     this._updateMousePos(e);
@@ -139,15 +162,6 @@ export class InputManager {
 
     const node = world.getNodeAt(this._mouseX, this._mouseY);
 
-    console.log('[input] _onMouseDown', {
-      mx: Math.round(this._mouseX), my: Math.round(this._mouseY),
-      nodeId: node?.id ?? null,
-      nodeOwner: node?.owner ?? null,
-      localPlayerId: this.localPlayerId,
-      ownerMatch: node ? node.owner === this.localPlayerId : false,
-      worldNodes: world.nodes?.length ?? 0,
-    });
-
     if (node && node.owner === this.localPlayerId) {
       // Clicking an owned node
       this._cancelRedirect();
@@ -155,27 +169,15 @@ export class InputManager {
       this.boxSelectRect   = null;
 
       if (this.shiftKey) {
-        // Shift+click: toggle node in/out of selection
-        const idx = this.selectedNodes.indexOf(node);
-        if (idx === -1) {
-          this.selectedNodes = [...this.selectedNodes, node];
-        } else {
-          this.selectedNodes = this.selectedNodes.filter(n => n !== node);
-        }
-        // Allow dragging from this node if it ended up selected
-        if (this.selectedNodes.includes(node)) {
-          this.isDragging    = true;
-          this.dragStartNode = node;
-        } else {
-          this.isDragging    = false;
-          this.dragStartNode = null;
-        }
-      } else {
-        // Normal click: replace selection with this node
+        if (!this.selectedNodes.includes(node)) this.selectedNodes = [...this.selectedNodes, node];
+        else this._toggleOnClick = node;
+      } else if (!this.selectedNodes.includes(node)) {
         this.selectedNodes = [node];
-        this.isDragging    = true;
-        this.dragStartNode = node;
       }
+      // Preserve box selection when dragging any selected source. A shift-click
+      // toggles on release; shift-drag can always send the entire selected fleet.
+      this.isDragging = true;
+      this.dragStartNode = node;
     } else {
       // No owned node — check if the click lands on a player swarm
       const swarm = world.getSwarmAt(this._mouseX, this._mouseY, this.localPlayerId);
@@ -207,6 +209,11 @@ export class InputManager {
   }
 
   _onMouseMove(e) {
+    if (this._panStart) {
+      this.canvas._camera.panX = this._panStart.panX + e.clientX - this._panStart.x;
+      this.canvas._camera.panY = this._panStart.panY + e.clientY - this._panStart.y;
+      return;
+    }
     this._updateModifiers(e);
     this._updateMousePos(e);
 
@@ -227,7 +234,16 @@ export class InputManager {
   }
 
   _onMouseUp(e) {
+    if (e.button === 1) { this._panStart = null; return; }
     if (e.button !== 0) return;
+    if (this._toggleOnClick && Math.hypot(e.clientX - this._downPoint.x, e.clientY - this._downPoint.y) < 5) {
+      this.selectedNodes = this.selectedNodes.filter(n => n !== this._toggleOnClick);
+      this._toggleOnClick = null;
+      this.isDragging = false;
+      this.dragStartNode = null;
+      return;
+    }
+    this._toggleOnClick = null;
 
     this._updateModifiers(e);
     this._updateMousePos(e);
@@ -308,6 +324,8 @@ export class InputManager {
   }
 
   _onMouseLeave(e) {
+    this._panStart = null;
+    this._cancelRedirect();
     // Cancel drag when cursor leaves the canvas
     this.isDragging      = false;
     this.dragStartNode   = null;
@@ -319,6 +337,7 @@ export class InputManager {
 
   _onContextMenu(e) {
     e.preventDefault();
+    this._panStart = null;
     // Right-click cancels any in-progress drag, redirect, or box select
     this._cancelRedirect();
     this.isDragging      = false;
@@ -340,8 +359,11 @@ export class InputManager {
   /** Convert a MouseEvent to logical canvas coordinates. */
   _updateMousePos(e) {
     const rect = this.canvas.getBoundingClientRect();
-    this._mouseX = e.clientX - rect.left;
-    this._mouseY = e.clientY - rect.top;
+    const view = this.canvas._worldView || { x: 0, y: 0, scale: 1 };
+    this._screenX = e.clientX - rect.left;
+    this._screenY = e.clientY - rect.top;
+    this._mouseX = (this._screenX - view.x) / view.scale;
+    this._mouseY = (this._screenY - view.y) / view.scale;
   }
 
   _updateModifiers(e) {
