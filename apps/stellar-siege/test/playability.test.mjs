@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { SwarmInterpolator } from '../js/net/SwarmInterpolator.js';
+import { MoteTrack, ServerClock, NOMINAL_PERIOD } from '../js/net/ServerTimeline.js';
 import { Game } from '../js/game/Game.js';
 import { World } from '../js/game/World.js';
 import { createNode } from '../js/game/Node.js';
@@ -8,22 +8,22 @@ import { SwarmSystem } from '../js/systems/SwarmSystem.js';
 import { generateMap } from '../js/map/MapGenerator.js';
 
 test('motes interpolate between snapshots and stop extrapolating during a stall', () => {
-  const s = new SwarmInterpolator();
-  s.push(3, [[0, 0, 0, 70, 0]], 0);
-  s.push(6, [[0, 3.5, 0, 70, 0]], 50);
-  assert.equal(s.sample(100)[0].x, 1.75);
-  assert.equal(s.sample(2000)[0].x, 10.5);
-  assert.equal(s.sample(4000)[0].x, 10.5);
-  assert.equal(s.push(3, [[0, 900, 0, 0, 0]], 4100), false);
+  const track = new MoteTrack();
+  track.push(3, [[0, 0, 0, 70, 0]]);
+  track.push(6, [[0, 3.5, 0, 70, 0]]);
+  assert.equal(track.sample(4.5)[0].x, 1.75);
+  assert.equal(track.sample(6 + 6)[0].x, 10.5);   // 100ms past the newest sample: 3.5 + 70 * 0.1
+  assert.equal(track.sample(6 + 120)[0].x, 10.5); // extrapolation stops there
+  assert.equal(track.push(3, [[0, 900, 0, 0, 0]]), false);
 });
 
 test('casualties preserve surviving mote identity and wormholes never interpolate across the map', () => {
-  const s = new SwarmInterpolator();
-  s.push(3, [[0, 0, 0, 0, 0], [1, 10, 0, 0, 0]], 0);
-  const mote = s.sample(75)[1];
-  s.push(6, [[1, 900, 500, 0, 0]], 50);
-  assert.equal(s.sample(100)[1].x, 10);
-  const result = s.sample(125);
+  const track = new MoteTrack();
+  track.push(3, [[0, 0, 0, 0, 0], [1, 10, 0, 0, 0]]);
+  const mote = track.sample(3)[1];
+  track.push(6, [[1, 900, 500, 0, 0]]);
+  assert.equal(track.sample(4.5)[1].x, 10);
+  const result = track.sample(6);
   assert.equal(result.length, 1);
   assert.equal(result[0], mote);
   assert.equal(result[0].x, 900);
@@ -76,12 +76,39 @@ test('new games do not reuse a live match swarm ID', () => {
 });
 
 test('network jitter does not change server flight speed', () => {
-  const s = new SwarmInterpolator();
-  s.push(3, [[0, 0, 0, 70, 0]], 0);
-  s.push(6, [[0, 3.5, 0, 70, 0]], 75); // 25ms of arrival jitter
-  assert.equal(s.sample(100)[0].x, 1.75);
-  s.push(9, [[0, 7, 0, 70, 0]], 100);
-  assert.equal(s.sample(150)[0].x, 5.25);
+  const clock = new ServerClock();
+  clock.observe(3, 0);
+  clock.observe(6, 75); // 25ms of arrival jitter
+  clock.observe(9, 100);
+  clock.observe(12, 150);
+  clock.observe(15, 200);
+  clock.observe(18, 250);
+  const a = clock.renderTick(210);
+  const b = clock.renderTick(260);
+  assert.ok(Math.abs((b - a) - 50 / NOMINAL_PERIOD) < 1e-9, `rendered ${b - a} ticks over 50ms`);
+  assert.ok(a < 18, 'the render cursor trails the newest sample');
+});
+
+test('a server stepping slower than nominal keeps the render cursor behind its data', () => {
+  const clock = new ServerClock();
+  const period = 1000 / 52; // the deployed server before the scheduler fix
+  let newest = 0;
+  for (let i = 0; i < 400; i++) { newest = 3 * i; clock.observe(newest, newest * period); }
+  const renderTick = clock.renderTick(newest * period);
+  assert.ok(renderTick < newest, `cursor ${renderTick.toFixed(1)} must trail newest sample ${newest}`);
+  assert.ok(newest - renderTick < 30, `cursor trails by ${(newest - renderTick).toFixed(1)} ticks`);
+  assert.ok(Math.abs(clock.period - period) < 0.05, `estimated period ${clock.period.toFixed(3)}`);
+});
+
+test('a burst of held-back syncs widens the buffer without snapping the cursor backwards', () => {
+  const clock = new ServerClock();
+  let at = 0;
+  for (let i = 0; i < 40; i++) { clock.observe(3 * i, at); at += 50; }
+  const before = clock.renderTick(at);
+  for (let i = 40; i < 48; i++) clock.observe(3 * i, at + 400); // eight syncs arrive together after a 400ms stall
+  const after = clock.renderTick(at + 401);
+  assert.ok(after >= before, 'render cursor never runs backwards');
+  assert.ok(clock.delay < 250, `delay ${clock.delay.toFixed(0)}ms stays proportionate to typical jitter`);
 });
 
 test('wormholes carry the whole fleet instead of stranding trailing motes', () => {

@@ -38,11 +38,14 @@ redirects, rejected commands, room isolation, captures, and solo restart.
 Screenshots are written to `/tmp/stellar-siege-*.png`. If Chromium is missing,
 run `bin/browser-test --build` once to install it.
 
-The server simulates at 60Hz and sends mote snapshots at 20Hz. Clients render
-actual mote positions using a 75ms interpolation buffer and stop extrapolating
-after 100ms without a new sample. Each mote costs 10 bytes of position data per
-snapshot. Launch previews reconcile by command ID; combat stays authoritative.
-Deploy the server and client together because the replication schema changed.
+The server simulates at 60Hz against an absolute schedule and sends mote
+snapshots at 20Hz. Commands are applied the moment they reach the server.
+Clients render nodes, motes and effects at one server tick that trails the
+newest snapshot by an adaptive buffer (observed jitter plus one snapshot
+interval, 90-400ms) and stop extrapolating after 100ms without a new sample.
+Each mote costs 10 bytes of position data per snapshot. Launch previews
+reconcile by command ID; combat stays authoritative. Deploy the server and
+client together because the replication schema changed.
 
 `bin/swarm-benchmark` measures frame times with a 2,400-mote battle fixture and
 saves `/tmp/stellar-siege-stress.png`.

@@ -30,17 +30,15 @@ try {
   for (const page of [host, guest]) await page.waitForFunction(() => window.testClient?.renderWorld.nodes.length > 5);
   await host.evaluate(() => {
     // Simulate ~180ms RTT plus receive jitter, preserving reliable packet order.
-    const c = window.testClient, queue = c.clientEngine.inboundMessages;
-    const push = queue.push.bind(queue);
+    const c = window.testClient, receive = c._onWorldUpdate.bind(c);
     let delivery = 0;
-    queue.push = (...messages) => {
+    c._onWorldUpdate = data => {
       delivery = Math.max(delivery + 1, performance.now() + 90 + Math.random() * 20);
-      setTimeout(() => push(...messages), delivery - performance.now());
-      return queue.length;
+      setTimeout(() => receive(data), delivery - performance.now());
     };
     const emit = c.socket.emit.bind(c.socket);
     c.socket.emit = (name, ...args) => {
-      if (name === 'move') { setTimeout(() => emit(name, ...args), 90); return c.socket; }
+      if (name === 'action') { setTimeout(() => emit(name, ...args), 90); return c.socket; }
       return emit(name, ...args);
     };
     window.bytesReceived = 0;
@@ -61,10 +59,14 @@ try {
   await host.mouse.move(launch.tx, launch.ty, { steps: 8 });
   await host.mouse.up();
   for (const page of [host, guest]) await page.waitForFunction(() => window.testClient.renderWorld.swarms.some(s => s.owner === 0 && s.id > 0 && s.motes.length));
-  // Hold the guest's client ticks for 400ms while reliable deltas accumulate.
+  // Hold the guest's world updates for 400ms, then deliver the backlog in order.
   await guest.evaluate(() => {
-    const c = window.testClient, step = c._stepClient.bind(c), until = performance.now() + 400;
-    c._stepClient = () => { if (performance.now() >= until) step(); };
+    const c = window.testClient, receive = c._onWorldUpdate.bind(c), until = performance.now() + 400, held = [];
+    c._onWorldUpdate = data => {
+      if (performance.now() < until) { held.push(data); return; }
+      for (const pending of held.splice(0)) receive(pending);
+      receive(data);
+    };
   });
   await host.waitForTimeout(800);
   const stats = [];
@@ -72,17 +74,18 @@ try {
     stats.push(await page.evaluate(() => {
       const c = window.testClient;
       const swarm = c.renderWorld.swarms.find(s => s.owner === 0 && s.id > 0);
-      const sample = swarm._interpolator.samples.at(-1);
+      const sample = c._tracks.get(swarm.id).track.samples.at(-1);
       const error = Math.max(...swarm.motes.map(m => {
         const row = sample.rows.get(m.id);
         return row ? Math.hypot(row[1] - m.x, row[2] - m.y) : 0;
       }));
-      return { id: swarm.id, count: swarm.motes.length, error, tick: sample.tick, predictive: c._predictiveSwarms.length };
+      return { id: swarm.id, count: swarm.motes.length, error, tick: sample.tick, delayMs: Math.round(c._clock.delay), predictive: c._predictiveSwarms.length };
     }));
   }
   assert.equal(stats[0].id, stats[1].id);
   assert.equal(stats[0].predictive, 0);
-  assert.ok(stats.every(s => s.error < 20), JSON.stringify(stats));
+  // Rendering trails the newest sample by the jitter buffer (motes fly at 95px/s), never freezes.
+  assert.ok(stats.every(s => s.error < 30), JSON.stringify(stats));
   // Redirect a confirmed swarm and verify both clients receive the same hold point.
   const swarmId = stats[0].id;
   await host.evaluate(id => window.testClient.sendAction({ type: 'redirect_swarm', swarmId: id,
@@ -191,8 +194,9 @@ try {
   await host.screenshot({ path: '/tmp/stellar-siege-solo.png' });
   const offline = await browser.newPage();
   offline.on('pageerror', error => errors.push(error.message));
-  await offline.route('**/socket.io/**', route => route.abort());
   await offline.goto(process.env.GAME_URL || 'http://localhost:47104');
+  // The client is WebSocket-only and route interception cannot block WebSockets: emulate a dead network.
+  await offline.context().setOffline(true);
   await offline.click('#menu-multiplayer');
   await offline.click('#mp-create');
   await offline.click('#mp-create-go');

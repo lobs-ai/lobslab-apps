@@ -1,6 +1,6 @@
 import { PROTOCOL_VERSION } from './protocol.js';
 import { decodeMotes } from './moteCodec.js';
-import { SwarmInterpolator } from './SwarmInterpolator.js';
+import { ServerClock, MoteTrack } from './ServerTimeline.js';
 import { World } from '../game/World.js';
 import {
   BaseTypes,
@@ -13,7 +13,6 @@ import {
 import { createStellarLanceClasses } from './lance/schema.js';
 
 const { StellarNodeObject, StellarSwarmObject } = createStellarLanceClasses({ GameObject, BaseTypes });
-const CLIENT_STEP_MS = 1000 / 60;
 // Apply each delta in arrival order: dropping deltas loses fields and lifecycles.
 class OrderedFrameSync extends FrameSyncStrategy {
   collectSync(event) {
@@ -49,6 +48,10 @@ class NullRenderer extends LanceRenderer {
  *
  * Lance owns replicated game-state sync. This wrapper keeps the existing
  * lobby/game menu API and mirrors Lance objects into the app's plain World.
+ *
+ * Every sync is applied the moment it arrives and recorded on a server timeline.
+ * Each animation frame resolves nodes, motes and effects at one render tick that
+ * trails the newest sync by an adaptive jitter buffer (see ServerTimeline.js).
  */
 export class NetClient {
   constructor() {
@@ -67,26 +70,28 @@ export class NetClient {
     this.onDisconnect = null;
     this.onMatchClosed = null;
 
-    this._predictiveSwarms = [];
-    this._pendingEffects = [];
     this.clientEngine = null;
     this.gameEngine = null;
     this.renderer = null;
     this.socket = null;
-    this.stepTimer = null;
 
     this.renderWorld = new World();
-    this.renderWorld._nodeMap = new Map();
-    this.renderWorld._swarmMap = new Map();
     this.renderWorld.players = [];
     this.renderWorld.events = [];
     this.worldBounds = { width: 0, height: 0 };
-    this._combatEventTimer = 0;
+
+    this._clock = new ServerClock();
+    this._nodes = new Map();      // nodeId -> render node with a per-tick history
+    this._nodesDirty = false;
+    this._tracks = new Map();     // swarmId -> { track, swarm, lanceId, commandId, handedOff }
+    this._effects = [];           // { tick, effect } waiting for the render cursor
+    this._arrivalAt = 0;
 
     // Client-side prediction: fake swarms spawned immediately on send_energy,
-    // handed off to the real server swarm on arrival (no jump).
-    this._predictiveSwarms = []; // { fakeId, sourceId, targetId, expireAt, swarm }
+    // handed off to the real server swarm once it becomes visible (no jump).
+    this._predictiveSwarms = []; // { fakeId, commandId, sourceId, targetId, expireAt, swarm }
     this._predictiveFakeId  = -1;
+    this._nextCommandId = 0;
   }
 
   async connect() {
@@ -111,8 +116,10 @@ export class NetClient {
     this.gameEngine.start();
     let connectionTimeout;
     try {
+      // WebSocket only: the polling handshake takes over a second through the CDN and a
+      // client that never upgrades would play at 300ms+ per round trip.
       const connection = this.clientEngine.connect({
-        reconnection: false, timeout: 5000, auth: { protocolVersion: PROTOCOL_VERSION },
+        transports: ['websocket'], reconnection: false, timeout: 5000, auth: { protocolVersion: PROTOCOL_VERSION },
       });
       // Lance creates the socket in a resolved-promise callback and only listens
       // for "error". Socket.IO uses "connect_error" for rejected handshakes.
@@ -134,12 +141,14 @@ export class NetClient {
     this.socket = this.clientEngine.socket;
     // A disconnected match is closed by the server; reconnect through a fresh lobby.
     this.socket.io.reconnection(false);
+    // Handle each world update on arrival, stamped with its arrival time. Lance's own
+    // handler only queues it for a timer-driven step, adding up to a frame of jitter.
+    this.socket.off('worldUpdate');
+    this.socket.on('worldUpdate', data => this._onWorldUpdate(data));
+    this.gameEngine.on('client__syncReceived', event => this._onSyncApplied(event));
+
     this.socket.on('disconnect', () => {
       this.connected = false;
-      if (this.stepTimer) {
-        clearInterval(this.stepTimer);
-        this.stepTimer = null;
-      }
       if (this.onDisconnect) this.onDisconnect();
     });
 
@@ -171,10 +180,8 @@ export class NetClient {
     });
 
     this.socket.on('game_effects', effects => {
-      this._pendingEffects ??= [];
-      const now = performance.now();
-      this._pendingEffects = this._pendingEffects.filter(batch => batch.at >= now - 350).slice(-11);
-      this._pendingEffects.push({ at: now + 75, effects });
+      for (const effect of effects) this._effects.push({ tick: effect.tick ?? 0, effect });
+      if (this._effects.length > 4000) this._effects.splice(0, this._effects.length - 4000);
     });
 
     this.socket.on('action_result', ({ commandId, accepted }) => {
@@ -196,7 +203,6 @@ export class NetClient {
       if (this.onError) this.onError(message);
     });
 
-    this.stepTimer = window.setInterval(() => this._stepClient(), CLIENT_STEP_MS);
     this.connected = true;
   }
 
@@ -236,19 +242,17 @@ export class NetClient {
     this.disconnect();
   }
 
+  // Commands go straight to the server and are applied on arrival. Lance's input path
+  // queues them by client step, which turned any tick-rate drift into growing input lag.
   sendAction(action) {
-    if (!this.connected || !this.matchActive || !this.clientEngine) return;
-    action = { ...action, commandId: this._nextCommandId = (this._nextCommandId || 0) + 1 };
+    if (!this.connected || !this.matchActive || !this.socket) return;
+    action = { ...action, commandId: ++this._nextCommandId };
     if (action.type === 'send_energy') this._spawnPredictiveSwarm(action);
-    this.clientEngine.sendInput(action.type, action);
+    this.socket.emit('action', action);
   }
 
   disconnect() {
     this.onDisconnect = null; // Leaving intentionally is not a connection failure.
-    if (this.stepTimer) {
-      clearInterval(this.stepTimer);
-      this.stepTimer = null;
-    }
     if (this.clientEngine) {
       this.clientEngine.disconnect();
     }
@@ -256,7 +260,10 @@ export class NetClient {
     this.matchActive = false;
     this.socket = null;
     this._predictiveSwarms = [];
-    this._pendingEffects = [];
+    this._effects = [];
+    this._nodes.clear();
+    this._tracks.clear();
+    this._clock = new ServerClock();
     this.clientEngine = null;
     this.gameEngine = null;
     this.renderer = null;
@@ -266,22 +273,208 @@ export class NetClient {
     return this.renderWorld;
   }
 
-  _stepClient() {
-    if (!this.clientEngine || !this.gameEngine) return;
+  _onWorldUpdate(data) {
+    if (!this.clientEngine) return;
+    this._arrivalAt = this.lastStateAt = performance.now();
+    this.clientEngine.handleInboundMessage(data);
+  }
 
-    // Lance drains with pop(); reverse to preserve socket arrival order.
-    if (this.clientEngine.inboundMessages.length) this.lastStateAt = performance.now();
-    this.clientEngine.inboundMessages.reverse();
-    this.clientEngine.step(performance.now(), CLIENT_STEP_MS);
-    this._rebuildRenderWorld();
-    this._reconcilePredictiveSwarms();
+  // Runs after OrderedFrameSync has applied the sync to the Lance world.
+  _onSyncApplied(event) {
+    if (this.clientEngine?.syncStrategy.lastAppliedStep !== event.stepCount) return;
+    const tick = event.stepCount;
+    this._clock.observe(tick, this._arrivalAt);
+    const lanceObjects = this.gameEngine.world.objects;
 
+    for (const syncEvent of event.syncEvents) {
+      const obj = syncEvent.objectInstance;
+      if (obj instanceof StellarNodeObject) this._ingestNode(obj, tick);
+      else if (obj instanceof StellarSwarmObject) this._ingestSwarm(obj, tick, !!lanceObjects[obj.id]);
+    }
+    if (event.fullUpdate) {
+      for (const entry of this._tracks.values()) {
+        if (entry.track.removedTick == null && !lanceObjects[entry.lanceId]) entry.track.removedTick = tick;
+      }
+    }
     if (this.onStateUpdate) this.onStateUpdate(this.renderWorld);
   }
 
+  _ingestNode(obj, tick) {
+    let node = this._nodes.get(obj.nodeId);
+    if (!node) {
+      node = {
+        id: obj.nodeId,
+        type: obj.nodeType,
+        owner: null,
+        energy: obj.energy,
+        maxEnergy: obj.maxEnergy,
+        productionRate: obj.productionRate,
+        defense: obj.defense,
+        position: { x: obj.x, y: obj.y },
+        radius: obj.radius,
+        upgrade: null,
+        pairId: obj.pairId,
+        pairColor: obj.pairColor,
+        pulsePhase: (obj.nodeId * 0.7) % (Math.PI * 2),
+        captureFlash: 0,
+        _history: [],
+        _resolved: false,
+      };
+      this._nodes.set(obj.nodeId, node);
+      this._nodesDirty = true;
+    }
+    node.type = obj.nodeType;
+    node.maxEnergy = obj.maxEnergy;
+    node.productionRate = obj.productionRate;
+    node.defense = obj.defense;
+    node.radius = obj.radius;
+    node.position.x = obj.x;
+    node.position.y = obj.y;
+    node.pairId = obj.pairId;
+    node.pairColor = obj.pairColor;
+
+    const owner = obj.ownerId >= 0 ? obj.ownerId : null;
+    const upgrade = obj.upgrade || null;
+    const history = node._history;
+    const last = history.at(-1);
+    if (last && last.tick === tick) {
+      Object.assign(last, { owner, energy: obj.energy, upgrade });
+      return;
+    }
+    if (last && last.owner === owner && last.energy === obj.energy && last.upgrade === upgrade) return;
+    history.push({ tick, owner, energy: obj.energy, upgrade });
+    if (history.length > 64) history.shift();
+  }
+
+  _ingestSwarm(obj, tick, present) {
+    let entry = this._tracks.get(obj.swarmId);
+    if (!entry) {
+      entry = {
+        track: new MoteTrack(),
+        swarm: { id: obj.swarmId, owner: obj.ownerId, sourceId: obj.sourceNodeId, target: null, motes: [], alive: true },
+        lanceId: obj.id,
+        commandId: obj.commandId,
+        handedOff: false,
+      };
+      this._tracks.set(obj.swarmId, entry);
+    }
+    entry.swarm.owner = obj.ownerId;
+    entry.swarm.sourceId = obj.sourceNodeId;
+    entry.swarm.target = obj.targetNodeId >= 0
+      ? { type: 'node', nodeId: obj.targetNodeId }
+      : { type: 'position', x: obj.targetX, y: obj.targetY };
+    if (obj.sampleTick > (entry.track.samples.at(-1)?.tick ?? -1)) {
+      entry.track.push(obj.sampleTick, decodeMotes(obj.moteData));
+    }
+    if (!present) entry.track.removedTick ??= tick;
+  }
+
+  updateVisuals(dt, now = performance.now()) {
+    const renderTick = this._clock.renderTick(now);
+    if (renderTick == null) return;
+    const period = this._clock.period;
+    const world = this.renderWorld;
+    world.width = this.worldBounds.width;
+    world.height = this.worldBounds.height;
+    world.time = Math.max(0, (renderTick - (this._matchStartStep || 0)) / 60);
+
+    for (const node of this._nodes.values()) this._resolveNode(node, renderTick, dt);
+    if (this._nodesDirty) {
+      world.nodes = [...this._nodes.values()].sort((a, b) => a.id - b.id);
+      this._nodesDirty = false;
+    }
+
+    const swarms = [];
+    for (const [swarmId, entry] of this._tracks) {
+      const { track, swarm } = entry;
+      if (track.removedTick != null && renderTick >= track.removedTick) {
+        swarm.alive = false;
+        this._tracks.delete(swarmId);
+        continue;
+      }
+      if (renderTick < track.createdTick) continue; // launched after the render cursor
+      swarm.motes = track.sample(renderTick, period);
+      swarm.alive = swarm.motes.length > 0;
+      if (!swarm.alive) continue;
+      if (!entry.handedOff) {
+        entry.handedOff = true;
+        // Blend the launch preview into confirmed mote positions over 120ms.
+        const ps = this._consumeMatchingPredictive(entry.commandId, swarm.owner);
+        if (ps) {
+          swarm._handoffMotes = ps.swarm.motes;
+          swarm._handoffAt = now;
+          ps.swarm.alive = false;
+        }
+      }
+      if (swarm._handoffMotes) {
+        const blend = Math.max(0, 1 - (now - swarm._handoffAt) / 120);
+        for (let i = 0; i < swarm.motes.length; i++) {
+          const m = swarm.motes[i], preview = swarm._handoffMotes[i];
+          if (!preview) continue;
+          m.x += (preview.x - m.x) * blend;
+          m.y += (preview.y - m.y) * blend;
+        }
+        if (!blend) swarm._handoffMotes = null;
+      }
+      swarms.push(swarm);
+    }
+
+    this._predictiveSwarms = this._predictiveSwarms.filter(ps => {
+      if (now > ps.expireAt || !ps.swarm.alive) { ps.swarm.alive = false; return false; }
+      return true;
+    });
+    for (const ps of this._predictiveSwarms) {
+      for (const m of ps.swarm.motes) {
+        const dx = m.targetX - m.x, dy = m.targetY - m.y;
+        const distance = Math.hypot(dx, dy) || 1;
+        const speed = Math.min(95, Math.hypot(m.vx, m.vy) + 120 * dt, distance * 3);
+        m.vx = dx / distance * speed; m.vy = dy / distance * speed;
+        m.x += m.vx * Math.min(dt, 0.05); m.y += m.vy * Math.min(dt, 0.05);
+      }
+      swarms.push(ps.swarm);
+    }
+    world.swarms = swarms;
+
+    this._effects = this._effects.filter(({ tick, effect }) => {
+      if (tick > renderTick) return true;
+      world.events.push({ ...effect, time: world.time });
+      return false;
+    });
+    this._pruneVisualEvents();
+
+    if (world.nodes.length) {
+      for (const player of world.players) {
+        player.alive = world.nodes.some(n => n.owner === player.id)
+          || world.swarms.some(s => s.owner === player.id);
+      }
+    }
+  }
+
+  // Node state at the render tick. Ownership steps; energy interpolates between syncs.
+  // Capture flash and pulse are derived locally so they line up with what is on screen.
+  _resolveNode(node, renderTick, dt) {
+    const history = node._history;
+    if (!history.length) return;
+    let i = 0;
+    while (i + 1 < history.length && history[i + 1].tick <= renderTick) i++;
+    if (i > 0) history.splice(0, i);
+    const current = history[0];
+    const next = history[1];
+    const previousOwner = node.owner;
+    node.owner = current.owner;
+    node.upgrade = current.upgrade;
+    node.energy = next && next.owner === current.owner && next.tick > current.tick
+      ? current.energy + (next.energy - current.energy) * Math.min(1, (renderTick - current.tick) / (next.tick - current.tick))
+      : current.energy;
+    node.captureFlash = Math.max(0, node.captureFlash - dt * 2);
+    if (node._resolved && previousOwner !== node.owner) node.captureFlash = 1;
+    node._resolved = true;
+    if (node.owner !== null) node.pulsePhase += dt * 1.5;
+  }
+
   _spawnPredictiveSwarm(action) {
-    const sourceNode = this.renderWorld._nodeMap.get(action.sourceId);
-    const targetNode = this.renderWorld._nodeMap.get(action.targetId);
+    const sourceNode = this._nodes.get(action.sourceId);
+    const targetNode = this._nodes.get(action.targetId);
     if (!sourceNode || !targetNode || sourceNode.owner !== this.playerId || sourceNode.id === targetNode.id) return;
     const ratio = action.ratio ?? 0.5;
     if (!Number.isFinite(ratio) || ratio <= 0 || ratio > 1) return;
@@ -331,169 +524,13 @@ export class NetClient {
     });
   }
 
-  // Called after _rebuildRenderWorld — merges surviving predictive swarms into the
-  // render list and expires any that were never confirmed.
-  _reconcilePredictiveSwarms() {
-    if (this._predictiveSwarms.length === 0) return;
-    const now = performance.now();
-    this._predictiveSwarms = this._predictiveSwarms.filter(ps => {
-      if (now > ps.expireAt || !ps.swarm.alive) { ps.swarm.alive = false; return false; }
-      return true;
-    });
-    for (const ps of this._predictiveSwarms) {
-      this.renderWorld.swarms.push(ps.swarm);
-    }
-  }
-
-  // Find and remove the oldest predictive swarm matching source→target→owner.
-  // Called from _rebuildRenderWorld when a real swarm first appears.
+  // Find and remove the predictive swarm for a confirmed command.
   _consumeMatchingPredictive(commandId, ownerId) {
     const idx = this._predictiveSwarms.findIndex(
       ps => ps.commandId === commandId && ps.swarm.owner === ownerId
     );
     if (idx === -1) return null;
     return this._predictiveSwarms.splice(idx, 1)[0];
-  }
-
-  _rebuildRenderWorld() {
-    const lanceWorld = this.gameEngine.world;
-    const nodeMap = this.renderWorld._nodeMap;
-    const swarmMap = this.renderWorld._swarmMap;
-
-    this.renderWorld.width = this.worldBounds.width;
-    this.renderWorld.height = this.worldBounds.height;
-    this.renderWorld.time = Math.max(0, (lanceWorld.stepCount - (this._matchStartStep || 0)) / 60);
-
-    const seenNodes = new Set();
-    const seenSwarms = new Set();
-
-    for (const obj of Object.values(lanceWorld.objects)) {
-      if (obj instanceof StellarNodeObject) {
-        seenNodes.add(obj.nodeId);
-        let node = nodeMap.get(obj.nodeId);
-        if (!node) {
-          node = {
-            id: obj.nodeId,
-            type: obj.nodeType,
-            owner: obj.ownerId >= 0 ? obj.ownerId : null,
-            energy: obj.energy,
-            maxEnergy: obj.maxEnergy,
-            productionRate: obj.productionRate,
-            defense: obj.defense,
-            position: { x: obj.x, y: obj.y },
-            radius: obj.radius,
-            upgrade: obj.upgrade || null,
-            pulsePhase: obj.pulsePhase,
-            captureFlash: obj.captureFlash,
-          };
-          nodeMap.set(obj.nodeId, node);
-        }
-
-        node.type = obj.nodeType;
-        node.pairId = obj.pairId;
-        node.pairColor = obj.pairColor;
-        node.owner = obj.ownerId >= 0 ? obj.ownerId : null;
-        node.energy = obj.energy;
-        node.maxEnergy = obj.maxEnergy;
-        node.productionRate = obj.productionRate;
-        node.defense = obj.defense;
-        node.position.x = obj.x;
-        node.position.y = obj.y;
-        node.radius = obj.radius;
-        node.upgrade = obj.upgrade || null;
-        node.pulsePhase = obj.pulsePhase;
-        node.captureFlash = obj.captureFlash;
-      } else if (obj instanceof StellarSwarmObject) {
-        seenSwarms.add(obj.swarmId);
-        let swarm = swarmMap.get(obj.swarmId);
-        if (!swarm) {
-          swarm = {
-            id: obj.swarmId,
-            owner: obj.ownerId,
-            sourceId: obj.sourceNodeId,
-            target: obj.targetNodeId >= 0
-              ? { type: 'node', nodeId: obj.targetNodeId }
-              : { type: 'position', x: obj.targetX, y: obj.targetY },
-            motes: [],
-            alive: true,
-          };
-          swarmMap.set(obj.swarmId, swarm);
-
-          // Blend the launch preview into confirmed mote positions over 120ms.
-          const ps = this._consumeMatchingPredictive(obj.commandId, obj.ownerId);
-          if (ps) {
-            swarm._handoffMotes = ps.swarm.motes;
-            swarm._handoffAt = performance.now();
-            ps.swarm.alive = false;
-          }
-        }
-
-        delete swarm._removedAt;
-        swarm.owner = obj.ownerId;
-        swarm.sourceId = obj.sourceNodeId;
-        swarm.target = obj.targetNodeId >= 0
-          ? { type: 'node', nodeId: obj.targetNodeId }
-          : { type: 'position', x: obj.targetX, y: obj.targetY };
-        swarm.alive = obj.moteCount > 0;
-        if (!swarm._interpolator) swarm._interpolator = new SwarmInterpolator();
-        if (swarm._sampleTick !== obj.sampleTick) {
-          swarm._interpolator.push(obj.sampleTick, decodeMotes(obj.moteData), performance.now());
-          swarm._sampleTick = obj.sampleTick;
-        }
-      }
-    }
-
-    for (const nodeId of [...nodeMap.keys()]) {
-      if (!seenNodes.has(nodeId)) nodeMap.delete(nodeId);
-    }
-    for (const swarmId of [...swarmMap.keys()]) {
-      if (!seenSwarms.has(swarmId)) {
-        const swarm = swarmMap.get(swarmId);
-        swarm._removedAt ??= performance.now();
-        if (performance.now() - swarm._removedAt >= 75) swarmMap.delete(swarmId);
-      }
-    }
-
-    this.renderWorld.nodes = [...nodeMap.values()].sort((a, b) => a.id - b.id);
-    this.renderWorld.swarms = [...swarmMap.values()].filter(s => s.alive);
-    if (this.renderWorld.nodes.length) {
-      for (const player of this.renderWorld.players) {
-        player.alive = this.renderWorld.nodes.some(n => n.owner === player.id)
-          || this.renderWorld.swarms.some(s => s.owner === player.id);
-      }
-    }
-    this._pruneVisualEvents();
-  }
-
-  updateVisuals(dt, now = performance.now()) {
-    this._pendingEffects = (this._pendingEffects || []).filter(batch => {
-      if (batch.at > now) return true;
-      this.renderWorld.events.push(...batch.effects.map(e => ({ ...e, time: this.renderWorld.time })));
-      return false;
-    });
-    for (const swarm of this.renderWorld.swarms) {
-      if (swarm._interpolator) {
-        swarm.motes = swarm._interpolator.sample(now);
-        if (swarm._handoffMotes) {
-          const blend = Math.max(0, 1 - (now - swarm._handoffAt) / 120);
-          for (let i = 0; i < swarm.motes.length; i++) {
-            const m = swarm.motes[i], preview = swarm._handoffMotes[i];
-            if (!preview) continue;
-            m.x += (preview.x - m.x) * blend;
-            m.y += (preview.y - m.y) * blend;
-          }
-          if (!blend) swarm._handoffMotes = null;
-        }
-      } else if (swarm._isPredictive) {
-        for (const m of swarm.motes) {
-          const dx = m.targetX - m.x, dy = m.targetY - m.y;
-          const distance = Math.hypot(dx, dy) || 1;
-          const speed = Math.min(95, Math.hypot(m.vx, m.vy) + 120 * dt, distance * 3);
-          m.vx = dx / distance * speed; m.vy = dy / distance * speed;
-          m.x += m.vx * Math.min(dt, 0.05); m.y += m.vy * Math.min(dt, 0.05);
-        }
-      }
-    }
   }
 
   _pruneVisualEvents() {

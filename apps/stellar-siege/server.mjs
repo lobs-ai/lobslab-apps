@@ -126,7 +126,12 @@ class StellarServerGameEngine extends LanceGameEngine {
 
   processInput(inputDesc, socketPlayerId, isServer) {
     if (!isServer) return;
+    this.applyAction(socketPlayerId, { ...(inputDesc.options || {}), type: inputDesc.input });
+  }
 
+  // Applied the moment a command arrives. Lance's input queue holds each command until the
+  // server's step counter reaches the client's, so any tick-rate drift became growing input lag.
+  applyAction(socketPlayerId, action) {
     const code = this.playerToMatch.get(socketPlayerId);
     if (!code) return;
 
@@ -136,10 +141,9 @@ class StellarServerGameEngine extends LanceGameEngine {
     const compactPlayerId = match.socketToCompact.get(socketPlayerId);
     if (compactPlayerId == null) return;
 
-    const action = inputDesc.options || {};
     const world = match.game.world;
 
-    if (inputDesc.input === "send_energy") {
+    if (action.type === "send_energy") {
       const source = world.getNodeById(action.sourceId);
       const target = world.getNodeById(action.targetId);
       const swarm = source && target && source.owner === compactPlayerId
@@ -153,7 +157,7 @@ class StellarServerGameEngine extends LanceGameEngine {
       return;
     }
 
-    if (inputDesc.input === "redirect_swarm") {
+    if (action.type === "redirect_swarm") {
       const swarm = world.swarms.find(s => s.id === action.swarmId && s.alive);
       if (!swarm || swarm.owner !== compactPlayerId) return;
 
@@ -293,10 +297,15 @@ class StellarServerGameEngine extends LanceGameEngine {
       this._syncNodes(match);
       if (this.world.stepCount % 3 === 0) {
         this._syncSwarms(match);
-        const effects = match.game.world.events.filter(e => e.type === 'mote_combat' || e.type === 'wormhole_transit');
+        // Effects carry the server tick so clients play them at the same render time as the motes.
+        const effects = [];
+        match.game.world.events = match.game.world.events.filter(e => {
+          if (e.type !== 'mote_combat' && e.type !== 'wormhole_transit') return true;
+          effects.push({ ...e, tick: this.world.stepCount });
+          return false;
+        });
         if (effects.length) {
           for (const socket of match.lobby.clients.keys()) emitSafe(socket, 'game_effects', effects);
-          match.game.world.events = match.game.world.events.filter(e => !effects.includes(e));
         }
       }
 
@@ -326,8 +335,6 @@ class StellarServerGameEngine extends LanceGameEngine {
       x: node.position.x,
       y: node.position.y,
       upgrade: node.upgrade || "",
-      pulsePhase: node.pulsePhase || 0,
-      captureFlash: node.captureFlash || 0,
     });
   }
 
@@ -339,7 +346,8 @@ class StellarServerGameEngine extends LanceGameEngine {
       obj.playerId = node.owner ?? 0;
       obj.nodeType = node.type;
       obj.ownerId = node.owner ?? -1;
-      obj.energy = node.energy;
+      // Quarter-unit energy keeps a node out of the delta unless something visible changed.
+      obj.energy = Math.round(node.energy * 4) / 4;
       obj.maxEnergy = node.maxEnergy;
       obj.productionRate = node.productionRate;
       obj.defense = node.defense;
@@ -347,8 +355,6 @@ class StellarServerGameEngine extends LanceGameEngine {
       obj.x = node.position.x;
       obj.y = node.position.y;
       obj.upgrade = node.upgrade || "";
-      obj.pulsePhase = node.pulsePhase || 0;
-      obj.captureFlash = node.captureFlash || 0;
     }
   }
 
@@ -550,6 +556,22 @@ class Lobby {
 // Lance 5 shares one event transmitter across rooms. Its default lifecycle
 // queue otherwise sends every room's creates/destroys to the first room synced.
 class RoomServerEngine extends ServerEngine {
+  // Lance schedules each step relative to the previous step's start, so timer overshoot
+  // accumulates and the server ran at 52-57 steps/s. Step against an absolute schedule instead.
+  start() {
+    this.gameEngine.start();
+    this.gameEngine.emit('server__init');
+    const period = 1000 / this.options.stepRate;
+    let due = performance.now();
+    const tick = () => {
+      const now = performance.now();
+      // After a long stall, drop the missed steps rather than burst-simulating them.
+      if (now - due > period * 10) due = now - period * 10;
+      while (due <= now) { this.step(); due += period; }
+      setTimeout(tick, Math.max(0, due - performance.now()));
+    };
+    tick();
+  }
   queueRoomEvent(obj, type) {
     this.roomEvents ??= new Map();
     const roomName = obj._roomName || ServerEngine.DEFAULT_ROOM_NAME;
@@ -580,7 +602,9 @@ const serverEngine = new RoomServerEngine(io, gameEngine, {
   stepRate: 60,
   updateRate: 3,
   fullSyncRate: 30,
-  timeoutInterval: 120,
+  // Lance only counts 'move' inputs as activity, so lobbies and quiet players were kicked
+  // after two minutes. Socket.IO's own heartbeat handles dead connections.
+  timeoutInterval: 0,
 });
 gameEngine.attachNetworking(serverEngine, io);
 serverEngine.start();
@@ -638,6 +662,11 @@ io.on("connection", socket => {
     if (!lobby) return;
     if (socket !== lobby.host) return;
     lobby.start();
+  });
+
+  socket.on("action", action => {
+    if (!action || typeof action !== "object") return;
+    gameEngine.applyAction(socket.playerId, action);
   });
 
   socket.on("leave", () => {

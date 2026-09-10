@@ -29,8 +29,6 @@ test('StellarNodeObject serializes and deserializes all fields correctly', () =>
     x: 400.125,
     y: 299.875,
     upgrade: 'shield',
-    pulsePhase: 0.5,
-    captureFlash: 0.0,
   });
 
   const { dataBuffer } = node.serialize(serializer, { bufferOffset: 0 });
@@ -47,7 +45,6 @@ test('StellarNodeObject serializes and deserializes all fields correctly', () =>
   assert.ok(Math.abs(decoded.energy - 123.5) < 0.1, `energy drift: ${decoded.energy}`);
   assert.ok(Math.abs(decoded.x - 400.125) < 0.5, `x drift: ${decoded.x}`);
   assert.ok(Math.abs(decoded.y - 299.875) < 0.5, `y drift: ${decoded.y}`);
-  assert.ok(Math.abs(decoded.pulsePhase - 0.5) < 0.01, `pulsePhase drift: ${decoded.pulsePhase}`);
 });
 
 test('StellarSwarmObject serializes and deserializes all fields correctly', () => {
@@ -102,8 +99,6 @@ test('StellarNodeObject ownerId -1 encodes neutral owner correctly', () => {
     x: 200,
     y: 150,
     upgrade: '',
-    pulsePhase: 0,
-    captureFlash: 0,
   });
 
   const { dataBuffer } = node.serialize(serializer, { bufferOffset: 0 });

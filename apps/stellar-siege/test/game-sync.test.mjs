@@ -33,8 +33,9 @@ function connectClient(baseUrl) {
 
   const events = {};
   const worldUpdates = [];
+  const worldUpdateTimes = [];
 
-  socket.on('worldUpdate', payload => worldUpdates.push(payload));
+  socket.on('worldUpdate', payload => { worldUpdates.push(payload); worldUpdateTimes.push(performance.now()); });
 
   for (const evt of ['lobby_created', 'lobby_joined', 'lobby_update', 'game_start', 'game_over', 'error_message', 'playerJoined']) {
     events[evt] = [];
@@ -45,6 +46,7 @@ function connectClient(baseUrl) {
     socket,
     events,
     worldUpdates,
+    worldUpdateTimes,
     async waitFor(eventName, timeoutMs = 5000) {
       const deadline = Date.now() + timeoutMs;
       while (Date.now() < deadline) {
@@ -94,6 +96,19 @@ async function fullGameSetup(port) {
   const joinerStart = await joiner.waitFor('game_start', 12000);
 
   return { server, host, joiner, hostStart, joinerStart };
+}
+
+// Decodes the server step count carried in a worldUpdate payload's sync header.
+function makeStepDecoder() {
+  const se = new ServerEngine({ on: () => {} }, new GameEngine({ traceLevel: 1000 }), { tracesPath: '' });
+  se.serializer.registerClass(StellarNodeObject);
+  se.serializer.registerClass(StellarSwarmObject);
+  return payload => {
+    let buf = payload.dataBuffer;
+    if (Buffer.isBuffer(buf)) buf = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+    const events = se.networkTransmitter.deserializePayload({ dataBuffer: buf }).events;
+    return events.find(e => e.fullUpdate !== undefined && e.stepCount !== undefined).stepCount;
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -243,6 +258,43 @@ test('server stays alive and keeps ticking after game start', { timeout: 25000 }
     const countBefore = host.worldUpdates.length;
     await wait(500);
     assert.ok(host.worldUpdates.length > countBefore, 'server must continue sending updates during play');
+  } finally {
+    host.disconnect();
+    joiner.disconnect();
+    await server.stop();
+  }
+});
+
+test('the server steps 60 times per wall-clock second', { timeout: 20000 }, async () => {
+  const port = await getFreePort();
+  const { server, host, joiner } = await fullGameSetup(port);
+  const decodeStep = makeStepDecoder();
+  try {
+    await wait(500);
+    const first = host.worldUpdates.length - 1;
+    await wait(3000);
+    const last = host.worldUpdates.length - 1;
+    const seconds = (host.worldUpdateTimes[last] - host.worldUpdateTimes[first]) / 1000;
+    const hz = (decodeStep(host.worldUpdates[last]) - decodeStep(host.worldUpdates[first])) / seconds;
+    assert.ok(hz > 58.5 && hz < 61.5, `server stepped at ${hz.toFixed(2)} Hz`);
+  } finally {
+    host.disconnect();
+    joiner.disconnect();
+    await server.stop();
+  }
+});
+
+test('commands are applied on arrival instead of waiting for a client step counter', { timeout: 20000 }, async () => {
+  const port = await getFreePort();
+  const { server, host, joiner } = await fullGameSetup(port);
+  try {
+    await wait(3000); // the server step counter is now far ahead of any client that never advanced
+    const sent = performance.now();
+    const result = new Promise(resolve => host.socket.once('action_result', resolve));
+    host.socket.emit('action', { type: 'send_energy', sourceId: 1, targetId: 2, ratio: 0.5, commandId: 7 });
+    assert.equal((await result).commandId, 7);
+    const latency = performance.now() - sent;
+    assert.ok(latency < 250, `action_result took ${latency.toFixed(0)}ms`);
   } finally {
     host.disconnect();
     joiner.disconnect();

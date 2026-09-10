@@ -29,8 +29,6 @@ export function createStellarLanceClasses(runtime) {
         x: { type: BaseTypes.Float32 },
         y: { type: BaseTypes.Float32 },
         upgrade: { type: BaseTypes.String },
-        pulsePhase: { type: BaseTypes.Float32 },
-        captureFlash: { type: BaseTypes.Float32 },
       }, super.netScheme());
     }
 
@@ -58,8 +56,6 @@ export function createStellarLanceClasses(runtime) {
       this.x = ctor.props.x ?? 0;
       this.y = ctor.props.y ?? 0;
       this.upgrade = ctor.props.upgrade ?? '';
-      this.pulsePhase = ctor.props.pulsePhase ?? 0;
-      this.captureFlash = ctor.props.captureFlash ?? 0;
     }
   }
 

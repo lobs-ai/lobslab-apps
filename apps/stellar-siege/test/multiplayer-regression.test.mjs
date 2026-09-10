@@ -101,16 +101,9 @@ test('multiplayer start produces Lance sync traffic and accepts an input', { tim
 
     const hostOwnedNode = hostStart.players[0].id;
     assert.equal(hostOwnedNode, 0);
-    host.socket.emit('move', {
-      messageIndex: 1,
-      step: 1,
-      input: 'send_energy',
-      options: {
-        sourceId: 1,
-        targetId: 3,
-        ratio: 0.5,
-      },
-    });
+    const result = new Promise(resolve => host.socket.once('action_result', resolve));
+    host.socket.emit('action', { type: 'send_energy', sourceId: 1, targetId: 3, ratio: 0.5, commandId: 1 });
+    assert.equal((await result).commandId, 1);
 
     await wait(400);
     assert.equal(server.child.exitCode, null, `server crashed\nstdout:\n${server.getStdout()}\nstderr:\n${server.getStderr()}`);
