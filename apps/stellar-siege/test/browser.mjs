@@ -10,7 +10,8 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(process.env.GAME_URL || 'http://localhost:47104');
     await page.evaluate(async () => {
-      const { NetClient } = await import('/js/net/NetClient.js');
+      const base = document.querySelector('script[type="module"]').getAttribute('src').replace(/js\/main\.js$/, '');
+      const { NetClient } = await import(base + 'js/net/NetClient.js');
       const connect = NetClient.prototype.connect;
       NetClient.prototype.connect = async function () { window.testClient = this; await connect.call(this); };
     });
@@ -126,7 +127,8 @@ try {
   });
   // Start an independent AI room while this match has live swarms.
   await host.evaluate(async () => {
-    const { NetClient } = await import('/js/net/NetClient.js');
+    const base = document.querySelector('script[type="module"]').getAttribute('src').replace(/js\/main\.js$/, '');
+    const { NetClient } = await import(base + 'js/net/NetClient.js');
     const original = window.testClient;
     const other = new NetClient();
     await other.connect();

@@ -468,7 +468,9 @@ export class NetClient {
     const previousOwner = node.owner;
     node.owner = current.owner;
     node.upgrade = current.upgrade;
-    node.energy = node._serverEnergy = next && next.owner === current.owner && next.tick > current.tick
+    // Production ramps smoothly; a drop is a launch or a hit and lands on its own tick.
+    const ramp = next && next.owner === current.owner && next.tick > current.tick && next.energy >= current.energy;
+    node.energy = node._serverEnergy = ramp
       ? current.energy + (next.energy - current.energy) * Math.min(1, (renderTick - current.tick) / (next.tick - current.tick))
       : current.energy;
     node.captureFlash = Math.max(0, node.captureFlash - dt * 2);

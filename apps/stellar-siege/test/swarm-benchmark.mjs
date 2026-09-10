@@ -8,14 +8,16 @@ try {
   page.on('pageerror', e => errors.push(e.message));
   await page.goto(process.env.GAME_URL || 'http://localhost:47104');
   await page.evaluate(async () => {
-    const { Game } = await import('/js/game/Game.js');
+    const base = document.querySelector('script[type="module"]').getAttribute('src').replace(/js\/main\.js$/, '');
+    const { Game } = await import(base + 'js/game/Game.js');
     const start = Game.prototype.startGame;
     Game.prototype.startGame = function (...args) { start.apply(this, args); window.benchmarkGame = this; };
   });
   await page.selectOption('#menu-mapsize', 'large');
   await page.click('#menu-start');
   const result = await page.evaluate(async () => {
-    const { createSwarm } = await import('/js/game/Swarm.js');
+    const base = document.querySelector('script[type="module"]').getAttribute('src').replace(/js\/main\.js$/, '');
+    const { createSwarm } = await import(base + 'js/game/Swarm.js');
     const game = window.benchmarkGame, world = game.world;
     game.skipAI = true;
     for (let i = 0; i < 16; i++) {

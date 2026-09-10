@@ -4,6 +4,9 @@
 
 The browser uses vanilla ES modules and Canvas 2D. `server.mjs` serves the files
 and runs multiplayer matches through Lance 5 and Socket.IO. There is no bundler.
+`index.html` links assets under `/v/<build>/`, a content hash computed at server
+start, so modules are cached as immutable and a deploy is never masked by a stale
+cached module (the CDN gives plain paths a four-hour browser TTL).
 `bin/stellar-siege` owns local start, stop, restart, status, and tests. Docker
 installs production dependencies; browser test tooling stays outside the image.
 

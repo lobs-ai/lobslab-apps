@@ -1,5 +1,6 @@
 import { PROTOCOL_VERSION } from './js/net/protocol.js';
 import { encodeMotes } from './js/net/moteCodec.js';
+import crypto from "node:crypto";
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -33,9 +34,49 @@ const MIME = {
   ".woff2": "font/woff2",
 };
 
+// Content-addressed asset URLs. index.html links /v/<build>/js/... so browsers and the CDN
+// may cache modules for a year, and a deploy can never be masked by a stale cached module.
+// (The CDN rewrites the origin's no-cache to a four-hour browser TTL on plain /js/ paths.)
+function computeBuildId() {
+  const hash = crypto.createHash("sha1");
+  const walk = dir => {
+    const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else { hash.update(full); hash.update(fs.readFileSync(full)); }
+    }
+  };
+  for (const dir of ["js", "css"]) walk(path.join(__dirname, dir));
+  hash.update(fs.readFileSync(path.join(__dirname, "index.html")));
+  hash.update(fs.readFileSync(path.join(__dirname, "node_modules/lance-gg/package.json")));
+  return hash.digest("hex").slice(0, 12);
+}
+const BUILD_ID = computeBuildId();
+const ASSET_PREFIX = /^\/v\/([0-9a-f]+)(?=\/)/;
+
+function serveIndex(res) {
+  fs.readFile(path.join(__dirname, "index.html"), "utf8", (err, html) => {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      return res.end("Not found");
+    }
+    const page = html.replace(/(href|src)="(css|js)\//g, `$1="/v/${BUILD_ID}/$2/`);
+    res.writeHead(200, { "Content-Type": "text/html", "Cache-Control": "no-store" });
+    res.end(page);
+  });
+}
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+  let pathname = url.pathname;
+  let build = null;
+  const prefixed = pathname.match(ASSET_PREFIX);
+  if (prefixed) {
+    build = prefixed[1];
+    pathname = pathname.slice(prefixed[0].length);
+  }
+  if (pathname === "/" || pathname === "/index.html") return serveIndex(res);
 
   const normalized = pathname.replace(/^\//, "");
   const filePath = path.join(__dirname, normalized);
@@ -59,7 +100,7 @@ const server = http.createServer((req, res) => {
     }
     res.writeHead(200, {
       "Content-Type": MIME[ext] || "application/octet-stream",
-      "Cache-Control": "no-cache, must-revalidate",
+      "Cache-Control": build === BUILD_ID ? "public, max-age=31536000, immutable" : "no-cache, must-revalidate",
     });
     res.end(data);
   });
